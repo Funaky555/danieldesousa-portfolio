@@ -1,0 +1,580 @@
+/**
+ * Coaching Data for Daniel de Sousa
+ * Professional Football Coach Portfolio
+ *
+ * This file contains all content data for the website.
+ * Update this file to change content across the entire site.
+ */
+
+// ============================================================================
+// COACH INFORMATION
+// ============================================================================
+
+export const coachInfo = {
+  name: "Daniel de Sousa",
+  title: "Professional Football Coach",
+  subtitle: "UEFA B | Youth Development Specialist",
+  tagline: "UEFA B Football Coach | Youth Development Specialist | 10+ Years Experience Portugal & China",
+  location: "Porto, Portugal",
+  age: 33,
+  birthDate: "1992-05-07",
+  contact: {
+    email: "danieldesousa05@gmail.com",
+    whatsapp: "+351 913350837",
+    whatsappLink: "https://wa.me/351913350837",
+  },
+  bio: `Experienced Football Coach and PE Teacher with over 10 years of work in Portugal and China, focused on youth development across diverse cultural environments. I have coached players from U4 to U18, some of whom have represented Portugal at youth international level and are among the country's top young talents. Passionate about player development, I combine strong pedagogical skills with deep football knowledge to help young athletes grow both on and off the field.`,
+
+  stats: [
+    { label: "Years Experience", value: "10+", icon: "Calendar" },
+    { label: "Countries", value: "Portugal & China", icon: "Globe" },
+    { label: "Age Groups", value: "U4 to U18", icon: "Users" },
+    { label: "Certification", value: "UEFA B", icon: "Award" },
+  ],
+};
+
+// ============================================================================
+// PROFESSIONAL EXPERIENCE
+// ============================================================================
+
+export const experience = [
+  {
+    id: 1,
+    role: "Coordinator Football Department / Head Coach / PE Teacher",
+    ageGroup: "U15",
+    club: "Middle School no.2",
+    location: "Tongling, China",
+    country: "China",
+    startDate: "2022-09",
+    endDate: "2024-07",
+    period: "September 2022 - July 2024",
+    description: "Led football department coordination, coached U15 teams, and taught physical education.",
+    achievements: [
+      "U15 Women's Championship Winner (Tongling City, 2024)",
+      "Developed comprehensive training programs",
+      "Coordinated department operations and staff",
+    ],
+    images: ["china-tongling-1.jpg", "china-tongling-2.jpg"],
+  },
+  {
+    id: 2,
+    role: "Head Coach U15",
+    ageGroup: "U13 and U15",
+    club: "Chizhou City Team",
+    location: "Chizhou, China",
+    country: "China",
+    startDate: "2024-04",
+    endDate: "2024-07",
+    period: "April 2024 - July 2024",
+    description: "Head coach for city representative teams in provincial competitions.",
+    achievements: [
+      "Represented city in provincial tournaments",
+      "Implemented tactical systems",
+    ],
+    images: ["china-chizhou.jpg"],
+  },
+  {
+    id: 3,
+    role: "Head Coach U15",
+    ageGroup: "U15",
+    club: "Tongling City Team",
+    location: "Tongling, China",
+    country: "China",
+    startDate: "2022-06",
+    endDate: "2022-08",
+    period: "June 2022 - August 2022",
+    description: "Coached city representative team for summer tournaments.",
+    achievements: [
+      "Competitive tournament participation",
+    ],
+    images: [],
+  },
+  {
+    id: 4,
+    role: "Head Coach U11 Boys / U17 Girls | Assistant Coach U18 Boys",
+    ageGroup: "U11, U17, U18",
+    club: "Tagou Shaolin Wushu School",
+    location: "Dengfeng, China",
+    country: "China",
+    startDate: "2021-04",
+    endDate: "2021-12",
+    period: "April 2021 - December 2021",
+    description: "Multiple coaching roles at prestigious sports school combining martial arts and football training.",
+    achievements: [
+      "Integrated tactical football training with athletic development",
+      "Managed multiple age groups simultaneously",
+    ],
+    images: ["china-dengfeng.jpg"],
+  },
+  {
+    id: 5,
+    role: "Head Coach U6 to U15",
+    ageGroup: "U6-U15",
+    club: "Dalian Zichun Football Club",
+    location: "Dalian, China",
+    country: "China",
+    startDate: "2020-09",
+    endDate: "2020-12",
+    period: "September 2020 - December 2020",
+    description: "Coached grassroots to competitive youth levels at professional academy.",
+    achievements: [
+      "Developed age-appropriate training curricula",
+      "Player pathway development",
+    ],
+    images: ["china-dalian.jpg"],
+  },
+  {
+    id: 6,
+    role: "Assistant Coach U13 Boys",
+    ageGroup: "U13",
+    club: "Sport Lisboa e Benfica",
+    location: "Lisboa, Portugal",
+    country: "Portugal",
+    startDate: "2018-09",
+    endDate: "2019-07",
+    period: "September 2018 - July 2019",
+    description: "Assistant coach at one of Europe's top youth academies, working with elite young talent.",
+    achievements: [
+      "Worked with players who progressed to Portuguese youth national teams",
+      "Learned from world-class coaching staff",
+      "High-performance training environment",
+    ],
+    images: ["portugal-benfica.jpg"],
+  },
+  {
+    id: 7,
+    role: "Head Coach U6 | Assistant Coach U14, U15, U16, U17, U18",
+    ageGroup: "U6, U14-U18",
+    club: "Clube Desportivo Trofense",
+    location: "Trofa, Portugal",
+    country: "Portugal",
+    startDate: "2014-01",
+    endDate: "2018-07",
+    period: "January 2014 - July 2018",
+    description: "Extended tenure with multiple coaching roles across youth categories.",
+    achievements: [
+      "CD Trofense Juniors - Division Promotion to National Level (Assistant Coach)",
+      "Developed players for higher competitive levels",
+      "Grassroots to elite youth coaching experience",
+    ],
+    images: ["portugal-trofense.jpg"],
+  },
+  {
+    id: 8,
+    role: "Assistant Coach U13",
+    ageGroup: "U13",
+    club: "União Desportiva Lavrense",
+    location: "Matosinhos, Portugal",
+    country: "Portugal",
+    startDate: "2010-09",
+    endDate: "2011-07",
+    period: "September 2010 - July 2011",
+    description: "First professional coaching role, assisting with U13 team development.",
+    achievements: [
+      "Foundation of coaching career",
+      "Youth player development",
+    ],
+    images: [],
+  },
+];
+
+// ============================================================================
+// EDUCATION & CERTIFICATIONS
+// ============================================================================
+
+export const education = {
+  certifications: [
+    {
+      title: "UEFA B License",
+      institution: "UEFA",
+      status: "Certified",
+      year: "Current",
+      description: "UEFA B certified football coach",
+    },
+    {
+      title: "UEFA A License",
+      institution: "UEFA",
+      status: "In Progress",
+      year: "Ongoing",
+      description: "Working towards UEFA A certification",
+    },
+  ],
+
+  degrees: [
+    {
+      title: "Master's Degree in Sports Sciences",
+      specialization: "Team Sports (Jogos Desportivos Coletivos)",
+      institution: "U.T.A.D., Vila Real, Portugal",
+      startYear: "2011",
+      endYear: "2017",
+      description: "Specialized in team sports with focus on football coaching methodology",
+    },
+  ],
+
+  exchangePrograms: [
+    {
+      program: "Erasmus Exchange",
+      institution: "AWF Wroclaw",
+      location: "Wroclaw, Poland",
+      year: "2012-2013",
+      description: "International sports science studies",
+    },
+    {
+      program: "Erasmus Exchange",
+      institution: "OVGU Magdeburg",
+      location: "Magdeburg, Germany",
+      year: "2014-2015",
+      description: "Sports and exercise science",
+    },
+  ],
+};
+
+// ============================================================================
+// LANGUAGES
+// ============================================================================
+
+export const languages = [
+  { language: "Portuguese", level: "Native", proficiency: 100 },
+  { language: "English", level: "Proficient", proficiency: 90 },
+  { language: "Spanish", level: "Proficient", proficiency: 85 },
+  { language: "French", level: "Basic", proficiency: 40 },
+  { language: "Chinese", level: "Basic", proficiency: 35 },
+];
+
+// ============================================================================
+// SOFT SKILLS
+// ============================================================================
+
+export const softSkills = [
+  { skill: "Leadership", icon: "Users" },
+  { skill: "Critical Thinking", icon: "Brain" },
+  { skill: "Collaboration", icon: "Handshake" },
+  { skill: "Decision Making", icon: "Target" },
+  { skill: "Flexibility", icon: "Workflow" },
+  { skill: "Active Listening", icon: "Ear" },
+];
+
+// ============================================================================
+// COACHING PHILOSOPHY
+// ============================================================================
+
+export const philosophy = {
+  core: "My football coaching philosophy is based in developing players to perform within a clear and common idea, collective identity based on modern football principles. I believe the game should be played with intelligence, intensity, and intention. My goal is to build teams that control the game through structured organization, fluid positional play, and coordinated pressing, always respecting the principles of space, timing, and decision making.",
+
+  keyPrinciples: ["Intelligence", "Intensity", "Intention"],
+
+  gameMoments: [
+    {
+      title: "Offensive Organization",
+      description: "Structured possession play with clear positional responsibilities",
+      principles: [
+        "Positional play - occupying and creating space",
+        "Offering constant support",
+        "Ensuring width and depth",
+        "Numerical superiority in key zones",
+      ],
+    },
+    {
+      title: "Defensive Organization",
+      description: "Compactness and coordinated pressing to win the ball early",
+      principles: [
+        "Reducing space between lines",
+        "Coordinated pressing",
+        "Intelligent positioning",
+        "Collective defensive shape",
+      ],
+    },
+    {
+      title: "Offensive Transition",
+      description: "Quick exploitation of space after winning possession",
+      principles: [
+        "Immediate forward progression",
+        "Using numerical superiority",
+        "Exploiting disorganized opponents",
+        "Direct play when appropriate",
+      ],
+    },
+    {
+      title: "Defensive Transition",
+      description: "Immediate reaction to loss of possession",
+      principles: [
+        "Counter-pressing",
+        "Protecting key areas",
+        "Organized retreat when needed",
+        "Preventing counter-attacks",
+      ],
+    },
+    {
+      title: "Set Pieces",
+      description: "Structured approach to dead-ball situations",
+      principles: [
+        "Clear roles and responsibilities",
+        "Rehearsed routines",
+        "Defensive organization",
+        "Exploiting opponent weaknesses",
+      ],
+    },
+  ],
+
+  approach: `I lead training sessions with clarity, energy and a clear sense of direction, ensuring every player understands their role while feeling motivated to improve. I thrive in challenging environments, using creative thinking to adapt training exercises, solve on-the-spot problems and find new ways to engage and develop players of different levels and backgrounds.
+
+I am known for my flexibility and ability to adapt to new cultures, team dynamics and unexpected situations, which has been especially important during my international experiences. I place high value on active listening, especially when working with multicultural teams, young players, staff members, and translators. I believe that understanding others' perspectives is key to building trust and effective communication.`,
+
+  roles: `I have taken on multiple roles in football, including Head Coach, Assistant Coach, Scouter, Analyst, and Football Advisor, each contributing to my well-rounded understanding of the game. As a Head Coach, I've led youth teams with clear methodology and player-centered development, while as an Assistant, I supported team dynamics, planning and match preparation. My work as a Scouter involved identifying and evaluating talented players across various levels and teams, helping to strengthen recruitment decisions. In my roles as Analyst and Advisor, I provided tactical insights, match analysis and strategic guidance to improve both individual and team performance.`,
+};
+
+// ============================================================================
+// TACTICAL SYSTEMS
+// ============================================================================
+
+export const formations = [
+  {
+    name: "1-4-3-3",
+    fullName: "1-4-3-3 Formation",
+    description: "Attacking formation with width and forward pressure",
+    type: "Offensive",
+    positions: [
+      { x: 50, y: 5, position: "GK", number: 1, name: "Goalkeeper" },
+      { x: 15, y: 25, position: "LB", number: 3, name: "Left Back" },
+      { x: 35, y: 20, position: "CB", number: 4, name: "Center Back (L)" },
+      { x: 65, y: 20, position: "CB", number: 5, name: "Center Back (R)" },
+      { x: 85, y: 25, position: "RB", number: 2, name: "Right Back" },
+      { x: 35, y: 45, position: "CM", number: 8, name: "Central Midfielder (L)" },
+      { x: 50, y: 50, position: "CDM", number: 6, name: "Defensive Midfielder" },
+      { x: 65, y: 45, position: "CM", number: 10, name: "Central Midfielder (R)" },
+      { x: 15, y: 75, position: "LW", number: 11, name: "Left Winger" },
+      { x: 50, y: 80, position: "ST", number: 9, name: "Striker" },
+      { x: 85, y: 75, position: "RW", number: 7, name: "Right Winger" },
+    ],
+    principles: [
+      "Wide wingers provide width and stretch defense",
+      "Midfield triangle controls center of pitch",
+      "High pressing from forwards",
+      "Full-backs support attacks",
+      "Numerical superiority in wide areas",
+    ],
+    strengths: [
+      "Excellent for attacking play",
+      "Natural width",
+      "High pressing capability",
+      "Fluid attacking rotations",
+    ],
+  },
+  {
+    name: "1-4-4-2",
+    fullName: "1-4-4-2 Formation",
+    description: "Balanced formation with solid defensive structure",
+    type: "Balanced",
+    positions: [
+      { x: 50, y: 5, position: "GK", number: 1, name: "Goalkeeper" },
+      { x: 15, y: 25, position: "LB", number: 3, name: "Left Back" },
+      { x: 35, y: 20, position: "CB", number: 4, name: "Center Back (L)" },
+      { x: 65, y: 20, position: "CB", number: 5, name: "Center Back (R)" },
+      { x: 85, y: 25, position: "RB", number: 2, name: "Right Back" },
+      { x: 15, y: 55, position: "LM", number: 11, name: "Left Midfielder" },
+      { x: 35, y: 50, position: "CM", number: 8, name: "Central Midfielder (L)" },
+      { x: 65, y: 50, position: "CM", number: 6, name: "Central Midfielder (R)" },
+      { x: 85, y: 55, position: "RM", number: 7, name: "Right Midfielder" },
+      { x: 40, y: 80, position: "ST", number: 9, name: "Striker (L)" },
+      { x: 60, y: 80, position: "ST", number: 10, name: "Striker (R)" },
+    ],
+    principles: [
+      "Compact defensive block",
+      "Two strikers create partnerships",
+      "Wide midfielders track back",
+      "Central midfield controls tempo",
+      "Balanced team shape",
+    ],
+    strengths: [
+      "Solid defensive organization",
+      "Good transition play",
+      "Partnership between strikers",
+      "Versatile formation",
+    ],
+  },
+  {
+    name: "1-4-2-3-1",
+    fullName: "1-4-2-3-1 Formation",
+    description: "Modern attacking formation with creative midfield",
+    type: "Modern/Balanced",
+    positions: [
+      { x: 50, y: 5, position: "GK", number: 1, name: "Goalkeeper" },
+      { x: 15, y: 25, position: "LB", number: 3, name: "Left Back" },
+      { x: 35, y: 20, position: "CB", number: 4, name: "Center Back (L)" },
+      { x: 65, y: 20, position: "CB", number: 5, name: "Center Back (R)" },
+      { x: 85, y: 25, position: "RB", number: 2, name: "Right Back" },
+      { x: 35, y: 45, position: "CDM", number: 6, name: "Defensive Midfielder (L)" },
+      { x: 65, y: 45, position: "CDM", number: 8, name: "Defensive Midfielder (R)" },
+      { x: 15, y: 65, position: "LW", number: 11, name: "Left Winger" },
+      { x: 50, y: 60, position: "CAM", number: 10, name: "Attacking Midfielder" },
+      { x: 85, y: 65, position: "RW", number: 7, name: "Right Winger" },
+      { x: 50, y: 80, position: "ST", number: 9, name: "Striker" },
+    ],
+    principles: [
+      "Double pivot provides defensive security",
+      "Attacking midfielder creative freedom",
+      "Wingers create overloads",
+      "Lone striker holds up play",
+      "Fluid front three",
+    ],
+    strengths: [
+      "Creative attacking play",
+      "Defensive stability",
+      "Central control",
+      "Width in attack",
+    ],
+  },
+];
+
+// ============================================================================
+// SERVICES
+// ============================================================================
+
+export const services = [
+  {
+    id: "game-analysis",
+    title: "Game Analysis",
+    shortDescription: "Pre-match and post-match tactical analysis",
+    description: "Comprehensive game analysis services including pre-match preparation, opposition scouting, and post-match performance review.",
+    icon: "BarChart3",
+    features: [
+      "Pre-match tactical analysis",
+      "Opposition scouting reports",
+      "Post-match performance review",
+      "Video analysis breakdowns",
+      "Statistical performance data",
+      "Tactical recommendations",
+    ],
+    deliverables: [
+      "Detailed written reports",
+      "Video analysis presentations",
+      "Statistical dashboards",
+    ],
+  },
+  {
+    id: "scouting",
+    title: "Scouting Consultancy",
+    shortDescription: "Player evaluation and talent identification",
+    description: "Professional scouting services with access to extensive player database and recruitment consultation.",
+    icon: "Search",
+    features: [
+      "Player evaluation and profiling",
+      "Talent identification",
+      "Scouting database access",
+      "Recruitment consultation",
+      "Age-appropriate player assessments",
+      "International scouting network",
+    ],
+    deliverables: [
+      "Player scouting reports",
+      "Talent recommendations",
+      "Database access",
+    ],
+  },
+  {
+    id: "leadership",
+    title: "Leadership Courses",
+    shortDescription: "Team leadership and coaching staff development",
+    description: "Leadership development programs for players, coaches, and staff focused on building winning cultures.",
+    icon: "Users",
+    features: [
+      "Team leadership development",
+      "Coaching staff training",
+      "Captain/leadership programs for players",
+      "Communication skills",
+      "Cultural adaptation training",
+      "Motivational techniques",
+    ],
+    deliverables: [
+      "Customized training programs",
+      "Workshop materials",
+      "Ongoing support",
+    ],
+  },
+  {
+    id: "training",
+    title: "Personalized Training",
+    shortDescription: "Individual player development programs",
+    description: "Tailored training programs designed for individual player development across all positions.",
+    icon: "Target",
+    features: [
+      "Individual player development plans",
+      "Position-specific training",
+      "Tactical training sessions",
+      "Technical skill development",
+      "Physical conditioning guidance",
+      "Mental preparation",
+    ],
+    deliverables: [
+      "Personal development plans",
+      "Training session designs",
+      "Progress tracking",
+    ],
+  },
+  {
+    id: "seminars",
+    title: "Seminars & Webinars",
+    shortDescription: "Coaching methodology and tactical workshops",
+    description: "Educational seminars and webinars covering coaching methodology, tactical analysis, and youth development.",
+    icon: "Presentation",
+    features: [
+      "Coaching methodology seminars",
+      "Tactical analysis workshops",
+      "Youth development topics",
+      "Online webinars",
+      "Interactive Q&A sessions",
+      "Practical demonstrations",
+    ],
+    deliverables: [
+      "Presentation materials",
+      "Video recordings",
+      "Resource documents",
+    ],
+  },
+];
+
+export const servicePricing = {
+  note: "Valores podem ser discutidos, dependendo do tempo de viagem, localização e tipo de forum a designar.",
+  noteEn: "Prices can be discussed depending on travel time, location, and type of forum to be designated.",
+  contactForQuote: true,
+};
+
+// ============================================================================
+// SEO KEYWORDS
+// ============================================================================
+
+export const seoKeywords = {
+  portuguese: [
+    "treino de futebol",
+    "exercícios de futebol",
+    "exercicios sub 13",
+    "sub 15",
+    "principios futebol",
+    "sistema tatico",
+    "analise de jogo",
+  ],
+  english: [
+    "football coaching drills",
+    "scouting",
+    "tactical analyst",
+    "youth football coach",
+    "football training",
+  ],
+  general: [
+    "UEFA B coach",
+    "Portugal football coach",
+    "China football coach",
+    "youth development",
+  ],
+};
+
+// ============================================================================
+// SOCIAL MEDIA (to be added)
+// ============================================================================
+
+export const socialMedia = {
+  linkedin: "", // To be added
+  twitter: "", // To be added
+  instagram: "", // To be added
+  youtube: "", // To be added
+};

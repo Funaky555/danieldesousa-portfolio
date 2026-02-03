@@ -1,0 +1,109 @@
+{
+  "project": {
+    "name": "Next.js Frontend Template",
+    "type": "frontend",
+    "framework": "nextjs",
+    "version": "14+",
+    "styling": ["tailwind", "shadcn"],
+    "language": "typescript"
+  },
+  "hooks": {
+    "configFile": ".claude/hooks/hooks.json",
+    "enabled": true
+  },
+  "agents": {
+    "directory": ".claude/agents",
+    "autoLoad": [
+      "styling-enforcer",
+      "server-components"
+    ],
+    "orchestrators": [
+      {
+        "name": "feature-orchestrator",
+        "type": "orchestrator",
+        "activationThreshold": 40,
+        "parallelReview": ["code-reviewer", "security-auditor", "accessibility-checker"]
+      }
+    ],
+    "available": [
+      "feature-orchestrator",
+      "component-builder",
+      "server-components",
+      "form-builder",
+      "styling-enforcer",
+      "api-builder",
+      "performance-auditor",
+      "accessibility-checker",
+      "code-reviewer",
+      "security-auditor",
+      "state-manager",
+      "test-builder",
+      "animation-builder",
+      "seo-optimizer",
+      "image-optimizer",
+      "codebase-pattern-researcher",
+      "framework-docs-researcher",
+      "git-history-analyzer"
+    ]
+  },
+  "skills": {
+    "directory": ".claude/skills",
+    "entryPoint": "build",
+    "available": [
+      "build",
+      "assess",
+      "feature-launch",
+      "discover",
+      "clone-website",
+      "react-best-practices",
+      "browser-automation"
+    ]
+  },
+  "qualityGates": {
+    "enabled": true,
+    "checks": [
+      {
+        "name": "typecheck",
+        "command": "npm run typecheck",
+        "required": true
+      },
+      {
+        "name": "lint",
+        "command": "npm run lint",
+        "required": true
+      },
+      {
+        "name": "build",
+        "command": "npm run build",
+        "required": true
+      },
+      {
+        "name": "test",
+        "command": "npm run test",
+        "required": true,
+        "coverage": {
+          "minimum": 80,
+          "failOnBelow": true
+        }
+      }
+    ],
+    "reviewAgents": [
+      "code-reviewer",
+      "security-auditor"
+    ]
+  },
+  "ralph": {
+    "defaultMaxIterations": 15,
+    "completionPromise": "TASK COMPLETE",
+    "templates": {
+      "epic": ".claude/skills/build/ralph-templates/epic.md",
+      "feature": ".claude/skills/build/ralph-templates/feature.md",
+      "clone": ".claude/skills/build/ralph-templates/clone.md"
+    }
+  },
+  "references": {
+    "techStack": ".claude/references/tech-stack.md",
+    "conventions": ".claude/references/conventions.md",
+    "patterns": ".claude/references/patterns/"
+  }
+}

@@ -1,0 +1,50 @@
+{
+  "mcpServers": {
+    "filesystem": {
+      "command": "npx",
+      "args": ["-y", "@modelcontextprotocol/server-filesystem", "${PROJECT_ROOT}/src"],
+      "description": "Filesystem MCP server for file operations in src directory"
+    },
+    "fetch": {
+      "command": "npx",
+      "args": ["-y", "@modelcontextprotocol/server-fetch"],
+      "description": "Fetch MCP server for HTTP requests and API testing"
+    },
+    "browser": {
+      "command": "npx",
+      "args": ["-y", "@anthropic/mcp-server-puppeteer"],
+      "description": "Browser automation for visual testing and screenshots"
+    }
+  },
+  "instructions": {
+    "setup": [
+      "1. Copy this file to ~/.claude/mcp.json or project .claude/mcp.json",
+      "2. Replace ${PROJECT_ROOT} with your project path",
+      "3. Install agent-browser globally: npm install -g agent-browser",
+      "4. Restart Claude Code to apply changes"
+    ],
+    "optional_servers": {
+      "vercel": {
+        "description": "Vercel MCP server for deployment management",
+        "note": "Requires Vercel API token"
+      },
+      "supabase": {
+        "description": "Supabase MCP server for database and auth",
+        "command": "npx",
+        "args": ["-y", "@supabase/mcp-server"],
+        "env": {
+          "SUPABASE_URL": "${SUPABASE_URL}",
+          "SUPABASE_SERVICE_KEY": "${SUPABASE_SERVICE_KEY}"
+        }
+      },
+      "github": {
+        "description": "GitHub MCP server for repo interactions",
+        "command": "npx",
+        "args": ["-y", "@modelcontextprotocol/server-github"],
+        "env": {
+          "GITHUB_TOKEN": "${GITHUB_TOKEN}"
+        }
+      }
+    }
+  }
+}
