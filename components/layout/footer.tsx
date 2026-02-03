@@ -1,6 +1,6 @@
 import Link from "next/link";
-import { Mail, Phone } from "lucide-react";
-import { coachInfo } from "@/lib/coaching-data";
+import { Mail, Phone, Twitter, Linkedin } from "lucide-react";
+import { coachInfo, socialMedia } from "@/lib/coaching-data";
 
 const navigation = {
   main: [
@@ -8,6 +8,7 @@ const navigation = {
     { name: "Philosophy", href: "/philosophy" },
     { name: "Experience", href: "/experience" },
     { name: "Services", href: "/services" },
+    { name: "Software", href: "/software" },
     { name: "Contact", href: "/contact" },
   ],
   services: [
@@ -36,6 +37,32 @@ export function Footer() {
               Professional football coach with 10+ years of experience in Portugal and China,
               specializing in youth development and tactical analysis.
             </p>
+
+            {/* Social Media */}
+            <div className="flex items-center gap-3 mt-6">
+              {socialMedia.twitter && (
+                <a
+                  href={socialMedia.twitter}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="w-9 h-9 rounded-lg bg-secondary flex items-center justify-center text-muted-foreground hover:text-foreground hover:bg-primary/10 transition-colors"
+                  aria-label="Twitter / X"
+                >
+                  <Twitter className="w-4 h-4" />
+                </a>
+              )}
+              {socialMedia.linkedin && (
+                <a
+                  href={socialMedia.linkedin}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="w-9 h-9 rounded-lg bg-secondary flex items-center justify-center text-muted-foreground hover:text-foreground hover:bg-primary/10 transition-colors"
+                  aria-label="LinkedIn"
+                >
+                  <Linkedin className="w-4 h-4" />
+                </a>
+              )}
+            </div>
           </div>
 
           {/* Quick Links */}

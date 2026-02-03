@@ -1,0 +1,95 @@
+{
+  "nav": {
+    "home": "首页",
+    "about": "关于",
+    "philosophy": "教练理念",
+    "experience": "经验",
+    "services": "服务",
+    "software": "软件",
+    "contact": "联系",
+    "getInTouch": "取得联系"
+  },
+  "hero": {
+    "available": "开放咨询",
+    "certification": "UEFA B 足球教练",
+    "subtitle": "足球教练",
+    "specialist": "青年发展专家",
+    "viewServices": "查看服务",
+    "getInTouch": "取得联系"
+  },
+  "about": {
+    "title": "关于我",
+    "educationTitle": "教育与认证",
+    "educationSubtitle": "学术背景和专业资质",
+    "skillsTitle": "技能与语言",
+    "skillsSubtitle": "核心能力和多语言能力"
+  },
+  "philosophy": {
+    "title": "教练理念",
+    "coreTitle": "核心理念",
+    "tacticalTitle": "首选战术体系",
+    "tacticalSubtitle": "根据球员特点调整队形，同时保持核心原则",
+    "gameMomentsTitle": "比赛五个关键时刻",
+    "gameMomentsSubtitle": "每个比赛阶段都有清晰的想法",
+    "approachTitle": "训练方法",
+    "methodology": "方法论",
+    "professionalExperience": "专业经验"
+  },
+  "experience": {
+    "title": "专业经验",
+    "subtitle": "横跨两个大洲的十年青年足球发展经历",
+    "championships": "冠军",
+    "international": "国际",
+    "eliteAcademy": "精英学院",
+    "careerTimeline": "职业时间线",
+    "careerSubtitle": "从基层到青年精英发展",
+    "chinaExperience": "中国经历",
+    "internationalJourney": "国际教练之旅"
+  },
+  "services": {
+    "title": "专业服务",
+    "subtitle": "根据您的需求量身定制的全面足球训练服务",
+    "customPricing": "自定义定价",
+    "requestQuote": "申请报价",
+    "strengths": "优势",
+    "deliverables": "交付成果"
+  },
+  "software": {
+    "title": "软件与工具",
+    "subtitle": "我用来分析、发展和提高足球表现的平台和技术",
+    "howIUseAI": "我如何在训练中使用AI",
+    "trainingPlans": "训练计划生成",
+    "trainingPlansDesc": "AI工具帮助我快速起草和迭代训练课程计划，将练习适应到特定的战术目标和球员画像。",
+    "reportWriting": "报告撰写",
+    "reportWritingDesc": "比赛报告、侦察评估和球员评估借助AI辅助起草，确保一致性和专业质量。",
+    "tacticalBrainstorming": "战术头脑风暴",
+    "tacticalBrainstormingDesc": "将AI作为战术讨论对象——通过结构化提示探索队形变体、定位球套路和逼抢触发条件。",
+    "communication": "沟通与翻译",
+    "communicationDesc": "对于跨文化训练至关重要——AI协助翻译战术概念和团队沟通，跨越语言障碍。"
+  },
+  "contact": {
+    "title": "取得联系",
+    "subtitle": "准备好一起工作了吗？给我发一条消息，让我们讨论我如何帮助您实现足球发展目标。",
+    "contactInfo": "联系信息",
+    "email": "电子邮件",
+    "whatsapp": "WhatsApp",
+    "openWhatsApp": "打开WhatsApp",
+    "location": "位置",
+    "socialMedia": "社交媒体",
+    "availability": "可用性",
+    "openToPartnerships": "开放合作",
+    "internationalOpportunities": "国际机会",
+    "speakingEngagements": "演讲邀请",
+    "consultingProjects": "咨询项目"
+  },
+  "footer": {
+    "quickLinks": "快速链接",
+    "allRightsReserved": "版权所有"
+  },
+  "stats": {
+    "yearsExperience": "年经验",
+    "countries": "国家",
+    "ageGroups": "年龄组",
+    "certification": "认证"
+  }
+}

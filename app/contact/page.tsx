@@ -3,8 +3,9 @@ import { Footer } from "@/components/layout/footer";
 import { ContactForm } from "@/components/contact/contact-form";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { coachInfo } from "@/lib/coaching-data";
-import { Mail, MessageCircle, MapPin, Copy } from "lucide-react";
+import { PageBackground } from "@/components/layout/page-background";
+import { coachInfo, socialMedia } from "@/lib/coaching-data";
+import { Mail, MessageCircle, MapPin, Twitter, Linkedin } from "lucide-react";
 
 export const metadata = {
   title: `Contact ${coachInfo.name} | Get in Touch`,
@@ -15,7 +16,8 @@ export default function ContactPage() {
   return (
     <>
       <Header />
-      <main className="min-h-screen bg-background pt-24 pb-16">
+      <PageBackground imageUrl="https://images.unsplash.com/photo-1491646162310-da7a8a59136a?w=1920&q=80" />
+      <main className="min-h-screen bg-background/80 pt-24 pb-16">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           {/* Header */}
           <div className="max-w-3xl mx-auto text-center mb-16">
@@ -104,6 +106,37 @@ export default function ContactPage() {
                   </CardContent>
                 </Card>
               </div>
+
+              {/* Social Media */}
+              <Card className="mb-4 border-border/50">
+                <CardContent className="p-6">
+                  <h3 className="font-semibold text-foreground mb-3">Social Media</h3>
+                  <div className="flex flex-col gap-3">
+                    {socialMedia.twitter && (
+                      <a
+                        href={socialMedia.twitter}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground transition-colors"
+                      >
+                        <Twitter className="w-4 h-4 text-ai-blue" />
+                        Twitter / X
+                      </a>
+                    )}
+                    {socialMedia.linkedin && (
+                      <a
+                        href={socialMedia.linkedin}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground transition-colors"
+                      >
+                        <Linkedin className="w-4 h-4 text-ai-blue" />
+                        LinkedIn
+                      </a>
+                    )}
+                  </div>
+                </CardContent>
+              </Card>
 
               {/* Availability Statement */}
               <Card className="glass border-border/50">

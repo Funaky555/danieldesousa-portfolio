@@ -1,6 +1,7 @@
 import { Header } from "@/components/layout/header";
 import { Footer } from "@/components/layout/footer";
 import { ServiceCard } from "@/components/services/service-card";
+import { PageBackground } from "@/components/layout/page-background";
 import { Button } from "@/components/ui/button";
 import { services, servicePricing, coachInfo } from "@/lib/coaching-data";
 import Link from "next/link";
@@ -15,7 +16,8 @@ export default function ServicesPage() {
   return (
     <>
       <Header />
-      <main className="min-h-screen bg-background pt-24 pb-16">
+      <PageBackground imageUrl="https://images.unsplash.com/photo-1491545566848-40807b5fc71e?w=1920&q=80" />
+      <main className="min-h-screen bg-background/80 pt-24 pb-16">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           {/* Header */}
           <div className="max-w-3xl mx-auto text-center mb-16">

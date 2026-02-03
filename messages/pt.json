@@ -1,0 +1,95 @@
+{
+  "nav": {
+    "home": "Início",
+    "about": "Sobre",
+    "philosophy": "Filosofia",
+    "experience": "Experiência",
+    "services": "Serviços",
+    "software": "Software",
+    "contact": "Contacto",
+    "getInTouch": "Entrar em Contacto"
+  },
+  "hero": {
+    "available": "Disponível para Consultas",
+    "certification": "Treinador de Futebol UEFA B",
+    "subtitle": "Treinador de Futebol",
+    "specialist": "Especialista em Desenvolvimento Juvenil",
+    "viewServices": "Ver Serviços",
+    "getInTouch": "Entrar em Contacto"
+  },
+  "about": {
+    "title": "Sobre Mim",
+    "educationTitle": "Educação & Certificações",
+    "educationSubtitle": "Percurso académico e qualificações profissionais",
+    "skillsTitle": "Competências & Idiomas",
+    "skillsSubtitle": "Competências fundamentais e capacidades multilingues"
+  },
+  "philosophy": {
+    "title": "Filosofia de Treino",
+    "coreTitle": "Filosofia Central",
+    "tacticalTitle": "Sistemas Tácticos Preferidos",
+    "tacticalSubtitle": "Formações adaptadas às características dos jogadores mantendo os princípios fundamentais",
+    "gameMomentsTitle": "Os Cinco Momentos do Jogo",
+    "gameMomentsSubtitle": "Ideias claras para cada fase do jogo",
+    "approachTitle": "Abordagem de Treino",
+    "methodology": "Metodologia",
+    "professionalExperience": "Experiência Profissional"
+  },
+  "experience": {
+    "title": "Experiência Profissional",
+    "subtitle": "Uma década de desenvolvimento juvenil de futebol em dois continentes",
+    "championships": "Campeonatos",
+    "international": "Internacional",
+    "eliteAcademy": "Academia Elite",
+    "careerTimeline": "Linha do Tempo da Carreira",
+    "careerSubtitle": "Das bases ao desenvolvimento juvenil de elite",
+    "chinaExperience": "Experiência na China",
+    "internationalJourney": "Percurso Internacional de Treino"
+  },
+  "services": {
+    "title": "Serviços Profissionais",
+    "subtitle": "Serviços abrangentes de treino de futebol adaptados às suas necessidades",
+    "customPricing": "Preços Personalizados",
+    "requestQuote": "Solicitar Orçamento",
+    "strengths": "Pontos Fortes",
+    "deliverables": "Entregáveis"
+  },
+  "software": {
+    "title": "Software & Ferramentas",
+    "subtitle": "As plataformas e tecnologias que utilizo para analisar, desenvolver e melhorar o desempenho no futebol",
+    "howIUseAI": "Como Uso IA no Treino",
+    "trainingPlans": "Geração de Planos de Treino",
+    "trainingPlansDesc": "Ferramentas de IA ajudam-me a criar rapidamente e iterar planos de sessões de treino, adaptando exercícios a objetivos tácticos e perfis de jogadores específicos.",
+    "reportWriting": "Redação de Relatórios",
+    "reportWritingDesc": "Relatórios de match, avaliações de scouting e avaliações de jogadores são redigidos com assistência de IA, garantindo consistência e qualidade profissional.",
+    "tacticalBrainstorming": "Brainstorming Táctico",
+    "tacticalBrainstormingDesc": "Usar IA como uma caixa de ressonância tática — explorando variações de formação, rotinas de bola parada e triggers de pressing através de prompts estruturados.",
+    "communication": "Comunicação & Tradução",
+    "communicationDesc": "Crítico para treino cross-cultural — a IA ajuda na tradução de conceitos tácticos e comunicações de equipa através de barreiras de idioma."
+  },
+  "contact": {
+    "title": "Entrar em Contacto",
+    "subtitle": "Pronto para trabalhar juntos? Envie-me uma mensagem e discutimos como posso ajudar a atingir os seus objetivos de desenvolvimento no futebol.",
+    "contactInfo": "Informações de Contacto",
+    "email": "Email",
+    "whatsapp": "WhatsApp",
+    "openWhatsApp": "Abrir WhatsApp",
+    "location": "Localização",
+    "socialMedia": "Redes Sociais",
+    "availability": "Disponibilidade",
+    "openToPartnerships": "Aberto a parcerias",
+    "internationalOpportunities": "Oportunidades internacionais",
+    "speakingEngagements": "Intervenções públicas",
+    "consultingProjects": "Projetos de consultoria"
+  },
+  "footer": {
+    "quickLinks": "Ligações Rápidas",
+    "allRightsReserved": "Todos os direitos reservados"
+  },
+  "stats": {
+    "yearsExperience": "Anos de Experiência",
+    "countries": "Países",
+    "ageGroups": "Grupos de Idade",
+    "certification": "Certificação"
+  }
+}

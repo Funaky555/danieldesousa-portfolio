@@ -332,16 +332,15 @@ export const formations = [
     name: "1-4-3-3",
     fullName: "1-4-3-3 Formation",
     description: "Attacking formation with width and forward pressure",
-    type: "Offensive",
     positions: [
       { x: 50, y: 5, position: "GK", number: 1, name: "Goalkeeper" },
       { x: 15, y: 25, position: "LB", number: 3, name: "Left Back" },
       { x: 35, y: 20, position: "CB", number: 4, name: "Center Back (L)" },
       { x: 65, y: 20, position: "CB", number: 5, name: "Center Back (R)" },
       { x: 85, y: 25, position: "RB", number: 2, name: "Right Back" },
-      { x: 35, y: 45, position: "CM", number: 8, name: "Central Midfielder (L)" },
-      { x: 50, y: 50, position: "CDM", number: 6, name: "Defensive Midfielder" },
-      { x: 65, y: 45, position: "CM", number: 10, name: "Central Midfielder (R)" },
+      { x: 50, y: 40, position: "CDM", number: 6, name: "Defensive Midfielder" },
+      { x: 35, y: 52, position: "CM", number: 8, name: "Central Midfielder (L)" },
+      { x: 65, y: 52, position: "CM", number: 10, name: "Central Midfielder (R)" },
       { x: 15, y: 75, position: "LW", number: 11, name: "Left Winger" },
       { x: 50, y: 80, position: "ST", number: 9, name: "Striker" },
       { x: 85, y: 75, position: "RW", number: 7, name: "Right Winger" },
@@ -364,7 +363,6 @@ export const formations = [
     name: "1-4-4-2",
     fullName: "1-4-4-2 Formation",
     description: "Balanced formation with solid defensive structure",
-    type: "Balanced",
     positions: [
       { x: 50, y: 5, position: "GK", number: 1, name: "Goalkeeper" },
       { x: 15, y: 25, position: "LB", number: 3, name: "Left Back" },
@@ -396,7 +394,6 @@ export const formations = [
     name: "1-4-2-3-1",
     fullName: "1-4-2-3-1 Formation",
     description: "Modern attacking formation with creative midfield",
-    type: "Modern/Balanced",
     positions: [
       { x: 50, y: 5, position: "GK", number: 1, name: "Goalkeeper" },
       { x: 15, y: 25, position: "LB", number: 3, name: "Left Back" },
@@ -573,8 +570,98 @@ export const seoKeywords = {
 // ============================================================================
 
 export const socialMedia = {
-  linkedin: "", // To be added
-  twitter: "", // To be added
+  linkedin: "https://www.linkedin.com/in/daniel-de-sousa-56984a102/",
+  twitter: "https://x.com/DanieldeSousa05",
   instagram: "", // To be added
   youtube: "", // To be added
 };
+
+// ============================================================================
+// HERO BADGES
+// ============================================================================
+
+export const heroBadges = {
+  ageGroups: ["U4", "U6", "U8", "U11", "U13", "U15", "U17", "U18", "Senior", "Pro", "Walking Football"],
+  certification: "UEFA B Football Coach",
+};
+
+// ============================================================================
+// SOFTWARE & TOOLS
+// ============================================================================
+
+export const softwareTools = [
+  {
+    category: "Video & Match Analysis",
+    tools: [
+      {
+        name: "Adobe Premiere Pro",
+        description: "Professional video editing for match highlights and training footage",
+        icon: "Video",
+        level: "Advanced",
+      },
+      {
+        name: "DaVinci Resolve",
+        description: "Color grading and advanced video editing for tactical presentations",
+        icon: "Film",
+        level: "Intermediate",
+      },
+      {
+        name: "Hudl",
+        description: "Football-specific video analysis and team management platform",
+        icon: "Play",
+        level: "Advanced",
+      },
+    ],
+  },
+  {
+    category: "AI & Productivity",
+    tools: [
+      {
+        name: "ChatGPT",
+        description: "AI-powered assistant for training plan generation, report writing, and tactical idea brainstorming",
+        icon: "Bot",
+        level: "Daily Use",
+      },
+      {
+        name: "Microsoft Copilot",
+        description: "AI integration across Office tools for document creation and data analysis",
+        icon: "Sparkles",
+        level: "Regular",
+      },
+    ],
+  },
+  {
+    category: "Tactical & Scouting",
+    tools: [
+      {
+        name: "Wyscout",
+        description: "Player scouting, match data, and performance analytics platform",
+        icon: "Search",
+        level: "Advanced",
+      },
+      {
+        name: "Football Manager",
+        description: "Tactical simulation and player development modelling",
+        icon: "Target",
+        level: "Regular",
+      },
+    ],
+  },
+  {
+    category: "Office & Communication",
+    tools: [
+      {
+        name: "Microsoft Office",
+        description: "Word, Excel, PowerPoint for reports, presentations, and data organisation",
+        icon: "FileText",
+        level: "Daily Use",
+      },
+      {
+        name: "Google Workspace",
+        description: "Docs, Sheets, Drive for collaborative work and team management",
+        icon: "Cloud",
+        level: "Daily Use",
+      },
+    ],
+  },
+];

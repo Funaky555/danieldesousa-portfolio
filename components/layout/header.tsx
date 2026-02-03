@@ -5,6 +5,8 @@ import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { Menu, X } from "lucide-react";
 import { coachInfo } from "@/lib/coaching-data";
+import { ThemeToggle } from "@/components/layout/theme-toggle";
+import { LanguageSwitcher } from "@/components/layout/language-switcher";
 
 const navigation = [
   { name: "Home", href: "/" },
@@ -12,6 +14,7 @@ const navigation = [
   { name: "Philosophy", href: "/philosophy" },
   { name: "Experience", href: "/experience" },
   { name: "Services", href: "/services" },
+  { name: "Software", href: "/software" },
   { name: "Contact", href: "/contact" },
 ];
 
@@ -22,7 +25,7 @@ export function Header() {
     <header className="fixed top-0 left-0 right-0 z-50 glass border-b border-border">
       <nav className="container mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16">
-          {/* Logo */}
+          {/* Logo — replace with signature image: <img src="/images/signature.png" alt="Daniel de Sousa" className="h-10" /> */}
           <Link href="/" className="flex items-center space-x-2">
             <div className="w-10 h-10 rounded-full bg-gradient-football flex items-center justify-center">
               <span className="text-white font-bold text-lg">DS</span>
@@ -43,23 +46,29 @@ export function Header() {
                 {item.name}
               </Link>
             ))}
-            <Button asChild variant="default" className="ml-4">
+            <LanguageSwitcher />
+            <ThemeToggle />
+            <Button asChild variant="default" className="ml-2">
               <Link href="/contact">Get in Touch</Link>
             </Button>
           </div>
 
-          {/* Mobile menu button */}
-          <button
-            type="button"
-            className="md:hidden p-2 rounded-md text-foreground hover:bg-secondary"
-            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-          >
-            {mobileMenuOpen ? (
-              <X className="h-6 w-6" />
-            ) : (
-              <Menu className="h-6 w-6" />
-            )}
-          </button>
+          {/* Mobile menu button + theme toggle */}
+          <div className="md:hidden flex items-center gap-1">
+            <LanguageSwitcher />
+            <ThemeToggle />
+            <button
+              type="button"
+              className="p-2 rounded-md text-foreground hover:bg-secondary"
+              onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+            >
+              {mobileMenuOpen ? (
+                <X className="h-6 w-6" />
+              ) : (
+                <Menu className="h-6 w-6" />
+              )}
+            </button>
+          </div>
         </div>
 
         {/* Mobile Navigation */}

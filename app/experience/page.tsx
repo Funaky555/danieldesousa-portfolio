@@ -1,6 +1,7 @@
 import { Header } from "@/components/layout/header";
 import { Footer } from "@/components/layout/footer";
 import { CareerTimeline } from "@/components/experience/career-timeline";
+import { PageBackground } from "@/components/layout/page-background";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { coachInfo } from "@/lib/coaching-data";
@@ -15,7 +16,8 @@ export default function ExperiencePage() {
   return (
     <>
       <Header />
-      <main className="min-h-screen bg-background pt-24 pb-16">
+      <PageBackground imageUrl="https://images.unsplash.com/photo-1540975916249-135ca6298df1?w=1920&q=80" />
+      <main className="min-h-screen bg-background/80 pt-24 pb-16">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           {/* Header */}
           <div className="max-w-3xl mx-auto text-center mb-16">

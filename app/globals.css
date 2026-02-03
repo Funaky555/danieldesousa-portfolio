@@ -4,45 +4,67 @@
 
 @layer base {
   :root {
+    /* Light mode */
+    --background: 220 25% 96%;
+    --foreground: 218 50% 12%;
+
+    --card: 0 0% 100%;
+    --card-foreground: 218 50% 12%;
+
+    --popover: 0 0% 100%;
+    --popover-foreground: 218 50% 12%;
+
+    --primary: 215 100% 51%;
+    --primary-foreground: 0 0% 100%;
+
+    --secondary: 220 30% 90%;
+    --secondary-foreground: 218 50% 20%;
+
+    --muted: 220 25% 88%;
+    --muted-foreground: 215 25% 45%;
+
+    --accent: 262 83% 65%;
+    --accent-foreground: 0 0% 100%;
+
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 0 0% 100%;
+
+    --border: 220 25% 80%;
+    --input: 220 25% 80%;
+    --ring: 215 100% 51%;
+
+    --radius: 0.75rem;
+  }
+
+  .dark {
     /* Dark navy background for depth */
     --background: 218 50% 8%;
     --foreground: 210 40% 98%;
 
-    /* Card surfaces with subtle transparency effect */
     --card: 220 45% 12%;
     --card-foreground: 210 40% 98%;
 
-    /* Popover styling */
     --popover: 220 45% 12%;
     --popover-foreground: 210 40% 98%;
 
-    /* Primary color - AI Blue for main actions */
     --primary: 215 100% 51%;
     --primary-foreground: 0 0% 100%;
 
-    /* Secondary color - slightly lighter surface */
     --secondary: 220 40% 16%;
     --secondary-foreground: 210 40% 98%;
 
-    /* Muted elements */
     --muted: 220 40% 20%;
     --muted-foreground: 215 25% 60%;
 
-    /* Accent color - Tech Purple for highlights */
     --accent: 262 83% 65%;
     --accent-foreground: 210 40% 98%;
 
-    /* Destructive/error states */
     --destructive: 0 84% 60%;
     --destructive-foreground: 210 40% 98%;
 
-    /* Borders and inputs */
     --border: 220 40% 18%;
     --input: 220 40% 18%;
     --ring: 215 100% 51%;
-
-    /* Border radius */
-    --radius: 0.75rem;
   }
 }
 
@@ -101,6 +123,11 @@
     background: rgba(255, 255, 255, 0.05);
     backdrop-filter: blur(10px);
     border: 1px solid rgba(255, 255, 255, 0.1);
+  }
+
+  :root:not(.dark) .glass {
+    background: rgba(255, 255, 255, 0.7);
+    border-color: rgba(0, 0, 0, 0.08);
   }
 
   /* Glowing border effect for AI theme */

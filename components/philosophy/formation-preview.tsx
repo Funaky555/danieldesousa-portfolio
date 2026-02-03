@@ -2,6 +2,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { formations } from "@/lib/coaching-data";
 
+
 export function FormationPreview() {
   return (
     <div className="grid gap-6 md:grid-cols-3">
@@ -11,10 +12,7 @@ export function FormationPreview() {
           className="border-border/50 hover:border-primary/50 transition-all hover:scale-105"
         >
           <CardHeader>
-            <div className="flex items-center justify-between mb-2">
-              <CardTitle className="text-xl">{formation.name}</CardTitle>
-              <Badge variant="secondary">{formation.type}</Badge>
-            </div>
+            <CardTitle className="text-xl">{formation.name}</CardTitle>
           </CardHeader>
           <CardContent>
             {/* Mini Football Pitch Visualization */}
