@@ -1,7 +1,6 @@
 "use client";
 
 import { useState, useRef, useEffect } from "react";
-import { usePathname, useRouter } from "next/navigation";
 import { Globe } from "lucide-react";
 
 const languages = [
@@ -12,15 +11,25 @@ const languages = [
   { code: "zh", label: "中文", flag: "🇨🇳" },
 ];
 
+function getCookie(name: string): string | null {
+  if (typeof document === "undefined") return null;
+  const value = `; ${document.cookie}`;
+  const parts = value.split(`; ${name}=`);
+  if (parts.length === 2) return parts.pop()!.split(";")[0];
+  return null;
+}
+
 export function LanguageSwitcher() {
   const [open, setOpen] = useState(false);
-  const router = useRouter();
-  const pathname = usePathname();
+  const [currentLocale, setCurrentLocale] = useState("en");
   const dropdownRef = useRef<HTMLDivElement>(null);
 
-  // Detect current locale from pathname
-  const currentLocale = languages.find((l) => pathname.startsWith(`/${l.code}`))?.code ?? "en";
-  const current = languages.find((l) => l.code === currentLocale)!;
+  useEffect(() => {
+    const saved = getCookie("NEXT_LOCALE");
+    if (saved && languages.some((l) => l.code === saved)) {
+      setCurrentLocale(saved);
+    }
+  }, []);
 
   useEffect(() => {
     const handleClick = (e: MouseEvent) => {
@@ -33,18 +42,13 @@ export function LanguageSwitcher() {
   }, []);
 
   const switchLanguage = (code: string) => {
-    // Replace current locale prefix or add new one
-    const locales = languages.map((l) => l.code);
-    let newPath = pathname;
-    const matched = locales.find((l) => pathname.startsWith(`/${l}`));
-    if (matched) {
-      newPath = pathname.replace(`/${matched}`, `/${code}`);
-    } else {
-      newPath = `/${code}${pathname}`;
-    }
+    document.cookie = `NEXT_LOCALE=${code}; path=/; max-age=31536000; SameSite=Lax`;
+    setCurrentLocale(code);
     setOpen(false);
-    router.push(newPath);
+    window.location.reload();
   };
+
+  const current = languages.find((l) => l.code === currentLocale) ?? languages[0];
 
   return (
     <div ref={dropdownRef} className="relative">
