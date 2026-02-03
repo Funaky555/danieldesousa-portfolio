@@ -6,7 +6,6 @@ import { Button } from "@/components/ui/button";
 import { Menu, X } from "lucide-react";
 import { coachInfo } from "@/lib/coaching-data";
 import { ThemeToggle } from "@/components/layout/theme-toggle";
-import { LanguageSwitcher } from "@/components/layout/language-switcher";
 
 const navigation = [
   { name: "Home", href: "/" },
@@ -46,7 +45,6 @@ export function Header() {
                 {item.name}
               </Link>
             ))}
-            <LanguageSwitcher />
             <ThemeToggle />
             <Button asChild variant="default" className="ml-2">
               <Link href="/contact">Get in Touch</Link>
@@ -55,7 +53,6 @@ export function Header() {
 
           {/* Mobile menu button + theme toggle */}
           <div className="md:hidden flex items-center gap-1">
-            <LanguageSwitcher />
             <ThemeToggle />
             <button
               type="button"
