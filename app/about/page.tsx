@@ -1,10 +1,7 @@
 import { Header } from "@/components/layout/header";
 import { Footer } from "@/components/layout/footer";
-import { EducationTimeline } from "@/components/about/timeline";
-import { SkillsGrid } from "@/components/about/skills-grid";
-import { PageBackground } from "@/components/layout/page-background";
+import { AboutContent } from "@/components/about/about-content";
 import { coachInfo } from "@/lib/coaching-data";
-import { Separator } from "@/components/ui/separator";
 
 export const metadata = {
   title: `About ${coachInfo.name} | Professional Football Coach`,
@@ -15,50 +12,20 @@ export default function AboutPage() {
   return (
     <>
       <Header />
-      <PageBackground imageUrl="https://images.unsplash.com/photo-1544975641-3a2ca7d4ea4a?w=1920&q=80" />
-      <main className="min-h-screen bg-background/80 pt-24 pb-16">
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-          {/* Header */}
-          <div className="max-w-3xl mx-auto text-center mb-16">
-            <h1 className="text-4xl sm:text-5xl font-bold text-foreground mb-6">
-              About Me
-            </h1>
-            <p className="text-xl text-muted-foreground leading-relaxed">
-              {coachInfo.bio}
-            </p>
-          </div>
-
-          <div className="max-w-6xl mx-auto space-y-16">
-            {/* Education & Certifications */}
-            <section>
-              <div className="text-center mb-12">
-                <h2 className="text-3xl font-bold text-foreground mb-4">
-                  Education & Certifications
-                </h2>
-                <p className="text-muted-foreground">
-                  Academic background and professional qualifications
-                </p>
-              </div>
-              <EducationTimeline />
-            </section>
-
-            <Separator className="my-16" />
-
-            {/* Skills & Languages */}
-            <section>
-              <div className="text-center mb-12">
-                <h2 className="text-3xl font-bold text-foreground mb-4">
-                  Skills & Languages
-                </h2>
-                <p className="text-muted-foreground">
-                  Core competencies and multilingual capabilities
-                </p>
-              </div>
-              <SkillsGrid />
-            </section>
-          </div>
-        </div>
-      </main>
+      <div className="fixed inset-0 -z-10">
+        {/* Background Image */}
+        <div
+          className="absolute inset-0 bg-cover bg-center bg-no-repeat"
+          style={{ backgroundImage: "url('/images/backgrounds/green.png')" }}
+        />
+        {/* Dark overlay for readability */}
+        <div className="absolute inset-0 bg-background/70" />
+        {/* AI Glow Orbs */}
+        <div className="absolute top-1/4 right-1/4 w-96 h-96 rounded-full bg-ai-blue/10 blur-3xl animate-pulse" />
+        <div className="absolute bottom-1/3 left-1/4 w-80 h-80 rounded-full bg-football-green/15 blur-3xl" />
+        <div className="absolute top-1/2 right-1/3 w-72 h-72 rounded-full bg-tech-purple/10 blur-3xl" />
+      </div>
+      <AboutContent />
       <Footer />
     </>
   );

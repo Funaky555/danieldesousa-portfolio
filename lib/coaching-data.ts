@@ -23,7 +23,7 @@ export const coachInfo = {
     whatsapp: "+351 913350837",
     whatsappLink: "https://wa.me/351913350837",
   },
-  bio: `Experienced Football Coach and PE Teacher with over 10 years of work in Portugal and China, focused on youth development across diverse cultural environments. I have coached players from U4 to U18, some of whom have represented Portugal at youth international level and are among the country's top young talents. Passionate about player development, I combine strong pedagogical skills with deep football knowledge to help young athletes grow both on and off the field.`,
+  bio: `Experienced Football Coach, PE Teacher and Sports Scientist with over 10 years of experience in Portugal and China, focused on youth development in diverse cultural environments. I have worked with players from U4 to professional, including athletes who have represented Portugal at youth international level. Passionate about player development, I combine strong pedagogical skills, solid football knowledge, modern digital and AI tools to support young athletes in their growth, both on and off the field.`,
 
   stats: [
     { label: "Years Experience", value: "10+", icon: "Calendar" },
@@ -48,17 +48,73 @@ export const experience = [
     startDate: "2022-09",
     endDate: "2024-07",
     period: "September 2022 - July 2024",
-    description: "Led football department coordination, coached U15 teams, and taught physical education.",
-    achievements: [
-      "U15 Women's Championship Winner (Tongling City, 2024)",
-      "Developed comprehensive training programs",
-      "Coordinated department operations and staff",
+    description: "Multi-role position combining football department leadership, competitive team coaching and physical education teaching.",
+    isDetailed: true,
+    sections: [
+      {
+        title: "Football Department Coordination",
+        icon: "Building",
+        items: [
+          "Coordinated and led the school's football department in partnership with the Tongling Football Association",
+          "Designed and implemented club-level training plans for competitive teams",
+          "Organized team selection processes and managed tryouts",
+          "Prepared teams for local and regional competitions",
+          "Communicated regularly with parents and school administration",
+          "Managed equipment, training schedules and football department logistics",
+          "Collaborated with local authorities and the Chinese Football Association in official events",
+        ],
+      },
+      {
+        title: "Head Coach U15 (Male & Female)",
+        icon: "Trophy",
+        items: [
+          "Football coach of U15 male and female teams in local and regional competitions",
+          "Planned and led weekend training sessions (Saturdays and Sundays, 2 hours) focused on tactical, technical and physical development",
+          "Developed individualized player development plans",
+          "Conducted video analysis and tactical preparation for matches",
+          "Managed team dynamics, discipline and player motivation",
+          "Led the team during official matches and competitions",
+          "Contributed to player progression toward local and regional selections",
+        ],
+      },
+      {
+        title: "Physical Education Teacher",
+        icon: "GraduationCap",
+        items: [
+          "Taught Physical Education to students aged 11 to 15 across all grades",
+          "Designed lessons following the Chinese national curriculum, adapted to local conditions",
+          "Delivered content in: Athletics (running, jumping, throwing), Team sports (football, basketball), Racket sports (badminton, table tennis), Health and fitness education",
+          "Promoted values of teamwork, discipline and healthy lifestyle through sport",
+          "Adapted activities for students with different skill levels and physical abilities, including students with disabilities (motor, cognitive, or speech impairments)",
+          "Participated as jury in various school activities including school Olympics",
+          "Participated as referee in school football tournaments",
+        ],
+      },
     ],
+    achievements: [
+      "U15 Female City Champion (2023)",
+      "U15 Male City Vice-Champions (2023 and 2024)",
+      "Contributed to the school's recognition as a football development centre",
+      "Developed partnerships with Tongling Football Association",
+      "Implemented a more structured and professional approach to youth football at the school",
+      "Players from this programme were selected for city football teams",
+    ],
+    media: {
+      interviewLink: "https://app.tlnews.cn/detailArticle/24332680_68885_tonglingrb.html",
+      interviewTitle: "The Foreign Coach's Last Football Lesson",
+      schoolLogo: "/images/china/tonglingsymbol.jpg",
+      photos: [
+        "/images/china/Tongling1.jpg",
+        "/images/china/Tongling8.jpg",
+        "/images/china/Tongling4.jpg",
+        "/images/china/Tongling5.jpg",
+      ],
+    },
     images: ["china-tongling-1.jpg", "china-tongling-2.jpg"],
   },
   {
     id: 2,
-    role: "Head Coach U15",
+    role: "Head Coach U13 & U15",
     ageGroup: "U13 and U15",
     club: "Chizhou City Team",
     location: "Chizhou, China",
@@ -66,11 +122,55 @@ export const experience = [
     startDate: "2024-04",
     endDate: "2024-07",
     period: "April 2024 - July 2024",
-    description: "Head coach for city representative teams in provincial competitions.",
-    achievements: [
-      "Represented city in provincial tournaments",
-      "Implemented tactical systems",
+    description: "Head coach for city representative teams preparing for national competitions, including intensive training camps and tournament participation.",
+    isDetailed: true,
+    sections: [
+      {
+        title: "Head Coach – U15 National Competition Preparation",
+        icon: "Trophy",
+        items: [
+          "One-month intensive training program preparing U15 players for participation in a national championship",
+          "Fully responsible for technical, tactical and physical preparation of the squad prior to competition",
+          "Did not attend the tournament due to visa constraints, having completed the entire preparation phase",
+        ],
+      },
+      {
+        title: "Easter Internship – Wuhu Training Camp (Head Coach)",
+        icon: "Building",
+        items: [
+          "Two-week coaching internship during Easter holidays in Wuhu",
+          "Led daily training sessions and managed teams in friendly and competitive matches against other academies and city teams",
+        ],
+      },
+      {
+        title: "Head Coach – U13 National Competition",
+        icon: "Trophy",
+        items: [
+          "Two-week intensive preparation period followed by travel and participation in a national youth tournament",
+          "Led a very young and physically underdeveloped squad competing against stronger and more mature city teams",
+          "Focus on learning, resilience and long-term player development",
+        ],
+      },
+      {
+        title: "Key Responsibilities",
+        icon: "Building",
+        items: [
+          "Head coach of U13 and U15 squads",
+          "Training design and periodization",
+          "Match planning and game model implementation",
+          "Player evaluation and development planning",
+          "Technical and tactical leadership",
+        ],
+      },
     ],
+    achievements: [
+      "Successfully prepared two age groups for national-level competitions",
+      "Accelerated development of players in short preparation cycles",
+      "Implemented professional training methodology at city-team level",
+    ],
+    media: {
+      photos: [],
+    },
     images: ["china-chizhou.jpg"],
   },
   {
@@ -84,9 +184,23 @@ export const experience = [
     endDate: "2022-08",
     period: "June 2022 - August 2022",
     description: "Coached city representative team for summer tournaments.",
+    isDetailed: true,
+    sections: [
+      {
+        title: "Head Coach Responsibilities",
+        icon: "Trophy",
+        items: [
+          "Coached U15 city representative team for summer tournament competitions",
+          "Prepared and trained players for regional-level matches",
+        ],
+      },
+    ],
     achievements: [
       "Competitive tournament participation",
     ],
+    media: {
+      photos: [],
+    },
     images: [],
   },
   {
@@ -100,10 +214,32 @@ export const experience = [
     endDate: "2021-12",
     period: "April 2021 - December 2021",
     description: "Multiple coaching roles at prestigious sports school combining martial arts and football training.",
+    isDetailed: true,
+    sections: [
+      {
+        title: "Head Coach (U11 Boys / U17 Girls)",
+        icon: "Trophy",
+        items: [
+          "Led U11 boys and U17 girls teams as head coach",
+          "Integrated tactical football training with athletic development",
+        ],
+      },
+      {
+        title: "Assistant Coach (U18 Boys)",
+        icon: "Building",
+        items: [
+          "Supported U18 boys team as assistant coach",
+          "Managed multiple age groups simultaneously",
+        ],
+      },
+    ],
     achievements: [
       "Integrated tactical football training with athletic development",
       "Managed multiple age groups simultaneously",
     ],
+    media: {
+      photos: [],
+    },
     images: ["china-dengfeng.jpg"],
   },
   {
@@ -117,10 +253,25 @@ export const experience = [
     endDate: "2020-12",
     period: "September 2020 - December 2020",
     description: "Coached grassroots to competitive youth levels at professional academy.",
+    isDetailed: true,
+    sections: [
+      {
+        title: "Head Coach Responsibilities",
+        icon: "Trophy",
+        items: [
+          "Coached multiple age groups from U6 to U15 at professional academy",
+          "Developed age-appropriate training curricula",
+          "Managed player pathway development",
+        ],
+      },
+    ],
     achievements: [
       "Developed age-appropriate training curricula",
       "Player pathway development",
     ],
+    media: {
+      photos: [],
+    },
     images: ["china-dalian.jpg"],
   },
   {
@@ -134,11 +285,26 @@ export const experience = [
     endDate: "2019-07",
     period: "September 2018 - July 2019",
     description: "Assistant coach at one of Europe's top youth academies, working with elite young talent.",
+    isDetailed: true,
+    sections: [
+      {
+        title: "Assistant Coach Responsibilities",
+        icon: "Building",
+        items: [
+          "Assisted with U13 team training and match preparation",
+          "Worked in high-performance training environment with world-class coaching staff",
+          "Supported player development for elite young talent",
+        ],
+      },
+    ],
     achievements: [
       "Worked with players who progressed to Portuguese youth national teams",
       "Learned from world-class coaching staff",
       "High-performance training environment",
     ],
+    media: {
+      photos: [],
+    },
     images: ["portugal-benfica.jpg"],
   },
   {
@@ -152,11 +318,34 @@ export const experience = [
     endDate: "2018-07",
     period: "January 2014 - July 2018",
     description: "Extended tenure with multiple coaching roles across youth categories.",
+    isDetailed: true,
+    sections: [
+      {
+        title: "Head Coach (U6)",
+        icon: "Trophy",
+        items: [
+          "Led U6 grassroots team development",
+          "Created age-appropriate training sessions",
+        ],
+      },
+      {
+        title: "Assistant Coach (U14 to U18)",
+        icon: "Building",
+        items: [
+          "Assisted with U14, U15, U16, U17 and U18 teams",
+          "Supported team preparation for competitive matches",
+          "Developed players for higher competitive levels",
+        ],
+      },
+    ],
     achievements: [
       "CD Trofense Juniors - Division Promotion to National Level (Assistant Coach)",
       "Developed players for higher competitive levels",
       "Grassroots to elite youth coaching experience",
     ],
+    media: {
+      photos: [],
+    },
     images: ["portugal-trofense.jpg"],
   },
   {
@@ -170,10 +359,25 @@ export const experience = [
     endDate: "2011-07",
     period: "September 2010 - July 2011",
     description: "First professional coaching role, assisting with U13 team development.",
+    isDetailed: true,
+    sections: [
+      {
+        title: "Assistant Coach Responsibilities",
+        icon: "Building",
+        items: [
+          "Assisted with U13 team training and development",
+          "First professional coaching role",
+          "Supported youth player development",
+        ],
+      },
+    ],
     achievements: [
       "Foundation of coaching career",
       "Youth player development",
     ],
+    media: {
+      photos: [],
+    },
     images: [],
   },
 ];
@@ -192,6 +396,13 @@ export const education = {
       description: "UEFA B certified football coach",
     },
     {
+      title: "IPDJ Football Coach Level 2",
+      institution: "IPDJ",
+      status: "Certified",
+      year: "Valid until Dec 2028",
+      description: "Portuguese Institute of Sport and Youth certification",
+    },
+    {
       title: "UEFA A License",
       institution: "UEFA",
       status: "In Progress",
@@ -203,28 +414,38 @@ export const education = {
   degrees: [
     {
       title: "Master's Degree in Sports Sciences",
-      specialization: "Team Sports (Jogos Desportivos Coletivos)",
-      institution: "U.T.A.D., Vila Real, Portugal",
+      specialization: "Specialization in Team Sports",
+      institution: "University of Trás-os-Montes and Alto Douro, Vila Real, Portugal",
       startYear: "2011",
       endYear: "2017",
       description: "Specialized in team sports with focus on football coaching methodology",
+    },
+    {
+      title: "Computer Management Equipment",
+      specialization: "",
+      institution: "Ruiz Costa Professional School, Matosinhos, Portugal",
+      startYear: "2008",
+      endYear: "2011",
+      description: "Specialized in analysis equipment, test and repair the physical network, select all types of computer equipment for users and all types of businesses",
     },
   ],
 
   exchangePrograms: [
     {
       program: "Erasmus Exchange",
-      institution: "AWF Wroclaw",
+      specialization: "Sports Sciences",
+      institution: "Akademia Wychowania Fizycznego we Wrocławiu",
       location: "Wroclaw, Poland",
-      year: "2012-2013",
+      year: "2012 - 2013",
       description: "International sports science studies",
     },
     {
-      program: "Erasmus Exchange",
-      institution: "OVGU Magdeburg",
+      program: "University Project (IMPAS)",
+      specialization: "Performance Analysis of Sport",
+      institution: "Otto von Guericke University Magdeburg",
       location: "Magdeburg, Germany",
-      year: "2014-2015",
-      description: "Sports and exercise science",
+      year: "2014 - 2015",
+      description: "Performance analysis research project",
     },
   ],
 };
@@ -581,8 +802,19 @@ export const socialMedia = {
 // ============================================================================
 
 export const heroBadges = {
-  ageGroups: ["U4", "U6", "U8", "U11", "U13", "U15", "U17", "U18", "Senior", "Pro", "Walking Football"],
-  certification: "UEFA B Football Coach",
+  ageGroups: ["U4 to U18", "Professional", "Senior", "Walking Football"],
+  roles: ["Scouting", "Game Analyst", "PE Teacher"],
+  certifications: [
+    {
+      name: "UEFA B Football Coach",
+      logo: "/images/uefa.png",
+    },
+    {
+      name: "IPDJ Certified",
+      logo: "/images/ipdj.png",
+      validity: "Valid until Dec 2028",
+    },
+  ],
 };
 
 // ============================================================================

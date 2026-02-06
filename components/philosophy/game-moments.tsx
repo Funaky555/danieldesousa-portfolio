@@ -1,37 +1,38 @@
+"use client";
+
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { philosophy } from "@/lib/coaching-data";
 import { Check } from "lucide-react";
+import { useTranslations } from "@/components/providers/i18n-provider";
+
+const gameMomentKeys = [
+  "offensiveOrg",
+  "defensiveOrg",
+  "offensiveTrans",
+  "defensiveTrans",
+  "setPieces",
+];
 
 export function GameMomentsSection() {
+  const t = useTranslations();
+
   return (
     <div className="grid gap-6 md:grid-cols-2">
-      {philosophy.gameMoments.map((moment, index) => (
+      {gameMomentKeys.map((key, index) => (
         <Card
-          key={index}
+          key={key}
           className="border-border/50 hover:border-primary/50 transition-all"
         >
           <CardHeader>
             <CardTitle className="flex items-center justify-between">
-              {moment.title}
+              {t(`philosophy.gameMomentsList.${key}`)}
               <Badge variant="outline">{index + 1}/5</Badge>
             </CardTitle>
           </CardHeader>
           <CardContent>
-            <p className="text-sm text-muted-foreground mb-4">
-              {moment.description}
+            <p className="text-sm text-muted-foreground">
+              {t("philosophy.subtitle")}
             </p>
-            <div className="space-y-2">
-              <p className="text-sm font-semibold text-foreground">Key Principles:</p>
-              <ul className="space-y-1.5">
-                {moment.principles.map((principle, pIndex) => (
-                  <li key={pIndex} className="flex items-start text-sm text-muted-foreground">
-                    <Check className="w-4 h-4 text-football-green mr-2 mt-0.5 flex-shrink-0" />
-                    <span>{principle}</span>
-                  </li>
-                ))}
-              </ul>
-            </div>
           </CardContent>
         </Card>
       ))}

@@ -1,26 +1,31 @@
+"use client";
+
 import Link from "next/link";
 import { Mail, Phone, Twitter, Linkedin } from "lucide-react";
 import { coachInfo, socialMedia } from "@/lib/coaching-data";
+import { useTranslations } from "@/components/providers/i18n-provider";
 
-const navigation = {
+const navigationKeys = {
   main: [
-    { name: "About", href: "/about" },
-    { name: "Philosophy", href: "/philosophy" },
-    { name: "Experience", href: "/experience" },
-    { name: "Services", href: "/services" },
-    { name: "Software", href: "/software" },
-    { name: "Contact", href: "/contact" },
+    { key: "about", href: "/about" },
+    { key: "philosophy", href: "/philosophy" },
+    { key: "experience", href: "/experience" },
+    { key: "services", href: "/services" },
+    { key: "software", href: "/software" },
+    { key: "contact", href: "/contact" },
   ],
   services: [
-    { name: "Game Analysis", href: "/services#game-analysis" },
-    { name: "Scouting", href: "/services#scouting" },
-    { name: "Leadership Courses", href: "/services#leadership" },
-    { name: "Personal Training", href: "/services#training" },
-    { name: "Seminars", href: "/services#seminars" },
+    { key: "gameAnalysis", href: "/services#game-analysis" },
+    { key: "scouting", href: "/services#scouting" },
+    { key: "leadership", href: "/services#leadership" },
+    { key: "training", href: "/services#training" },
+    { key: "seminars", href: "/services#seminars" },
   ],
 };
 
 export function Footer() {
+  const t = useTranslations();
+
   return (
     <footer className="bg-card border-t border-border">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-12">
@@ -31,24 +36,23 @@ export function Footer() {
               {coachInfo.name}
             </h3>
             <p className="text-sm text-muted-foreground mb-4">
-              {coachInfo.subtitle}
+              {t("footer.tagline")}
             </p>
             <p className="text-sm text-muted-foreground">
-              Professional football coach with 10+ years of experience in Portugal and China,
-              specializing in youth development and tactical analysis.
+              {t("home.bio")}
             </p>
 
             {/* Social Media */}
-            <div className="flex items-center gap-3 mt-6">
+            <div className="flex items-center gap-4 mt-6">
               {socialMedia.twitter && (
                 <a
                   href={socialMedia.twitter}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="w-9 h-9 rounded-lg bg-secondary flex items-center justify-center text-muted-foreground hover:text-foreground hover:bg-primary/10 transition-colors"
+                  className="w-11 h-11 rounded-lg bg-secondary flex items-center justify-center text-blue-600 dark:text-ai-blue hover:text-foreground hover:bg-primary/10 transition-colors"
                   aria-label="Twitter / X"
                 >
-                  <Twitter className="w-4 h-4" />
+                  <Twitter className="w-6 h-6" />
                 </a>
               )}
               {socialMedia.linkedin && (
@@ -56,10 +60,10 @@ export function Footer() {
                   href={socialMedia.linkedin}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="w-9 h-9 rounded-lg bg-secondary flex items-center justify-center text-muted-foreground hover:text-foreground hover:bg-primary/10 transition-colors"
+                  className="w-11 h-11 rounded-lg bg-secondary flex items-center justify-center text-blue-600 dark:text-ai-blue hover:text-foreground hover:bg-primary/10 transition-colors"
                   aria-label="LinkedIn"
                 >
-                  <Linkedin className="w-4 h-4" />
+                  <Linkedin className="w-6 h-6" />
                 </a>
               )}
             </div>
@@ -68,16 +72,16 @@ export function Footer() {
           {/* Quick Links */}
           <div>
             <h3 className="text-sm font-semibold text-foreground mb-4">
-              Quick Links
+              {t("nav.home")}
             </h3>
             <ul className="space-y-2">
-              {navigation.main.map((item) => (
-                <li key={item.name}>
+              {navigationKeys.main.map((item) => (
+                <li key={item.key}>
                   <Link
                     href={item.href}
                     className="text-sm text-muted-foreground hover:text-foreground transition-colors"
                   >
-                    {item.name}
+                    {t(`nav.${item.key}`)}
                   </Link>
                 </li>
               ))}
@@ -87,16 +91,16 @@ export function Footer() {
           {/* Services */}
           <div>
             <h3 className="text-sm font-semibold text-foreground mb-4">
-              Services
+              {t("nav.services")}
             </h3>
             <ul className="space-y-2">
-              {navigation.services.map((item) => (
-                <li key={item.name}>
+              {navigationKeys.services.map((item) => (
+                <li key={item.key}>
                   <Link
                     href={item.href}
                     className="text-sm text-muted-foreground hover:text-foreground transition-colors"
                   >
-                    {item.name}
+                    {t(`services.list.${item.key}.title`)}
                   </Link>
                 </li>
               ))}
@@ -129,7 +133,7 @@ export function Footer() {
 
             {/* Copyright */}
             <p className="text-sm text-muted-foreground">
-              © {new Date().getFullYear()} {coachInfo.name}. All rights reserved.
+              © {new Date().getFullYear()} {coachInfo.name}. {t("footer.rights")}.
             </p>
           </div>
         </div>

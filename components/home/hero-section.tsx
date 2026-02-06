@@ -1,47 +1,28 @@
+"use client";
+
 import Link from "next/link";
 import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import { ArrowRight, MessageCircle } from "lucide-react";
 import { coachInfo, heroBadges } from "@/lib/coaching-data";
+import { useTranslations } from "@/components/providers/i18n-provider";
 
 export function HeroSection() {
+  const t = useTranslations();
   return (
-    <section className="relative min-h-screen flex flex-col overflow-hidden">
-      {/* ── Layer 1: Stadium background with AI overlay ── */}
+    <section className="relative h-screen max-h-[900px] flex flex-col overflow-hidden">
+      {/* ── Layer 1: AI-Generated Hero Image (Full Background) ── */}
       <div className="absolute inset-0">
-        <div
-          className="absolute inset-0 blur-sm saturate-50 scale-105"
-          style={{
-            backgroundImage:
-              "url('https://images.unsplash.com/photo-1522778119026-d647f0596c20?w=1920&q=80')",
-            backgroundSize: "cover",
-            backgroundPosition: "center",
-          }}
+        <Image
+          src="/images/hero/daniel-ai.png"
+          alt="Daniel de Sousa - Football Coach with tactical board in stadium"
+          fill
+          className="object-cover object-center"
+          priority
+          sizes="100vw"
         />
-        {/* AI gradient overlay */}
-        <div className="absolute inset-0 bg-gradient-to-br from-ai-blue/20 via-football-green/10 to-tech-purple/20" />
-      </div>
-
-      {/* ── Layer 2: Daniel's photo with vignette mask ── */}
-      <div className="absolute inset-0 lg:left-1/4">
-        <div
-          className="relative h-full w-full"
-          style={{
-            maskImage:
-              "radial-gradient(ellipse 85% 95% at 55% 45%, black 25%, transparent 65%)",
-            WebkitMaskImage:
-              "radial-gradient(ellipse 85% 95% at 55% 45%, black 25%, transparent 65%)",
-          }}
-        >
-          <Image
-            src="/images/hero/daniel-tactical.jpg"
-            alt="Daniel de Sousa holding tactical board"
-            fill
-            className="object-cover object-top"
-            priority
-            sizes="100vw"
-          />
-        </div>
+        {/* Subtle AI gradient overlay for futuristic feel */}
+        <div className="absolute inset-0 bg-gradient-to-br from-ai-blue/10 via-transparent to-tech-purple/10" />
       </div>
 
       {/* ── Layer 3: AI Glow Orbs ── */}
@@ -53,15 +34,33 @@ export function HeroSection() {
       <div className="absolute inset-0 bg-gradient-to-r from-background via-background/85 to-transparent lg:w-2/3" />
 
       {/* ── Layer 5: Text content ── */}
-      <div className="relative z-10 flex-1 flex flex-col justify-center lg:w-1/2 px-6 sm:px-10 lg:px-16 py-32">
-        {/* UEFA B badge */}
-        <div className="inline-flex items-center gap-2 w-fit mb-6">
-          <div className="flex items-center px-4 py-2 rounded-full bg-football-green/15 border border-football-green/30 backdrop-blur-sm">
-            <span className="w-2 h-2 bg-football-green rounded-full mr-2 animate-pulse" />
-            <span className="text-football-green text-sm font-bold tracking-wide">
-              {heroBadges.certification}
-            </span>
-          </div>
+      <div className="relative z-10 flex-1 flex flex-col justify-center lg:w-1/2 px-6 sm:px-10 lg:px-16 py-16 lg:py-20">
+        {/* Certifications badges with logos */}
+        <div className="flex flex-wrap items-center gap-3 mb-6">
+          {heroBadges.certifications.map((cert) => (
+            <div
+              key={cert.name}
+              className="flex items-center gap-2 px-3 py-2 rounded-full bg-emerald-600/15 dark:bg-football-green/15 border border-emerald-600/30 dark:border-football-green/30 backdrop-blur-sm"
+            >
+              <Image
+                src={cert.logo}
+                alt={cert.name}
+                width={24}
+                height={24}
+                className="object-contain"
+              />
+              <div className="flex flex-col">
+                <span className="text-emerald-700 dark:text-football-green text-xs font-bold tracking-wide">
+                  {cert.name}
+                </span>
+                {cert.validity && (
+                  <span className="text-emerald-600/70 dark:text-football-green/70 text-[10px]">
+                    {cert.validity}
+                  </span>
+                )}
+              </div>
+            </div>
+          ))}
         </div>
 
         {/* Main heading */}
@@ -69,19 +68,13 @@ export function HeroSection() {
           {coachInfo.name}
         </h1>
 
-        {/* Subtitle with gradient */}
-        <p className="text-xl sm:text-2xl font-semibold mb-6">
-          <span className="bg-gradient-to-r from-football-green via-ai-blue to-tech-purple bg-clip-text text-transparent">
-            Football Coach
-          </span>
-          <span className="text-muted-foreground font-normal ml-2">•</span>
-          <span className="text-muted-foreground font-normal ml-2">
-            Youth Development Specialist
-          </span>
+        {/* Subtitle */}
+        <p className="text-lg sm:text-xl text-muted-foreground mb-6">
+          {t("home.hero.subtitle")}
         </p>
 
         {/* Age groups row */}
-        <div className="flex flex-wrap gap-2 mb-8">
+        <div className="flex flex-wrap gap-2 mb-4">
           {heroBadges.ageGroups.map((group) => (
             <span
               key={group}
@@ -92,15 +85,27 @@ export function HeroSection() {
           ))}
         </div>
 
+        {/* Roles row */}
+        <div className="flex flex-wrap gap-2 mb-8">
+          {["scouting", "analyst", "peTeacher"].map((roleKey) => (
+            <span
+              key={roleKey}
+              className="px-3 py-1 rounded-full text-xs font-semibold bg-emerald-600/10 dark:bg-football-green/10 backdrop-blur-sm border border-emerald-600/30 dark:border-football-green/30 text-emerald-700 dark:text-football-green"
+            >
+              {t(`home.hero.roles.${roleKey}`)}
+            </span>
+          ))}
+        </div>
+
         {/* Location / experience tags */}
         <div className="flex flex-wrap gap-2 mb-10">
-          <span className="px-3 py-1 rounded-full text-xs font-medium bg-ai-blue/10 border border-ai-blue/30 text-ai-blue backdrop-blur-sm">
+          <span className="px-3 py-1 rounded-full text-xs font-medium bg-blue-600/10 dark:bg-ai-blue/10 border border-blue-600/30 dark:border-ai-blue/30 text-blue-700 dark:text-ai-blue backdrop-blur-sm">
             Portugal
           </span>
-          <span className="px-3 py-1 rounded-full text-xs font-medium bg-ai-blue/10 border border-ai-blue/30 text-ai-blue backdrop-blur-sm">
+          <span className="px-3 py-1 rounded-full text-xs font-medium bg-blue-600/10 dark:bg-ai-blue/10 border border-blue-600/30 dark:border-ai-blue/30 text-blue-700 dark:text-ai-blue backdrop-blur-sm">
             China
           </span>
-          <span className="px-3 py-1 rounded-full text-xs font-medium bg-tech-purple/10 border border-tech-purple/30 text-tech-purple backdrop-blur-sm">
+          <span className="px-3 py-1 rounded-full text-xs font-medium bg-purple-600/10 dark:bg-tech-purple/10 border border-purple-600/30 dark:border-tech-purple/30 text-purple-700 dark:text-tech-purple backdrop-blur-sm">
             10+ Years
           </span>
         </div>
@@ -109,13 +114,13 @@ export function HeroSection() {
         <div className="flex flex-col sm:flex-row gap-3">
           <Button asChild size="lg" className="glow-border">
             <Link href="/services">
-              View Services
+              {t("home.hero.cta.services")}
               <ArrowRight className="ml-2 h-5 w-5" />
             </Link>
           </Button>
           <Button asChild size="lg" variant="outline" className="backdrop-blur-sm">
             <Link href="/contact">
-              Get in Touch
+              {t("home.hero.cta.contact")}
               <MessageCircle className="ml-2 h-5 w-5" />
             </Link>
           </Button>
@@ -125,19 +130,22 @@ export function HeroSection() {
       {/* ── Bottom stats strip (full width) ── */}
       <div className="relative z-10 mt-auto">
         <div className="grid grid-cols-2 md:grid-cols-4">
-          {coachInfo.stats.map((stat, i) => (
-            <div
-              key={stat.label}
-              className={`text-center py-5 glass border-t border-border/50 hover:border-primary/50 transition-all ${
-                i < 3 ? "border-r border-border/50" : ""
-              }`}
-            >
-              <div className="text-2xl font-bold text-foreground">
-                {stat.value}
-              </div>
-              <div className="text-xs text-muted-foreground">{stat.label}</div>
-            </div>
-          ))}
+          <div className="text-center py-5 glass border-t border-border/50 hover:border-primary/50 transition-all border-r border-border/50">
+            <div className="text-2xl font-bold text-foreground">10+</div>
+            <div className="text-xs text-muted-foreground">{t("home.stats.experience")}</div>
+          </div>
+          <div className="text-center py-5 glass border-t border-border/50 hover:border-primary/50 transition-all border-r border-border/50">
+            <div className="text-2xl font-bold text-foreground">Portugal & China</div>
+            <div className="text-xs text-muted-foreground">{t("home.stats.countries")}</div>
+          </div>
+          <div className="text-center py-5 glass border-t border-border/50 hover:border-primary/50 transition-all border-r border-border/50">
+            <div className="text-2xl font-bold text-foreground">U4 to U18</div>
+            <div className="text-xs text-muted-foreground">{t("home.stats.ageGroups")}</div>
+          </div>
+          <div className="text-center py-5 glass border-t border-border/50 hover:border-primary/50 transition-all">
+            <div className="text-2xl font-bold text-foreground">UEFA B</div>
+            <div className="text-xs text-muted-foreground">{t("home.stats.certification")}</div>
+          </div>
         </div>
       </div>
     </section>

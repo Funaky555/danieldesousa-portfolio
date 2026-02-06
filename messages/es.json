@@ -1,0 +1,337 @@
+{
+  "nav": {
+    "home": "Inicio",
+    "about": "Sobre Mí",
+    "philosophy": "Filosofía",
+    "experience": "Experiencia",
+    "services": "Servicios",
+    "software": "Software",
+    "contact": "Contacto"
+  },
+  "home": {
+    "hero": {
+      "title": "Daniel de Sousa",
+      "subtitle": "Entrenador de Fútbol Profesional",
+      "tagline": "Entrenador UEFA B | Especialista en Desarrollo Juvenil | 10+ Años Portugal y China",
+      "cta": {
+        "services": "Ver Servicios",
+        "contact": "Contactar"
+      },
+      "roles": {
+        "scouting": "Scouting",
+        "analyst": "Analista de Juego",
+        "peTeacher": "Profesor de EF"
+      }
+    },
+    "stats": {
+      "experience": "Años de Experiencia",
+      "countries": "Países",
+      "ageGroups": "Categorías",
+      "certification": "Certificación"
+    },
+    "bio": "Entrenador de Fútbol, Profesor de Educación Física y Científico del Deporte con más de 10 años de experiencia en Portugal y China."
+  },
+  "about": {
+    "title": "Sobre Mí",
+    "subtitle": "Trayectoria Profesional",
+    "bio": "Entrenador de Fútbol, Profesor de Educación Física y Científico del Deporte con más de 10 años de experiencia en Portugal y China, enfocado en el desarrollo juvenil.",
+    "education": {
+      "title": "Educación y Certificaciones",
+      "certifications": "Certificaciones",
+      "academic": "Formación Académica",
+      "exchange": "Programas de Intercambio",
+      "certified": "Certificado",
+      "inProgress": "En Progreso",
+      "validUntil": "Válido hasta"
+    },
+    "languages": {
+      "title": "Idiomas",
+      "native": "Nativo",
+      "proficient": "Competente",
+      "basic": "Básico",
+      "portuguese": "Portugués",
+      "english": "Inglés",
+      "spanish": "Español",
+      "french": "Francés",
+      "chinese": "Chino"
+    },
+    "skills": {
+      "title": "Habilidades",
+      "leadership": "Liderazgo",
+      "criticalThinking": "Pensamiento Crítico",
+      "collaboration": "Colaboración",
+      "decisionMaking": "Toma de Decisiones",
+      "flexibility": "Flexibilidad",
+      "activeListening": "Escucha Activa"
+    },
+    "certs": {
+      "uefaB": {
+        "title": "Licencia UEFA B",
+        "institution": "UEFA",
+        "description": "Entrenador de fútbol certificado UEFA B"
+      },
+      "ipdj": {
+        "title": "Entrenador de Fútbol IPDJ Nivel 2",
+        "institution": "IPDJ",
+        "description": "Certificación del Instituto Portugués del Deporte y Juventud"
+      },
+      "uefaA": {
+        "title": "Licencia UEFA A",
+        "institution": "UEFA",
+        "description": "Trabajando hacia certificación UEFA A"
+      }
+    },
+    "degrees": {
+      "masters": {
+        "title": "Máster en Ciencias del Deporte",
+        "specialization": "Especialización en Deportes de Equipo",
+        "institution": "Universidad de Trás-os-Montes y Alto Douro",
+        "description": "Especializado en deportes de equipo con enfoque en metodología de entrenamiento"
+      },
+      "computer": {
+        "title": "Gestión de Equipos Informáticos",
+        "institution": "Escuela Profesional Ruiz Costa",
+        "description": "Especializado en equipos de análisis y sistemas informáticos"
+      }
+    },
+    "exchanges": {
+      "erasmus": {
+        "program": "Intercambio Erasmus",
+        "specialization": "Ciencias del Deporte",
+        "description": "Estudios internacionales en ciencias del deporte"
+      },
+      "impas": {
+        "program": "Proyecto Universitario (IMPAS)",
+        "specialization": "Análisis de Rendimiento Deportivo",
+        "description": "Proyecto de investigación en análisis de rendimiento"
+      }
+    }
+  },
+  "experience": {
+    "title": "Experiencia Profesional",
+    "subtitle": "Una década de desarrollo del fútbol juvenil en dos continentes",
+    "timeline": "Cronología de Carrera",
+    "timelineSubtitle": "Desde la base hasta el desarrollo de élite",
+    "highlights": {
+      "championships": "Campeonatos",
+      "international": "Internacional",
+      "yearsInChina": "años en China",
+      "eliteAcademies": "Academias de Élite",
+      "youthDevelopment": "Desarrollo Juvenil"
+    },
+    "china": {
+      "badge": "Experiencia en China",
+      "title": "Trayectoria Internacional como Entrenador",
+      "description1": "Más de 4 años entrenando en China en varias ciudades (Tongling, Chizhou, Dengfeng, Dalian), desarrollé una comprensión profunda de la adaptación cultural.",
+      "description2": "Logros notables incluyen coordinación de departamentos de fútbol, victorias en campeonatos de ciudad y desarrollo de jugadores a nivel provincial."
+    },
+    "sections": {
+      "achievements": "Logros e Impacto",
+      "responsibilities": "Responsabilidades Clave",
+      "pressCoverage": "Cobertura de Prensa",
+      "readArticle": "Leer Artículo"
+    },
+    "championships": {
+      "u15FemaleChampion": "Campeona U15 Femenino",
+      "u15MaleViceChampion": "Subcampeón U15 Masculino"
+    },
+    "jobs": {
+      "tongling": {
+        "role": "Coordinador / Entrenador Principal / Profesor EF",
+        "description": "Posición multifuncional combinando liderazgo del departamento de fútbol, entrenamiento de equipos y enseñanza.",
+        "section1": "Coordinación del Departamento de Fútbol",
+        "section2": "Entrenador Principal U15 (Masc. y Fem.)",
+        "section3": "Profesor de Educación Física"
+      },
+      "chizhou": {
+        "role": "Entrenador Principal U13 y U15",
+        "description": "Entrenador principal de equipos representativos de la ciudad para competiciones nacionales."
+      },
+      "tonglingCity": {
+        "role": "Entrenador Principal U15",
+        "description": "Entrené equipo representativo de la ciudad para torneos de verano."
+      },
+      "tagou": {
+        "role": "Entrenador Principal / Asistente",
+        "description": "Múltiples roles de entrenamiento en escuela deportiva de prestigio."
+      },
+      "dalian": {
+        "role": "Entrenador Principal U6 a U15",
+        "description": "Entrené desde base hasta niveles competitivos juveniles en academia profesional."
+      },
+      "benfica": {
+        "role": "Entrenador Asistente U13",
+        "description": "Entrenador asistente en una de las mejores academias juveniles de Europa."
+      },
+      "trofense": {
+        "role": "Entrenador Principal / Asistente",
+        "description": "Período extenso con múltiples roles de entrenamiento en categorías juveniles."
+      },
+      "lavrense": {
+        "role": "Entrenador Asistente U13",
+        "description": "Primer rol profesional de entrenamiento."
+      }
+    }
+  },
+  "philosophy": {
+    "title": "Filosofía de Entrenamiento",
+    "subtitle": "Mi enfoque para el desarrollo del fútbol",
+    "core": "Filosofía Central",
+    "coreText": "Mi filosofía de entrenamiento se basa en desarrollar jugadores para actuar dentro de una idea clara y común. Creo que el juego debe jugarse con inteligencia, intensidad e intención.",
+    "principles": "Principios Clave",
+    "gameMoments": "Momentos del Juego",
+    "formations": "Sistemas Tácticos",
+    "approach": "Enfoque de Entrenamiento",
+    "approachText": "Lidero sesiones de entrenamiento con claridad, energía y dirección, asegurando que cada jugador comprenda su rol mientras se siente motivado.",
+    "roles": "Roles de Entrenador",
+    "rolesText": "He asumido múltiples roles en el fútbol, incluyendo Entrenador Principal, Asistente, Ojeador, Analista y Asesor.",
+    "gameMomentsList": {
+      "offensiveOrg": "Organización Ofensiva",
+      "defensiveOrg": "Organización Defensiva",
+      "offensiveTrans": "Transición Ofensiva",
+      "defensiveTrans": "Transición Defensiva",
+      "setPieces": "Balón Parado"
+    },
+    "formationDescriptions": {
+      "433": "Formación ofensiva con amplitud y presión adelantada",
+      "442": "Formación equilibrada con estructura defensiva sólida",
+      "4231": "Formación ofensiva moderna con mediocampo creativo"
+    }
+  },
+  "services": {
+    "title": "Servicios",
+    "subtitle": "Servicios profesionales de entrenamiento y consultoría",
+    "features": "Características",
+    "deliverables": "Entregables",
+    "pricing": "Los precios pueden discutirse según tiempo de viaje, ubicación y tipo de foro.",
+    "cta": "Solicitar Presupuesto",
+    "list": {
+      "gameAnalysis": {
+        "title": "Análisis de Partido",
+        "description": "Servicios completos de análisis incluyendo preparación pre-partido, scouting y análisis post-partido."
+      },
+      "scouting": {
+        "title": "Consultoría de Scouting",
+        "description": "Servicios profesionales de observación con acceso a base de datos de jugadores."
+      },
+      "leadership": {
+        "title": "Cursos de Liderazgo",
+        "description": "Programas de desarrollo de liderazgo para jugadores, entrenadores y staff."
+      },
+      "training": {
+        "title": "Entrenamiento Personalizado",
+        "description": "Programas de entrenamiento personalizados para desarrollo individual."
+      },
+      "seminars": {
+        "title": "Seminarios y Webinars",
+        "description": "Seminarios educativos sobre metodología, análisis táctico y desarrollo juvenil."
+      }
+    }
+  },
+  "software": {
+    "title": "Software y Herramientas",
+    "subtitle": "Stack tecnológico que uso para entrenamiento y análisis",
+    "howIUseAI": "Cómo Uso IA en Entrenamiento",
+    "categories": {
+      "videoAnalysis": "Análisis de Video y Partido",
+      "aiProductivity": "IA y Productividad",
+      "tacticalScouting": "Táctico y Scouting",
+      "officeCommunication": "Office y Comunicación"
+    },
+    "levels": {
+      "advanced": "Avanzado",
+      "intermediate": "Intermedio",
+      "regular": "Regular",
+      "dailyUse": "Uso Diario"
+    },
+    "tools": {
+      "premiere": {
+        "name": "Adobe Premiere Pro",
+        "description": "Edición de video profesional para highlights y grabaciones"
+      },
+      "davinci": {
+        "name": "DaVinci Resolve",
+        "description": "Gradación de color y edición avanzada para presentaciones tácticas"
+      },
+      "hudl": {
+        "name": "Hudl",
+        "description": "Plataforma de análisis de video específica para fútbol"
+      },
+      "chatgpt": {
+        "name": "ChatGPT",
+        "description": "Asistente IA para generación de planes de entrenamiento"
+      },
+      "copilot": {
+        "name": "Microsoft Copilot",
+        "description": "Integración IA en herramientas Office"
+      },
+      "wyscout": {
+        "name": "Wyscout",
+        "description": "Plataforma de scouting, datos de partidos y análisis"
+      },
+      "fm": {
+        "name": "Football Manager",
+        "description": "Simulación táctica y modelado de desarrollo"
+      },
+      "office": {
+        "name": "Microsoft Office",
+        "description": "Word, Excel, PowerPoint para informes y presentaciones"
+      },
+      "google": {
+        "name": "Google Workspace",
+        "description": "Docs, Sheets, Drive para trabajo colaborativo"
+      }
+    },
+    "aiUseCases": {
+      "trainingPlan": {
+        "title": "Generación de Planes",
+        "description": "Herramientas IA ayudan a crear planes de sesiones."
+      },
+      "reports": {
+        "title": "Escritura de Informes",
+        "description": "Informes de partido y evaluaciones con asistencia IA."
+      },
+      "tactical": {
+        "title": "Brainstorming Táctico",
+        "description": "Usar IA como consultor táctico para variaciones."
+      },
+      "translation": {
+        "title": "Comunicación y Traducción",
+        "description": "IA ayuda a traducir conceptos tácticos."
+      }
+    }
+  },
+  "contact": {
+    "title": "Contacto",
+    "subtitle": "Póngase en contacto para oportunidades de entrenamiento",
+    "form": {
+      "name": "Nombre",
+      "email": "Email",
+      "phone": "Teléfono (opcional)",
+      "service": "Servicio de Interés",
+      "message": "Mensaje",
+      "submit": "Enviar Mensaje",
+      "success": "¡Mensaje enviado con éxito!",
+      "error": "Error al enviar. Intente de nuevo."
+    },
+    "info": {
+      "email": "Email",
+      "whatsapp": "WhatsApp",
+      "location": "Ubicación"
+    },
+    "availability": "Abierto a asociaciones, oportunidades internacionales y proyectos de consultoría."
+  },
+  "footer": {
+    "rights": "Todos los derechos reservados",
+    "tagline": "Entrenador UEFA B | Especialista en Desarrollo Juvenil"
+  },
+  "common": {
+    "readMore": "Leer Más",
+    "learnMore": "Saber Más",
+    "viewAll": "Ver Todos",
+    "close": "Cerrar",
+    "ageGroup": "Categoría",
+    "period": "Período",
+    "location": "Ubicación"
+  }
+}

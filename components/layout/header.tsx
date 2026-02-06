@@ -6,19 +6,22 @@ import { Button } from "@/components/ui/button";
 import { Menu, X } from "lucide-react";
 import { coachInfo } from "@/lib/coaching-data";
 import { ThemeToggle } from "@/components/layout/theme-toggle";
+import { LanguageSwitcher } from "@/components/layout/language-switcher";
+import { useTranslations } from "@/components/providers/i18n-provider";
 
-const navigation = [
-  { name: "Home", href: "/" },
-  { name: "About", href: "/about" },
-  { name: "Philosophy", href: "/philosophy" },
-  { name: "Experience", href: "/experience" },
-  { name: "Services", href: "/services" },
-  { name: "Software", href: "/software" },
-  { name: "Contact", href: "/contact" },
+const navigationKeys = [
+  { key: "home", href: "/" },
+  { key: "about", href: "/about" },
+  { key: "philosophy", href: "/philosophy" },
+  { key: "experience", href: "/experience" },
+  { key: "services", href: "/services" },
+  { key: "software", href: "/software" },
+  { key: "contact", href: "/contact" },
 ];
 
 export function Header() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const t = useTranslations();
 
   return (
     <header className="fixed top-0 left-0 right-0 z-50 glass border-b border-border">
@@ -36,23 +39,25 @@ export function Header() {
 
           {/* Desktop Navigation */}
           <div className="hidden md:flex items-center space-x-1">
-            {navigation.map((item) => (
+            {navigationKeys.map((item) => (
               <Link
-                key={item.name}
+                key={item.key}
                 href={item.href}
                 className="px-3 py-2 rounded-md text-sm font-medium text-muted-foreground hover:text-foreground hover:bg-secondary transition-colors"
               >
-                {item.name}
+                {t(`nav.${item.key}`)}
               </Link>
             ))}
+            <LanguageSwitcher />
             <ThemeToggle />
             <Button asChild variant="default" className="ml-2">
-              <Link href="/contact">Get in Touch</Link>
+              <Link href="/contact">{t("home.hero.cta.contact")}</Link>
             </Button>
           </div>
 
-          {/* Mobile menu button + theme toggle */}
+          {/* Mobile menu button + theme/language toggle */}
           <div className="md:hidden flex items-center gap-1">
+            <LanguageSwitcher />
             <ThemeToggle />
             <button
               type="button"
@@ -71,18 +76,18 @@ export function Header() {
         {/* Mobile Navigation */}
         {mobileMenuOpen && (
           <div className="md:hidden py-4 space-y-1">
-            {navigation.map((item) => (
+            {navigationKeys.map((item) => (
               <Link
-                key={item.name}
+                key={item.key}
                 href={item.href}
                 className="block px-3 py-2 rounded-md text-base font-medium text-muted-foreground hover:text-foreground hover:bg-secondary"
                 onClick={() => setMobileMenuOpen(false)}
               >
-                {item.name}
+                {t(`nav.${item.key}`)}
               </Link>
             ))}
             <Button asChild variant="default" className="w-full mt-4">
-              <Link href="/contact">Get in Touch</Link>
+              <Link href="/contact">{t("home.hero.cta.contact")}</Link>
             </Button>
           </div>
         )}

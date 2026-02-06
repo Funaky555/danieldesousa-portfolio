@@ -1,0 +1,337 @@
+{
+  "nav": {
+    "home": "Home",
+    "about": "About",
+    "philosophy": "Philosophy",
+    "experience": "Experience",
+    "services": "Services",
+    "software": "Software",
+    "contact": "Contact"
+  },
+  "home": {
+    "hero": {
+      "title": "Daniel de Sousa",
+      "subtitle": "Professional Football Coach",
+      "tagline": "UEFA B Football Coach | Youth Development Specialist | 10+ Years Experience Portugal & China",
+      "cta": {
+        "services": "View Services",
+        "contact": "Get in Touch"
+      },
+      "roles": {
+        "scouting": "Scouting",
+        "analyst": "Game Analyst",
+        "peTeacher": "PE Teacher"
+      }
+    },
+    "stats": {
+      "experience": "Years Experience",
+      "countries": "Countries",
+      "ageGroups": "Age Groups",
+      "certification": "Certification"
+    },
+    "bio": "Experienced Football Coach, PE Teacher and Sports Scientist with over 10 years of experience in Portugal and China, focused on youth development in diverse cultural environments."
+  },
+  "about": {
+    "title": "About Me",
+    "subtitle": "Professional Journey & Background",
+    "bio": "Experienced Football Coach, PE Teacher and Sports Scientist with over 10 years of experience in Portugal and China, focused on youth development in diverse cultural environments. I have worked with players from U4 to professional, including athletes who have represented Portugal at youth international level.",
+    "education": {
+      "title": "Education & Certifications",
+      "certifications": "Certifications",
+      "academic": "Academic Background",
+      "exchange": "Exchange Programs",
+      "certified": "Certified",
+      "inProgress": "In Progress",
+      "validUntil": "Valid until"
+    },
+    "languages": {
+      "title": "Languages",
+      "native": "Native",
+      "proficient": "Proficient",
+      "basic": "Basic",
+      "portuguese": "Portuguese",
+      "english": "English",
+      "spanish": "Spanish",
+      "french": "French",
+      "chinese": "Chinese"
+    },
+    "skills": {
+      "title": "Skills",
+      "leadership": "Leadership",
+      "criticalThinking": "Critical Thinking",
+      "collaboration": "Collaboration",
+      "decisionMaking": "Decision Making",
+      "flexibility": "Flexibility",
+      "activeListening": "Active Listening"
+    },
+    "certs": {
+      "uefaB": {
+        "title": "UEFA B License",
+        "institution": "UEFA",
+        "description": "UEFA B certified football coach"
+      },
+      "ipdj": {
+        "title": "IPDJ Football Coach Level 2",
+        "institution": "IPDJ",
+        "description": "Portuguese Institute of Sport and Youth certification"
+      },
+      "uefaA": {
+        "title": "UEFA A License",
+        "institution": "UEFA",
+        "description": "Working towards UEFA A certification"
+      }
+    },
+    "degrees": {
+      "masters": {
+        "title": "Master's Degree in Sports Sciences",
+        "specialization": "Specialization in Team Sports",
+        "institution": "University of Trás-os-Montes and Alto Douro",
+        "description": "Specialized in team sports with focus on football coaching methodology"
+      },
+      "computer": {
+        "title": "Computer Management Equipment",
+        "institution": "Ruiz Costa Professional School",
+        "description": "Specialized in analysis equipment and computer systems"
+      }
+    },
+    "exchanges": {
+      "erasmus": {
+        "program": "Erasmus Exchange",
+        "specialization": "Sports Sciences",
+        "description": "International sports science studies"
+      },
+      "impas": {
+        "program": "University Project (IMPAS)",
+        "specialization": "Performance Analysis of Sport",
+        "description": "Performance analysis research project"
+      }
+    }
+  },
+  "experience": {
+    "title": "Professional Experience",
+    "subtitle": "A decade of youth football development across two continents",
+    "timeline": "Career Timeline",
+    "timelineSubtitle": "From grassroots to elite youth development",
+    "highlights": {
+      "championships": "Championships",
+      "international": "International",
+      "yearsInChina": "years in China",
+      "eliteAcademies": "Elite Academies",
+      "youthDevelopment": "Youth Development"
+    },
+    "china": {
+      "badge": "China Experience",
+      "title": "International Coaching Journey",
+      "description1": "Over 4 years coaching in China across multiple cities (Tongling, Chizhou, Dengfeng, Dalian), I developed a deep understanding of cultural adaptation in football coaching.",
+      "description2": "Notable achievements include coordinating entire football departments, winning city championships, and developing players who competed at provincial level."
+    },
+    "sections": {
+      "achievements": "Achievements & Impact",
+      "responsibilities": "Key Responsibilities",
+      "pressCoverage": "Press Coverage",
+      "readArticle": "Read Article"
+    },
+    "championships": {
+      "u15FemaleChampion": "U15 Female Champion",
+      "u15MaleViceChampion": "U15 Male Vice-Champion"
+    },
+    "jobs": {
+      "tongling": {
+        "role": "Coordinator / Head Coach / PE Teacher",
+        "description": "Multi-role position combining football department leadership, competitive team coaching and physical education teaching.",
+        "section1": "Football Department Coordination",
+        "section2": "Head Coach U15 (Male & Female)",
+        "section3": "Physical Education Teacher"
+      },
+      "chizhou": {
+        "role": "Head Coach U13 & U15",
+        "description": "Head coach for city representative teams preparing for national competitions."
+      },
+      "tonglingCity": {
+        "role": "Head Coach U15",
+        "description": "Coached city representative team for summer tournaments."
+      },
+      "tagou": {
+        "role": "Head Coach / Assistant Coach",
+        "description": "Multiple coaching roles at prestigious sports school."
+      },
+      "dalian": {
+        "role": "Head Coach U6 to U15",
+        "description": "Coached grassroots to competitive youth levels at professional academy."
+      },
+      "benfica": {
+        "role": "Assistant Coach U13",
+        "description": "Assistant coach at one of Europe's top youth academies."
+      },
+      "trofense": {
+        "role": "Head Coach / Assistant Coach",
+        "description": "Extended tenure with multiple coaching roles across youth categories."
+      },
+      "lavrense": {
+        "role": "Assistant Coach U13",
+        "description": "First professional coaching role."
+      }
+    }
+  },
+  "philosophy": {
+    "title": "Coaching Philosophy",
+    "subtitle": "My approach to football development",
+    "core": "Core Philosophy",
+    "coreText": "My football coaching philosophy is based in developing players to perform within a clear and common idea, collective identity based on modern football principles. I believe the game should be played with intelligence, intensity, and intention.",
+    "principles": "Key Principles",
+    "gameMoments": "Game Moments",
+    "formations": "Tactical Systems",
+    "approach": "Training Approach",
+    "approachText": "I lead training sessions with clarity, energy and a clear sense of direction, ensuring every player understands their role while feeling motivated to improve.",
+    "roles": "Coaching Roles",
+    "rolesText": "I have taken on multiple roles in football, including Head Coach, Assistant Coach, Scouter, Analyst, and Football Advisor, each contributing to my well-rounded understanding of the game.",
+    "gameMomentsList": {
+      "offensiveOrg": "Offensive Organization",
+      "defensiveOrg": "Defensive Organization",
+      "offensiveTrans": "Offensive Transition",
+      "defensiveTrans": "Defensive Transition",
+      "setPieces": "Set Pieces"
+    },
+    "formationDescriptions": {
+      "433": "Attacking formation with width and forward pressure",
+      "442": "Balanced formation with solid defensive structure",
+      "4231": "Modern attacking formation with creative midfield"
+    }
+  },
+  "services": {
+    "title": "Services",
+    "subtitle": "Professional coaching and consultancy services",
+    "features": "Features",
+    "deliverables": "Deliverables",
+    "pricing": "Prices can be discussed depending on travel time, location, and type of forum to be designated.",
+    "cta": "Request Quote",
+    "list": {
+      "gameAnalysis": {
+        "title": "Game Analysis",
+        "description": "Comprehensive game analysis services including pre-match preparation, opposition scouting, and post-match performance review."
+      },
+      "scouting": {
+        "title": "Scouting Consultancy",
+        "description": "Professional scouting services with access to extensive player database and recruitment consultation."
+      },
+      "leadership": {
+        "title": "Leadership Courses",
+        "description": "Leadership development programs for players, coaches, and staff focused on building winning cultures."
+      },
+      "training": {
+        "title": "Personalized Training",
+        "description": "Tailored training programs designed for individual player development across all positions."
+      },
+      "seminars": {
+        "title": "Seminars & Webinars",
+        "description": "Educational seminars and webinars covering coaching methodology, tactical analysis, and youth development."
+      }
+    }
+  },
+  "software": {
+    "title": "Software & Tools",
+    "subtitle": "Technology stack I use for coaching and analysis",
+    "howIUseAI": "How I Use AI in Coaching",
+    "categories": {
+      "videoAnalysis": "Video & Match Analysis",
+      "aiProductivity": "AI & Productivity",
+      "tacticalScouting": "Tactical & Scouting",
+      "officeCommunication": "Office & Communication"
+    },
+    "levels": {
+      "advanced": "Advanced",
+      "intermediate": "Intermediate",
+      "regular": "Regular",
+      "dailyUse": "Daily Use"
+    },
+    "tools": {
+      "premiere": {
+        "name": "Adobe Premiere Pro",
+        "description": "Professional video editing for match highlights and training footage"
+      },
+      "davinci": {
+        "name": "DaVinci Resolve",
+        "description": "Color grading and advanced video editing for tactical presentations"
+      },
+      "hudl": {
+        "name": "Hudl",
+        "description": "Football-specific video analysis and team management platform"
+      },
+      "chatgpt": {
+        "name": "ChatGPT",
+        "description": "AI-powered assistant for training plan generation and tactical brainstorming"
+      },
+      "copilot": {
+        "name": "Microsoft Copilot",
+        "description": "AI integration across Office tools for document creation"
+      },
+      "wyscout": {
+        "name": "Wyscout",
+        "description": "Player scouting, match data, and performance analytics platform"
+      },
+      "fm": {
+        "name": "Football Manager",
+        "description": "Tactical simulation and player development modelling"
+      },
+      "office": {
+        "name": "Microsoft Office",
+        "description": "Word, Excel, PowerPoint for reports and presentations"
+      },
+      "google": {
+        "name": "Google Workspace",
+        "description": "Docs, Sheets, Drive for collaborative work"
+      }
+    },
+    "aiUseCases": {
+      "trainingPlan": {
+        "title": "Training Plan Generation",
+        "description": "AI tools help me rapidly draft and iterate on training session plans."
+      },
+      "reports": {
+        "title": "Report Writing",
+        "description": "Match reports and scouting evaluations drafted with AI assistance."
+      },
+      "tactical": {
+        "title": "Tactical Brainstorming",
+        "description": "Using AI as a tactical sounding board for formation variations."
+      },
+      "translation": {
+        "title": "Communication & Translation",
+        "description": "AI assists with translating tactical concepts across language barriers."
+      }
+    }
+  },
+  "contact": {
+    "title": "Contact",
+    "subtitle": "Get in touch for coaching opportunities and consultancy",
+    "form": {
+      "name": "Name",
+      "email": "Email",
+      "phone": "Phone (optional)",
+      "service": "Service Interest",
+      "message": "Message",
+      "submit": "Send Message",
+      "success": "Message sent successfully!",
+      "error": "Error sending message. Please try again."
+    },
+    "info": {
+      "email": "Email",
+      "whatsapp": "WhatsApp",
+      "location": "Location"
+    },
+    "availability": "Open to partnerships, international opportunities, speaking engagements, and consulting projects."
+  },
+  "footer": {
+    "rights": "All rights reserved",
+    "tagline": "UEFA B Football Coach | Youth Development Specialist"
+  },
+  "common": {
+    "readMore": "Read More",
+    "learnMore": "Learn More",
+    "viewAll": "View All",
+    "close": "Close",
+    "ageGroup": "Age Group",
+    "period": "Period",
+    "location": "Location"
+  }
+}

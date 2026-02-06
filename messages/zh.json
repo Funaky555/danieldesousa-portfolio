@@ -1,0 +1,337 @@
+{
+  "nav": {
+    "home": "首页",
+    "about": "关于我",
+    "philosophy": "执教理念",
+    "experience": "工作经历",
+    "services": "服务项目",
+    "software": "软件工具",
+    "contact": "联系方式"
+  },
+  "home": {
+    "hero": {
+      "title": "Daniel de Sousa",
+      "subtitle": "职业足球教练",
+      "tagline": "UEFA B级教练 | 青训专家 | 10年以上葡萄牙和中国执教经验",
+      "cta": {
+        "services": "查看服务",
+        "contact": "联系我"
+      },
+      "roles": {
+        "scouting": "球探",
+        "analyst": "比赛分析师",
+        "peTeacher": "体育教师"
+      }
+    },
+    "stats": {
+      "experience": "执教经验",
+      "countries": "国家",
+      "ageGroups": "年龄组",
+      "certification": "资质认证"
+    },
+    "bio": "资深足球教练、体育教师和运动科学专家，在葡萄牙和中国拥有超过10年的经验，专注于青少年发展。"
+  },
+  "about": {
+    "title": "关于我",
+    "subtitle": "职业生涯",
+    "bio": "资深足球教练、体育教师和运动科学专家，在葡萄牙和中国拥有超过10年的经验，专注于多元文化环境下的青少年发展。",
+    "education": {
+      "title": "教育与资质",
+      "certifications": "资质认证",
+      "academic": "学术背景",
+      "exchange": "交换项目",
+      "certified": "已认证",
+      "inProgress": "进行中",
+      "validUntil": "有效期至"
+    },
+    "languages": {
+      "title": "语言能力",
+      "native": "母语",
+      "proficient": "熟练",
+      "basic": "基础",
+      "portuguese": "葡萄牙语",
+      "english": "英语",
+      "spanish": "西班牙语",
+      "french": "法语",
+      "chinese": "中文"
+    },
+    "skills": {
+      "title": "技能",
+      "leadership": "领导力",
+      "criticalThinking": "批判性思维",
+      "collaboration": "协作能力",
+      "decisionMaking": "决策能力",
+      "flexibility": "灵活性",
+      "activeListening": "积极倾听"
+    },
+    "certs": {
+      "uefaB": {
+        "title": "UEFA B级教练证",
+        "institution": "UEFA",
+        "description": "UEFA B级认证足球教练"
+      },
+      "ipdj": {
+        "title": "IPDJ足球教练二级",
+        "institution": "IPDJ",
+        "description": "葡萄牙体育与青年协会认证"
+      },
+      "uefaA": {
+        "title": "UEFA A级教练证",
+        "institution": "UEFA",
+        "description": "正在考取UEFA A级认证"
+      }
+    },
+    "degrees": {
+      "masters": {
+        "title": "体育科学硕士学位",
+        "specialization": "团队运动专业",
+        "institution": "特拉斯-奥斯-蒙特斯和阿尔托杜罗大学",
+        "description": "专攻团队运动，重点研究足球训练方法论"
+      },
+      "computer": {
+        "title": "计算机设备管理",
+        "institution": "鲁伊兹·科斯塔职业学校",
+        "description": "专攻分析设备和计算机系统"
+      }
+    },
+    "exchanges": {
+      "erasmus": {
+        "program": "伊拉斯谟交换项目",
+        "specialization": "体育科学",
+        "description": "国际体育科学研究"
+      },
+      "impas": {
+        "program": "大学项目(IMPAS)",
+        "specialization": "运动表现分析",
+        "description": "表现分析研究项目"
+      }
+    }
+  },
+  "experience": {
+    "title": "职业经历",
+    "subtitle": "十年青少年足球发展，跨越两大洲",
+    "timeline": "职业生涯时间线",
+    "timelineSubtitle": "从基层到精英青训发展",
+    "highlights": {
+      "championships": "冠军荣誉",
+      "international": "国际经历",
+      "yearsInChina": "年中国执教",
+      "eliteAcademies": "精英学院",
+      "youthDevelopment": "青少年发展"
+    },
+    "china": {
+      "badge": "中国执教经历",
+      "title": "国际执教之旅",
+      "description1": "在中国多个城市（铜陵、池州、登封、大连）执教超过4年，我对足球教练中的文化适应有了深刻的理解。",
+      "description2": "显著成就包括协调整个足球部门、赢得城市锦标赛以及培养参加省级比赛的球员。"
+    },
+    "sections": {
+      "achievements": "成就与影响",
+      "responsibilities": "主要职责",
+      "pressCoverage": "媒体报道",
+      "readArticle": "阅读文章"
+    },
+    "championships": {
+      "u15FemaleChampion": "U15女子冠军",
+      "u15MaleViceChampion": "U15男子亚军"
+    },
+    "jobs": {
+      "tongling": {
+        "role": "协调员 / 主教练 / 体育教师",
+        "description": "多职能岗位，结合足球部门领导、竞技队训练和体育教学。",
+        "section1": "足球部门协调",
+        "section2": "U15主教练（男女队）",
+        "section3": "体育教师"
+      },
+      "chizhou": {
+        "role": "U13和U15主教练",
+        "description": "城市代表队主教练，准备参加全国比赛。"
+      },
+      "tonglingCity": {
+        "role": "U15主教练",
+        "description": "为夏季锦标赛执教城市代表队。"
+      },
+      "tagou": {
+        "role": "主教练 / 助理教练",
+        "description": "在著名体育学校担任多个教练职位。"
+      },
+      "dalian": {
+        "role": "U6至U15主教练",
+        "description": "在专业学院执教从基层到竞技级别的青少年。"
+      },
+      "benfica": {
+        "role": "U13助理教练",
+        "description": "在欧洲顶级青训学院担任助理教练。"
+      },
+      "trofense": {
+        "role": "主教练 / 助理教练",
+        "description": "长期任职，在青年组别担任多个教练职位。"
+      },
+      "lavrense": {
+        "role": "U13助理教练",
+        "description": "第一份专业教练工作。"
+      }
+    }
+  },
+  "philosophy": {
+    "title": "执教理念",
+    "subtitle": "我的足球发展方法",
+    "core": "核心理念",
+    "coreText": "我的足球教练理念基于培养球员在明确共同的理念下表现。我相信比赛应该以智慧、强度和意图来进行。",
+    "principles": "关键原则",
+    "gameMoments": "比赛时刻",
+    "formations": "战术体系",
+    "approach": "训练方法",
+    "approachText": "我以清晰、充满活力和明确的方向感领导训练课，确保每个球员理解自己的角色，同时保持改进的动力。",
+    "roles": "教练角色",
+    "rolesText": "我在足球中担任过多种角色，包括主教练、助理教练、球探、分析师和足球顾问。",
+    "gameMomentsList": {
+      "offensiveOrg": "进攻组织",
+      "defensiveOrg": "防守组织",
+      "offensiveTrans": "进攻转换",
+      "defensiveTrans": "防守转换",
+      "setPieces": "定位球"
+    },
+    "formationDescriptions": {
+      "433": "进攻阵型，宽度大，前场压迫强",
+      "442": "平衡阵型，防守结构稳固",
+      "4231": "现代进攻阵型，中场创造力强"
+    }
+  },
+  "services": {
+    "title": "服务项目",
+    "subtitle": "专业教练和咨询服务",
+    "features": "服务特点",
+    "deliverables": "交付成果",
+    "pricing": "价格可根据差旅时间、地点和论坛类型协商确定。",
+    "cta": "咨询报价",
+    "list": {
+      "gameAnalysis": {
+        "title": "比赛分析",
+        "description": "全面的比赛分析服务，包括赛前准备、对手侦察和赛后表现分析。"
+      },
+      "scouting": {
+        "title": "球探咨询",
+        "description": "专业球探服务，提供广泛的球员数据库访问和招募咨询。"
+      },
+      "leadership": {
+        "title": "领导力课程",
+        "description": "为球员、教练和工作人员设计的领导力发展项目。"
+      },
+      "training": {
+        "title": "个性化训练",
+        "description": "针对各个位置球员个人发展设计的定制训练计划。"
+      },
+      "seminars": {
+        "title": "研讨会和网络研讨会",
+        "description": "关于教练方法论、战术分析和青少年发展的教育研讨会。"
+      }
+    }
+  },
+  "software": {
+    "title": "软件与工具",
+    "subtitle": "我用于教练和分析的技术工具",
+    "howIUseAI": "我如何在教练中使用AI",
+    "categories": {
+      "videoAnalysis": "视频与比赛分析",
+      "aiProductivity": "AI与生产力",
+      "tacticalScouting": "战术与球探",
+      "officeCommunication": "办公与沟通"
+    },
+    "levels": {
+      "advanced": "高级",
+      "intermediate": "中级",
+      "regular": "常规",
+      "dailyUse": "日常使用"
+    },
+    "tools": {
+      "premiere": {
+        "name": "Adobe Premiere Pro",
+        "description": "专业视频编辑，用于比赛集锦和训练录像"
+      },
+      "davinci": {
+        "name": "DaVinci Resolve",
+        "description": "调色和高级视频编辑，用于战术演示"
+      },
+      "hudl": {
+        "name": "Hudl",
+        "description": "足球专用视频分析和团队管理平台"
+      },
+      "chatgpt": {
+        "name": "ChatGPT",
+        "description": "AI助手，用于训练计划生成和战术头脑风暴"
+      },
+      "copilot": {
+        "name": "Microsoft Copilot",
+        "description": "Office工具中的AI集成"
+      },
+      "wyscout": {
+        "name": "Wyscout",
+        "description": "球探平台、比赛数据和表现分析"
+      },
+      "fm": {
+        "name": "Football Manager",
+        "description": "战术模拟和球员发展建模"
+      },
+      "office": {
+        "name": "Microsoft Office",
+        "description": "Word、Excel、PowerPoint用于报告和演示"
+      },
+      "google": {
+        "name": "Google Workspace",
+        "description": "Docs、Sheets、Drive用于协作工作"
+      }
+    },
+    "aiUseCases": {
+      "trainingPlan": {
+        "title": "训练计划生成",
+        "description": "AI工具帮助我快速创建训练课计划。"
+      },
+      "reports": {
+        "title": "报告撰写",
+        "description": "比赛报告和球探评估由AI协助撰写。"
+      },
+      "tactical": {
+        "title": "战术头脑风暴",
+        "description": "使用AI作为战术顾问探索阵型变化。"
+      },
+      "translation": {
+        "title": "沟通与翻译",
+        "description": "AI帮助翻译跨语言障碍的战术概念。"
+      }
+    }
+  },
+  "contact": {
+    "title": "联系方式",
+    "subtitle": "联系我获取教练机会和咨询服务",
+    "form": {
+      "name": "姓名",
+      "email": "邮箱",
+      "phone": "电话（可选）",
+      "service": "感兴趣的服务",
+      "message": "留言",
+      "submit": "发送消息",
+      "success": "消息发送成功！",
+      "error": "发送消息时出错，请重试。"
+    },
+    "info": {
+      "email": "邮箱",
+      "whatsapp": "WhatsApp",
+      "location": "位置"
+    },
+    "availability": "开放合作、国际机会、演讲和咨询项目。"
+  },
+  "footer": {
+    "rights": "版权所有",
+    "tagline": "UEFA B级足球教练 | 青少年发展专家"
+  },
+  "common": {
+    "readMore": "阅读更多",
+    "learnMore": "了解更多",
+    "viewAll": "查看全部",
+    "close": "关闭",
+    "ageGroup": "年龄组",
+    "period": "时间",
+    "location": "位置"
+  }
+}
