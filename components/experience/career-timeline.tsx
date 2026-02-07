@@ -9,7 +9,7 @@ import { Separator } from "@/components/ui/separator";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import { experience } from "@/lib/coaching-data";
 import { MapPin, Calendar, Trophy, Building, GraduationCap, Clock, Newspaper, ExternalLink, X } from "lucide-react";
-import { useTranslations } from "@/components/providers/i18n-provider";
+import { useTranslations, useTranslationList } from "@/components/providers/i18n-provider";
 
 // Icon mapping for sections
 const iconMap: Record<string, React.ElementType> = {
@@ -65,6 +65,7 @@ interface ExperienceItem {
 export function CareerTimeline() {
   const [selectedPhoto, setSelectedPhoto] = useState<string | null>(null);
   const t = useTranslations();
+  const tList = useTranslationList();
 
   return (
     <div className="relative">
@@ -227,7 +228,7 @@ export function CareerTimeline() {
                                 <div className="flex-1">
                                   <h5 className="text-sm font-semibold text-foreground mb-1">{t("experience.sections.pressCoverage")}</h5>
                                   <p className="text-sm text-muted-foreground mb-2">
-                                    {job.media.interviewTitle || "Read the full interview"}
+                                    {t(`experience.jobs.${jobKeyMap[job.id]}.interviewTitle`)}
                                   </p>
                                   <Button asChild variant="outline" size="sm">
                                     <a
@@ -256,12 +257,12 @@ export function CareerTimeline() {
                               <AccordionTrigger className="hover:no-underline py-3">
                                 <h4 className="text-lg font-bold text-foreground flex items-center">
                                   <IconComponent className="w-4 h-4 mr-2 text-emerald-600 dark:text-football-green" />
-                                  {section.title}
+                                  {t(`experience.jobs.${jobKeyMap[job.id]}.sections.${sectionIndex}.title`)}
                                 </h4>
                               </AccordionTrigger>
                               <AccordionContent>
                                 <ul className="space-y-1.5 ml-1">
-                                  {section.items.map((item, itemIndex) => (
+                                  {tList(`experience.jobs.${jobKeyMap[job.id]}.sections.${sectionIndex}.items`).map((item, itemIndex) => (
                                     <li
                                       key={itemIndex}
                                       className="text-sm text-muted-foreground flex items-start"
@@ -287,7 +288,7 @@ export function CareerTimeline() {
                             </AccordionTrigger>
                             <AccordionContent>
                               <ul className="space-y-1.5 ml-1">
-                                {job.achievements.map((achievement, idx) => (
+                                {tList(`experience.jobs.${jobKeyMap[job.id]}.achievements`).map((achievement, idx) => (
                                   <li
                                     key={idx}
                                     className="text-sm text-muted-foreground flex items-start"
@@ -353,7 +354,7 @@ export function CareerTimeline() {
                           {t("experience.sections.achievements")}
                         </div>
                         <ul className="space-y-1">
-                          {job.achievements.map((achievement, idx) => (
+                          {tList(`experience.jobs.${jobKeyMap[job.id]}.achievements`).map((achievement, idx) => (
                             <li
                               key={idx}
                               className="text-sm text-muted-foreground flex items-start"

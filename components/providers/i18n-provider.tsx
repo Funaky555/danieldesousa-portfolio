@@ -23,7 +23,7 @@ import es from "@/messages/es.json";
 import fr from "@/messages/fr.json";
 import zh from "@/messages/zh.json";
 
-const messages: Record<Locale, typeof en> = {
+const messages: Record<Locale, Record<string, unknown>> = {
   en,
   pt,
   es,
@@ -31,27 +31,27 @@ const messages: Record<Locale, typeof en> = {
   zh,
 };
 
-type Messages = typeof en;
-type NestedKeyOf<T> = T extends object
-  ? {
-      [K in keyof T]: K extends string
-        ? T[K] extends object
-          ? `${K}.${NestedKeyOf<T[K]>}`
-          : K
-        : never;
-    }[keyof T]
-  : never;
-
-type TranslationKey = NestedKeyOf<Messages>;
-
 interface I18nContextType {
   locale: Locale;
   setLocale: (locale: Locale) => void;
   t: (key: string) => string;
+  tList: (key: string) => string[];
   locales: readonly Locale[];
 }
 
 const I18nContext = createContext<I18nContextType | null>(null);
+
+function navigateToKey(obj: unknown, keys: string[]): unknown {
+  let value: unknown = obj;
+  for (const k of keys) {
+    if (value && typeof value === "object" && k in (value as Record<string, unknown>)) {
+      value = (value as Record<string, unknown>)[k];
+    } else {
+      return undefined;
+    }
+  }
+  return value;
+}
 
 export function I18nProvider({ children }: { children: ReactNode }) {
   const [locale, setLocaleState] = useState<Locale>(defaultLocale);
@@ -70,26 +70,33 @@ export function I18nProvider({ children }: { children: ReactNode }) {
   const t = useCallback(
     (key: string): string => {
       const keys = key.split(".");
-      let value: unknown = messages[locale];
+      let value = navigateToKey(messages[locale], keys);
 
-      for (const k of keys) {
-        if (value && typeof value === "object" && k in value) {
-          value = (value as Record<string, unknown>)[k];
-        } else {
-          // Fallback to English if key not found
-          let fallback: unknown = messages.en;
-          for (const fk of keys) {
-            if (fallback && typeof fallback === "object" && fk in fallback) {
-              fallback = (fallback as Record<string, unknown>)[fk];
-            } else {
-              return key; // Return key if not found in fallback either
-            }
-          }
-          return typeof fallback === "string" ? fallback : key;
-        }
+      if (value === undefined) {
+        // Fallback to English
+        value = navigateToKey(messages.en, keys);
       }
 
       return typeof value === "string" ? value : key;
+    },
+    [locale]
+  );
+
+  const tList = useCallback(
+    (key: string): string[] => {
+      const keys = key.split(".");
+      let value = navigateToKey(messages[locale], keys);
+
+      if (value === undefined) {
+        // Fallback to English
+        value = navigateToKey(messages.en, keys);
+      }
+
+      if (Array.isArray(value)) {
+        return value as string[];
+      }
+
+      return [];
     },
     [locale]
   );
@@ -98,7 +105,7 @@ export function I18nProvider({ children }: { children: ReactNode }) {
   if (!mounted) {
     return (
       <I18nContext.Provider
-        value={{ locale: defaultLocale, setLocale, t, locales }}
+        value={{ locale: defaultLocale, setLocale, t, tList, locales }}
       >
         {children}
       </I18nContext.Provider>
@@ -106,7 +113,7 @@ export function I18nProvider({ children }: { children: ReactNode }) {
   }
 
   return (
-    <I18nContext.Provider value={{ locale, setLocale, t, locales }}>
+    <I18nContext.Provider value={{ locale, setLocale, t, tList, locales }}>
       {children}
     </I18nContext.Provider>
   );
@@ -123,6 +130,11 @@ export function useI18n() {
 export function useTranslations() {
   const { t } = useI18n();
   return t;
+}
+
+export function useTranslationList() {
+  const { tList } = useI18n();
+  return tList;
 }
 
 export function useLocale() {

@@ -4,11 +4,11 @@ import { GameMomentsSection } from "@/components/philosophy/game-moments";
 import { FormationPreview } from "@/components/philosophy/formation-preview";
 import { Separator } from "@/components/ui/separator";
 import { Badge } from "@/components/ui/badge";
-import { philosophy } from "@/lib/coaching-data";
-import { useTranslations } from "@/components/providers/i18n-provider";
+import { useTranslations, useTranslationList } from "@/components/providers/i18n-provider";
 
 export function PhilosophyContent() {
   const t = useTranslations();
+  const tList = useTranslationList();
 
   return (
     <main className="min-h-screen bg-background/80 pt-24 pb-16">
@@ -19,7 +19,7 @@ export function PhilosophyContent() {
             {t("philosophy.title")}
           </h1>
           <div className="flex items-center justify-center gap-3 mb-6">
-            {philosophy.keyPrinciples.map((principle) => (
+            {tList("philosophy.keyPrinciplesList").map((principle) => (
               <Badge key={principle} variant="default" className="text-base px-4 py-1">
                 {principle}
               </Badge>

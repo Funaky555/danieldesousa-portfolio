@@ -1,9 +1,9 @@
 {
   "nav": {
     "home": "Accueil",
-    "about": "À Propos",
+    "about": "\u00c0 Propos",
     "philosophy": "Philosophie",
-    "experience": "Expérience",
+    "experience": "Exp\u00e9rience",
     "services": "Services",
     "software": "Logiciels",
     "contact": "Contact"
@@ -11,8 +11,8 @@
   "home": {
     "hero": {
       "title": "Daniel de Sousa",
-      "subtitle": "Entraîneur de Football Professionnel",
-      "tagline": "Entraîneur UEFA B | Spécialiste Formation Jeunes | 10+ Ans Portugal et Chine",
+      "subtitle": "Entra\u00eeneur de Football Professionnel",
+      "tagline": "Entra\u00eeneur UEFA B | Sp\u00e9cialiste Formation Jeunes | 10+ Ans Portugal et Chine",
       "cta": {
         "services": "Voir Services",
         "contact": "Contacter"
@@ -24,54 +24,54 @@
       }
     },
     "stats": {
-      "experience": "Années d'Expérience",
+      "experience": "Ann\u00e9es d'Exp\u00e9rience",
       "countries": "Pays",
-      "ageGroups": "Catégories",
+      "ageGroups": "Cat\u00e9gories",
       "certification": "Certification"
     },
-    "bio": "Entraîneur de Football, Professeur d'Éducation Physique et Scientifique du Sport avec plus de 10 ans d'expérience au Portugal et en Chine."
+    "bio": "Entra\u00eeneur de Football, Professeur d'\u00c9ducation Physique et Scientifique du Sport avec plus de 10 ans d'exp\u00e9rience au Portugal et en Chine."
   },
   "about": {
-    "title": "À Propos de Moi",
+    "title": "\u00c0 Propos de Moi",
     "subtitle": "Parcours Professionnel",
-    "bio": "Entraîneur de Football, Professeur d'Éducation Physique et Scientifique du Sport avec plus de 10 ans d'expérience au Portugal et en Chine, axé sur le développement des jeunes.",
+    "bio": "Entra\u00eeneur de Football, Professeur d'\u00c9ducation Physique et Scientifique du Sport avec plus de 10 ans d'exp\u00e9rience au Portugal et en Chine, ax\u00e9 sur le d\u00e9veloppement des jeunes.",
     "education": {
       "title": "Formation et Certifications",
       "certifications": "Certifications",
-      "academic": "Formation Académique",
-      "exchange": "Programmes d'Échange",
-      "certified": "Certifié",
+      "academic": "Formation Acad\u00e9mique",
+      "exchange": "Programmes d'\u00c9change",
+      "certified": "Certifi\u00e9",
       "inProgress": "En Cours",
       "validUntil": "Valide jusqu'au"
     },
     "languages": {
       "title": "Langues",
       "native": "Natif",
-      "proficient": "Compétent",
+      "proficient": "Comp\u00e9tent",
       "basic": "Basique",
       "portuguese": "Portugais",
       "english": "Anglais",
       "spanish": "Espagnol",
-      "french": "Français",
+      "french": "Fran\u00e7ais",
       "chinese": "Chinois"
     },
     "skills": {
-      "title": "Compétences",
+      "title": "Comp\u00e9tences",
       "leadership": "Leadership",
-      "criticalThinking": "Pensée Critique",
+      "criticalThinking": "Pens\u00e9e Critique",
       "collaboration": "Collaboration",
-      "decisionMaking": "Prise de Décision",
-      "flexibility": "Flexibilité",
-      "activeListening": "Écoute Active"
+      "decisionMaking": "Prise de D\u00e9cision",
+      "flexibility": "Flexibilit\u00e9",
+      "activeListening": "\u00c9coute Active"
     },
     "certs": {
       "uefaB": {
         "title": "Licence UEFA B",
         "institution": "UEFA",
-        "description": "Entraîneur de football certifié UEFA B"
+        "description": "Entra\u00eeneur de football certifi\u00e9 UEFA B"
       },
       "ipdj": {
-        "title": "Entraîneur de Football IPDJ Niveau 2",
+        "title": "Entra\u00eeneur de Football IPDJ Niveau 2",
         "institution": "IPDJ",
         "description": "Certification de l'Institut Portugais du Sport et de la Jeunesse"
       },
@@ -84,21 +84,21 @@
     "degrees": {
       "masters": {
         "title": "Master en Sciences du Sport",
-        "specialization": "Spécialisation Sports Collectifs",
-        "institution": "Université de Trás-os-Montes e Alto Douro",
-        "description": "Spécialisé en sports collectifs avec focus sur la méthodologie d'entraînement"
+        "specialization": "Sp\u00e9cialisation Sports Collectifs",
+        "institution": "Universit\u00e9 de Tr\u00e1s-os-Montes e Alto Douro",
+        "description": "Sp\u00e9cialis\u00e9 en sports collectifs avec focus sur la m\u00e9thodologie d'entra\u00eenement"
       },
       "computer": {
-        "title": "Gestion d'Équipements Informatiques",
-        "institution": "École Professionnelle Ruiz Costa",
-        "description": "Spécialisé en équipements d'analyse et systèmes informatiques"
+        "title": "Gestion d'\u00c9quipements Informatiques",
+        "institution": "\u00c9cole Professionnelle Ruiz Costa",
+        "description": "Sp\u00e9cialis\u00e9 en \u00e9quipements d'analyse et syst\u00e8mes informatiques"
       }
     },
     "exchanges": {
       "erasmus": {
-        "program": "Échange Erasmus",
+        "program": "\u00c9change Erasmus",
         "specialization": "Sciences du Sport",
-        "description": "Études internationales en sciences du sport"
+        "description": "\u00c9tudes internationales en sciences du sport"
       },
       "impas": {
         "program": "Projet Universitaire (IMPAS)",
@@ -108,174 +108,483 @@
     }
   },
   "experience": {
-    "title": "Expérience Professionnelle",
-    "subtitle": "Une décennie de développement du football des jeunes sur deux continents",
-    "timeline": "Chronologie de Carrière",
-    "timelineSubtitle": "De la formation de base au développement d'élite",
+    "title": "Exp\u00e9rience Professionnelle",
+    "subtitle": "Une d\u00e9cennie de d\u00e9veloppement du football des jeunes sur deux continents",
+    "timeline": "Chronologie de Carri\u00e8re",
+    "timelineSubtitle": "De la formation de base au d\u00e9veloppement d'\u00e9lite",
     "highlights": {
       "championships": "Championnats",
       "international": "International",
-      "yearsInChina": "années en Chine",
-      "eliteAcademies": "Académies d'Élite",
+      "yearsInChina": "ann\u00e9es en Chine",
+      "eliteAcademies": "Acad\u00e9mies d'\u00c9lite",
       "youthDevelopment": "Formation des Jeunes"
     },
     "china": {
-      "badge": "Expérience en Chine",
-      "title": "Parcours International d'Entraîneur",
-      "description1": "Plus de 4 ans d'entraînement en Chine dans plusieurs villes (Tongling, Chizhou, Dengfeng, Dalian), j'ai développé une compréhension profonde de l'adaptation culturelle.",
-      "description2": "Réalisations notables incluent la coordination de départements de football, des victoires en championnats de ville et le développement de joueurs au niveau provincial."
+      "badge": "Exp\u00e9rience en Chine",
+      "title": "Parcours International d'Entra\u00eeneur",
+      "description1": "Plus de 4 ans d'entra\u00eenement en Chine dans plusieurs villes (Tongling, Chizhou, Dengfeng, Dalian), j'ai d\u00e9velopp\u00e9 une compr\u00e9hension profonde de l'adaptation culturelle.",
+      "description2": "R\u00e9alisations notables incluent la coordination de d\u00e9partements de football, des victoires en championnats de ville et le d\u00e9veloppement de joueurs au niveau provincial."
     },
     "sections": {
-      "achievements": "Réalisations et Impact",
-      "responsibilities": "Responsabilités Clés",
+      "achievements": "R\u00e9alisations et Impact",
+      "responsibilities": "Responsabilit\u00e9s Cl\u00e9s",
       "pressCoverage": "Couverture Presse",
       "readArticle": "Lire l'Article"
     },
     "championships": {
-      "u15FemaleChampion": "Championne U15 Féminin",
+      "u15FemaleChampion": "Championne U15 F\u00e9minin",
       "u15MaleViceChampion": "Vice-Champion U15 Masculin"
     },
     "jobs": {
       "tongling": {
-        "role": "Coordinateur / Entraîneur Principal / Prof EPS",
-        "description": "Position multi-rôles combinant leadership du département football, entraînement d'équipes et enseignement.",
-        "section1": "Coordination du Département Football",
-        "section2": "Entraîneur Principal U15 (Masc. et Fém.)",
-        "section3": "Professeur d'Éducation Physique"
+        "role": "Coordinateur / Entra\u00eeneur Principal / Prof EPS",
+        "description": "Position multi-r\u00f4les combinant leadership du d\u00e9partement football, entra\u00eenement d'\u00e9quipes et enseignement.",
+        "section1": "Coordination du D\u00e9partement Football",
+        "section2": "Entra\u00eeneur Principal U15 (Masc. et F\u00e9m.)",
+        "section3": "Professeur d'\u00c9ducation Physique",
+        "sections": {
+          "0": {
+            "title": "Coordination du D\u00e9partement Football",
+            "items": [
+              "A coordonn\u00e9 et dirig\u00e9 le d\u00e9partement football de l'\u00e9cole en partenariat avec l'Association de Football de Tongling",
+              "A con\u00e7u et mis en \u0153uvre des plans d'entra\u00eenement de niveau club pour les \u00e9quipes comp\u00e9titives",
+              "A organis\u00e9 les processus de s\u00e9lection d'\u00e9quipes et g\u00e9r\u00e9 les essais",
+              "A pr\u00e9par\u00e9 les \u00e9quipes pour les comp\u00e9titions locales et r\u00e9gionales",
+              "A communiqu\u00e9 r\u00e9guli\u00e8rement avec les parents et l'administration scolaire",
+              "A g\u00e9r\u00e9 l'\u00e9quipement, les horaires d'entra\u00eenement et la logistique du d\u00e9partement football",
+              "A collabor\u00e9 avec les autorit\u00e9s locales et l'Association Chinoise de Football lors d'\u00e9v\u00e9nements officiels"
+            ]
+          },
+          "1": {
+            "title": "Entra\u00eeneur Principal U15 (Masculin et F\u00e9minin)",
+            "items": [
+              "Entra\u00eeneur de football des \u00e9quipes U15 masculine et f\u00e9minine en comp\u00e9titions locales et r\u00e9gionales",
+              "A planifi\u00e9 et dirig\u00e9 des s\u00e9ances d'entra\u00eenement le week-end (samedis et dimanches, 2 heures) ax\u00e9es sur le d\u00e9veloppement tactique, technique et physique",
+              "A d\u00e9velopp\u00e9 des plans individualis\u00e9s de d\u00e9veloppement des joueurs",
+              "A r\u00e9alis\u00e9 des analyses vid\u00e9o et la pr\u00e9paration tactique pour les matchs",
+              "A g\u00e9r\u00e9 les dynamiques d'\u00e9quipe, la discipline et la motivation des joueurs",
+              "A dirig\u00e9 l'\u00e9quipe lors des matchs et comp\u00e9titions officiels",
+              "A contribu\u00e9 \u00e0 la progression des joueurs vers les s\u00e9lections locales et r\u00e9gionales"
+            ]
+          },
+          "2": {
+            "title": "Professeur d'\u00c9ducation Physique",
+            "items": [
+              "A enseign\u00e9 l'\u00c9ducation Physique aux \u00e9l\u00e8ves de 11 \u00e0 15 ans dans tous les niveaux",
+              "A con\u00e7u des cours suivant le programme national chinois, adapt\u00e9 aux conditions locales",
+              "A dispens\u00e9 des cours en : Athl\u00e9tisme (course, sauts, lancers), Sports collectifs (football, basketball), Sports de raquette (badminton, tennis de table), \u00c9ducation \u00e0 la sant\u00e9 et fitness",
+              "A promu les valeurs de travail d'\u00e9quipe, discipline et mode de vie sain \u00e0 travers le sport",
+              "A adapt\u00e9 les activit\u00e9s pour les \u00e9l\u00e8ves avec diff\u00e9rents niveaux de comp\u00e9tence et capacit\u00e9s physiques, y compris les \u00e9l\u00e8ves en situation de handicap (moteur, cognitif ou de parole)",
+              "A particip\u00e9 en tant que jury dans diverses activit\u00e9s scolaires dont les Olympiades scolaires",
+              "A particip\u00e9 en tant qu'arbitre dans les tournois de football scolaires"
+            ]
+          }
+        },
+        "achievements": [
+          "Championne F\u00e9minine de la Ville U15 (2023)",
+          "Vice-Champions Masculins de la Ville U15 (2023 et 2024)",
+          "A contribu\u00e9 \u00e0 la reconnaissance de l'\u00e9cole comme centre de d\u00e9veloppement du football",
+          "A d\u00e9velopp\u00e9 des partenariats avec l'Association de Football de Tongling",
+          "A mis en place une approche plus structur\u00e9e et professionnelle du football des jeunes \u00e0 l'\u00e9cole",
+          "Des joueurs de ce programme ont \u00e9t\u00e9 s\u00e9lectionn\u00e9s pour les \u00e9quipes de football de la ville"
+        ],
+        "interviewTitle": "La Derni\u00e8re Le\u00e7on de Football de l'Entra\u00eeneur \u00c9tranger"
       },
       "chizhou": {
-        "role": "Entraîneur Principal U13 et U15",
-        "description": "Entraîneur principal d'équipes représentatives de la ville pour compétitions nationales."
+        "role": "Entra\u00eeneur Principal U13 et U15",
+        "description": "Entra\u00eeneur principal d'\u00e9quipes repr\u00e9sentatives de la ville pour comp\u00e9titions nationales.",
+        "sections": {
+          "0": {
+            "title": "Entra\u00eeneur Principal \u2013 Pr\u00e9paration Comp\u00e9tition Nationale U15",
+            "items": [
+              "Programme d'entra\u00eenement intensif d'un mois pr\u00e9parant les joueurs U15 \u00e0 la participation \u00e0 un championnat national",
+              "Enti\u00e8rement responsable de la pr\u00e9paration technique, tactique et physique de l'\u00e9quipe avant la comp\u00e9tition",
+              "N'a pas particip\u00e9 au tournoi en raison de contraintes de visa, ayant compl\u00e9t\u00e9 toute la phase de pr\u00e9paration"
+            ]
+          },
+          "1": {
+            "title": "Stage de P\u00e2ques \u2013 Camp d'Entra\u00eenement \u00e0 Wuhu (Entra\u00eeneur Principal)",
+            "items": [
+              "Stage d'entra\u00eenement de deux semaines pendant les vacances de P\u00e2ques \u00e0 Wuhu",
+              "A dirig\u00e9 des s\u00e9ances quotidiennes et g\u00e9r\u00e9 les \u00e9quipes lors de matchs amicaux et comp\u00e9titifs contre d'autres acad\u00e9mies et \u00e9quipes de ville"
+            ]
+          },
+          "2": {
+            "title": "Entra\u00eeneur Principal \u2013 Comp\u00e9tition Nationale U13",
+            "items": [
+              "P\u00e9riode de pr\u00e9paration intensive de deux semaines suivie d'un voyage et participation \u00e0 un tournoi national jeunes",
+              "A dirig\u00e9 un effectif tr\u00e8s jeune et physiquement sous-d\u00e9velopp\u00e9 face \u00e0 des \u00e9quipes de ville plus fortes et plus matures",
+              "Accent sur l'apprentissage, la r\u00e9silience et le d\u00e9veloppement \u00e0 long terme des joueurs"
+            ]
+          },
+          "3": {
+            "title": "Responsabilit\u00e9s Cl\u00e9s",
+            "items": [
+              "Entra\u00eeneur principal des effectifs U13 et U15",
+              "Conception d'entra\u00eenement et p\u00e9riodisation",
+              "Planification de match et mise en \u0153uvre du mod\u00e8le de jeu",
+              "\u00c9valuation des joueurs et planification du d\u00e9veloppement",
+              "Leadership technique et tactique"
+            ]
+          }
+        },
+        "achievements": [
+          "A pr\u00e9par\u00e9 avec succ\u00e8s deux cat\u00e9gories d'\u00e2ge pour des comp\u00e9titions de niveau national",
+          "D\u00e9veloppement acc\u00e9l\u00e9r\u00e9 des joueurs en cycles courts de pr\u00e9paration",
+          "A mis en place une m\u00e9thodologie d'entra\u00eenement professionnelle au niveau de l'\u00e9quipe de ville"
+        ]
       },
       "tonglingCity": {
-        "role": "Entraîneur Principal U15",
-        "description": "Entraîné l'équipe représentative de la ville pour tournois d'été."
+        "role": "Entra\u00eeneur Principal U15",
+        "description": "Entra\u00een\u00e9 l'\u00e9quipe repr\u00e9sentative de la ville pour tournois d'\u00e9t\u00e9.",
+        "sections": {
+          "0": {
+            "title": "Responsabilit\u00e9s d'Entra\u00eeneur Principal",
+            "items": [
+              "A entra\u00een\u00e9 l'\u00e9quipe repr\u00e9sentative U15 de la ville pour les comp\u00e9titions de tournois d'\u00e9t\u00e9",
+              "A pr\u00e9par\u00e9 et entra\u00een\u00e9 les joueurs pour des matchs de niveau r\u00e9gional"
+            ]
+          }
+        },
+        "achievements": [
+          "Participation \u00e0 un tournoi comp\u00e9titif"
+        ]
       },
       "tagou": {
-        "role": "Entraîneur Principal / Assistant",
-        "description": "Multiples rôles d'entraînement dans une école sportive prestigieuse."
+        "role": "Entra\u00eeneur Principal / Assistant",
+        "description": "Multiples r\u00f4les d'entra\u00eenement dans une \u00e9cole sportive prestigieuse.",
+        "sections": {
+          "0": {
+            "title": "Entra\u00eeneur Principal (U11 Gar\u00e7ons / U17 Filles)",
+            "items": [
+              "A dirig\u00e9 les \u00e9quipes U11 gar\u00e7ons et U17 filles en tant qu'entra\u00eeneur principal",
+              "A int\u00e9gr\u00e9 l'entra\u00eenement tactique de football avec le d\u00e9veloppement athl\u00e9tique"
+            ]
+          },
+          "1": {
+            "title": "Entra\u00eeneur Adjoint (U18 Gar\u00e7ons)",
+            "items": [
+              "A soutenu l'\u00e9quipe U18 gar\u00e7ons en tant qu'entra\u00eeneur adjoint",
+              "A g\u00e9r\u00e9 plusieurs cat\u00e9gories d'\u00e2ge simultan\u00e9ment"
+            ]
+          }
+        },
+        "achievements": [
+          "A int\u00e9gr\u00e9 l'entra\u00eenement tactique de football avec le d\u00e9veloppement athl\u00e9tique",
+          "A g\u00e9r\u00e9 plusieurs cat\u00e9gories d'\u00e2ge simultan\u00e9ment"
+        ]
       },
       "dalian": {
-        "role": "Entraîneur Principal U6 à U15",
-        "description": "Entraîné de la base aux niveaux compétitifs jeunes en académie professionnelle."
+        "role": "Entra\u00eeneur Principal U6 \u00e0 U15",
+        "description": "Entra\u00een\u00e9 de la base aux niveaux comp\u00e9titifs jeunes en acad\u00e9mie professionnelle.",
+        "sections": {
+          "0": {
+            "title": "Responsabilit\u00e9s d'Entra\u00eeneur Principal",
+            "items": [
+              "A entra\u00een\u00e9 plusieurs cat\u00e9gories d'\u00e2ge de U6 \u00e0 U15 en acad\u00e9mie professionnelle",
+              "A d\u00e9velopp\u00e9 des programmes d'entra\u00eenement adapt\u00e9s \u00e0 l'\u00e2ge",
+              "A g\u00e9r\u00e9 le parcours de d\u00e9veloppement des joueurs"
+            ]
+          }
+        },
+        "achievements": [
+          "A d\u00e9velopp\u00e9 des programmes d'entra\u00eenement adapt\u00e9s \u00e0 l'\u00e2ge",
+          "D\u00e9veloppement du parcours des joueurs"
+        ]
       },
       "benfica": {
-        "role": "Entraîneur Adjoint U13",
-        "description": "Entraîneur adjoint dans l'une des meilleures académies de jeunes d'Europe."
+        "role": "Entra\u00eeneur Adjoint U13",
+        "description": "Entra\u00eeneur adjoint dans l'une des meilleures acad\u00e9mies de jeunes d'Europe.",
+        "sections": {
+          "0": {
+            "title": "Responsabilit\u00e9s d'Entra\u00eeneur Adjoint",
+            "items": [
+              "A assist\u00e9 \u00e0 l'entra\u00eenement et la pr\u00e9paration de matchs de l'\u00e9quipe U13",
+              "A travaill\u00e9 dans un environnement d'entra\u00eenement de haute performance avec un staff technique de classe mondiale",
+              "A soutenu le d\u00e9veloppement de jeunes talents d'\u00e9lite"
+            ]
+          }
+        },
+        "achievements": [
+          "A travaill\u00e9 avec des joueurs qui ont progress\u00e9 vers les \u00e9quipes nationales jeunes du Portugal",
+          "A appris d'un staff technique de classe mondiale",
+          "Environnement d'entra\u00eenement de haute performance"
+        ]
       },
       "trofense": {
-        "role": "Entraîneur Principal / Adjoint",
-        "description": "Période prolongée avec multiples rôles d'entraînement en catégories jeunes."
+        "role": "Entra\u00eeneur Principal / Adjoint",
+        "description": "P\u00e9riode prolong\u00e9e avec multiples r\u00f4les d'entra\u00eenement en cat\u00e9gories jeunes.",
+        "sections": {
+          "0": {
+            "title": "Entra\u00eeneur Principal (U6)",
+            "items": [
+              "A dirig\u00e9 le d\u00e9veloppement de l'\u00e9quipe de formation U6",
+              "A cr\u00e9\u00e9 des s\u00e9ances d'entra\u00eenement adapt\u00e9es \u00e0 l'\u00e2ge"
+            ]
+          },
+          "1": {
+            "title": "Entra\u00eeneur Adjoint (U14 \u00e0 U18)",
+            "items": [
+              "A assist\u00e9 les \u00e9quipes U14, U15, U16, U17 et U18",
+              "A soutenu la pr\u00e9paration d'\u00e9quipes pour les matchs comp\u00e9titifs",
+              "A d\u00e9velopp\u00e9 des joueurs pour des niveaux comp\u00e9titifs sup\u00e9rieurs"
+            ]
+          }
+        },
+        "achievements": [
+          "Juniors du CD Trofense - Promotion de Division au Niveau National (Entra\u00eeneur Adjoint)",
+          "A d\u00e9velopp\u00e9 des joueurs pour des niveaux comp\u00e9titifs sup\u00e9rieurs",
+          "Exp\u00e9rience d'entra\u00eenement de la formation de base \u00e0 l'\u00e9lite jeunes"
+        ]
       },
       "lavrense": {
-        "role": "Entraîneur Adjoint U13",
-        "description": "Premier rôle professionnel d'entraînement."
+        "role": "Entra\u00eeneur Adjoint U13",
+        "description": "Premier r\u00f4le professionnel d'entra\u00eenement.",
+        "sections": {
+          "0": {
+            "title": "Responsabilit\u00e9s d'Entra\u00eeneur Adjoint",
+            "items": [
+              "A assist\u00e9 \u00e0 l'entra\u00eenement et au d\u00e9veloppement de l'\u00e9quipe U13",
+              "Premier r\u00f4le professionnel d'entra\u00eenement",
+              "A soutenu le d\u00e9veloppement de jeunes joueurs"
+            ]
+          }
+        },
+        "achievements": [
+          "D\u00e9but de la carri\u00e8re d'entra\u00eeneur",
+          "D\u00e9veloppement de jeunes joueurs"
+        ]
       }
     }
   },
   "philosophy": {
-    "title": "Philosophie d'Entraînement",
-    "subtitle": "Mon approche du développement du football",
+    "title": "Philosophie d'Entra\u00eenement",
+    "subtitle": "Mon approche du d\u00e9veloppement du football",
     "core": "Philosophie Centrale",
-    "coreText": "Ma philosophie d'entraînement se base sur le développement de joueurs performant dans une idée claire et commune. Je crois que le jeu doit être joué avec intelligence, intensité et intention.",
-    "principles": "Principes Clés",
+    "coreText": "Ma philosophie d'entra\u00eenement se base sur le d\u00e9veloppement de joueurs performant dans une id\u00e9e claire et commune. Je crois que le jeu doit \u00eatre jou\u00e9 avec intelligence, intensit\u00e9 et intention.",
+    "principles": "Principes Cl\u00e9s",
     "gameMoments": "Moments du Jeu",
-    "formations": "Systèmes Tactiques",
-    "approach": "Approche d'Entraînement",
-    "approachText": "Je dirige les séances avec clarté, énergie et direction, en m'assurant que chaque joueur comprend son rôle tout en restant motivé.",
-    "roles": "Rôles d'Entraîneur",
-    "rolesText": "J'ai assumé plusieurs rôles dans le football, incluant Entraîneur Principal, Adjoint, Recruteur, Analyste et Conseiller.",
+    "formations": "Syst\u00e8mes Tactiques",
+    "approach": "Approche d'Entra\u00eenement",
+    "approachText": "Je dirige les s\u00e9ances avec clart\u00e9, \u00e9nergie et direction, en m'assurant que chaque joueur comprend son r\u00f4le tout en restant motiv\u00e9.",
+    "roles": "R\u00f4les d'Entra\u00eeneur",
+    "rolesText": "J'ai assum\u00e9 plusieurs r\u00f4les dans le football, incluant Entra\u00eeneur Principal, Adjoint, Recruteur, Analyste et Conseiller.",
+    "keyPrinciplesList": ["Intelligence", "Intensit\u00e9", "Intention"],
     "gameMomentsList": {
       "offensiveOrg": "Organisation Offensive",
-      "defensiveOrg": "Organisation Défensive",
+      "defensiveOrg": "Organisation D\u00e9fensive",
       "offensiveTrans": "Transition Offensive",
-      "defensiveTrans": "Transition Défensive",
-      "setPieces": "Coups de Pied Arrêtés"
+      "defensiveTrans": "Transition D\u00e9fensive",
+      "setPieces": "Coups de Pied Arr\u00eat\u00e9s"
+    },
+    "gameMomentsDescriptions": {
+      "offensiveOrg": "Jeu de possession structur\u00e9 avec des responsabilit\u00e9s positionnelles claires",
+      "defensiveOrg": "Compacit\u00e9 et pressing coordonn\u00e9 pour r\u00e9cup\u00e9rer le ballon rapidement",
+      "offensiveTrans": "Exploitation rapide de l'espace apr\u00e8s la r\u00e9cup\u00e9ration du ballon",
+      "defensiveTrans": "R\u00e9action imm\u00e9diate \u00e0 la perte de possession",
+      "setPieces": "Approche structur\u00e9e des situations de ballon arr\u00eat\u00e9"
+    },
+    "gameMomentsPrinciples": {
+      "offensiveOrg": [
+        "Jeu positionnel - occuper et cr\u00e9er l'espace",
+        "Offrir un soutien constant",
+        "Assurer la largeur et la profondeur",
+        "Sup\u00e9riorit\u00e9 num\u00e9rique dans les zones cl\u00e9s"
+      ],
+      "defensiveOrg": [
+        "R\u00e9duire l'espace entre les lignes",
+        "Pressing coordonn\u00e9",
+        "Positionnement intelligent",
+        "Formation d\u00e9fensive collective"
+      ],
+      "offensiveTrans": [
+        "Progression imm\u00e9diate vers l'avant",
+        "Utiliser la sup\u00e9riorit\u00e9 num\u00e9rique",
+        "Exploiter les adversaires d\u00e9sorganis\u00e9s",
+        "Jeu direct quand c'est opportun"
+      ],
+      "defensiveTrans": [
+        "Contre-pressing",
+        "Protection des zones cl\u00e9s",
+        "Repli organis\u00e9 si n\u00e9cessaire",
+        "Pr\u00e9vention des contre-attaques"
+      ],
+      "setPieces": [
+        "R\u00f4les et responsabilit\u00e9s clairs",
+        "Routines r\u00e9p\u00e9t\u00e9es",
+        "Organisation d\u00e9fensive",
+        "Exploiter les faiblesses adverses"
+      ]
     },
     "formationDescriptions": {
       "433": "Formation offensive avec largeur et pression haute",
-      "442": "Formation équilibrée avec structure défensive solide",
-      "4231": "Formation offensive moderne avec milieu créatif"
+      "442": "Formation \u00e9quilibr\u00e9e avec structure d\u00e9fensive solide",
+      "4231": "Formation offensive moderne avec milieu cr\u00e9atif"
+    },
+    "formationStrengths": {
+      "433": [
+        "Excellent pour le jeu offensif",
+        "Largeur naturelle",
+        "Haute capacit\u00e9 de pressing",
+        "Rotations offensives fluides"
+      ],
+      "442": [
+        "Organisation d\u00e9fensive solide",
+        "Bonne transition de jeu",
+        "Partenariat entre attaquants",
+        "Formation polyvalente"
+      ],
+      "4231": [
+        "Jeu offensif cr\u00e9atif",
+        "Stabilit\u00e9 d\u00e9fensive",
+        "Contr\u00f4le central",
+        "Largeur en attaque"
+      ]
     }
   },
   "services": {
     "title": "Services",
-    "subtitle": "Services professionnels d'entraînement et de conseil",
-    "features": "Caractéristiques",
+    "subtitle": "Services professionnels d'entra\u00eenement et de conseil",
+    "features": "Caract\u00e9ristiques",
     "deliverables": "Livrables",
-    "pricing": "Les prix peuvent être discutés selon le temps de déplacement, la localisation et le type de forum.",
+    "pricing": "Les prix peuvent \u00eatre discut\u00e9s selon le temps de d\u00e9placement, la localisation et le type de forum.",
     "cta": "Demander un Devis",
     "list": {
       "gameAnalysis": {
         "title": "Analyse de Match",
-        "description": "Services complets d'analyse incluant préparation avant-match, scouting et analyse après-match."
+        "description": "Services complets d'analyse incluant pr\u00e9paration avant-match, scouting et analyse apr\u00e8s-match.",
+        "features": [
+          "Analyse tactique avant-match",
+          "Rapports de scouting de l'adversaire",
+          "Revue de performance apr\u00e8s-match",
+          "Analyses d\u00e9taill\u00e9es vid\u00e9o",
+          "Donn\u00e9es statistiques de performance",
+          "Recommandations tactiques"
+        ],
+        "deliverables": [
+          "Rapports \u00e9crits d\u00e9taill\u00e9s",
+          "Pr\u00e9sentations d'analyse vid\u00e9o",
+          "Tableaux de bord statistiques"
+        ]
       },
       "scouting": {
         "title": "Conseil en Scouting",
-        "description": "Services professionnels de scouting avec accès à base de données de joueurs."
+        "description": "Services professionnels de scouting avec acc\u00e8s \u00e0 base de donn\u00e9es de joueurs.",
+        "features": [
+          "\u00c9valuation et profilage de joueurs",
+          "Identification de talents",
+          "Acc\u00e8s \u00e0 la base de donn\u00e9es de scouting",
+          "Consultation de recrutement",
+          "\u00c9valuations de joueurs adapt\u00e9es \u00e0 l'\u00e2ge",
+          "R\u00e9seau international de scouting"
+        ],
+        "deliverables": [
+          "Rapports de scouting de joueurs",
+          "Recommandations de talents",
+          "Acc\u00e8s \u00e0 la base de donn\u00e9es"
+        ]
       },
       "leadership": {
         "title": "Cours de Leadership",
-        "description": "Programmes de développement du leadership pour joueurs, entraîneurs et staff."
+        "description": "Programmes de d\u00e9veloppement du leadership pour joueurs, entra\u00eeneurs et staff.",
+        "features": [
+          "D\u00e9veloppement du leadership d'\u00e9quipe",
+          "Formation du staff technique",
+          "Programmes de capitaine/leadership pour joueurs",
+          "Comp\u00e9tences en communication",
+          "Formation en adaptation culturelle",
+          "Techniques de motivation"
+        ],
+        "deliverables": [
+          "Programmes de formation personnalis\u00e9s",
+          "Mat\u00e9riels d'atelier",
+          "Soutien continu"
+        ]
       },
       "training": {
-        "title": "Entraînement Personnalisé",
-        "description": "Programmes d'entraînement sur mesure pour le développement individuel."
+        "title": "Entra\u00eenement Personnalis\u00e9",
+        "description": "Programmes d'entra\u00eenement sur mesure pour le d\u00e9veloppement individuel.",
+        "features": [
+          "Plans individuels de d\u00e9veloppement de joueurs",
+          "Entra\u00eenement sp\u00e9cifique par poste",
+          "S\u00e9ances d'entra\u00eenement tactique",
+          "D\u00e9veloppement technique",
+          "Guidance en condition physique",
+          "Pr\u00e9paration mentale"
+        ],
+        "deliverables": [
+          "Plans de d\u00e9veloppement personnel",
+          "Conception de s\u00e9ances d'entra\u00eenement",
+          "Suivi de progression"
+        ]
       },
       "seminars": {
-        "title": "Séminaires et Webinaires",
-        "description": "Séminaires éducatifs sur la méthodologie, l'analyse tactique et le développement des jeunes."
+        "title": "S\u00e9minaires et Webinaires",
+        "description": "S\u00e9minaires \u00e9ducatifs sur la m\u00e9thodologie, l'analyse tactique et le d\u00e9veloppement des jeunes.",
+        "features": [
+          "S\u00e9minaires de m\u00e9thodologie d'entra\u00eenement",
+          "Ateliers d'analyse tactique",
+          "Th\u00e8mes de d\u00e9veloppement des jeunes",
+          "Webinaires en ligne",
+          "Sessions interactives de questions-r\u00e9ponses",
+          "D\u00e9monstrations pratiques"
+        ],
+        "deliverables": [
+          "Mat\u00e9riels de pr\u00e9sentation",
+          "Enregistrements vid\u00e9o",
+          "Documents de ressources"
+        ]
       }
     }
   },
   "software": {
     "title": "Logiciels et Outils",
-    "subtitle": "Stack technologique que j'utilise pour l'entraînement et l'analyse",
-    "howIUseAI": "Comment J'Utilise l'IA dans l'Entraînement",
+    "subtitle": "Stack technologique que j'utilise pour l'entra\u00eenement et l'analyse",
+    "howIUseAI": "Comment J'Utilise l'IA dans l'Entra\u00eenement",
     "categories": {
-      "videoAnalysis": "Analyse Vidéo et Match",
-      "aiProductivity": "IA et Productivité",
+      "videoAnalysis": "Analyse Vid\u00e9o et Match",
+      "aiProductivity": "IA et Productivit\u00e9",
       "tacticalScouting": "Tactique et Scouting",
       "officeCommunication": "Office et Communication"
     },
     "levels": {
-      "advanced": "Avancé",
-      "intermediate": "Intermédiaire",
-      "regular": "Régulier",
+      "advanced": "Avanc\u00e9",
+      "intermediate": "Interm\u00e9diaire",
+      "regular": "R\u00e9gulier",
       "dailyUse": "Usage Quotidien"
     },
     "tools": {
       "premiere": {
         "name": "Adobe Premiere Pro",
-        "description": "Montage vidéo professionnel pour highlights et enregistrements"
+        "description": "Montage vid\u00e9o professionnel pour highlights et enregistrements"
       },
       "davinci": {
         "name": "DaVinci Resolve",
-        "description": "Étalonnage et montage avancé pour présentations tactiques"
+        "description": "\u00c9talonnage et montage avanc\u00e9 pour pr\u00e9sentations tactiques"
       },
       "hudl": {
         "name": "Hudl",
-        "description": "Plateforme d'analyse vidéo spécifique au football"
+        "description": "Plateforme d'analyse vid\u00e9o sp\u00e9cifique au football"
       },
       "chatgpt": {
         "name": "ChatGPT",
-        "description": "Assistant IA pour génération de plans d'entraînement"
+        "description": "Assistant IA pour g\u00e9n\u00e9ration de plans d'entra\u00eenement"
       },
       "copilot": {
         "name": "Microsoft Copilot",
-        "description": "Intégration IA dans les outils Office"
+        "description": "Int\u00e9gration IA dans les outils Office"
       },
       "wyscout": {
         "name": "Wyscout",
-        "description": "Plateforme de scouting, données de match et analyse"
+        "description": "Plateforme de scouting, donn\u00e9es de match et analyse"
       },
       "fm": {
         "name": "Football Manager",
-        "description": "Simulation tactique et modélisation de développement"
+        "description": "Simulation tactique et mod\u00e9lisation de d\u00e9veloppement"
       },
       "office": {
         "name": "Microsoft Office",
-        "description": "Word, Excel, PowerPoint pour rapports et présentations"
+        "description": "Word, Excel, PowerPoint pour rapports et pr\u00e9sentations"
       },
       "google": {
         "name": "Google Workspace",
@@ -284,12 +593,12 @@
     },
     "aiUseCases": {
       "trainingPlan": {
-        "title": "Génération de Plans",
-        "description": "Outils IA aident à créer des plans de séances."
+        "title": "G\u00e9n\u00e9ration de Plans",
+        "description": "Outils IA aident \u00e0 cr\u00e9er des plans de s\u00e9ances."
       },
       "reports": {
-        "title": "Rédaction de Rapports",
-        "description": "Rapports de match et évaluations avec assistance IA."
+        "title": "R\u00e9daction de Rapports",
+        "description": "Rapports de match et \u00e9valuations avec assistance IA."
       },
       "tactical": {
         "title": "Brainstorming Tactique",
@@ -297,41 +606,41 @@
       },
       "translation": {
         "title": "Communication et Traduction",
-        "description": "L'IA aide à traduire les concepts tactiques."
+        "description": "L'IA aide \u00e0 traduire les concepts tactiques."
       }
     }
   },
   "contact": {
     "title": "Contact",
-    "subtitle": "Contactez-moi pour opportunités d'entraînement et conseil",
+    "subtitle": "Contactez-moi pour opportunit\u00e9s d'entra\u00eenement et conseil",
     "form": {
       "name": "Nom",
       "email": "Email",
-      "phone": "Téléphone (optionnel)",
-      "service": "Service d'Intérêt",
+      "phone": "T\u00e9l\u00e9phone (optionnel)",
+      "service": "Service d'Int\u00e9r\u00eat",
       "message": "Message",
       "submit": "Envoyer Message",
-      "success": "Message envoyé avec succès !",
-      "error": "Erreur d'envoi. Veuillez réessayer."
+      "success": "Message envoy\u00e9 avec succ\u00e8s !",
+      "error": "Erreur d'envoi. Veuillez r\u00e9essayer."
     },
     "info": {
       "email": "Email",
       "whatsapp": "WhatsApp",
       "location": "Localisation"
     },
-    "availability": "Ouvert aux partenariats, opportunités internationales et projets de conseil."
+    "availability": "Ouvert aux partenariats, opportunit\u00e9s internationales et projets de conseil."
   },
   "footer": {
-    "rights": "Tous droits réservés",
-    "tagline": "Entraîneur UEFA B | Spécialiste Formation Jeunes"
+    "rights": "Tous droits r\u00e9serv\u00e9s",
+    "tagline": "Entra\u00eeneur UEFA B | Sp\u00e9cialiste Formation Jeunes"
   },
   "common": {
     "readMore": "Lire Plus",
     "learnMore": "En Savoir Plus",
     "viewAll": "Voir Tout",
     "close": "Fermer",
-    "ageGroup": "Catégorie",
-    "period": "Période",
+    "ageGroup": "Cat\u00e9gorie",
+    "period": "P\u00e9riode",
     "location": "Localisation"
   }
 }

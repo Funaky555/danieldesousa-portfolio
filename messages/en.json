@@ -85,7 +85,7 @@
       "masters": {
         "title": "Master's Degree in Sports Sciences",
         "specialization": "Specialization in Team Sports",
-        "institution": "University of Trás-os-Montes and Alto Douro",
+        "institution": "University of Tr\u00e1s-os-Montes and Alto Douro",
         "description": "Specialized in team sports with focus on football coaching methodology"
       },
       "computer": {
@@ -141,35 +141,219 @@
         "description": "Multi-role position combining football department leadership, competitive team coaching and physical education teaching.",
         "section1": "Football Department Coordination",
         "section2": "Head Coach U15 (Male & Female)",
-        "section3": "Physical Education Teacher"
+        "section3": "Physical Education Teacher",
+        "sections": {
+          "0": {
+            "title": "Football Department Coordination",
+            "items": [
+              "Coordinated and led the school's football department in partnership with the Tongling Football Association",
+              "Designed and implemented club-level training plans for competitive teams",
+              "Organized team selection processes and managed tryouts",
+              "Prepared teams for local and regional competitions",
+              "Communicated regularly with parents and school administration",
+              "Managed equipment, training schedules and football department logistics",
+              "Collaborated with local authorities and the Chinese Football Association in official events"
+            ]
+          },
+          "1": {
+            "title": "Head Coach U15 (Male & Female)",
+            "items": [
+              "Football coach of U15 male and female teams in local and regional competitions",
+              "Planned and led weekend training sessions (Saturdays and Sundays, 2 hours) focused on tactical, technical and physical development",
+              "Developed individualized player development plans",
+              "Conducted video analysis and tactical preparation for matches",
+              "Managed team dynamics, discipline and player motivation",
+              "Led the team during official matches and competitions",
+              "Contributed to player progression toward local and regional selections"
+            ]
+          },
+          "2": {
+            "title": "Physical Education Teacher",
+            "items": [
+              "Taught Physical Education to students aged 11 to 15 across all grades",
+              "Designed lessons following the Chinese national curriculum, adapted to local conditions",
+              "Delivered content in: Athletics (running, jumping, throwing), Team sports (football, basketball), Racket sports (badminton, table tennis), Health and fitness education",
+              "Promoted values of teamwork, discipline and healthy lifestyle through sport",
+              "Adapted activities for students with different skill levels and physical abilities, including students with disabilities (motor, cognitive, or speech impairments)",
+              "Participated as jury in various school activities including school Olympics",
+              "Participated as referee in school football tournaments"
+            ]
+          }
+        },
+        "achievements": [
+          "U15 Female City Champion (2023)",
+          "U15 Male City Vice-Champions (2023 and 2024)",
+          "Contributed to the school's recognition as a football development centre",
+          "Developed partnerships with Tongling Football Association",
+          "Implemented a more structured and professional approach to youth football at the school",
+          "Players from this programme were selected for city football teams"
+        ],
+        "interviewTitle": "The Foreign Coach's Last Football Lesson"
       },
       "chizhou": {
         "role": "Head Coach U13 & U15",
-        "description": "Head coach for city representative teams preparing for national competitions."
+        "description": "Head coach for city representative teams preparing for national competitions.",
+        "sections": {
+          "0": {
+            "title": "Head Coach \u2013 U15 National Competition Preparation",
+            "items": [
+              "One-month intensive training program preparing U15 players for participation in a national championship",
+              "Fully responsible for technical, tactical and physical preparation of the squad prior to competition",
+              "Did not attend the tournament due to visa constraints, having completed the entire preparation phase"
+            ]
+          },
+          "1": {
+            "title": "Easter Internship \u2013 Wuhu Training Camp (Head Coach)",
+            "items": [
+              "Two-week coaching internship during Easter holidays in Wuhu",
+              "Led daily training sessions and managed teams in friendly and competitive matches against other academies and city teams"
+            ]
+          },
+          "2": {
+            "title": "Head Coach \u2013 U13 National Competition",
+            "items": [
+              "Two-week intensive preparation period followed by travel and participation in a national youth tournament",
+              "Led a very young and physically underdeveloped squad competing against stronger and more mature city teams",
+              "Focus on learning, resilience and long-term player development"
+            ]
+          },
+          "3": {
+            "title": "Key Responsibilities",
+            "items": [
+              "Head coach of U13 and U15 squads",
+              "Training design and periodization",
+              "Match planning and game model implementation",
+              "Player evaluation and development planning",
+              "Technical and tactical leadership"
+            ]
+          }
+        },
+        "achievements": [
+          "Successfully prepared two age groups for national-level competitions",
+          "Accelerated development of players in short preparation cycles",
+          "Implemented professional training methodology at city-team level"
+        ]
       },
       "tonglingCity": {
         "role": "Head Coach U15",
-        "description": "Coached city representative team for summer tournaments."
+        "description": "Coached city representative team for summer tournaments.",
+        "sections": {
+          "0": {
+            "title": "Head Coach Responsibilities",
+            "items": [
+              "Coached U15 city representative team for summer tournament competitions",
+              "Prepared and trained players for regional-level matches"
+            ]
+          }
+        },
+        "achievements": [
+          "Competitive tournament participation"
+        ]
       },
       "tagou": {
         "role": "Head Coach / Assistant Coach",
-        "description": "Multiple coaching roles at prestigious sports school."
+        "description": "Multiple coaching roles at prestigious sports school.",
+        "sections": {
+          "0": {
+            "title": "Head Coach (U11 Boys / U17 Girls)",
+            "items": [
+              "Led U11 boys and U17 girls teams as head coach",
+              "Integrated tactical football training with athletic development"
+            ]
+          },
+          "1": {
+            "title": "Assistant Coach (U18 Boys)",
+            "items": [
+              "Supported U18 boys team as assistant coach",
+              "Managed multiple age groups simultaneously"
+            ]
+          }
+        },
+        "achievements": [
+          "Integrated tactical football training with athletic development",
+          "Managed multiple age groups simultaneously"
+        ]
       },
       "dalian": {
         "role": "Head Coach U6 to U15",
-        "description": "Coached grassroots to competitive youth levels at professional academy."
+        "description": "Coached grassroots to competitive youth levels at professional academy.",
+        "sections": {
+          "0": {
+            "title": "Head Coach Responsibilities",
+            "items": [
+              "Coached multiple age groups from U6 to U15 at professional academy",
+              "Developed age-appropriate training curricula",
+              "Managed player pathway development"
+            ]
+          }
+        },
+        "achievements": [
+          "Developed age-appropriate training curricula",
+          "Player pathway development"
+        ]
       },
       "benfica": {
         "role": "Assistant Coach U13",
-        "description": "Assistant coach at one of Europe's top youth academies."
+        "description": "Assistant coach at one of Europe's top youth academies.",
+        "sections": {
+          "0": {
+            "title": "Assistant Coach Responsibilities",
+            "items": [
+              "Assisted with U13 team training and match preparation",
+              "Worked in high-performance training environment with world-class coaching staff",
+              "Supported player development for elite young talent"
+            ]
+          }
+        },
+        "achievements": [
+          "Worked with players who progressed to Portuguese youth national teams",
+          "Learned from world-class coaching staff",
+          "High-performance training environment"
+        ]
       },
       "trofense": {
         "role": "Head Coach / Assistant Coach",
-        "description": "Extended tenure with multiple coaching roles across youth categories."
+        "description": "Extended tenure with multiple coaching roles across youth categories.",
+        "sections": {
+          "0": {
+            "title": "Head Coach (U6)",
+            "items": [
+              "Led U6 grassroots team development",
+              "Created age-appropriate training sessions"
+            ]
+          },
+          "1": {
+            "title": "Assistant Coach (U14 to U18)",
+            "items": [
+              "Assisted with U14, U15, U16, U17 and U18 teams",
+              "Supported team preparation for competitive matches",
+              "Developed players for higher competitive levels"
+            ]
+          }
+        },
+        "achievements": [
+          "CD Trofense Juniors - Division Promotion to National Level (Assistant Coach)",
+          "Developed players for higher competitive levels",
+          "Grassroots to elite youth coaching experience"
+        ]
       },
       "lavrense": {
         "role": "Assistant Coach U13",
-        "description": "First professional coaching role."
+        "description": "First professional coaching role.",
+        "sections": {
+          "0": {
+            "title": "Assistant Coach Responsibilities",
+            "items": [
+              "Assisted with U13 team training and development",
+              "First professional coaching role",
+              "Supported youth player development"
+            ]
+          }
+        },
+        "achievements": [
+          "Foundation of coaching career",
+          "Youth player development"
+        ]
       }
     }
   },
@@ -185,6 +369,7 @@
     "approachText": "I lead training sessions with clarity, energy and a clear sense of direction, ensuring every player understands their role while feeling motivated to improve.",
     "roles": "Coaching Roles",
     "rolesText": "I have taken on multiple roles in football, including Head Coach, Assistant Coach, Scouter, Analyst, and Football Advisor, each contributing to my well-rounded understanding of the game.",
+    "keyPrinciplesList": ["Intelligence", "Intensity", "Intention"],
     "gameMomentsList": {
       "offensiveOrg": "Offensive Organization",
       "defensiveOrg": "Defensive Organization",
@@ -192,10 +377,69 @@
       "defensiveTrans": "Defensive Transition",
       "setPieces": "Set Pieces"
     },
+    "gameMomentsDescriptions": {
+      "offensiveOrg": "Structured possession play with clear positional responsibilities",
+      "defensiveOrg": "Compactness and coordinated pressing to win the ball early",
+      "offensiveTrans": "Quick exploitation of space after winning possession",
+      "defensiveTrans": "Immediate reaction to loss of possession",
+      "setPieces": "Structured approach to dead-ball situations"
+    },
+    "gameMomentsPrinciples": {
+      "offensiveOrg": [
+        "Positional play - occupying and creating space",
+        "Offering constant support",
+        "Ensuring width and depth",
+        "Numerical superiority in key zones"
+      ],
+      "defensiveOrg": [
+        "Reducing space between lines",
+        "Coordinated pressing",
+        "Intelligent positioning",
+        "Collective defensive shape"
+      ],
+      "offensiveTrans": [
+        "Immediate forward progression",
+        "Using numerical superiority",
+        "Exploiting disorganized opponents",
+        "Direct play when appropriate"
+      ],
+      "defensiveTrans": [
+        "Counter-pressing",
+        "Protecting key areas",
+        "Organized retreat when needed",
+        "Preventing counter-attacks"
+      ],
+      "setPieces": [
+        "Clear roles and responsibilities",
+        "Rehearsed routines",
+        "Defensive organization",
+        "Exploiting opponent weaknesses"
+      ]
+    },
     "formationDescriptions": {
       "433": "Attacking formation with width and forward pressure",
       "442": "Balanced formation with solid defensive structure",
       "4231": "Modern attacking formation with creative midfield"
+    },
+    "formationStrengths": {
+      "433": [
+        "Excellent for attacking play",
+        "Natural width",
+        "High pressing capability",
+        "Fluid attacking rotations"
+      ],
+      "442": [
+        "Solid defensive organization",
+        "Good transition play",
+        "Partnership between strikers",
+        "Versatile formation"
+      ],
+      "4231": [
+        "Creative attacking play",
+        "Defensive stability",
+        "Central control",
+        "Width in attack"
+      ]
     }
   },
   "services": {
@@ -208,23 +452,88 @@
     "list": {
       "gameAnalysis": {
         "title": "Game Analysis",
-        "description": "Comprehensive game analysis services including pre-match preparation, opposition scouting, and post-match performance review."
+        "description": "Comprehensive game analysis services including pre-match preparation, opposition scouting, and post-match performance review.",
+        "features": [
+          "Pre-match tactical analysis",
+          "Opposition scouting reports",
+          "Post-match performance review",
+          "Video analysis breakdowns",
+          "Statistical performance data",
+          "Tactical recommendations"
+        ],
+        "deliverables": [
+          "Detailed written reports",
+          "Video analysis presentations",
+          "Statistical dashboards"
+        ]
       },
       "scouting": {
         "title": "Scouting Consultancy",
-        "description": "Professional scouting services with access to extensive player database and recruitment consultation."
+        "description": "Professional scouting services with access to extensive player database and recruitment consultation.",
+        "features": [
+          "Player evaluation and profiling",
+          "Talent identification",
+          "Scouting database access",
+          "Recruitment consultation",
+          "Age-appropriate player assessments",
+          "International scouting network"
+        ],
+        "deliverables": [
+          "Player scouting reports",
+          "Talent recommendations",
+          "Database access"
+        ]
       },
       "leadership": {
         "title": "Leadership Courses",
-        "description": "Leadership development programs for players, coaches, and staff focused on building winning cultures."
+        "description": "Leadership development programs for players, coaches, and staff focused on building winning cultures.",
+        "features": [
+          "Team leadership development",
+          "Coaching staff training",
+          "Captain/leadership programs for players",
+          "Communication skills",
+          "Cultural adaptation training",
+          "Motivational techniques"
+        ],
+        "deliverables": [
+          "Customized training programs",
+          "Workshop materials",
+          "Ongoing support"
+        ]
       },
       "training": {
         "title": "Personalized Training",
-        "description": "Tailored training programs designed for individual player development across all positions."
+        "description": "Tailored training programs designed for individual player development across all positions.",
+        "features": [
+          "Individual player development plans",
+          "Position-specific training",
+          "Tactical training sessions",
+          "Technical skill development",
+          "Physical conditioning guidance",
+          "Mental preparation"
+        ],
+        "deliverables": [
+          "Personal development plans",
+          "Training session designs",
+          "Progress tracking"
+        ]
       },
       "seminars": {
         "title": "Seminars & Webinars",
-        "description": "Educational seminars and webinars covering coaching methodology, tactical analysis, and youth development."
+        "description": "Educational seminars and webinars covering coaching methodology, tactical analysis, and youth development.",
+        "features": [
+          "Coaching methodology seminars",
+          "Tactical analysis workshops",
+          "Youth development topics",
+          "Online webinars",
+          "Interactive Q&A sessions",
+          "Practical demonstrations"
+        ],
+        "deliverables": [
+          "Presentation materials",
+          "Video recordings",
+          "Resource documents"
+        ]
       }
     }
   },

@@ -8,7 +8,7 @@ import {
   BarChart3, Search, Users, Target, Presentation,
   ArrowRight, Check
 } from "lucide-react";
-import { useTranslations } from "@/components/providers/i18n-provider";
+import { useTranslations, useTranslationList } from "@/components/providers/i18n-provider";
 
 const iconMap: Record<string, any> = {
   BarChart3,
@@ -32,6 +32,7 @@ interface ServiceCardProps {
 
 export function ServiceCard({ service }: ServiceCardProps) {
   const t = useTranslations();
+  const tList = useTranslationList();
   const Icon = iconMap[service.icon] || BarChart3;
 
   // Map service id to translation key
@@ -62,7 +63,7 @@ export function ServiceCard({ service }: ServiceCardProps) {
         <div className="mb-6">
           <h4 className="font-semibold text-foreground mb-3">{t("services.features")}:</h4>
           <ul className="space-y-2">
-            {service.features.map((feature, index) => (
+            {tList(`services.list.${translationKey}.features`).map((feature, index) => (
               <li key={index} className="flex items-start text-sm text-muted-foreground">
                 <Check className="w-4 h-4 text-emerald-600 dark:text-football-green mr-2 mt-0.5 flex-shrink-0" />
                 <span>{feature}</span>
@@ -75,7 +76,7 @@ export function ServiceCard({ service }: ServiceCardProps) {
         <div className="mb-6">
           <h4 className="font-semibold text-foreground mb-3">{t("services.deliverables")}:</h4>
           <div className="flex flex-wrap gap-2">
-            {service.deliverables.map((deliverable, index) => (
+            {tList(`services.list.${translationKey}.deliverables`).map((deliverable, index) => (
               <Badge key={index} variant="secondary">
                 {deliverable}
               </Badge>

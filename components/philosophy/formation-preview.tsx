@@ -3,7 +3,7 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { formations } from "@/lib/coaching-data";
-import { useTranslations } from "@/components/providers/i18n-provider";
+import { useTranslations, useTranslationList } from "@/components/providers/i18n-provider";
 
 // Map formation names to translation keys
 const formationKeyMap: Record<string, string> = {
@@ -14,6 +14,7 @@ const formationKeyMap: Record<string, string> = {
 
 export function FormationPreview() {
   const t = useTranslations();
+  const tList = useTranslationList();
 
   return (
     <div className="grid gap-6 md:grid-cols-3">
@@ -60,7 +61,7 @@ export function FormationPreview() {
               <div>
                 <p className="text-xs font-semibold text-foreground mb-2">{t("philosophy.principles")}:</p>
                 <div className="flex flex-wrap gap-1">
-                  {formation.strengths.slice(0, 2).map((strength, idx) => (
+                  {tList(`philosophy.formationStrengths.${formationKey}`).slice(0, 2).map((strength, idx) => (
                     <Badge key={idx} variant="outline" className="text-xs">
                       {strength}
                     </Badge>
