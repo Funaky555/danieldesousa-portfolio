@@ -90,6 +90,29 @@ export const experience = [
           "Participated as referee in school football tournaments",
         ],
       },
+      {
+        title: "Key Responsibilities",
+        icon: "Building",
+        items: [
+          "Football department coordination and leadership",
+          "Competitive team coaching (U15 male and female)",
+          "Physical education teaching across all grades",
+          "Partnership management with local football associations",
+          "Training program design and implementation",
+        ],
+      },
+      {
+        title: "Achievements & Impact",
+        icon: "Trophy",
+        items: [
+          "U15 Female City Champion (2023)",
+          "U15 Male City Vice-Champions (2023 and 2024)",
+          "Contributed to the school's recognition as a football development centre",
+          "Developed partnerships with Tongling Football Association",
+          "Implemented a more structured and professional approach to youth football at the school",
+          "Players from this programme were selected for city football teams",
+        ],
+      },
     ],
     achievements: [
       "U15 Female City Champion (2023)",
@@ -160,6 +183,15 @@ export const experience = [
           "Match planning and game model implementation",
           "Player evaluation and development planning",
           "Technical and tactical leadership",
+        ],
+      },
+      {
+        title: "Achievements & Impact",
+        icon: "Trophy",
+        items: [
+          "Successfully prepared two age groups for national-level competitions",
+          "Accelerated development of players in short preparation cycles",
+          "Implemented professional training methodology at city-team level",
         ],
       },
     ],
