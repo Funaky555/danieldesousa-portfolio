@@ -177,6 +177,16 @@
             ]
           },
           "3": {
+            "title": "Key Responsibilities",
+            "items": [
+              "Football department coordination and leadership",
+              "Competitive team coaching (U15 male and female)",
+              "Physical education teaching across all grades",
+              "Partnership management with local football associations",
+              "Training program design and implementation"
+            ]
+          },
+          "4": {
             "title": "Achievements & Impact",
             "items": [
               "U15 Female City Champion (2023)",
@@ -421,34 +431,6 @@
           }
         }
       },
-      "lavrense": {
-        "role": "Assistant Coach",
-        "description": "First professional coaching role.",
-        "sections": {
-          "0": {
-            "title": "Assistant Coach U13",
-            "items": [
-              "Assisted with U13 team training and development",
-              "First professional coaching role",
-              "Supported youth player development"
-            ]
-          },
-          "1": {
-            "title": "Key Responsibilities",
-            "items": [
-              "Training session support",
-              "Youth player development"
-            ]
-          },
-          "2": {
-            "title": "Achievements & Impact",
-            "items": [
-              "Foundation of coaching career",
-              "Youth player development"
-            ]
-          }
-        }
-      },
       "galileu": {
         "role": "Trainee",
         "description": "Trainee in Management Computer Equipment at GALILEU - Specialists in Formation.",
@@ -474,6 +456,34 @@
             "items": [
               "Successfully completed 3-month professional training program",
               "Gained technical expertise in computer systems"
+            ]
+          }
+        }
+      },
+      "lavrense": {
+        "role": "Assistant Coach",
+        "description": "First professional coaching role.",
+        "sections": {
+          "0": {
+            "title": "Assistant Coach U13",
+            "items": [
+              "Assisted with U13 team training and development",
+              "First professional coaching role",
+              "Supported youth player development"
+            ]
+          },
+          "1": {
+            "title": "Key Responsibilities",
+            "items": [
+              "Training session support",
+              "Youth player development"
+            ]
+          },
+          "2": {
+            "title": "Achievements & Impact",
+            "items": [
+              "Foundation of coaching career",
+              "Youth player development"
             ]
           }
         }
