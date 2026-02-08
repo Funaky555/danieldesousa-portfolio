@@ -137,10 +137,10 @@
     },
     "jobs": {
       "tongling": {
-        "role": "Coordinator / Head Coach / PE Teacher",
+        "role": "Coordinator - Head Coach - PE Teacher",
         "description": "Multi-role position combining football department leadership, competitive team coaching and physical education teaching.",
         "section1": "Football Department Coordination",
-        "section2": "Head Coach U15 (Male & Female)",
+        "section2": "Head Coach",
         "section3": "Physical Education Teacher",
         "sections": {
           "0": {
@@ -156,7 +156,7 @@
             ]
           },
           "1": {
-            "title": "Head Coach U15 (Male & Female)",
+            "title": "Head Coach",
             "items": [
               "Football coach of U15 male and female teams in local and regional competitions",
               "Planned and led weekend training sessions (Saturdays and Sundays, 2 hours) focused on tactical, technical and physical development",
@@ -251,7 +251,7 @@
         ]
       },
       "tagou": {
-        "role": "Head Coach & Assistant Coach",
+        "role": "Head Coach - Assistant Coach",
         "description": "Multiple coaching roles at prestigious sports school.",
         "sections": {
           "0": {
@@ -316,7 +316,7 @@
         "description": "Extended tenure with multiple coaching roles across youth categories.",
         "sections": {
           "0": {
-            "title": "Head Coach (U6)",
+            "title": "Head Coach",
             "items": [
               "Led U6 grassroots team development",
               "Created age-appropriate training sessions"
