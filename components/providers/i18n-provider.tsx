@@ -18,14 +18,12 @@ import {
 
 // Import all message files
 import en from "@/messages/en.json";
-import pt from "@/messages/pt.json";
 import es from "@/messages/es.json";
 import fr from "@/messages/fr.json";
 import zh from "@/messages/zh.json";
 
 const messages: Record<Locale, Record<string, unknown>> = {
   en,
-  pt,
   es,
   fr,
   zh,

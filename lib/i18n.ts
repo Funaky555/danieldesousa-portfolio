@@ -1,5 +1,5 @@
 // Supported locales
-export const locales = ["en", "pt", "es", "fr", "zh"] as const;
+export const locales = ["en", "es", "fr", "zh"] as const;
 export type Locale = (typeof locales)[number];
 
 // Default locale
@@ -8,7 +8,6 @@ export const defaultLocale: Locale = "en";
 // Locale metadata for display
 export const localeNames: Record<Locale, string> = {
   en: "English",
-  pt: "Português",
   es: "Español",
   fr: "Français",
   zh: "中文",
@@ -16,7 +15,6 @@ export const localeNames: Record<Locale, string> = {
 
 export const localeFlags: Record<Locale, string> = {
   en: "🇺🇸",
-  pt: "🇵🇹",
   es: "🇪🇸",
   fr: "🇫🇷",
   zh: "🇨🇳",
