@@ -6,7 +6,6 @@ import { Button } from "@/components/ui/button";
 import { Menu, X } from "lucide-react";
 import { coachInfo } from "@/lib/coaching-data";
 import { ThemeToggle } from "@/components/layout/theme-toggle";
-import { LanguageSwitcher } from "@/components/layout/language-switcher";
 import { useTranslations } from "@/components/providers/i18n-provider";
 
 const navigationKeys = [
@@ -48,16 +47,14 @@ export function Header() {
                 {t(`nav.${item.key}`)}
               </Link>
             ))}
-            <LanguageSwitcher />
             <ThemeToggle />
             <Button asChild variant="default" className="ml-2">
               <Link href="/contact">{t("home.hero.cta.contact")}</Link>
             </Button>
           </div>
 
-          {/* Mobile menu button + theme/language toggle */}
+          {/* Mobile menu button + theme toggle */}
           <div className="md:hidden flex items-center gap-1">
-            <LanguageSwitcher />
             <ThemeToggle />
             <button
               type="button"

@@ -28,6 +28,7 @@ const jobKeyMap: Record<number, string> = {
   6: "benfica",
   7: "trofense",
   8: "lavrense",
+  9: "galileu",
 };
 
 interface ExperienceSection {

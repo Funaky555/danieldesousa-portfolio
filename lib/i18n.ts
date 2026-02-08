@@ -1,23 +1,23 @@
 // Supported locales
-export const locales = ["en", "es", "fr", "zh"] as const;
+// To add more languages: add locale codes here (e.g., ["en", "pt", "es"])
+export const locales = ["en"] as const;
 export type Locale = (typeof locales)[number];
 
 // Default locale
 export const defaultLocale: Locale = "en";
 
 // Locale metadata for display
+// To add more languages: add display names and flags here
 export const localeNames: Record<Locale, string> = {
   en: "English",
-  es: "Español",
-  fr: "Français",
-  zh: "中文",
+  // pt: "Português",
+  // es: "Español",
 };
 
 export const localeFlags: Record<Locale, string> = {
   en: "🇺🇸",
-  es: "🇪🇸",
-  fr: "🇫🇷",
-  zh: "🇨🇳",
+  // pt: "🇵🇹",
+  // es: "🇪🇸",
 };
 
 // Get browser's preferred language

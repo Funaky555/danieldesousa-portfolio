@@ -380,6 +380,52 @@ export const experience = [
     },
     images: [],
   },
+  {
+    id: 9,
+    role: "Trainee - Management Computer Equipment",
+    ageGroup: "",
+    club: "GALILEU - Specialists in Formation",
+    location: "Porto, Portugal",
+    country: "Portugal",
+    startDate: "2011-04",
+    endDate: "2011-06",
+    period: "April 2011 - June 2011",
+    description: "Trainee in Management Computer Equipment at GALILEU - Specialists in Formation.",
+    isDetailed: true,
+    sections: [
+      {
+        title: "Trainee (Management Computer Equipment)",
+        icon: "Building",
+        items: [
+          "Completed professional training internship in computer equipment management",
+          "Worked at GALILEU - Specialists in Formation",
+          "Developed technical skills in computer systems and equipment",
+        ],
+      },
+      {
+        title: "Key Responsibilities",
+        icon: "Building",
+        items: [
+          "Computer equipment management",
+          "Technical support and maintenance",
+          "Systems administration",
+        ],
+      },
+      {
+        title: "Achievements & Impact",
+        icon: "Trophy",
+        items: [
+          "Successfully completed 3-month professional training program",
+          "Gained technical expertise in computer systems",
+        ],
+      },
+    ],
+    achievements: [],
+    media: {
+      photos: [],
+    },
+    images: [],
+  },
 ];
 
 // ============================================================================
