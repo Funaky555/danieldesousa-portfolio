@@ -195,7 +195,7 @@
         "description": "Head coach for city representative teams preparing for national competitions.",
         "sections": {
           "0": {
-            "title": "Head Coach \u2013 U15 National Competition Preparation",
+            "title": "Head Coach \u2013 National Competition Preparation",
             "items": [
               "One-month intensive training program preparing U15 players for participation in a national championship",
               "Fully responsible for technical, tactical and physical preparation of the squad prior to competition",
@@ -210,7 +210,7 @@
             ]
           },
           "2": {
-            "title": "Head Coach \u2013 U13 National Competition",
+            "title": "Head Coach \u2013 National Competition",
             "items": [
               "Two-week intensive preparation period followed by travel and participation in a national youth tournament",
               "Led a very young and physically underdeveloped squad competing against stronger and more mature city teams",
@@ -255,14 +255,14 @@
         "description": "Multiple coaching roles at prestigious sports school.",
         "sections": {
           "0": {
-            "title": "Head Coach (U11 Boys / U17 Girls)",
+            "title": "Head Coach",
             "items": [
               "Led U11 boys and U17 girls teams as head coach",
               "Integrated tactical football training with athletic development"
             ]
           },
           "1": {
-            "title": "Assistant Coach (U18 Boys)",
+            "title": "Assistant Coach",
             "items": [
               "Supported U18 boys team as assistant coach",
               "Managed multiple age groups simultaneously"
@@ -323,7 +323,7 @@
             ]
           },
           "1": {
-            "title": "Assistant Coach (U14 to U18)",
+            "title": "Assistant Coach",
             "items": [
               "Assisted with U14, U15, U16, U17 and U18 teams",
               "Supported team preparation for competitive matches",
