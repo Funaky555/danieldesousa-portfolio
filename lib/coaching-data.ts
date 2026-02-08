@@ -114,14 +114,7 @@ export const experience = [
         ],
       },
     ],
-    achievements: [
-      "U15 Female City Champion (2023)",
-      "U15 Male City Vice-Champions (2023 and 2024)",
-      "Contributed to the school's recognition as a football development centre",
-      "Developed partnerships with Tongling Football Association",
-      "Implemented a more structured and professional approach to youth football at the school",
-      "Players from this programme were selected for city football teams",
-    ],
+    achievements: [],
     media: {
       interviewLink: "https://app.tlnews.cn/detailArticle/24332680_68885_tonglingrb.html",
       interviewTitle: "The Foreign Coach's Last Football Lesson",
@@ -195,11 +188,7 @@ export const experience = [
         ],
       },
     ],
-    achievements: [
-      "Successfully prepared two age groups for national-level competitions",
-      "Accelerated development of players in short preparation cycles",
-      "Implemented professional training methodology at city-team level",
-    ],
+    achievements: [],
     media: {
       photos: [],
     },
@@ -484,51 +473,6 @@ export const experience = [
   },
   {
     id: 8,
-    role: "Assistant Coach U13",
-    ageGroup: "U13",
-    club: "União Desportiva Lavrense",
-    location: "Matosinhos, Portugal",
-    country: "Portugal",
-    startDate: "2010-09",
-    endDate: "2011-07",
-    period: "September 2010 - July 2011",
-    description: "First professional coaching role, assisting with U13 team development.",
-    isDetailed: true,
-    sections: [
-      {
-        title: "Assistant Coach U13",
-        icon: "Building",
-        items: [
-          "Assisted with U13 team training and development",
-          "First professional coaching role",
-          "Supported youth player development",
-        ],
-      },
-      {
-        title: "Key Responsibilities",
-        icon: "Building",
-        items: [
-          "Training session support",
-          "Youth player development",
-        ],
-      },
-      {
-        title: "Achievements & Impact",
-        icon: "Trophy",
-        items: [
-          "Foundation of coaching career",
-          "Youth player development",
-        ],
-      },
-    ],
-    achievements: [],
-    media: {
-      photos: [],
-    },
-    images: [],
-  },
-  {
-    id: 9,
     role: "Trainee - Management Computer Equipment",
     ageGroup: "",
     club: "GALILEU - Specialists in Formation",
@@ -564,6 +508,51 @@ export const experience = [
         items: [
           "Successfully completed 3-month professional training program",
           "Gained technical expertise in computer systems",
+        ],
+      },
+    ],
+    achievements: [],
+    media: {
+      photos: [],
+    },
+    images: [],
+  },
+  {
+    id: 9,
+    role: "Assistant Coach U13",
+    ageGroup: "U13",
+    club: "União Desportiva Lavrense",
+    location: "Matosinhos, Portugal",
+    country: "Portugal",
+    startDate: "2010-09",
+    endDate: "2011-07",
+    period: "September 2010 - July 2011",
+    description: "First professional coaching role, assisting with U13 team development.",
+    isDetailed: true,
+    sections: [
+      {
+        title: "Assistant Coach U13",
+        icon: "Building",
+        items: [
+          "Assisted with U13 team training and development",
+          "First professional coaching role",
+          "Supported youth player development",
+        ],
+      },
+      {
+        title: "Key Responsibilities",
+        icon: "Building",
+        items: [
+          "Training session support",
+          "Youth player development",
+        ],
+      },
+      {
+        title: "Achievements & Impact",
+        icon: "Trophy",
+        items: [
+          "Foundation of coaching career",
+          "Youth player development",
         ],
       },
     ],
