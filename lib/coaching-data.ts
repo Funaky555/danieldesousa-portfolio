@@ -187,17 +187,30 @@ export const experience = [
     isDetailed: true,
     sections: [
       {
-        title: "Head Coach Responsibilities",
+        title: "Head Coach U15 (Male)",
         icon: "Trophy",
         items: [
           "Coached U15 city representative team for summer tournament competitions",
           "Prepared and trained players for regional-level matches",
         ],
       },
+      {
+        title: "Key Responsibilities",
+        icon: "Building",
+        items: [
+          "Tournament preparation and match coaching",
+          "Regional-level competition management",
+        ],
+      },
+      {
+        title: "Achievements & Impact",
+        icon: "Trophy",
+        items: [
+          "Competitive tournament participation",
+        ],
+      },
     ],
-    achievements: [
-      "Competitive tournament participation",
-    ],
+    achievements: [],
     media: {
       photos: [],
     },
@@ -217,26 +230,44 @@ export const experience = [
     isDetailed: true,
     sections: [
       {
-        title: "Head Coach (U11 Boys / U17 Girls)",
-        icon: "Trophy",
-        items: [
-          "Led U11 boys and U17 girls teams as head coach",
-          "Integrated tactical football training with athletic development",
-        ],
-      },
-      {
-        title: "Assistant Coach (U18 Boys)",
+        title: "Assistant Coach U18 (Male)",
         icon: "Building",
         items: [
           "Supported U18 boys team as assistant coach",
+        ],
+      },
+      {
+        title: "Head Coach U17 (Female)",
+        icon: "Trophy",
+        items: [
+          "Led U17 girls team as head coach",
+        ],
+      },
+      {
+        title: "Head Coach U11 (Male)",
+        icon: "Trophy",
+        items: [
+          "Led U11 boys team as head coach",
+        ],
+      },
+      {
+        title: "Key Responsibilities",
+        icon: "Building",
+        items: [
+          "Integrated tactical football training with athletic development",
+          "Managed multiple age groups simultaneously",
+        ],
+      },
+      {
+        title: "Achievements & Impact",
+        icon: "Trophy",
+        items: [
+          "Successfully integrated tactical football training with athletic development at Wushu school",
           "Managed multiple age groups simultaneously",
         ],
       },
     ],
-    achievements: [
-      "Integrated tactical football training with athletic development",
-      "Managed multiple age groups simultaneously",
-    ],
+    achievements: [],
     media: {
       photos: [],
     },
@@ -256,19 +287,30 @@ export const experience = [
     isDetailed: true,
     sections: [
       {
-        title: "Head Coach Responsibilities",
+        title: "Head Coach U6 to U15 (Male and Female)",
         icon: "Trophy",
         items: [
           "Coached multiple age groups from U6 to U15 at professional academy",
+        ],
+      },
+      {
+        title: "Key Responsibilities",
+        icon: "Building",
+        items: [
           "Developed age-appropriate training curricula",
           "Managed player pathway development",
         ],
       },
+      {
+        title: "Achievements & Impact",
+        icon: "Trophy",
+        items: [
+          "Created comprehensive age-appropriate training curricula",
+          "Established player pathway development system",
+        ],
+      },
     ],
-    achievements: [
-      "Developed age-appropriate training curricula",
-      "Player pathway development",
-    ],
+    achievements: [],
     media: {
       photos: [],
     },
@@ -288,7 +330,7 @@ export const experience = [
     isDetailed: true,
     sections: [
       {
-        title: "Assistant Coach Responsibilities",
+        title: "Assistant Coach U13 (Male)",
         icon: "Building",
         items: [
           "Assisted with U13 team training and match preparation",
@@ -296,12 +338,25 @@ export const experience = [
           "Supported player development for elite young talent",
         ],
       },
+      {
+        title: "Key Responsibilities",
+        icon: "Building",
+        items: [
+          "Training session support and match preparation",
+          "Player development for elite young talent",
+        ],
+      },
+      {
+        title: "Achievements & Impact",
+        icon: "Trophy",
+        items: [
+          "Worked with players who progressed to Portuguese youth national teams",
+          "Learned from world-class coaching staff",
+          "High-performance training environment experience",
+        ],
+      },
     ],
-    achievements: [
-      "Worked with players who progressed to Portuguese youth national teams",
-      "Learned from world-class coaching staff",
-      "High-performance training environment",
-    ],
+    achievements: [],
     media: {
       photos: [],
     },
@@ -321,7 +376,35 @@ export const experience = [
     isDetailed: true,
     sections: [
       {
-        title: "Head Coach (U6)",
+        title: "Assistant Coach U18 (Male)",
+        icon: "Building",
+        items: [
+          "Assisted with U18 team preparation for competitive matches",
+        ],
+      },
+      {
+        title: "Assistant Coach U17 (Male)",
+        icon: "Building",
+        items: [
+          "Assisted with U17 team preparation for competitive matches",
+        ],
+      },
+      {
+        title: "Assistant Coach U16 (Male)",
+        icon: "Building",
+        items: [
+          "Assisted with U16 team preparation for competitive matches",
+        ],
+      },
+      {
+        title: "Assistant Coach U15 (Male)",
+        icon: "Building",
+        items: [
+          "Assisted with U15 team preparation for competitive matches",
+        ],
+      },
+      {
+        title: "Head Coach U6 (Male)",
         icon: "Trophy",
         items: [
           "Led U6 grassroots team development",
@@ -329,20 +412,39 @@ export const experience = [
         ],
       },
       {
-        title: "Assistant Coach (U14 to U18)",
+        title: "Scouter",
         icon: "Building",
         items: [
-          "Assisted with U14, U15, U16, U17 and U18 teams",
-          "Supported team preparation for competitive matches",
+          "Player evaluation and talent identification",
+        ],
+      },
+      {
+        title: "Football Analyst",
+        icon: "Building",
+        items: [
+          "Match analysis and tactical evaluation",
+        ],
+      },
+      {
+        title: "Key Responsibilities",
+        icon: "Building",
+        items: [
+          "Supported team preparation for competitive matches across multiple age groups",
           "Developed players for higher competitive levels",
+          "Scouting and tactical analysis responsibilities",
+        ],
+      },
+      {
+        title: "Achievements & Impact",
+        icon: "Trophy",
+        items: [
+          "CD Trofense Juniors - Division Promotion to National Level (Assistant Coach)",
+          "Developed players for higher competitive levels",
+          "Grassroots to elite youth coaching experience",
         ],
       },
     ],
-    achievements: [
-      "CD Trofense Juniors - Division Promotion to National Level (Assistant Coach)",
-      "Developed players for higher competitive levels",
-      "Grassroots to elite youth coaching experience",
-    ],
+    achievements: [],
     media: {
       photos: [],
     },
@@ -362,7 +464,7 @@ export const experience = [
     isDetailed: true,
     sections: [
       {
-        title: "Assistant Coach Responsibilities",
+        title: "Assistant Coach U13",
         icon: "Building",
         items: [
           "Assisted with U13 team training and development",
@@ -370,11 +472,24 @@ export const experience = [
           "Supported youth player development",
         ],
       },
+      {
+        title: "Key Responsibilities",
+        icon: "Building",
+        items: [
+          "Training session support",
+          "Youth player development",
+        ],
+      },
+      {
+        title: "Achievements & Impact",
+        icon: "Trophy",
+        items: [
+          "Foundation of coaching career",
+          "Youth player development",
+        ],
+      },
     ],
-    achievements: [
-      "Foundation of coaching career",
-      "Youth player development",
-    ],
+    achievements: [],
     media: {
       photos: [],
     },
