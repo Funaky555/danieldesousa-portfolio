@@ -191,7 +191,7 @@
         "interviewTitle": "The Foreign Coach's Last Football Lesson"
       },
       "chizhou": {
-        "role": "Head Coach U13 & U15",
+        "role": "Head Coach",
         "description": "Head coach for city representative teams preparing for national competitions.",
         "sections": {
           "0": {
@@ -235,7 +235,7 @@
         ]
       },
       "tonglingCity": {
-        "role": "Head Coach U15",
+        "role": "Head Coach",
         "description": "Coached city representative team for summer tournaments.",
         "sections": {
           "0": {
@@ -251,7 +251,7 @@
         ]
       },
       "tagou": {
-        "role": "Head Coach / Assistant Coach",
+        "role": "Head Coach & Assistant Coach",
         "description": "Multiple coaching roles at prestigious sports school.",
         "sections": {
           "0": {
@@ -275,7 +275,7 @@
         ]
       },
       "dalian": {
-        "role": "Head Coach U6 to U15",
+        "role": "Head Coach",
         "description": "Coached grassroots to competitive youth levels at professional academy.",
         "sections": {
           "0": {
@@ -293,7 +293,7 @@
         ]
       },
       "benfica": {
-        "role": "Assistant Coach U13",
+        "role": "Assistant Coach",
         "description": "Assistant coach at one of Europe's top youth academies.",
         "sections": {
           "0": {
@@ -312,7 +312,7 @@
         ]
       },
       "trofense": {
-        "role": "Head Coach / Assistant Coach",
+        "role": "Head Coach - Assistant Coach - Scouter - Analyst",
         "description": "Extended tenure with multiple coaching roles across youth categories.",
         "sections": {
           "0": {
@@ -338,7 +338,7 @@
         ]
       },
       "lavrense": {
-        "role": "Assistant Coach U13",
+        "role": "Assistant Coach",
         "description": "First professional coaching role.",
         "sections": {
           "0": {

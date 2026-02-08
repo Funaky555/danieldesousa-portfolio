@@ -191,7 +191,7 @@
         "interviewTitle": "\u5916\u7c4d\u6559\u7ec3\u7684\u6700\u540e\u4e00\u5802\u8db3\u7403\u8bfe"
       },
       "chizhou": {
-        "role": "U13\u548cU15\u4e3b\u6559\u7ec3",
+        "role": "\u4e3b\u6559\u7ec3",
         "description": "\u57ce\u5e02\u4ee3\u8868\u961f\u4e3b\u6559\u7ec3\uff0c\u51c6\u5907\u53c2\u52a0\u5168\u56fd\u6bd4\u8d5b\u3002",
         "sections": {
           "0": {
@@ -235,7 +235,7 @@
         ]
       },
       "tonglingCity": {
-        "role": "U15\u4e3b\u6559\u7ec3",
+        "role": "\u4e3b\u6559\u7ec3",
         "description": "\u4e3a\u590f\u5b63\u9526\u6807\u8d5b\u6267\u6559\u57ce\u5e02\u4ee3\u8868\u961f\u3002",
         "sections": {
           "0": {
@@ -251,7 +251,7 @@
         ]
       },
       "tagou": {
-        "role": "\u4e3b\u6559\u7ec3 / \u52a9\u7406\u6559\u7ec3",
+        "role": "\u4e3b\u6559\u7ec3 & \u52a9\u7406\u6559\u7ec3",
         "description": "\u5728\u8457\u540d\u4f53\u80b2\u5b66\u6821\u62c5\u4efb\u591a\u4e2a\u6559\u7ec3\u804c\u4f4d\u3002",
         "sections": {
           "0": {
@@ -275,7 +275,7 @@
         ]
       },
       "dalian": {
-        "role": "U6\u81f3U15\u4e3b\u6559\u7ec3",
+        "role": "\u4e3b\u6559\u7ec3",
         "description": "\u5728\u4e13\u4e1a\u5b66\u9662\u6267\u6559\u4ece\u57fa\u5c42\u5230\u7ade\u6280\u7ea7\u522b\u7684\u9752\u5c11\u5e74\u3002",
         "sections": {
           "0": {
@@ -293,7 +293,7 @@
         ]
       },
       "benfica": {
-        "role": "U13\u52a9\u7406\u6559\u7ec3",
+        "role": "\u52a9\u7406\u6559\u7ec3",
         "description": "\u5728\u6b27\u6d32\u9876\u7ea7\u9752\u8bad\u5b66\u9662\u62c5\u4efb\u52a9\u7406\u6559\u7ec3\u3002",
         "sections": {
           "0": {
@@ -312,7 +312,7 @@
         ]
       },
       "trofense": {
-        "role": "\u4e3b\u6559\u7ec3 / \u52a9\u7406\u6559\u7ec3",
+        "role": "\u4e3b\u6559\u7ec3 - \u52a9\u7406\u6559\u7ec3 - \u7403\u63a2 - \u5206\u6790\u5e08",
         "description": "\u957f\u671f\u4efb\u804c\uff0c\u5728\u9752\u5e74\u7ec4\u522b\u62c5\u4efb\u591a\u4e2a\u6559\u7ec3\u804c\u4f4d\u3002",
         "sections": {
           "0": {
@@ -338,7 +338,7 @@
         ]
       },
       "lavrense": {
-        "role": "U13\u52a9\u7406\u6559\u7ec3",
+        "role": "\u52a9\u7406\u6559\u7ec3",
         "description": "\u7b2c\u4e00\u4efd\u4e13\u4e1a\u6559\u7ec3\u5de5\u4f5c\u3002",
         "sections": {
           "0": {

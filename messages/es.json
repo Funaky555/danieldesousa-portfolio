@@ -191,7 +191,7 @@
         "interviewTitle": "La \u00daltima Lecci\u00f3n de F\u00fatbol del Entrenador Extranjero"
       },
       "chizhou": {
-        "role": "Entrenador Principal U13 y U15",
+        "role": "Entrenador Principal",
         "description": "Entrenador principal de equipos representativos de la ciudad para competiciones nacionales.",
         "sections": {
           "0": {
@@ -235,7 +235,7 @@
         ]
       },
       "tonglingCity": {
-        "role": "Entrenador Principal U15",
+        "role": "Entrenador Principal",
         "description": "Entren\u00e9 equipo representativo de la ciudad para torneos de verano.",
         "sections": {
           "0": {
@@ -251,7 +251,7 @@
         ]
       },
       "tagou": {
-        "role": "Entrenador Principal / Asistente",
+        "role": "Entrenador Principal & Asistente",
         "description": "M\u00faltiples roles de entrenamiento en escuela deportiva de prestigio.",
         "sections": {
           "0": {
@@ -275,7 +275,7 @@
         ]
       },
       "dalian": {
-        "role": "Entrenador Principal U6 a U15",
+        "role": "Entrenador Principal",
         "description": "Entren\u00e9 desde base hasta niveles competitivos juveniles en academia profesional.",
         "sections": {
           "0": {
@@ -293,7 +293,7 @@
         ]
       },
       "benfica": {
-        "role": "Entrenador Asistente U13",
+        "role": "Entrenador Asistente",
         "description": "Entrenador asistente en una de las mejores academias juveniles de Europa.",
         "sections": {
           "0": {
@@ -312,7 +312,7 @@
         ]
       },
       "trofense": {
-        "role": "Entrenador Principal / Asistente",
+        "role": "Entrenador Principal - Asistente - Ojeador - Analista",
         "description": "Per\u00edodo extenso con m\u00faltiples roles de entrenamiento en categor\u00edas juveniles.",
         "sections": {
           "0": {
@@ -338,7 +338,7 @@
         ]
       },
       "lavrense": {
-        "role": "Entrenador Asistente U13",
+        "role": "Entrenador Asistente",
         "description": "Primer rol profesional de entrenamiento.",
         "sections": {
           "0": {
