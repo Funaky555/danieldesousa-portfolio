@@ -34,9 +34,13 @@ export function PhilosophyContent() {
               <h2 className="text-2xl font-bold text-foreground mb-6 text-center">
                 {t("philosophy.core")}
               </h2>
-              <p className="text-lg text-muted-foreground leading-relaxed text-center max-w-4xl mx-auto">
-                {t("philosophy.coreText")}
-              </p>
+              <div className="text-lg text-muted-foreground leading-relaxed max-w-4xl mx-auto space-y-4">
+                {t("philosophy.coreText").split('\n\n').map((paragraph, index) => (
+                  <p key={index} className="text-justify">
+                    {paragraph}
+                  </p>
+                ))}
+              </div>
             </div>
           </section>
 
