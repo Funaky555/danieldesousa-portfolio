@@ -4,13 +4,12 @@ import { GameMomentsSection } from "@/components/philosophy/game-moments";
 import { FormationPreview } from "@/components/philosophy/formation-preview";
 import { Separator } from "@/components/ui/separator";
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
-import { useTranslations, useTranslationList } from "@/components/providers/i18n-provider";
+import { useTranslations } from "@/components/providers/i18n-provider";
 import {
   GraduationCap,
   Target,
   Brain,
   Flame,
-  CheckCircle2,
   Heart,
   Users,
   Quote,
@@ -80,59 +79,34 @@ const topicColorMap = {
 
 export function PhilosophyContent() {
   const t = useTranslations();
-  const tList = useTranslationList();
 
   return (
     <main className="min-h-screen bg-background/80 pt-24 pb-16">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-        {/* === 1. HERO SECTION WITH PYRAMID === */}
+        {/* === 1. HERO SECTION === */}
         <div className="max-w-3xl mx-auto text-center mb-16">
-          <h1 className="text-4xl sm:text-5xl font-bold text-foreground mb-12">
+          <h1 className="text-4xl sm:text-5xl font-bold text-foreground mb-8">
             {t("philosophy.title")}
           </h1>
 
-          {/* Pyramid Visual */}
-          <div className="max-w-lg mx-auto relative">
-            {/* Decorative SVG Triangle */}
-            <svg
-              className="absolute inset-0 w-full h-full -z-10 opacity-15"
-              viewBox="0 0 400 300"
-              fill="none"
-              xmlns="http://www.w3.org/2000/svg"
-              preserveAspectRatio="xMidYMid meet"
-            >
-              <defs>
-                <linearGradient id="pyramidGradient" x1="0%" y1="0%" x2="100%" y2="100%">
-                  <stop offset="0%" stopColor="#00D66C" />
-                  <stop offset="50%" stopColor="#0066FF" />
-                  <stop offset="100%" stopColor="#8B5CF6" />
-                </linearGradient>
-              </defs>
-              <path
-                d="M 200 30 L 50 260 L 350 260 Z"
-                stroke="url(#pyramidGradient)"
-                strokeWidth="2"
-                fill="none"
-              />
-              {/* Inner lines connecting to center */}
-              <path
-                d="M 200 30 L 200 180 M 50 260 L 200 180 M 350 260 L 200 180"
-                stroke="url(#pyramidGradient)"
-                strokeWidth="1"
-                opacity="0.5"
-              />
-            </svg>
-
-            {/* Row 1: Top of pyramid */}
-            <div className="flex justify-center mb-6">
-              <PyramidCard {...pyramidWords[0]} />
-            </div>
-
-            {/* Row 2: Bottom of pyramid */}
-            <div className="grid grid-cols-2 gap-4 sm:gap-6">
-              <PyramidCard {...pyramidWords[1]} />
-              <PyramidCard {...pyramidWords[2]} />
-            </div>
+          {/* 3 I's - Horizontal */}
+          <div className="flex items-center justify-center gap-3 sm:gap-4">
+            {pyramidWords.map(({ word, icon: Icon, color }) => {
+              const colors = pyramidColorMap[color];
+              return (
+                <div
+                  key={word}
+                  className={`glass rounded-lg px-4 py-2.5 sm:px-6 sm:py-3 border ${colors.border} ${colors.bg} ${colors.glow} hover:scale-105 transition-all duration-300 cursor-default group`}
+                >
+                  <div className="flex items-center gap-2">
+                    <Icon className={`w-4 h-4 sm:w-5 sm:h-5 ${colors.text} group-hover:scale-110 transition-transform duration-300`} />
+                    <span className={`text-sm sm:text-base md:text-lg font-bold ${colors.text}`}>
+                      {word}
+                    </span>
+                  </div>
+                </div>
+              );
+            })}
           </div>
         </div>
 
@@ -150,37 +124,7 @@ export function PhilosophyContent() {
             </div>
           </section>
 
-          {/* === 3. CORE VALUES SECTION === */}
-          <section>
-            <div className="text-center mb-10">
-              <h2 className="text-3xl font-bold text-foreground mb-3">
-                {t("philosophy.coreValuesTitle")}
-              </h2>
-              <p className="text-lg text-muted-foreground">
-                {t("philosophy.coreValuesIntro")}
-              </p>
-            </div>
-
-            <div className="grid gap-5 md:grid-cols-2">
-              {tList("philosophy.coreValuesList").map((value, idx) => (
-                <div
-                  key={idx}
-                  className="glass rounded-lg p-5 md:p-6 border border-border/50 hover:border-football-green/50 transition-all duration-300 group"
-                >
-                  <div className="flex items-start gap-4">
-                    <div className="w-10 h-10 rounded-full bg-football-green/20 flex items-center justify-center shrink-0 group-hover:bg-football-green/30 transition-colors">
-                      <CheckCircle2 className="w-5 h-5 text-football-green" />
-                    </div>
-                    <p className="text-foreground leading-relaxed pt-1.5">{value}</p>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </section>
-
-          <Separator />
-
-          {/* === 4. PHILOSOPHY TOPICS (TABS) === */}
+          {/* === 3. PHILOSOPHY TOPICS (TABS) === */}
           <section>
             <div className="text-center mb-10">
               <h2 className="text-3xl font-bold text-foreground mb-3">
@@ -292,32 +236,5 @@ export function PhilosophyContent() {
         </div>
       </div>
     </main>
-  );
-}
-
-function PyramidCard({
-  word,
-  icon: Icon,
-  color,
-}: {
-  word: string;
-  icon: React.ComponentType<{ className?: string }>;
-  color: keyof typeof pyramidColorMap;
-}) {
-  const colors = pyramidColorMap[color];
-
-  return (
-    <div
-      className={`glass rounded-xl p-5 md:p-7 border ${colors.border} ${colors.bg} ${colors.glow} hover:scale-105 transition-all duration-300 cursor-default group relative overflow-hidden`}
-    >
-      <div className="flex flex-col items-center gap-3">
-        <div className={`w-12 h-12 rounded-full ${colors.iconBg} flex items-center justify-center group-hover:scale-110 transition-transform duration-300`}>
-          <Icon className={`w-6 h-6 ${colors.text}`} />
-        </div>
-        <span className={`text-xl sm:text-2xl md:text-3xl font-bold ${colors.text}`}>
-          {word}
-        </span>
-      </div>
-    </div>
   );
 }
