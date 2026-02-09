@@ -1,7 +1,7 @@
 "use client";
 
 import { GameMomentsSection } from "@/components/philosophy/game-moments";
-import { FormationPreview } from "@/components/philosophy/formation-preview";
+import { TacticalBoard } from "@/components/philosophy/tactical-board";
 import { Separator } from "@/components/ui/separator";
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
 import { useTranslations } from "@/components/providers/i18n-provider";
@@ -194,7 +194,7 @@ export function PhilosophyContent() {
                 {t("philosophy.subtitle")}
               </p>
             </div>
-            <FormationPreview />
+            <TacticalBoard />
           </section>
 
           <Separator />

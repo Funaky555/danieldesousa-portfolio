@@ -616,6 +616,10 @@
         "Central control",
         "Width in attack"
       ]
+    },
+    "tacticalBoard": {
+      "dragHint": "Drag players to explore",
+      "reset": "Reset Positions"
     }
   },
   "services": {
