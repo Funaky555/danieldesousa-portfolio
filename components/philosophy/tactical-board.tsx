@@ -1,12 +1,10 @@
 "use client";
 
-import { useRef, useState, useCallback } from "react";
+import { useState } from "react";
 import { LayoutGroup } from "framer-motion";
 import { Badge } from "@/components/ui/badge";
-import { Button } from "@/components/ui/button";
 import { formations } from "@/lib/coaching-data";
 import { useTranslations, useTranslationList } from "@/components/providers/i18n-provider";
-import { RotateCcw, Move } from "lucide-react";
 import { PitchSVG } from "./pitch-svg";
 import { PlayerDot } from "./player-dot";
 import { FormationSelector } from "./formation-selector";
@@ -17,45 +15,13 @@ const formationKeyMap: Record<string, string> = {
   "1-4-2-3-1": "4231",
 };
 
-interface Position {
-  x: number;
-  y: number;
-  position: string;
-  number: number;
-  name: string;
-}
-
 export function TacticalBoard() {
   const t = useTranslations();
   const tList = useTranslationList();
-  const containerRef = useRef<HTMLDivElement>(null);
   const [activeIndex, setActiveIndex] = useState(0);
-  const [customPositions, setCustomPositions] = useState<Position[] | null>(null);
 
   const formation = formations[activeIndex];
   const formationKey = formationKeyMap[formation.name] || "433";
-  const positions = customPositions ?? formation.positions;
-  const hasCustomPositions = customPositions !== null;
-
-  const handleFormationChange = useCallback((index: number) => {
-    setActiveIndex(index);
-    setCustomPositions(null);
-  }, []);
-
-  const handleDragEnd = useCallback(
-    (index: number, newX: number, newY: number) => {
-      const base = customPositions ?? [...formation.positions];
-      const updated = base.map((pos, i) =>
-        i === index ? { ...pos, x: newX, y: newY } : pos
-      );
-      setCustomPositions(updated);
-    },
-    [customPositions, formation.positions]
-  );
-
-  const handleReset = useCallback(() => {
-    setCustomPositions(null);
-  }, []);
 
   return (
     <LayoutGroup>
@@ -65,18 +31,15 @@ export function TacticalBoard() {
           <FormationSelector
             formations={formations.map((f) => f.name)}
             activeIndex={activeIndex}
-            onSelect={handleFormationChange}
+            onSelect={setActiveIndex}
           />
 
-          <div
-            ref={containerRef}
-            className="relative aspect-[3/4.4] max-w-md mx-auto rounded-lg overflow-hidden border border-border/50"
-          >
+          <div className="relative aspect-[3/4.4] max-w-md mx-auto rounded-lg overflow-hidden border border-border/50">
             <PitchSVG />
 
             {/* Players overlay */}
             <div className="absolute inset-0">
-              {positions.map((pos, idx) => (
+              {formation.positions.map((pos, idx) => (
                 <PlayerDot
                   key={idx}
                   index={idx}
@@ -85,18 +48,8 @@ export function TacticalBoard() {
                   position={pos.position}
                   number={pos.number}
                   name={pos.name}
-                  containerRef={containerRef}
-                  onDragEnd={handleDragEnd}
                 />
               ))}
-            </div>
-
-            {/* Drag hint */}
-            <div className="absolute bottom-2 left-1/2 -translate-x-1/2 flex items-center gap-1.5 glass rounded-full px-3 py-1 opacity-60">
-              <Move className="w-3 h-3 text-muted-foreground" />
-              <span className="text-[10px] text-muted-foreground">
-                {t("philosophy.tacticalBoard.dragHint")}
-              </span>
             </div>
           </div>
         </div>
@@ -126,18 +79,6 @@ export function TacticalBoard() {
               </div>
             </div>
           </div>
-
-          {hasCustomPositions && (
-            <Button
-              variant="outline"
-              size="sm"
-              onClick={handleReset}
-              className="w-full gap-2"
-            >
-              <RotateCcw className="w-4 h-4" />
-              {t("philosophy.tacticalBoard.reset")}
-            </Button>
-          )}
         </div>
       </div>
     </LayoutGroup>
