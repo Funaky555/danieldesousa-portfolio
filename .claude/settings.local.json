@@ -13,7 +13,8 @@
       "Bash(python fix_experience.py:*)",
       "Bash(dir:*)",
       "Bash(curl:*)",
-      "Bash(python:*)"
+      "Bash(python:*)",
+      "Bash(timeout:*)"
     ]
   }
 }

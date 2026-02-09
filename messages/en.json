@@ -494,7 +494,37 @@
     "title": "Coaching Philosophy",
     "subtitle": "My approach to football development",
     "core": "Core Philosophy",
-    "coreText": "My coaching philosophy is based on a developmental, humanistic and demanding approach, where the player is seen and developed in an integrated way: technical, tactical, physical, psychological, social and human.\n\nI believe that football should primarily be a learning environment, where players are encouraged to think, decide, make mistakes, correct them and grow. Mistakes are a natural and essential part of the learning process, as long as there is proper guidance, feedback and a safe environment.\n\nI aim to create challenging, dynamic and game-realistic training contexts, based on the Portuguese training methodology and the principles of Tactical Periodization, where the game is the central reference of the entire process. Training is structured according to the team's Game Model and the individual characteristics of each player.\n\nI place great importance on integrated training, where technical, tactical, physical and cognitive contents are developed together and always linked to decision-making.\n\nI support a proactive style of play, with a clear intention to have possession, build from the back in an organized way, create superiorities, encourage mobility, creativity and positive aggressiveness in attack, while never neglecting defensive balance, collective organization and quick reaction after losing the ball.\n\nAs a coach, I consider it essential to:\n\nPromote an environment of respect, discipline and responsibility\n\nDevelop autonomous, intelligent and confident players\n\nEncourage healthy competitiveness\n\nValue the team above the individual\n\nI see the player as a person before being an athlete. Therefore, I seek to know my players, understand their contexts, motivations, difficulties and adjust my approach to each profile. The coach–player relationship must be based on trust, clear communication and consistency.\n\nI am a coach who plans, observes, analyzes and constantly reflects on his work. I strongly believe in continuous education and openness to new ideas, always maintaining a critical and reflective mindset.\n\nFor me, success is not measured only by immediate results, but mainly by the sustained development of players, the quality of their behaviors in the game and the ability to form better people through football.",
+    "coreIntro": "My coaching philosophy is based on a developmental, humanistic and demanding approach, where the player is seen and developed in an integrated way: technical, tactical, physical, psychological, social and human.",
+    "coreBeliefs": {
+      "learningEnvironment": {
+        "title": "Learning Environment",
+        "text": "I believe that football should primarily be a learning environment, where players are encouraged to think, decide, make mistakes, correct them and grow. Mistakes are a natural and essential part of the learning process, as long as there is proper guidance, feedback and a safe environment."
+      },
+      "trainingMethodology": {
+        "title": "Training Methodology",
+        "text": "I aim to create challenging, dynamic and game-realistic training contexts, based on the Portuguese training methodology and the principles of Tactical Periodization, where the game is the central reference of the entire process. Training is structured according to the team's Game Model and the individual characteristics of each player."
+      },
+      "integratedTraining": {
+        "title": "Integrated Training",
+        "text": "I place great importance on integrated training, where technical, tactical, physical and cognitive contents are developed together and always linked to decision-making."
+      },
+      "playingStyle": {
+        "title": "Playing Style",
+        "text": "I support a proactive style of play, with a clear intention to have possession, build from the back in an organized way, create superiorities, encourage mobility, creativity and positive aggressiveness in attack, while never neglecting defensive balance, collective organization and quick reaction after losing the ball."
+      }
+    },
+    "coreValuesIntro": "As a coach, I consider it essential to:",
+    "coreValuesList": [
+      "Promote an environment of respect, discipline and responsibility",
+      "Develop autonomous, intelligent and confident players",
+      "Encourage healthy competitiveness",
+      "Value the team above the individual"
+    ],
+    "corePersonalTitle": "The Player as a Person",
+    "coreProfessionalTitle": "Professional Growth",
+    "corePersonal": "I see the player as a person before being an athlete. Therefore, I seek to know my players, understand their contexts, motivations, difficulties and adjust my approach to each profile. The coach\u2013player relationship must be based on trust, clear communication and consistency.",
+    "coreProfessional": "I am a coach who plans, observes, analyzes and constantly reflects on his work. I strongly believe in continuous education and openness to new ideas, always maintaining a critical and reflective mindset.",
+    "coreClosing": "For me, success is not measured only by immediate results, but mainly by the sustained development of players, the quality of their behaviors in the game and the ability to form better people through football.",
     "principles": "Key Principles",
     "gameMoments": "Game Moments",
     "formations": "Tactical Systems",
