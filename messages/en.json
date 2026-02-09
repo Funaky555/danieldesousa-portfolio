@@ -511,8 +511,17 @@
       "playingStyle": {
         "title": "Playing Style",
         "text": "I support a proactive style of play, with a clear intention to have possession, build from the back in an organized way, create superiorities, encourage mobility, creativity and positive aggressiveness in attack, while never neglecting defensive balance, collective organization and quick reaction after losing the ball."
+      },
+      "thePlayerAsAPerson": {
+        "title": "The Player as a Person",
+        "text": "I see the player as a person before being an athlete. Therefore, I seek to know my players, understand their contexts, motivations, difficulties and adjust my approach to each profile. The coach\u2013player relationship must be based on trust, clear communication and consistency."
+      },
+      "theTeam": {
+        "title": "The Team",
+        "text": "I believe in the collective strength of the team above all else. Success is built on synchronized effort, mutual trust and shared objectives. Every player has a defined role, and every role serves the team's game model. Individual talent is valued and developed, but it must always be placed at the service of the collective. A strong team culture, based on solidarity, accountability and a common identity, is the foundation for sustained competitive performance."
       }
     },
+    "coreValuesTitle": "Core Values",
     "coreValuesIntro": "As a coach, I consider it essential to:",
     "coreValuesList": [
       "Promote an environment of respect, discipline and responsibility",
