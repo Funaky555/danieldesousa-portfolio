@@ -96,11 +96,11 @@ export function PhilosophyContent() {
               return (
                 <div
                   key={word}
-                  className={`glass rounded-lg px-4 py-2.5 sm:px-6 sm:py-3 border ${colors.border} ${colors.bg} ${colors.glow} hover:scale-105 transition-all duration-300 cursor-default group`}
+                  className={`glass rounded-lg px-5 py-3 sm:px-8 sm:py-4 border ${colors.border} ${colors.bg} ${colors.glow} hover:scale-105 transition-all duration-300 cursor-default group`}
                 >
-                  <div className="flex items-center gap-2">
-                    <Icon className={`w-4 h-4 sm:w-5 sm:h-5 ${colors.text} group-hover:scale-110 transition-transform duration-300`} />
-                    <span className={`text-sm sm:text-base md:text-lg font-bold ${colors.text}`}>
+                  <div className="flex items-center gap-2.5">
+                    <Icon className={`w-5 h-5 sm:w-6 sm:h-6 ${colors.text} group-hover:scale-110 transition-transform duration-300`} />
+                    <span className={`text-base sm:text-lg md:text-xl font-bold ${colors.text}`}>
                       {word}
                     </span>
                   </div>
@@ -117,9 +117,14 @@ export function PhilosophyContent() {
               <div className="absolute top-0 left-0 w-1.5 h-full bg-gradient-to-b from-football-green via-ai-blue to-tech-purple" />
               <div className="flex gap-4 pl-4">
                 <Quote className="w-10 h-10 text-football-green/40 shrink-0 mt-1" />
-                <blockquote className="text-lg md:text-xl text-foreground italic leading-relaxed">
-                  {t("philosophy.coreClosing")}
-                </blockquote>
+                <div>
+                  <blockquote className="text-lg md:text-xl text-foreground italic leading-relaxed">
+                    &ldquo;{t("philosophy.coreClosing")}&rdquo;
+                  </blockquote>
+                  <p className="mt-4 text-sm text-muted-foreground font-medium">
+                    &mdash; Daniel de Sousa
+                  </p>
+                </div>
               </div>
             </div>
           </section>
