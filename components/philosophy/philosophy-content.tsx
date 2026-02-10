@@ -214,28 +214,17 @@ export function PhilosophyContent() {
 
           <Separator />
 
-          {/* === 7. COACHING APPROACH (existing) === */}
+          {/* === 7. TRAINING APPROACH === */}
           <section>
             <div className="text-center mb-12">
               <h2 className="text-3xl font-bold text-foreground mb-4">
                 {t("philosophy.approach")}
               </h2>
             </div>
-            <div className="grid gap-8 md:grid-cols-2">
-              <div className="glass rounded-lg p-8 border border-border/50">
-                <h3 className="text-xl font-bold text-foreground mb-4">{t("philosophy.approach")}</h3>
-                <p className="text-muted-foreground leading-relaxed">
-                  {t("philosophy.approachText")}
-                </p>
-              </div>
-              <div className="glass rounded-lg p-8 border border-border/50">
-                <h3 className="text-xl font-bold text-foreground mb-4">
-                  {t("philosophy.roles")}
-                </h3>
-                <p className="text-muted-foreground leading-relaxed">
-                  {t("philosophy.rolesText")}
-                </p>
-              </div>
+            <div className="max-w-3xl mx-auto glass rounded-lg p-8 md:p-10 border border-border/50">
+              <p className="text-muted-foreground leading-relaxed text-lg">
+                {t("philosophy.approachText")}
+              </p>
             </div>
           </section>
         </div>
