@@ -2,7 +2,6 @@
 
 import { useState } from "react";
 import { LayoutGroup } from "framer-motion";
-import { Badge } from "@/components/ui/badge";
 import { formations } from "@/lib/coaching-data";
 import { useTranslations, useTranslationList } from "@/components/providers/i18n-provider";
 import { PitchSVG } from "./pitch-svg";
@@ -68,12 +67,13 @@ export function TacticalBoard() {
               <p className="text-xs font-semibold text-foreground">
                 {t("philosophy.principles")}:
               </p>
-              <div className="flex flex-wrap gap-1.5">
+              <div className="space-y-2">
                 {tList(`philosophy.formationStrengths.${formationKey}`).map(
                   (strength, idx) => (
-                    <Badge key={idx} variant="outline" className="text-xs">
-                      {strength}
-                    </Badge>
+                    <div key={idx} className="flex items-start gap-2.5">
+                      <div className="shrink-0 w-1.5 h-1.5 rounded-full mt-1.5 bg-ai-blue" />
+                      <p className="text-sm text-foreground/80">{strength}</p>
+                    </div>
                   )
                 )}
               </div>
