@@ -709,12 +709,22 @@ export const philosophy = {
     },
     {
       title: "Set Pieces",
-      description: "Structured approach to dead-ball situations",
+      description: "Set pieces are strategic moments of the game — corners, free kicks, throw-ins, goal kicks and penalties.",
       principles: [
-        "Clear roles and responsibilities",
-        "Rehearsed routines",
-        "Defensive organization",
-        "Exploiting opponent weaknesses",
+        "Organization and detail in every routine",
+        "Offensive and defensive intentionality",
+        "Corners, free kicks, throw-ins, goal kicks, penalties",
+        "Clear competitive advantage opportunities",
+      ],
+    },
+    {
+      title: "The 6th Moment — Creativity",
+      description: "Within a clear structure, there is space for freedom. Creativity is not imposed — it is empowered.",
+      principles: [
+        "I provide tools, principles and context",
+        "Then I let talent express itself",
+        "Freedom to take risks within structure",
+        "Creativity is not imposed — it is empowered",
       ],
     },
   ],

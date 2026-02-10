@@ -551,45 +551,55 @@
       "defensiveOrg": "Defensive Organization",
       "offensiveTrans": "Offensive Transition",
       "defensiveTrans": "Defensive Transition",
-      "setPieces": "Set Pieces"
+      "setPieces": "Set Pieces",
+      "creativity": "The 6th Moment — Creativity"
     },
     "gameMomentsDescriptions": {
-      "offensiveOrg": "Structured possession play with clear positional responsibilities",
-      "defensiveOrg": "Compactness and coordinated pressing to win the ball early",
-      "offensiveTrans": "Quick exploitation of space after winning possession",
-      "defensiveTrans": "Immediate reaction to loss of possession",
-      "setPieces": "Structured approach to dead-ball situations"
+      "offensiveOrg": "In offensive organization, I aim to build a team that takes ownership of the game — but above all, knows what to do with the ball. Every action on the ball must have a purpose: to progress, to unbalance, to finish.",
+      "defensiveOrg": "Defending is a collective act. I look for compact, aggressive and organized teams that know how to control the opponent without the ball. More than dropping deep and reacting, I want teams that dictate the defensive game.",
+      "offensiveTrans": "When we win the ball, attack the opponent's goal. If there is an opportunity to progress quickly, we attack. If not, we reorganize and rebuild. Transitioning well means reading the context.",
+      "defensiveTrans": "Losing the ball does not mean losing control. The team must react immediately. The objective is simple: prevent the opponent from thinking and progressing on the pitch.",
+      "setPieces": "Set pieces are strategic moments of the game — corners, free kicks, throw-ins, goal kicks and penalties. I see set pieces as clear opportunities to gain competitive advantage.",
+      "creativity": "Within a clear structure, there is space for freedom. I believe the player should feel comfortable to take risks, create and decide. Creativity is not imposed — it is empowered."
     },
     "gameMomentsPrinciples": {
       "offensiveOrg": [
-        "Positional play - occupying and creating space",
-        "Offering constant support",
-        "Ensuring width and depth",
-        "Numerical superiority in key zones"
+        "Circulation with intention, not just possession",
+        "Rational occupation of space, creating constant passing lines",
+        "Permanent mobility to generate superiorities",
+        "Ability to alternate between build-up, interior and direct play",
+        "Patient when necessary, vertical when possible"
       ],
       "defensiveOrg": [
-        "Reducing space between lines",
-        "Coordinated pressing",
-        "Intelligent positioning",
-        "Collective defensive shape"
+        "Reduce space between lines",
+        "Protect central zones",
+        "Guide the opponent into less dangerous areas",
+        "Always defend with reference to the ball",
+        "Precise pressing timings"
       ],
       "offensiveTrans": [
-        "Immediate forward progression",
-        "Using numerical superiority",
-        "Exploiting disorganized opponents",
-        "Direct play when appropriate"
+        "Quick first decision",
+        "Immediate recognition of space and advantage",
+        "Close support to the ball carrier",
+        "Attack if possible, reorganize if not"
       ],
       "defensiveTrans": [
-        "Counter-pressing",
-        "Protecting key areas",
-        "Organized retreat when needed",
-        "Preventing counter-attacks"
+        "Immediate pressure on the ball",
+        "Close nearby passing lines",
+        "Recover or at minimum delay the opponent",
+        "Foul if necessary to stop progression"
       ],
       "setPieces": [
-        "Clear roles and responsibilities",
-        "Rehearsed routines",
-        "Defensive organization",
-        "Exploiting opponent weaknesses"
+        "Organization and detail in every routine",
+        "Offensive and defensive intentionality",
+        "Corners, free kicks, throw-ins, goal kicks, penalties",
+        "Clear competitive advantage opportunities"
+      ],
+      "creativity": [
+        "I provide tools, principles and context",
+        "Then I let talent express itself",
+        "Freedom to take risks within structure",
+        "Creativity is not imposed — it is empowered"
       ]
     },
     "formationDescriptions": {
