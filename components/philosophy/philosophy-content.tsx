@@ -321,8 +321,6 @@ export function PhilosophyContent() {
                 const Icon = approachIcons[idx] || Zap;
                 const color = approachColors[idx] || "toasted-yellow";
                 const ac = approachColorMap[color];
-                const stepNum = String(idx + 1).padStart(2, "0");
-
                 return (
                   <motion.div
                     key={idx}
@@ -337,9 +335,6 @@ export function PhilosophyContent() {
                       className={`group glass rounded-xl p-6 border ${ac.border} relative overflow-hidden h-full`}
                     >
                       <div className="relative z-10">
-                        <span className={`absolute -top-2 -right-1 text-5xl font-black font-mono ${ac.text} opacity-10 select-none`}>
-                          {stepNum}
-                        </span>
                         <div className="flex items-start gap-4">
                           <div className={`shrink-0 w-10 h-10 rounded-lg ${ac.bg} flex items-center justify-center`}>
                             <Icon className={`w-5 h-5 ${ac.text}`} />
