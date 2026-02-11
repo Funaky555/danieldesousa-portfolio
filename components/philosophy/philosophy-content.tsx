@@ -1,5 +1,6 @@
 "use client";
 
+import React, { useRef, useState } from "react";
 import { motion } from "framer-motion";
 import { GameMomentsSection } from "@/components/philosophy/game-moments";
 import { TacticalBoard } from "@/components/philosophy/tactical-board";
@@ -121,13 +122,54 @@ const approachIcons = [Zap, Focus, Gamepad2, BarChart3, Settings2];
 const approachColors = ["toasted-yellow", "ai-blue", "tech-purple", "energy-red", "energy-orange"] as const;
 
 const approachColorMap = {
-  "football-green": { dot: "bg-football-green", text: "text-football-green", bg: "bg-football-green/10", border: "border-football-green/20", glow: "hover:shadow-[0_0_20px_rgba(0,214,108,0.15)]" },
-  "ai-blue": { dot: "bg-ai-blue", text: "text-ai-blue", bg: "bg-ai-blue/10", border: "border-ai-blue/20", glow: "hover:shadow-[0_0_20px_rgba(0,102,255,0.15)]" },
-  "tech-purple": { dot: "bg-tech-purple", text: "text-tech-purple", bg: "bg-tech-purple/10", border: "border-tech-purple/20", glow: "hover:shadow-[0_0_20px_rgba(139,92,246,0.15)]" },
-  "energy-orange": { dot: "bg-energy-orange", text: "text-energy-orange", bg: "bg-energy-orange/10", border: "border-energy-orange/20", glow: "hover:shadow-[0_0_20px_rgba(255,107,53,0.15)]" },
-  "toasted-yellow": { dot: "bg-toasted-yellow", text: "text-toasted-yellow", bg: "bg-toasted-yellow/10", border: "border-toasted-yellow/20", glow: "hover:shadow-[0_0_20px_rgba(204,138,0,0.15)]" },
-  "energy-red": { dot: "bg-energy-red", text: "text-energy-red", bg: "bg-energy-red/10", border: "border-energy-red/20", glow: "hover:shadow-[0_0_20px_rgba(239,68,68,0.15)]" },
+  "football-green": { dot: "bg-football-green", text: "text-football-green", bg: "bg-football-green/10", border: "border-football-green/20", glowRgba: "rgba(0,214,108,0.15)" },
+  "ai-blue": { dot: "bg-ai-blue", text: "text-ai-blue", bg: "bg-ai-blue/10", border: "border-ai-blue/20", glowRgba: "rgba(0,102,255,0.15)" },
+  "tech-purple": { dot: "bg-tech-purple", text: "text-tech-purple", bg: "bg-tech-purple/10", border: "border-tech-purple/20", glowRgba: "rgba(139,92,246,0.15)" },
+  "energy-orange": { dot: "bg-energy-orange", text: "text-energy-orange", bg: "bg-energy-orange/10", border: "border-energy-orange/20", glowRgba: "rgba(255,107,53,0.15)" },
+  "toasted-yellow": { dot: "bg-toasted-yellow", text: "text-toasted-yellow", bg: "bg-toasted-yellow/10", border: "border-toasted-yellow/20", glowRgba: "rgba(204,138,0,0.15)" },
+  "energy-red": { dot: "bg-energy-red", text: "text-energy-red", bg: "bg-energy-red/10", border: "border-energy-red/20", glowRgba: "rgba(239,68,68,0.15)" },
 } as const;
+
+function TiltCard({ children, glowColor, className }: { children: React.ReactNode; glowColor: string; className?: string }) {
+  const ref = useRef<HTMLDivElement>(null);
+  const [tiltStyle, setTiltStyle] = useState({ transform: "", glowBg: "" });
+
+  const handleMouseMove = (e: React.MouseEvent) => {
+    const el = ref.current;
+    if (!el) return;
+    const rect = el.getBoundingClientRect();
+    const x = e.clientX - rect.left;
+    const y = e.clientY - rect.top;
+    const centerX = rect.width / 2;
+    const centerY = rect.height / 2;
+    const rotateX = ((y - centerY) / centerY) * -8;
+    const rotateY = ((x - centerX) / centerX) * 8;
+    setTiltStyle({
+      transform: `perspective(800px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale(1.02)`,
+      glowBg: `radial-gradient(circle at ${x}px ${y}px, ${glowColor}, transparent 60%)`,
+    });
+  };
+
+  const handleMouseLeave = () => {
+    setTiltStyle({ transform: "", glowBg: "" });
+  };
+
+  return (
+    <div
+      ref={ref}
+      onMouseMove={handleMouseMove}
+      onMouseLeave={handleMouseLeave}
+      className={`transition-transform duration-300 ease-out ${className}`}
+      style={{ transform: tiltStyle.transform }}
+    >
+      <div
+        className="absolute inset-0 rounded-xl opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none"
+        style={{ background: tiltStyle.glowBg }}
+      />
+      {children}
+    </div>
+  );
+}
 
 export function PhilosophyContent() {
   const t = useTranslations();
@@ -274,48 +316,43 @@ export function PhilosophyContent() {
                 {t("philosophy.approach")}
               </h2>
             </div>
-            <div className="max-w-4xl mx-auto relative">
-              {/* Linha vertical luminosa */}
-              <div className="absolute left-[19px] top-8 bottom-8 w-px bg-gradient-to-b from-toasted-yellow via-tech-purple to-energy-orange opacity-30" />
+            <div className="max-w-5xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-5">
+              {tList("philosophy.approachPoints").map((point, idx) => {
+                const Icon = approachIcons[idx] || Zap;
+                const color = approachColors[idx] || "toasted-yellow";
+                const ac = approachColorMap[color];
+                const stepNum = String(idx + 1).padStart(2, "0");
 
-              <div className="space-y-5">
-                {tList("philosophy.approachPoints").map((point, idx) => {
-                  const Icon = approachIcons[idx] || Zap;
-                  const color = approachColors[idx] || "toasted-yellow";
-                  const ac = approachColorMap[color];
-                  const stepNum = String(idx + 1).padStart(2, "0");
-
-                  return (
-                    <motion.div
-                      key={idx}
-                      initial={{ opacity: 0, x: -20 }}
-                      whileInView={{ opacity: 1, x: 0 }}
-                      viewport={{ once: true }}
-                      transition={{ delay: idx * 0.12, duration: 0.4 }}
-                      className="flex items-start gap-5"
+                return (
+                  <motion.div
+                    key={idx}
+                    initial={{ opacity: 0, y: 20 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ delay: idx * 0.1, duration: 0.4 }}
+                    className={idx === 4 ? "md:col-span-2 md:max-w-[calc(50%-10px)] md:mx-auto" : ""}
+                  >
+                    <TiltCard
+                      glowColor={ac.glowRgba}
+                      className={`group glass rounded-xl p-6 border ${ac.border} relative overflow-hidden h-full`}
                     >
-                      {/* Numbered node */}
-                      <div className="relative shrink-0">
-                        <div className={`w-10 h-10 rounded-full ${ac.bg} border ${ac.border} flex items-center justify-center z-10 relative bg-background`}>
-                          <span className={`text-xs font-mono font-bold ${ac.text}`}>{stepNum}</span>
-                        </div>
-                      </div>
-
-                      {/* Card */}
-                      <div className={`flex-1 glass rounded-lg p-5 border ${ac.border} ${ac.glow} transition-all duration-300 hover:scale-[1.01]`}>
-                        <div className="flex items-start gap-3">
-                          <div className={`shrink-0 w-8 h-8 rounded-lg ${ac.bg} flex items-center justify-center`}>
-                            <Icon className={`w-4 h-4 ${ac.text}`} />
+                      <div className="relative z-10">
+                        <span className={`absolute -top-2 -right-1 text-5xl font-black font-mono ${ac.text} opacity-10 select-none`}>
+                          {stepNum}
+                        </span>
+                        <div className="flex items-start gap-4">
+                          <div className={`shrink-0 w-10 h-10 rounded-lg ${ac.bg} flex items-center justify-center`}>
+                            <Icon className={`w-5 h-5 ${ac.text}`} />
                           </div>
-                          <p className="text-sm md:text-base text-foreground/85 leading-relaxed pt-1">
+                          <p className="text-sm md:text-base text-foreground/85 leading-relaxed pt-2">
                             {point}
                           </p>
                         </div>
                       </div>
-                    </motion.div>
-                  );
-                })}
-              </div>
+                    </TiltCard>
+                  </motion.div>
+                );
+              })}
             </div>
           </section>
         </div>
