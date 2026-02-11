@@ -241,7 +241,10 @@ export const experience = [
     ],
     achievements: [],
     media: {
-      photos: [],
+      photos: [
+        "/images/china/TonglingCity1.jpg",
+        "/images/china/TonglingCity2.jpg",
+      ],
     },
     images: [],
   },
