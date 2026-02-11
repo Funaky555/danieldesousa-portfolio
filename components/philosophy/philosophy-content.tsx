@@ -1,5 +1,6 @@
 "use client";
 
+import { motion } from "framer-motion";
 import { GameMomentsSection } from "@/components/philosophy/game-moments";
 import { TacticalBoard } from "@/components/philosophy/tactical-board";
 import { Separator } from "@/components/ui/separator";
@@ -120,12 +121,12 @@ const approachIcons = [Zap, Focus, Gamepad2, BarChart3, Settings2];
 const approachColors = ["toasted-yellow", "ai-blue", "tech-purple", "energy-red", "energy-orange"] as const;
 
 const approachColorMap = {
-  "football-green": { dot: "bg-football-green", text: "text-football-green", bg: "bg-football-green/10", border: "border-football-green/20" },
-  "ai-blue": { dot: "bg-ai-blue", text: "text-ai-blue", bg: "bg-ai-blue/10", border: "border-ai-blue/20" },
-  "tech-purple": { dot: "bg-tech-purple", text: "text-tech-purple", bg: "bg-tech-purple/10", border: "border-tech-purple/20" },
-  "energy-orange": { dot: "bg-energy-orange", text: "text-energy-orange", bg: "bg-energy-orange/10", border: "border-energy-orange/20" },
-  "toasted-yellow": { dot: "bg-toasted-yellow", text: "text-toasted-yellow", bg: "bg-toasted-yellow/10", border: "border-toasted-yellow/20" },
-  "energy-red": { dot: "bg-energy-red", text: "text-energy-red", bg: "bg-energy-red/10", border: "border-energy-red/20" },
+  "football-green": { dot: "bg-football-green", text: "text-football-green", bg: "bg-football-green/10", border: "border-football-green/20", glow: "hover:shadow-[0_0_20px_rgba(0,214,108,0.15)]" },
+  "ai-blue": { dot: "bg-ai-blue", text: "text-ai-blue", bg: "bg-ai-blue/10", border: "border-ai-blue/20", glow: "hover:shadow-[0_0_20px_rgba(0,102,255,0.15)]" },
+  "tech-purple": { dot: "bg-tech-purple", text: "text-tech-purple", bg: "bg-tech-purple/10", border: "border-tech-purple/20", glow: "hover:shadow-[0_0_20px_rgba(139,92,246,0.15)]" },
+  "energy-orange": { dot: "bg-energy-orange", text: "text-energy-orange", bg: "bg-energy-orange/10", border: "border-energy-orange/20", glow: "hover:shadow-[0_0_20px_rgba(255,107,53,0.15)]" },
+  "toasted-yellow": { dot: "bg-toasted-yellow", text: "text-toasted-yellow", bg: "bg-toasted-yellow/10", border: "border-toasted-yellow/20", glow: "hover:shadow-[0_0_20px_rgba(204,138,0,0.15)]" },
+  "energy-red": { dot: "bg-energy-red", text: "text-energy-red", bg: "bg-energy-red/10", border: "border-energy-red/20", glow: "hover:shadow-[0_0_20px_rgba(239,68,68,0.15)]" },
 } as const;
 
 export function PhilosophyContent() {
@@ -273,24 +274,45 @@ export function PhilosophyContent() {
                 {t("philosophy.approach")}
               </h2>
             </div>
-            <div className="max-w-4xl mx-auto glass rounded-xl p-8 md:p-10 border border-border/50">
-              <div className="grid gap-4">
+            <div className="max-w-4xl mx-auto relative">
+              {/* Linha vertical luminosa */}
+              <div className="absolute left-[19px] top-8 bottom-8 w-px bg-gradient-to-b from-toasted-yellow via-tech-purple to-energy-orange opacity-30" />
+
+              <div className="space-y-5">
                 {tList("philosophy.approachPoints").map((point, idx) => {
                   const Icon = approachIcons[idx] || Zap;
                   const color = approachColors[idx] || "toasted-yellow";
                   const ac = approachColorMap[color];
+                  const stepNum = String(idx + 1).padStart(2, "0");
+
                   return (
-                    <div
+                    <motion.div
                       key={idx}
-                      className={`flex items-start gap-4 p-4 rounded-lg border ${ac.border} ${ac.bg} transition-all duration-300 hover:scale-[1.01]`}
+                      initial={{ opacity: 0, x: -20 }}
+                      whileInView={{ opacity: 1, x: 0 }}
+                      viewport={{ once: true }}
+                      transition={{ delay: idx * 0.12, duration: 0.4 }}
+                      className="flex items-start gap-5"
                     >
-                      <div className={`shrink-0 w-9 h-9 rounded-lg ${ac.bg} flex items-center justify-center`}>
-                        <Icon className={`w-4.5 h-4.5 ${ac.text}`} />
+                      {/* Numbered node */}
+                      <div className="relative shrink-0">
+                        <div className={`w-10 h-10 rounded-full ${ac.bg} border ${ac.border} flex items-center justify-center z-10 relative bg-background`}>
+                          <span className={`text-xs font-mono font-bold ${ac.text}`}>{stepNum}</span>
+                        </div>
                       </div>
-                      <p className="text-sm md:text-base text-foreground/85 leading-relaxed pt-1.5">
-                        {point}
-                      </p>
-                    </div>
+
+                      {/* Card */}
+                      <div className={`flex-1 glass rounded-lg p-5 border ${ac.border} ${ac.glow} transition-all duration-300 hover:scale-[1.01]`}>
+                        <div className="flex items-start gap-3">
+                          <div className={`shrink-0 w-8 h-8 rounded-lg ${ac.bg} flex items-center justify-center`}>
+                            <Icon className={`w-4 h-4 ${ac.text}`} />
+                          </div>
+                          <p className="text-sm md:text-base text-foreground/85 leading-relaxed pt-1">
+                            {point}
+                          </p>
+                        </div>
+                      </div>
+                    </motion.div>
                   );
                 })}
               </div>
