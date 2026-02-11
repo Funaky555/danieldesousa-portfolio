@@ -18,7 +18,7 @@ import { useTranslations, useTranslationList } from "@/components/providers/i18n
 interface GameMoment {
   key: string;
   icon: LucideIcon;
-  color: "football-green" | "ai-blue" | "tech-purple" | "energy-orange";
+  color: "football-green" | "ai-blue" | "tech-purple" | "energy-orange" | "energy-red";
   badge: string;
 }
 
@@ -27,78 +27,75 @@ const gameMoments: GameMoment[] = [
   { key: "defensiveOrg", icon: Shield, color: "ai-blue", badge: "WITHOUT BALL" },
   { key: "offensiveTrans", icon: Zap, color: "tech-purple", badge: "BALL WON" },
   { key: "defensiveTrans", icon: ShieldAlert, color: "energy-orange", badge: "BALL LOST" },
-  { key: "setPieces", icon: Flag, color: "tech-purple", badge: "DEAD BALL" },
-  { key: "creativity", icon: Sparkles, color: "energy-orange", badge: "THE 6TH" },
+  { key: "setPieces", icon: Flag, color: "energy-red", badge: "DEAD BALL" },
+  { key: "creativity", icon: Sparkles, color: "football-green", badge: "THE 6TH" },
 ];
 
 const colorMap = {
   "football-green": {
     bg: "bg-football-green/10",
-    bgInactive: "bg-football-green/5",
     border: "border-football-green/30",
-    borderInactive: "border-football-green/20",
     activeBorder: "border-football-green/70",
     text: "text-football-green",
-    textInactive: "text-football-green/70",
+    textInactive: "text-football-green/50",
     iconBg: "bg-football-green/20",
-    iconBgInactive: "bg-football-green/10",
     glow: "shadow-[0_0_30px_rgba(0,214,108,0.15)]",
     activeGlow: "shadow-[0_0_50px_rgba(0,214,108,0.3)]",
-    hoverGlow: "hover:shadow-[0_0_25px_rgba(0,214,108,0.12)]",
     dot: "bg-football-green",
     badgeBg: "bg-football-green/15 text-football-green border-football-green/30",
-    badgeBgInactive: "bg-football-green/8 text-football-green/60 border-football-green/20",
+    badgeBgInactive: "text-football-green/40 border-football-green/15",
   },
   "ai-blue": {
     bg: "bg-ai-blue/10",
-    bgInactive: "bg-ai-blue/5",
     border: "border-ai-blue/30",
-    borderInactive: "border-ai-blue/20",
     activeBorder: "border-ai-blue/70",
     text: "text-ai-blue",
-    textInactive: "text-ai-blue/70",
+    textInactive: "text-ai-blue/50",
     iconBg: "bg-ai-blue/20",
-    iconBgInactive: "bg-ai-blue/10",
     glow: "shadow-[0_0_30px_rgba(0,102,255,0.15)]",
     activeGlow: "shadow-[0_0_50px_rgba(0,102,255,0.3)]",
-    hoverGlow: "hover:shadow-[0_0_25px_rgba(0,102,255,0.12)]",
     dot: "bg-ai-blue",
     badgeBg: "bg-ai-blue/15 text-ai-blue border-ai-blue/30",
-    badgeBgInactive: "bg-ai-blue/8 text-ai-blue/60 border-ai-blue/20",
+    badgeBgInactive: "text-ai-blue/40 border-ai-blue/15",
   },
   "tech-purple": {
     bg: "bg-tech-purple/10",
-    bgInactive: "bg-tech-purple/5",
     border: "border-tech-purple/30",
-    borderInactive: "border-tech-purple/20",
     activeBorder: "border-tech-purple/70",
     text: "text-tech-purple",
-    textInactive: "text-tech-purple/70",
+    textInactive: "text-tech-purple/50",
     iconBg: "bg-tech-purple/20",
-    iconBgInactive: "bg-tech-purple/10",
     glow: "shadow-[0_0_30px_rgba(139,92,246,0.15)]",
     activeGlow: "shadow-[0_0_50px_rgba(139,92,246,0.3)]",
-    hoverGlow: "hover:shadow-[0_0_25px_rgba(139,92,246,0.12)]",
     dot: "bg-tech-purple",
     badgeBg: "bg-tech-purple/15 text-tech-purple border-tech-purple/30",
-    badgeBgInactive: "bg-tech-purple/8 text-tech-purple/60 border-tech-purple/20",
+    badgeBgInactive: "text-tech-purple/40 border-tech-purple/15",
   },
   "energy-orange": {
     bg: "bg-energy-orange/10",
-    bgInactive: "bg-energy-orange/5",
     border: "border-energy-orange/30",
-    borderInactive: "border-energy-orange/20",
     activeBorder: "border-energy-orange/70",
     text: "text-energy-orange",
-    textInactive: "text-energy-orange/70",
+    textInactive: "text-energy-orange/50",
     iconBg: "bg-energy-orange/20",
-    iconBgInactive: "bg-energy-orange/10",
     glow: "shadow-[0_0_30px_rgba(255,107,53,0.15)]",
     activeGlow: "shadow-[0_0_50px_rgba(255,107,53,0.3)]",
-    hoverGlow: "hover:shadow-[0_0_25px_rgba(255,107,53,0.12)]",
     dot: "bg-energy-orange",
     badgeBg: "bg-energy-orange/15 text-energy-orange border-energy-orange/30",
-    badgeBgInactive: "bg-energy-orange/8 text-energy-orange/60 border-energy-orange/20",
+    badgeBgInactive: "text-energy-orange/40 border-energy-orange/15",
+  },
+  "energy-red": {
+    bg: "bg-energy-red/10",
+    border: "border-energy-red/30",
+    activeBorder: "border-energy-red/70",
+    text: "text-energy-red",
+    textInactive: "text-energy-red/50",
+    iconBg: "bg-energy-red/20",
+    glow: "shadow-[0_0_30px_rgba(239,68,68,0.15)]",
+    activeGlow: "shadow-[0_0_50px_rgba(239,68,68,0.3)]",
+    dot: "bg-energy-red",
+    badgeBg: "bg-energy-red/15 text-energy-red border-energy-red/30",
+    badgeBgInactive: "text-energy-red/40 border-energy-red/15",
   },
 } as const;
 
@@ -126,17 +123,17 @@ export function GameMomentsSection() {
               className={`w-full flex items-center gap-3 px-4 py-3 rounded-lg border transition-all duration-300 text-left group ${
                 isActive
                   ? `glass ${mc.activeBorder} ${mc.bg} ${mc.activeGlow}`
-                  : `${mc.bgInactive} ${mc.borderInactive} ${mc.hoverGlow} hover:${mc.border} hover:bg-opacity-10`
+                  : "border-border/30 hover:border-border/60 hover:bg-secondary/30"
               }`}
             >
               <div
                 className={`shrink-0 w-9 h-9 rounded-lg flex items-center justify-center transition-colors duration-300 ${
-                  isActive ? mc.iconBg : mc.iconBgInactive
+                  isActive ? mc.iconBg : "bg-secondary/50"
                 }`}
               >
                 <Icon
                   className={`w-4.5 h-4.5 transition-colors duration-300 ${
-                    isActive ? mc.text : mc.textInactive
+                    isActive ? mc.text : "text-muted-foreground"
                   }`}
                 />
               </div>
@@ -162,7 +159,7 @@ export function GameMomentsSection() {
                   className={`w-4 h-4 transition-all duration-300 ${
                     isActive
                       ? `${mc.text} translate-x-0 opacity-100`
-                      : `${mc.textInactive} -translate-x-1 opacity-0 group-hover:translate-x-0 group-hover:opacity-70`
+                      : "text-muted-foreground -translate-x-1 opacity-0 group-hover:translate-x-0 group-hover:opacity-50"
                   }`}
                 />
               </div>

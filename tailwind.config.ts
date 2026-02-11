@@ -49,6 +49,7 @@ const config: Config = {
         'ai-blue': '#0066FF',
         'tech-purple': '#8B5CF6',
         'energy-orange': '#FF6B35',
+        'energy-red': '#EF4444',
       },
       borderRadius: {
         lg: 'var(--radius)',
