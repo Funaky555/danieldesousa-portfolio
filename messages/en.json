@@ -543,6 +543,13 @@
     "formations": "Tactical Systems",
     "approach": "Training Approach",
     "approachText": "I lead training sessions with clarity, energy, and a clear sense of direction, ensuring every player understands their role while feeling motivated to improve. My sessions are well-structured, game-related and designed to replicate real match scenarios. I prioritize player development through a balance of technical, tactical, physical and psychological components, always adapting content to the age and level of the group.",
+    "approachPoints": [
+      "Sessions led with clarity, energy, and a clear sense of direction",
+      "Every player understands their role while feeling motivated to improve",
+      "Well-structured, game-related sessions designed to replicate real match scenarios",
+      "Player development through a balance of technical, tactical, physical and psychological components",
+      "Content always adapted to the age and level of the group"
+    ],
     "roles": "Coaching Roles",
     "rolesText": "I have taken on multiple roles in football, including Head Coach, Assistant Coach, Scouter, Analyst, and Football Advisor, each contributing to my well-rounded understanding of the game.",
     "keyPrinciplesList": [

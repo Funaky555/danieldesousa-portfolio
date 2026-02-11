@@ -4,7 +4,7 @@ import { GameMomentsSection } from "@/components/philosophy/game-moments";
 import { TacticalBoard } from "@/components/philosophy/tactical-board";
 import { Separator } from "@/components/ui/separator";
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
-import { useTranslations } from "@/components/providers/i18n-provider";
+import { useTranslations, useTranslationList } from "@/components/providers/i18n-provider";
 import {
   GraduationCap,
   Target,
@@ -13,6 +13,11 @@ import {
   Heart,
   Users,
   Quote,
+  Zap,
+  Focus,
+  Gamepad2,
+  BarChart3,
+  Settings2,
 } from "lucide-react";
 
 const pyramidWords = [
@@ -50,7 +55,7 @@ const philosophyTopics = [
   { key: "trainingMethodology", icon: Target, color: "ai-blue" },
   { key: "integratedTraining", icon: Brain, color: "tech-purple" },
   { key: "playingStyle", icon: Flame, color: "energy-orange" },
-  { key: "thePlayerAsAPerson", icon: Heart, color: "tech-purple" },
+  { key: "thePlayerAsAPerson", icon: Heart, color: "ai-blue" },
   { key: "theTeam", icon: Users, color: "football-green" },
 ] as const;
 
@@ -58,27 +63,54 @@ const topicColorMap = {
   "football-green": {
     iconBg: "bg-football-green/20",
     iconText: "text-football-green",
-    activeBg: "data-[state=active]:bg-football-green/20 data-[state=active]:border-football-green/50 data-[state=active]:text-football-green",
+    inactiveText: "text-football-green/60",
+    inactiveBorder: "border-football-green/20",
+    inactiveBg: "bg-football-green/5",
+    hoverGlow: "hover:shadow-[0_0_20px_rgba(0,214,108,0.1)]",
+    activeBg: "data-[state=active]:bg-football-green/20 data-[state=active]:border-football-green/50 data-[state=active]:text-football-green data-[state=active]:shadow-[0_0_30px_rgba(0,214,108,0.2)]",
   },
   "ai-blue": {
     iconBg: "bg-ai-blue/20",
     iconText: "text-ai-blue",
-    activeBg: "data-[state=active]:bg-ai-blue/20 data-[state=active]:border-ai-blue/50 data-[state=active]:text-ai-blue",
+    inactiveText: "text-ai-blue/60",
+    inactiveBorder: "border-ai-blue/20",
+    inactiveBg: "bg-ai-blue/5",
+    hoverGlow: "hover:shadow-[0_0_20px_rgba(0,102,255,0.1)]",
+    activeBg: "data-[state=active]:bg-ai-blue/20 data-[state=active]:border-ai-blue/50 data-[state=active]:text-ai-blue data-[state=active]:shadow-[0_0_30px_rgba(0,102,255,0.2)]",
   },
   "tech-purple": {
     iconBg: "bg-tech-purple/20",
     iconText: "text-tech-purple",
-    activeBg: "data-[state=active]:bg-tech-purple/20 data-[state=active]:border-tech-purple/50 data-[state=active]:text-tech-purple",
+    inactiveText: "text-tech-purple/60",
+    inactiveBorder: "border-tech-purple/20",
+    inactiveBg: "bg-tech-purple/5",
+    hoverGlow: "hover:shadow-[0_0_20px_rgba(139,92,246,0.1)]",
+    activeBg: "data-[state=active]:bg-tech-purple/20 data-[state=active]:border-tech-purple/50 data-[state=active]:text-tech-purple data-[state=active]:shadow-[0_0_30px_rgba(139,92,246,0.2)]",
   },
   "energy-orange": {
     iconBg: "bg-energy-orange/20",
     iconText: "text-energy-orange",
-    activeBg: "data-[state=active]:bg-energy-orange/20 data-[state=active]:border-energy-orange/50 data-[state=active]:text-energy-orange",
+    inactiveText: "text-energy-orange/60",
+    inactiveBorder: "border-energy-orange/20",
+    inactiveBg: "bg-energy-orange/5",
+    hoverGlow: "hover:shadow-[0_0_20px_rgba(255,107,53,0.1)]",
+    activeBg: "data-[state=active]:bg-energy-orange/20 data-[state=active]:border-energy-orange/50 data-[state=active]:text-energy-orange data-[state=active]:shadow-[0_0_30px_rgba(255,107,53,0.2)]",
   },
+} as const;
+
+const approachIcons = [Zap, Focus, Gamepad2, BarChart3, Settings2];
+const approachColors = ["football-green", "ai-blue", "tech-purple", "energy-orange", "football-green"] as const;
+
+const approachColorMap = {
+  "football-green": { dot: "bg-football-green", text: "text-football-green", bg: "bg-football-green/10", border: "border-football-green/20" },
+  "ai-blue": { dot: "bg-ai-blue", text: "text-ai-blue", bg: "bg-ai-blue/10", border: "border-ai-blue/20" },
+  "tech-purple": { dot: "bg-tech-purple", text: "text-tech-purple", bg: "bg-tech-purple/10", border: "border-tech-purple/20" },
+  "energy-orange": { dot: "bg-energy-orange", text: "text-energy-orange", bg: "bg-energy-orange/10", border: "border-energy-orange/20" },
 } as const;
 
 export function PhilosophyContent() {
   const t = useTranslations();
+  const tList = useTranslationList();
 
   return (
     <main className="min-h-screen bg-background/80 pt-24 pb-16">
@@ -148,7 +180,7 @@ export function PhilosophyContent() {
                     <TabsTrigger
                       key={key}
                       value={key}
-                      className={`glass flex items-center gap-2 px-4 py-2.5 border border-border/50 rounded-lg transition-all duration-300 text-muted-foreground hover:text-foreground hover:border-foreground/30 ${colors.activeBg}`}
+                      className={`glass flex items-center gap-2 px-4 py-2.5 border rounded-lg transition-all duration-300 ${colors.inactiveBorder} ${colors.inactiveBg} ${colors.inactiveText} ${colors.hoverGlow} hover:border-opacity-50 ${colors.activeBg}`}
                     >
                       <Icon className="w-4 h-4" />
                       <span className="text-sm font-medium">
@@ -221,10 +253,27 @@ export function PhilosophyContent() {
                 {t("philosophy.approach")}
               </h2>
             </div>
-            <div className="max-w-3xl mx-auto glass rounded-lg p-8 md:p-10 border border-border/50">
-              <p className="text-muted-foreground leading-relaxed text-lg">
-                {t("philosophy.approachText")}
-              </p>
+            <div className="max-w-4xl mx-auto glass rounded-xl p-8 md:p-10 border border-border/50">
+              <div className="grid gap-4">
+                {tList("philosophy.approachPoints").map((point, idx) => {
+                  const Icon = approachIcons[idx] || Zap;
+                  const color = approachColors[idx] || "football-green";
+                  const ac = approachColorMap[color];
+                  return (
+                    <div
+                      key={idx}
+                      className={`flex items-start gap-4 p-4 rounded-lg border ${ac.border} ${ac.bg} transition-all duration-300 hover:scale-[1.01]`}
+                    >
+                      <div className={`shrink-0 w-9 h-9 rounded-lg ${ac.bg} flex items-center justify-center`}>
+                        <Icon className={`w-4.5 h-4.5 ${ac.text}`} />
+                      </div>
+                      <p className="text-sm md:text-base text-foreground/85 leading-relaxed pt-1.5">
+                        {point}
+                      </p>
+                    </div>
+                  );
+                })}
+              </div>
             </div>
           </section>
         </div>

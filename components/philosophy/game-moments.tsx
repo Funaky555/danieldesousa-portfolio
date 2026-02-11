@@ -27,8 +27,8 @@ const gameMoments: GameMoment[] = [
   { key: "defensiveOrg", icon: Shield, color: "ai-blue", badge: "WITHOUT BALL" },
   { key: "offensiveTrans", icon: Zap, color: "tech-purple", badge: "BALL WON" },
   { key: "defensiveTrans", icon: ShieldAlert, color: "energy-orange", badge: "BALL LOST" },
-  { key: "setPieces", icon: Flag, color: "ai-blue", badge: "DEAD BALL" },
-  { key: "creativity", icon: Sparkles, color: "football-green", badge: "THE 6TH" },
+  { key: "setPieces", icon: Flag, color: "tech-purple", badge: "DEAD BALL" },
+  { key: "creativity", icon: Sparkles, color: "energy-orange", badge: "THE 6TH" },
 ];
 
 const colorMap = {
