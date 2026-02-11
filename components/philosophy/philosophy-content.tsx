@@ -51,11 +51,11 @@ const pyramidColorMap = {
 } as const;
 
 const philosophyTopics = [
-  { key: "learningEnvironment", icon: GraduationCap, color: "football-green" },
+  { key: "learningEnvironment", icon: GraduationCap, color: "toasted-yellow" },
   { key: "trainingMethodology", icon: Target, color: "ai-blue" },
   { key: "integratedTraining", icon: Brain, color: "tech-purple" },
-  { key: "playingStyle", icon: Flame, color: "energy-orange" },
-  { key: "thePlayerAsAPerson", icon: Heart, color: "ai-blue" },
+  { key: "playingStyle", icon: Flame, color: "energy-red" },
+  { key: "thePlayerAsAPerson", icon: Heart, color: "energy-orange" },
   { key: "theTeam", icon: Users, color: "football-green" },
 ] as const;
 
@@ -96,16 +96,36 @@ const topicColorMap = {
     hoverGlow: "hover:shadow-[0_0_20px_rgba(255,107,53,0.1)]",
     activeBg: "data-[state=active]:bg-energy-orange/20 data-[state=active]:border-energy-orange/50 data-[state=active]:text-energy-orange data-[state=active]:shadow-[0_0_30px_rgba(255,107,53,0.2)]",
   },
+  "toasted-yellow": {
+    iconBg: "bg-toasted-yellow/20",
+    iconText: "text-toasted-yellow",
+    inactiveText: "text-toasted-yellow/60",
+    inactiveBorder: "border-toasted-yellow/20",
+    inactiveBg: "bg-toasted-yellow/5",
+    hoverGlow: "hover:shadow-[0_0_20px_rgba(204,138,0,0.1)]",
+    activeBg: "data-[state=active]:bg-toasted-yellow/20 data-[state=active]:border-toasted-yellow/50 data-[state=active]:text-toasted-yellow data-[state=active]:shadow-[0_0_30px_rgba(204,138,0,0.2)]",
+  },
+  "energy-red": {
+    iconBg: "bg-energy-red/20",
+    iconText: "text-energy-red",
+    inactiveText: "text-energy-red/60",
+    inactiveBorder: "border-energy-red/20",
+    inactiveBg: "bg-energy-red/5",
+    hoverGlow: "hover:shadow-[0_0_20px_rgba(239,68,68,0.1)]",
+    activeBg: "data-[state=active]:bg-energy-red/20 data-[state=active]:border-energy-red/50 data-[state=active]:text-energy-red data-[state=active]:shadow-[0_0_30px_rgba(239,68,68,0.2)]",
+  },
 } as const;
 
 const approachIcons = [Zap, Focus, Gamepad2, BarChart3, Settings2];
-const approachColors = ["football-green", "ai-blue", "tech-purple", "energy-orange", "football-green"] as const;
+const approachColors = ["toasted-yellow", "ai-blue", "tech-purple", "energy-red", "energy-orange"] as const;
 
 const approachColorMap = {
   "football-green": { dot: "bg-football-green", text: "text-football-green", bg: "bg-football-green/10", border: "border-football-green/20" },
   "ai-blue": { dot: "bg-ai-blue", text: "text-ai-blue", bg: "bg-ai-blue/10", border: "border-ai-blue/20" },
   "tech-purple": { dot: "bg-tech-purple", text: "text-tech-purple", bg: "bg-tech-purple/10", border: "border-tech-purple/20" },
   "energy-orange": { dot: "bg-energy-orange", text: "text-energy-orange", bg: "bg-energy-orange/10", border: "border-energy-orange/20" },
+  "toasted-yellow": { dot: "bg-toasted-yellow", text: "text-toasted-yellow", bg: "bg-toasted-yellow/10", border: "border-toasted-yellow/20" },
+  "energy-red": { dot: "bg-energy-red", text: "text-energy-red", bg: "bg-energy-red/10", border: "border-energy-red/20" },
 } as const;
 
 export function PhilosophyContent() {
@@ -257,7 +277,7 @@ export function PhilosophyContent() {
               <div className="grid gap-4">
                 {tList("philosophy.approachPoints").map((point, idx) => {
                   const Icon = approachIcons[idx] || Zap;
-                  const color = approachColors[idx] || "football-green";
+                  const color = approachColors[idx] || "toasted-yellow";
                   const ac = approachColorMap[color];
                   return (
                     <div
