@@ -34,47 +34,71 @@ const gameMoments: GameMoment[] = [
 const colorMap = {
   "football-green": {
     bg: "bg-football-green/10",
+    bgInactive: "bg-football-green/5",
     border: "border-football-green/30",
-    activeBorder: "border-football-green/60",
+    borderInactive: "border-football-green/20",
+    activeBorder: "border-football-green/70",
     text: "text-football-green",
+    textInactive: "text-football-green/70",
     iconBg: "bg-football-green/20",
+    iconBgInactive: "bg-football-green/10",
     glow: "shadow-[0_0_30px_rgba(0,214,108,0.15)]",
-    activeGlow: "shadow-[0_0_40px_rgba(0,214,108,0.25)]",
+    activeGlow: "shadow-[0_0_50px_rgba(0,214,108,0.3)]",
+    hoverGlow: "hover:shadow-[0_0_25px_rgba(0,214,108,0.12)]",
     dot: "bg-football-green",
     badgeBg: "bg-football-green/15 text-football-green border-football-green/30",
+    badgeBgInactive: "bg-football-green/8 text-football-green/60 border-football-green/20",
   },
   "ai-blue": {
     bg: "bg-ai-blue/10",
+    bgInactive: "bg-ai-blue/5",
     border: "border-ai-blue/30",
-    activeBorder: "border-ai-blue/60",
+    borderInactive: "border-ai-blue/20",
+    activeBorder: "border-ai-blue/70",
     text: "text-ai-blue",
+    textInactive: "text-ai-blue/70",
     iconBg: "bg-ai-blue/20",
+    iconBgInactive: "bg-ai-blue/10",
     glow: "shadow-[0_0_30px_rgba(0,102,255,0.15)]",
-    activeGlow: "shadow-[0_0_40px_rgba(0,102,255,0.25)]",
+    activeGlow: "shadow-[0_0_50px_rgba(0,102,255,0.3)]",
+    hoverGlow: "hover:shadow-[0_0_25px_rgba(0,102,255,0.12)]",
     dot: "bg-ai-blue",
     badgeBg: "bg-ai-blue/15 text-ai-blue border-ai-blue/30",
+    badgeBgInactive: "bg-ai-blue/8 text-ai-blue/60 border-ai-blue/20",
   },
   "tech-purple": {
     bg: "bg-tech-purple/10",
+    bgInactive: "bg-tech-purple/5",
     border: "border-tech-purple/30",
-    activeBorder: "border-tech-purple/60",
+    borderInactive: "border-tech-purple/20",
+    activeBorder: "border-tech-purple/70",
     text: "text-tech-purple",
+    textInactive: "text-tech-purple/70",
     iconBg: "bg-tech-purple/20",
+    iconBgInactive: "bg-tech-purple/10",
     glow: "shadow-[0_0_30px_rgba(139,92,246,0.15)]",
-    activeGlow: "shadow-[0_0_40px_rgba(139,92,246,0.25)]",
+    activeGlow: "shadow-[0_0_50px_rgba(139,92,246,0.3)]",
+    hoverGlow: "hover:shadow-[0_0_25px_rgba(139,92,246,0.12)]",
     dot: "bg-tech-purple",
     badgeBg: "bg-tech-purple/15 text-tech-purple border-tech-purple/30",
+    badgeBgInactive: "bg-tech-purple/8 text-tech-purple/60 border-tech-purple/20",
   },
   "energy-orange": {
     bg: "bg-energy-orange/10",
+    bgInactive: "bg-energy-orange/5",
     border: "border-energy-orange/30",
-    activeBorder: "border-energy-orange/60",
+    borderInactive: "border-energy-orange/20",
+    activeBorder: "border-energy-orange/70",
     text: "text-energy-orange",
+    textInactive: "text-energy-orange/70",
     iconBg: "bg-energy-orange/20",
+    iconBgInactive: "bg-energy-orange/10",
     glow: "shadow-[0_0_30px_rgba(255,107,53,0.15)]",
-    activeGlow: "shadow-[0_0_40px_rgba(255,107,53,0.25)]",
+    activeGlow: "shadow-[0_0_50px_rgba(255,107,53,0.3)]",
+    hoverGlow: "hover:shadow-[0_0_25px_rgba(255,107,53,0.12)]",
     dot: "bg-energy-orange",
     badgeBg: "bg-energy-orange/15 text-energy-orange border-energy-orange/30",
+    badgeBgInactive: "bg-energy-orange/8 text-energy-orange/60 border-energy-orange/20",
   },
 } as const;
 
@@ -102,24 +126,24 @@ export function GameMomentsSection() {
               className={`w-full flex items-center gap-3 px-4 py-3 rounded-lg border transition-all duration-300 text-left group ${
                 isActive
                   ? `glass ${mc.activeBorder} ${mc.bg} ${mc.activeGlow}`
-                  : "border-border/30 hover:border-border/60 hover:bg-secondary/30"
+                  : `${mc.bgInactive} ${mc.borderInactive} ${mc.hoverGlow} hover:${mc.border} hover:bg-opacity-10`
               }`}
             >
               <div
                 className={`shrink-0 w-9 h-9 rounded-lg flex items-center justify-center transition-colors duration-300 ${
-                  isActive ? mc.iconBg : "bg-secondary/50"
+                  isActive ? mc.iconBg : mc.iconBgInactive
                 }`}
               >
                 <Icon
                   className={`w-4.5 h-4.5 transition-colors duration-300 ${
-                    isActive ? mc.text : "text-muted-foreground"
+                    isActive ? mc.text : mc.textInactive
                   }`}
                 />
               </div>
               <div className="flex-1 min-w-0">
                 <p
                   className={`text-sm font-semibold truncate transition-colors duration-300 ${
-                    isActive ? "text-foreground" : "text-muted-foreground"
+                    isActive ? mc.text : mc.textInactive
                   }`}
                 >
                   {t(`philosophy.gameMomentsList.${moment.key}`)}
@@ -129,7 +153,7 @@ export function GameMomentsSection() {
                 <Badge
                   variant="outline"
                   className={`text-[10px] px-1.5 py-0 font-mono tracking-wider transition-all duration-300 ${
-                    isActive ? mc.badgeBg : ""
+                    isActive ? mc.badgeBg : mc.badgeBgInactive
                   }`}
                 >
                   {moment.badge}
@@ -138,7 +162,7 @@ export function GameMomentsSection() {
                   className={`w-4 h-4 transition-all duration-300 ${
                     isActive
                       ? `${mc.text} translate-x-0 opacity-100`
-                      : "text-muted-foreground -translate-x-1 opacity-0 group-hover:translate-x-0 group-hover:opacity-50"
+                      : `${mc.textInactive} -translate-x-1 opacity-0 group-hover:translate-x-0 group-hover:opacity-70`
                   }`}
                 />
               </div>
