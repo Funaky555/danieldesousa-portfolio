@@ -50,6 +50,7 @@ const config: Config = {
         'tech-purple': '#8B5CF6',
         'energy-orange': '#FF6B35',
         'energy-red': '#EF4444',
+        'toasted-yellow': '#CC8A00',
       },
       borderRadius: {
         lg: 'var(--radius)',

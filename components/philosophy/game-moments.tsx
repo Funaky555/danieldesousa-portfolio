@@ -18,16 +18,16 @@ import { useTranslations, useTranslationList } from "@/components/providers/i18n
 interface GameMoment {
   key: string;
   icon: LucideIcon;
-  color: "football-green" | "ai-blue" | "tech-purple" | "energy-orange" | "energy-red";
+  color: "football-green" | "ai-blue" | "tech-purple" | "energy-orange" | "energy-red" | "toasted-yellow";
   badge: string;
 }
 
 const gameMoments: GameMoment[] = [
-  { key: "offensiveOrg", icon: Swords, color: "football-green", badge: "WITH BALL" },
+  { key: "offensiveOrg", icon: Swords, color: "toasted-yellow", badge: "WITH BALL" },
   { key: "defensiveOrg", icon: Shield, color: "ai-blue", badge: "WITHOUT BALL" },
   { key: "offensiveTrans", icon: Zap, color: "tech-purple", badge: "BALL WON" },
-  { key: "defensiveTrans", icon: ShieldAlert, color: "energy-orange", badge: "BALL LOST" },
-  { key: "setPieces", icon: Flag, color: "energy-red", badge: "DEAD BALL" },
+  { key: "defensiveTrans", icon: ShieldAlert, color: "energy-red", badge: "BALL LOST" },
+  { key: "setPieces", icon: Flag, color: "energy-orange", badge: "DEAD BALL" },
   { key: "creativity", icon: Sparkles, color: "football-green", badge: "THE 6TH" },
 ];
 
@@ -96,6 +96,19 @@ const colorMap = {
     dot: "bg-energy-red",
     badgeBg: "bg-energy-red/15 text-energy-red border-energy-red/30",
     badgeBgInactive: "text-energy-red/40 border-energy-red/15",
+  },
+  "toasted-yellow": {
+    bg: "bg-toasted-yellow/10",
+    border: "border-toasted-yellow/30",
+    activeBorder: "border-toasted-yellow/70",
+    text: "text-toasted-yellow",
+    textInactive: "text-toasted-yellow/50",
+    iconBg: "bg-toasted-yellow/20",
+    glow: "shadow-[0_0_30px_rgba(204,138,0,0.15)]",
+    activeGlow: "shadow-[0_0_50px_rgba(204,138,0,0.3)]",
+    dot: "bg-toasted-yellow",
+    badgeBg: "bg-toasted-yellow/15 text-toasted-yellow border-toasted-yellow/30",
+    badgeBgInactive: "text-toasted-yellow/40 border-toasted-yellow/15",
   },
 } as const;
 
