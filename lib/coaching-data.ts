@@ -194,7 +194,11 @@ export const experience = [
     ],
     achievements: [],
     media: {
-      photos: [],
+      photos: [
+        "/images/china/Chizhou1.jpg",
+        "/images/china/Chizhou2.jpg",
+        "/images/china/Chizhou3.jpg",
+      ],
     },
     images: ["china-chizhou.jpg"],
   },
