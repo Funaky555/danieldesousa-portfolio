@@ -133,7 +133,15 @@
     },
     "championships": {
       "u15FemaleChampion": "U15 Female Champion",
-      "u15MaleViceChampion": "U15 Male Vice-Champion"
+      "u15FemaleChampionDesc": "City Schools Competition",
+      "u15MaleViceChampion": "U15 Male Vice-Champion",
+      "u15MaleViceChampionDesc": "City Schools Competition",
+      "u16MaleChampion": "U16 Male Champion",
+      "u16MaleChampionDesc": "AF Porto 2nd Division",
+      "u17ViceChampion": "U17 Vice-Champion",
+      "u17ViceChampionDesc": "AF Porto 2nd Division",
+      "u18ViceChampion": "U18 Vice-Champion",
+      "u18ViceChampionDesc": "AF Porto 1st Division · Promotion to 1st National Division"
     },
     "jobs": {
       "tongling": {
