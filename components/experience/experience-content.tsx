@@ -34,16 +34,7 @@ export function ExperienceContent() {
                 <h3 className="font-bold text-foreground">{t("experience.highlights.championships")}</h3>
               </div>
               <div className="space-y-2 max-h-[320px] overflow-y-auto pr-1">
-                {/* U15 Female Champion - Tongling */}
-                <div className="flex items-start gap-2 p-2 rounded-md bg-yellow-500/5 border border-yellow-500/20">
-                  <Medal className="w-4 h-4 text-yellow-500 flex-shrink-0 mt-0.5" />
-                  <div className="flex-1">
-                    <div className="text-xs font-medium text-foreground">{t("experience.championships.u15FemaleChampion")}</div>
-                    <div className="text-[10px] text-muted-foreground">2023 · Tongling, China</div>
-                    <div className="text-[10px] text-muted-foreground/70">{t("experience.championships.u15FemaleChampionDesc")}</div>
-                  </div>
-                </div>
-                {/* U15 Male Vice-Champion - Tongling */}
+                {/* U15 Male Vice-Champion - Tongling (2023, 2024) */}
                 <div className="flex items-start gap-2 p-2 rounded-md bg-slate-500/5 border border-slate-500/20">
                   <Award className="w-4 h-4 text-slate-400 flex-shrink-0 mt-0.5" />
                   <div className="flex-1">
@@ -52,16 +43,25 @@ export function ExperienceContent() {
                     <div className="text-[10px] text-muted-foreground/70">{t("experience.championships.u15MaleViceChampionDesc")}</div>
                   </div>
                 </div>
-                {/* U16 Male Champion - Porto */}
+                {/* U15 Female Champion - Tongling (2023) */}
                 <div className="flex items-start gap-2 p-2 rounded-md bg-yellow-500/5 border border-yellow-500/20">
                   <Medal className="w-4 h-4 text-yellow-500 flex-shrink-0 mt-0.5" />
                   <div className="flex-1">
-                    <div className="text-xs font-medium text-foreground">{t("experience.championships.u16MaleChampion")}</div>
-                    <div className="text-[10px] text-muted-foreground">2013/2014 · Porto, Portugal</div>
-                    <div className="text-[10px] text-muted-foreground/70">{t("experience.championships.u16MaleChampionDesc")}</div>
+                    <div className="text-xs font-medium text-foreground">{t("experience.championships.u15FemaleChampion")}</div>
+                    <div className="text-[10px] text-muted-foreground">2023 · Tongling, China</div>
+                    <div className="text-[10px] text-muted-foreground/70">{t("experience.championships.u15FemaleChampionDesc")}</div>
                   </div>
                 </div>
-                {/* U17 Vice-Champion - Porto */}
+                {/* U18 Vice-Champion + Promotion - Porto (2017/2018) */}
+                <div className="flex items-start gap-2 p-2 rounded-md bg-slate-500/5 border border-slate-500/20">
+                  <Award className="w-4 h-4 text-slate-400 flex-shrink-0 mt-0.5" />
+                  <div className="flex-1">
+                    <div className="text-xs font-medium text-foreground">{t("experience.championships.u18ViceChampion")}</div>
+                    <div className="text-[10px] text-muted-foreground">2017/2018 · Porto, Portugal</div>
+                    <div className="text-[10px] text-muted-foreground/70">{t("experience.championships.u18ViceChampionDesc")}</div>
+                  </div>
+                </div>
+                {/* U17 Vice-Champion - Porto (2014/2015) */}
                 <div className="flex items-start gap-2 p-2 rounded-md bg-slate-500/5 border border-slate-500/20">
                   <Award className="w-4 h-4 text-slate-400 flex-shrink-0 mt-0.5" />
                   <div className="flex-1">
@@ -70,13 +70,13 @@ export function ExperienceContent() {
                     <div className="text-[10px] text-muted-foreground/70">{t("experience.championships.u17ViceChampionDesc")}</div>
                   </div>
                 </div>
-                {/* U18 Vice-Champion + Promotion - Porto */}
-                <div className="flex items-start gap-2 p-2 rounded-md bg-slate-500/5 border border-slate-500/20">
-                  <Award className="w-4 h-4 text-slate-400 flex-shrink-0 mt-0.5" />
+                {/* U16 Male Champion - Porto (2013/2014) */}
+                <div className="flex items-start gap-2 p-2 rounded-md bg-yellow-500/5 border border-yellow-500/20">
+                  <Medal className="w-4 h-4 text-yellow-500 flex-shrink-0 mt-0.5" />
                   <div className="flex-1">
-                    <div className="text-xs font-medium text-foreground">{t("experience.championships.u18ViceChampion")}</div>
-                    <div className="text-[10px] text-muted-foreground">2017/2018 · Porto, Portugal</div>
-                    <div className="text-[10px] text-muted-foreground/70">{t("experience.championships.u18ViceChampionDesc")}</div>
+                    <div className="text-xs font-medium text-foreground">{t("experience.championships.u16MaleChampion")}</div>
+                    <div className="text-[10px] text-muted-foreground">2013/2014 · Porto, Portugal</div>
+                    <div className="text-[10px] text-muted-foreground/70">{t("experience.championships.u16MaleChampionDesc")}</div>
                   </div>
                 </div>
               </div>
