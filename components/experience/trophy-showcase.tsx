@@ -54,7 +54,7 @@ const championships: Championship[] = [
     years: "2014/2015",
     location: "Porto, Portugal",
     country: "portugal",
-    type: "vice-champion",
+    type: "promotion",
   },
   {
     id: "u16-c",
