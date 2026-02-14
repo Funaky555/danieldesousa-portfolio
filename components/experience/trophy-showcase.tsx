@@ -63,7 +63,7 @@ const championships: Championship[] = [
     years: "2013/2014",
     location: "Porto, Portugal",
     country: "portugal",
-    type: "champion",
+    type: "promotion",
   },
 ];
 
