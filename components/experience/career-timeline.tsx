@@ -107,6 +107,7 @@ export function CareerTimeline() {
             return (
               <div
                 key={job.id}
+                id={`job-${job.id}`}
                 className={`relative flex items-center ${
                   isLeft ? "md:flex-row" : "md:flex-row-reverse"
                 }`}
@@ -145,6 +146,7 @@ export function CareerTimeline() {
             return (
               <div
                 key={job.id}
+                id={`job-${job.id}`}
                 className="relative"
               >
                 {/* Timeline dot - larger for detailed entries */}
@@ -314,6 +316,7 @@ export function CareerTimeline() {
           return (
             <div
               key={job.id}
+              id={`job-${job.id}`}
               className={`relative flex items-center ${
                 isLeft ? "md:flex-row" : "md:flex-row-reverse"
               }`}

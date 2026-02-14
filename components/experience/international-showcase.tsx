@@ -6,14 +6,18 @@ import { Globe, MapPin } from "lucide-react";
 import { useTranslations } from "@/components/providers/i18n-provider";
 
 const cities = [
-  { id: "tongling", name: "Tongling", province: "Anhui" },
-  { id: "chizhou", name: "Chizhou", province: "Anhui" },
-  { id: "dengfeng", name: "Dengfeng", province: "Henan" },
-  { id: "dalian", name: "Dalian", province: "Liaoning" },
+  { id: "tongling", name: "Tongling", province: "Anhui", timelineId: "job-1", mapsUrl: "https://www.google.com/maps/place/Tongling,+Anhui,+China" },
+  { id: "chizhou", name: "Chizhou", province: "Anhui", timelineId: "job-2", mapsUrl: "https://www.google.com/maps/place/Chizhou,+Anhui,+China" },
+  { id: "dengfeng", name: "Dengfeng", province: "Henan", timelineId: "job-4", mapsUrl: "https://www.google.com/maps/place/Dengfeng,+Henan,+China" },
+  { id: "dalian", name: "Dalian", province: "Liaoning", timelineId: "job-5", mapsUrl: "https://www.google.com/maps/place/Dalian,+Liaoning,+China" },
 ];
 
 export function InternationalShowcase() {
   const t = useTranslations();
+
+  const scrollToJob = (timelineId: string) => {
+    document.getElementById(timelineId)?.scrollIntoView({ behavior: "smooth", block: "center" });
+  };
 
   return (
     <Card className="border-border/50 glass hover:border-blue-500/50 transition-all">
@@ -42,15 +46,25 @@ export function InternationalShowcase() {
               transition={{ delay: idx * 0.08, duration: 0.35 }}
             >
               <motion.div
-                className="rounded-lg p-2.5 border bg-blue-500/5 border-blue-500/20 hover:border-blue-500/40 transition-all duration-300"
+                className="rounded-lg p-2.5 border bg-blue-500/5 border-blue-500/20 hover:border-blue-500/40 transition-all duration-300 cursor-pointer"
                 whileHover={{ scale: 1.015 }}
                 transition={{ type: "spring", stiffness: 400, damping: 25 }}
+                onClick={() => scrollToJob(city.timelineId)}
               >
                 <div className="flex items-center gap-2.5">
                   <div className="w-0.5 self-stretch rounded-full bg-blue-500" />
-                  <MapPin className="w-4 h-4 text-blue-600 dark:text-ai-blue flex-shrink-0" />
+                  <a
+                    href={city.mapsUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    onClick={(e) => e.stopPropagation()}
+                    className="hover:text-ai-blue transition-colors"
+                    aria-label={`View ${city.name} on Google Maps`}
+                  >
+                    <MapPin className="w-4 h-4 text-blue-600 dark:text-ai-blue flex-shrink-0" />
+                  </a>
                   <div className="flex-1 min-w-0">
-                    <div className="text-xs font-medium text-foreground">
+                    <div className="text-xs font-medium text-foreground hover:text-blue-600 dark:hover:text-ai-blue hover:underline transition-colors">
                       {city.name}, {city.province}, CN
                     </div>
                   </div>
