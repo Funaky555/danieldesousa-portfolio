@@ -116,8 +116,37 @@
       "championships": "Championships",
       "international": "International",
       "yearsInChina": "years in China",
+      "cities": "cities",
       "eliteAcademies": "Elite Academies",
       "youthDevelopment": "Youth Development"
+    },
+    "international": {
+      "tongling": "Tongling",
+      "tonglingRole": "Coordinator · Head Coach · PE Teacher",
+      "tonglingDesc": "Led football department, coached U15 male & female teams, taught PE across all grades at Middle School no.2",
+      "tonglingPeriod": "Sep 2022 – Jul 2024",
+      "chizhou": "Chizhou",
+      "chizhouRole": "Head Coach U13 & U15",
+      "chizhouDesc": "Prepared city representative teams for national competitions, led intensive training camps",
+      "chizhouPeriod": "Apr 2024 – Jul 2024",
+      "dengfeng": "Dengfeng",
+      "dengfengRole": "Head Coach U11 · U17 · Assistant U18",
+      "dengfengDesc": "Multiple coaching roles at Tagou Shaolin Wushu School, integrating football with athletic development",
+      "dengfengPeriod": "Apr 2021 – Dec 2021",
+      "dalian": "Dalian",
+      "dalianRole": "Head Coach U6 to U15",
+      "dalianDesc": "Coached grassroots to competitive youth levels at Dalian Zichun Football Club",
+      "dalianPeriod": "Sep 2020 – Dec 2020"
+    },
+    "academies": {
+      "benfica": "SL Benfica",
+      "benficaRole": "Assistant Coach U13",
+      "benficaDesc": "Worked with elite young talent at one of Europe's top youth academies. Players progressed to Portuguese youth national teams.",
+      "benficaPeriod": "Sep 2018 – Jul 2019",
+      "trofense": "CD Trofense",
+      "trofenseRole": "Head Coach U6 · Assistant U14–U18 · Scouter · Analyst",
+      "trofenseDesc": "Extended tenure across multiple youth categories. Contributed to Juniors promotion to National Division.",
+      "trofensePeriod": "Jan 2014 – Jul 2018"
     },
     "china": {
       "badge": "China Experience",

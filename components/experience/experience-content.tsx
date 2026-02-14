@@ -2,9 +2,10 @@
 
 import { CareerTimeline } from "@/components/experience/career-timeline";
 import { TrophyShowcase } from "@/components/experience/trophy-showcase";
+import { InternationalShowcase } from "@/components/experience/international-showcase";
+import { AcademiesShowcase } from "@/components/experience/academies-showcase";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { Globe, Users } from "lucide-react";
 import { useTranslations } from "@/components/providers/i18n-provider";
 
 export function ExperienceContent() {
@@ -25,55 +26,9 @@ export function ExperienceContent() {
 
         {/* Highlights */}
         <div className="max-w-5xl mx-auto grid gap-4 md:grid-cols-3 mb-16">
-          {/* Championships Card */}
           <TrophyShowcase />
-
-          {/* International Card */}
-          <Card className="border-border/50 glass hover:border-blue-500/50 transition-all">
-            <CardContent className="p-5">
-              <div className="flex items-center gap-3 mb-4">
-                <div className="w-10 h-10 rounded-full bg-blue-600/10 dark:bg-ai-blue/10 flex items-center justify-center">
-                  <Globe className="w-5 h-5 text-blue-600 dark:text-ai-blue" />
-                </div>
-                <h3 className="font-bold text-foreground">{t("experience.highlights.international")}</h3>
-              </div>
-              <div className="flex flex-col items-center justify-center py-3">
-                <span className="text-3xl font-bold text-blue-600 dark:text-ai-blue">4+</span>
-                <span className="text-sm text-muted-foreground">{t("experience.highlights.yearsInChina")}</span>
-              </div>
-              <div className="flex flex-wrap gap-1 justify-center mt-2">
-                <Badge variant="outline" className="text-xs">Tongling</Badge>
-                <Badge variant="outline" className="text-xs">Chizhou</Badge>
-                <Badge variant="outline" className="text-xs">Dengfeng</Badge>
-                <Badge variant="outline" className="text-xs">Dalian</Badge>
-              </div>
-            </CardContent>
-          </Card>
-
-          {/* Elite Academies Card */}
-          <Card className="border-border/50 glass hover:border-purple-500/50 transition-all">
-            <CardContent className="p-5">
-              <div className="flex items-center gap-3 mb-1">
-                <div className="w-10 h-10 rounded-full bg-purple-600/10 dark:bg-tech-purple/10 flex items-center justify-center">
-                  <Users className="w-5 h-5 text-purple-600 dark:text-tech-purple" />
-                </div>
-                <div>
-                  <h3 className="font-bold text-foreground">{t("experience.highlights.eliteAcademies")}</h3>
-                  <p className="text-[10px] text-muted-foreground">{t("experience.highlights.youthDevelopment")}</p>
-                </div>
-              </div>
-              <div className="space-y-2 mt-3">
-                <div className="flex items-center gap-2 p-2 rounded-md bg-red-500/5 border border-red-500/20">
-                  <div className="w-6 h-6 rounded-full bg-red-600 flex items-center justify-center text-white text-xs font-bold">B</div>
-                  <span className="text-xs font-medium text-foreground">SL Benfica</span>
-                </div>
-                <div className="flex items-center gap-2 p-2 rounded-md bg-emerald-500/5 border border-emerald-500/20">
-                  <div className="w-6 h-6 rounded-full bg-emerald-600 flex items-center justify-center text-white text-xs font-bold">T</div>
-                  <span className="text-xs font-medium text-foreground">CD Trofense</span>
-                </div>
-              </div>
-            </CardContent>
-          </Card>
+          <InternationalShowcase />
+          <AcademiesShowcase />
         </div>
 
         {/* Timeline */}
