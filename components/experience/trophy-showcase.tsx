@@ -199,12 +199,6 @@ export function TrophyShowcase() {
           <h3 className="font-bold text-foreground flex-1">
             {t("experience.highlights.championships")}
           </h3>
-          <Badge
-            variant="outline"
-            className="text-[10px] h-5 text-yellow-500 border-yellow-500/30"
-          >
-            {championships.length}
-          </Badge>
         </div>
 
         <div className="space-y-1.5">
