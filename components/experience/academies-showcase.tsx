@@ -15,6 +15,7 @@ const academies = [
     border: "border-red-500/20",
     borderHover: "hover:border-red-500/40",
     badge: "bg-red-600",
+    timelineId: "job-6",
   },
   {
     id: "trofense",
@@ -25,11 +26,16 @@ const academies = [
     border: "border-emerald-500/20",
     borderHover: "hover:border-emerald-500/40",
     badge: "bg-emerald-600",
+    timelineId: "job-7",
   },
 ];
 
 export function AcademiesShowcase() {
   const t = useTranslations();
+
+  const scrollToJob = (timelineId: string) => {
+    document.getElementById(timelineId)?.scrollIntoView({ behavior: "smooth", block: "center" });
+  };
 
   return (
     <Card className="border-border/50 glass hover:border-purple-500/50 transition-all">
@@ -58,9 +64,10 @@ export function AcademiesShowcase() {
               transition={{ delay: idx * 0.08, duration: 0.35 }}
             >
               <motion.div
-                className={`rounded-lg p-2.5 border ${academy.bg} ${academy.border} ${academy.borderHover} transition-all duration-300`}
+                className={`rounded-lg p-2.5 border ${academy.bg} ${academy.border} ${academy.borderHover} transition-all duration-300 cursor-pointer`}
                 whileHover={{ scale: 1.015 }}
                 transition={{ type: "spring", stiffness: 400, damping: 25 }}
+                onClick={() => scrollToJob(academy.timelineId)}
               >
                 <div className="flex items-center gap-2.5">
                   <div className={`w-0.5 self-stretch rounded-full ${academy.bar}`} />
@@ -70,7 +77,7 @@ export function AcademiesShowcase() {
                     {academy.initial}
                   </div>
                   <div className="flex-1 min-w-0">
-                    <div className="text-xs font-medium text-foreground">
+                    <div className="text-xs font-medium text-foreground hover:underline transition-colors">
                       {academy.name}
                     </div>
                   </div>

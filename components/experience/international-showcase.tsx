@@ -2,7 +2,7 @@
 
 import { motion } from "framer-motion";
 import { Card, CardContent } from "@/components/ui/card";
-import { Globe, MapPin } from "lucide-react";
+import { Globe, ExternalLink, MapPin } from "lucide-react";
 import { useTranslations } from "@/components/providers/i18n-provider";
 
 const cities = [
@@ -53,22 +53,24 @@ export function InternationalShowcase() {
               >
                 <div className="flex items-center gap-2.5">
                   <div className="w-0.5 self-stretch rounded-full bg-blue-500" />
-                  <a
-                    href={city.mapsUrl}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    onClick={(e) => e.stopPropagation()}
-                    className="hover:text-ai-blue transition-colors"
-                    aria-label={`View ${city.name} on Google Maps`}
-                  >
-                    <MapPin className="w-4 h-4 text-blue-600 dark:text-ai-blue flex-shrink-0" />
-                  </a>
+                  <MapPin className="w-4 h-4 text-blue-600 dark:text-ai-blue flex-shrink-0" />
+
                   <div className="flex-1 min-w-0">
                     <div className="text-xs font-medium text-foreground hover:text-blue-600 dark:hover:text-ai-blue hover:underline transition-colors">
                       {city.name}, {city.province}, CN
                     </div>
                   </div>
-                  <span className="text-[11px] flex-shrink-0">🇨🇳</span>
+                  <a
+                    href={city.mapsUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    onClick={(e) => e.stopPropagation()}
+                    className="flex items-center gap-1 text-[10px] text-muted-foreground hover:text-ai-blue transition-colors flex-shrink-0"
+                    aria-label={`View ${city.name} on Google Maps`}
+                  >
+                    <ExternalLink className="w-3 h-3" />
+                    Maps
+                  </a>
                 </div>
               </motion.div>
             </motion.div>
