@@ -301,7 +301,13 @@ export const experience = [
     ],
     achievements: [],
     media: {
-      photos: [],
+      photos: [
+        "/images/china/Tagou1.jpg",
+        "/images/china/Tagou2.jpg",
+        "/images/china/Tagou3.jpg",
+        "/images/china/Tagou4.jpg",
+        "/images/china/Tagou5.png",
+      ],
     },
     images: ["china-dengfeng.jpg"],
   },
