@@ -349,7 +349,12 @@ export const experience = [
     ],
     achievements: [],
     media: {
-      photos: [],
+      photos: [
+        "/images/china/Dalian1.jpg",
+        "/images/china/Dalian2.jpg",
+        "/images/china/Dalian3.jpg",
+        "/images/china/Dalian4.jpg",
+      ],
     },
     images: ["china-dalian.jpg"],
   },
