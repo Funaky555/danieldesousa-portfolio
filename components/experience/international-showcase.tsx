@@ -2,7 +2,7 @@
 
 import { motion } from "framer-motion";
 import { Card, CardContent } from "@/components/ui/card";
-import { Globe, ExternalLink, MapPin } from "lucide-react";
+import { Globe, Map, MapPin } from "lucide-react";
 import { useTranslations } from "@/components/providers/i18n-provider";
 
 const cities = [
@@ -60,16 +60,19 @@ export function InternationalShowcase() {
                       {city.name}, {city.province}, CN
                     </div>
                   </div>
-                  <a
+                  <motion.a
                     href={city.mapsUrl}
                     target="_blank"
                     rel="noopener noreferrer"
                     onClick={(e) => e.stopPropagation()}
-                    className="text-muted-foreground hover:text-ai-blue transition-colors flex-shrink-0"
+                    className="flex items-center gap-1 px-2 py-0.5 rounded-full text-[10px] font-medium bg-ai-blue/10 border border-ai-blue/30 text-ai-blue hover:bg-ai-blue/20 hover:border-ai-blue/50 shadow-[0_0_8px_rgba(0,102,255,0.15)] hover:shadow-[0_0_15px_rgba(0,102,255,0.35)] transition-all duration-300 flex-shrink-0"
+                    whileHover={{ scale: 1.05 }}
+                    whileTap={{ scale: 0.95 }}
                     aria-label={`View ${city.name} on Google Maps`}
                   >
-                    <ExternalLink className="w-3.5 h-3.5" />
-                  </a>
+                    <Map className="w-3 h-3" />
+                    Maps
+                  </motion.a>
                 </div>
               </motion.div>
             </motion.div>
