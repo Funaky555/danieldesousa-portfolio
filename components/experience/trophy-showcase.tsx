@@ -4,7 +4,7 @@ import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { Trophy, Medal, Award, MapPin, ChevronDown, ExternalLink } from "lucide-react";
+import { Trophy, Medal, Award, MapPin, ChevronDown } from "lucide-react";
 import { useTranslations } from "@/components/providers/i18n-provider";
 
 type TrophyType = "champion" | "vice-champion" | "promotion";
@@ -18,7 +18,6 @@ interface Championship {
   country: "china" | "portugal";
   type: TrophyType;
   timelineId: string;
-  mapsUrl: string;
 }
 
 const championships: Championship[] = [
@@ -31,7 +30,7 @@ const championships: Championship[] = [
     country: "china",
     type: "vice-champion",
     timelineId: "job-1",
-    mapsUrl: "https://www.google.com/maps/place/Tongling,+Anhui,+China",
+
   },
   {
     id: "u15-female-c",
@@ -42,7 +41,7 @@ const championships: Championship[] = [
     country: "china",
     type: "champion",
     timelineId: "job-1",
-    mapsUrl: "https://www.google.com/maps/place/Tongling,+Anhui,+China",
+
   },
   {
     id: "u18-vc-promo",
@@ -53,7 +52,7 @@ const championships: Championship[] = [
     country: "portugal",
     type: "promotion",
     timelineId: "job-7",
-    mapsUrl: "https://www.google.com/maps/place/Porto,+Portugal",
+
   },
   {
     id: "u17-vc",
@@ -64,7 +63,7 @@ const championships: Championship[] = [
     country: "portugal",
     type: "promotion",
     timelineId: "job-7",
-    mapsUrl: "https://www.google.com/maps/place/Porto,+Portugal",
+
   },
   {
     id: "u16-c",
@@ -75,7 +74,7 @@ const championships: Championship[] = [
     country: "portugal",
     type: "promotion",
     timelineId: "job-7",
-    mapsUrl: "https://www.google.com/maps/place/Porto,+Portugal",
+
   },
 ];
 
@@ -184,15 +183,6 @@ function TrophyBadge({
                   >
                     {championship.location}
                   </button>
-                  <a
-                    href={championship.mapsUrl}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="flex items-center gap-1 text-[10px] text-muted-foreground hover:text-ai-blue transition-colors ml-auto flex-shrink-0"
-                  >
-                    <ExternalLink className="w-3 h-3" />
-                    Maps
-                  </a>
                 </div>
                 <div className="text-[11px] text-muted-foreground/80">
                   {t(championship.descKey)}

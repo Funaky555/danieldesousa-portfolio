@@ -65,11 +65,10 @@ export function InternationalShowcase() {
                     target="_blank"
                     rel="noopener noreferrer"
                     onClick={(e) => e.stopPropagation()}
-                    className="flex items-center gap-1 text-[10px] text-muted-foreground hover:text-ai-blue transition-colors flex-shrink-0"
+                    className="text-muted-foreground hover:text-ai-blue transition-colors flex-shrink-0"
                     aria-label={`View ${city.name} on Google Maps`}
                   >
-                    <ExternalLink className="w-3 h-3" />
-                    Maps
+                    <ExternalLink className="w-3.5 h-3.5" />
                   </a>
                 </div>
               </motion.div>
