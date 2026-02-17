@@ -44,6 +44,12 @@ interface ExperienceMedia {
   photos?: string[];
 }
 
+interface TrophyLink {
+  sectionIndex: number;
+  itemIndex: number;
+  trophyId: string;
+}
+
 interface ExperienceItem {
   id: number;
   role: string;
@@ -61,12 +67,21 @@ interface ExperienceItem {
   isDetailed?: boolean;
   sections?: ExperienceSection[];
   media?: ExperienceMedia;
+  trophyLinks?: TrophyLink[];
 }
 
 export function CareerTimeline() {
   const [selectedPhoto, setSelectedPhoto] = useState<string | null>(null);
   const t = useTranslations();
   const tList = useTranslationList();
+
+  const scrollToTrophy = (trophyId: string) => {
+    const el = document.getElementById(`trophy-${trophyId}`);
+    el?.scrollIntoView({ behavior: "smooth", block: "center" });
+    setTimeout(() => {
+      el?.querySelector("button")?.click();
+    }, 600);
+  };
 
   return (
     <div className="relative">
@@ -265,15 +280,29 @@ export function CareerTimeline() {
                               </AccordionTrigger>
                               <AccordionContent>
                                 <ul className="space-y-1.5 ml-1">
-                                  {tList(`experience.jobs.${jobKeyMap[job.id]}.sections.${sectionIndex}.items`).map((item, itemIndex) => (
-                                    <li
-                                      key={itemIndex}
-                                      className="text-sm text-muted-foreground flex items-start"
-                                    >
-                                      <span className="w-1.5 h-1.5 rounded-full bg-emerald-600 dark:bg-football-green mt-1.5 mr-2 flex-shrink-0" />
-                                      {item}
-                                    </li>
-                                  ))}
+                                  {tList(`experience.jobs.${jobKeyMap[job.id]}.sections.${sectionIndex}.items`).map((item, itemIndex) => {
+                                    const trophyLink = job.trophyLinks?.find(
+                                      (l) => l.sectionIndex === sectionIndex && l.itemIndex === itemIndex
+                                    );
+                                    return (
+                                      <li
+                                        key={itemIndex}
+                                        className="text-sm text-muted-foreground flex items-start"
+                                      >
+                                        <span className="w-1.5 h-1.5 rounded-full bg-emerald-600 dark:bg-football-green mt-1.5 mr-2 flex-shrink-0" />
+                                        {trophyLink ? (
+                                          <button
+                                            onClick={() => scrollToTrophy(trophyLink.trophyId)}
+                                            className="text-left hover:text-foreground hover:underline transition-colors cursor-pointer"
+                                          >
+                                            {item}
+                                          </button>
+                                        ) : (
+                                          item
+                                        )}
+                                      </li>
+                                    );
+                                  })}
                                 </ul>
                               </AccordionContent>
                             </AccordionItem>

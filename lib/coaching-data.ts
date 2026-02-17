@@ -119,6 +119,10 @@ export const experience = [
       },
     ],
     achievements: [],
+    trophyLinks: [
+      { sectionIndex: 4, itemIndex: 0, trophyId: "u15-female-c" },
+      { sectionIndex: 4, itemIndex: 1, trophyId: "u15-male-vc" },
+    ],
     media: {
       interviewLink: "https://app.tlnews.cn/detailArticle/24332680_68885_tonglingrb.html",
       interviewTitle: "The Foreign Coach's Last Football Lesson",
@@ -491,6 +495,9 @@ export const experience = [
       },
     ],
     achievements: [],
+    trophyLinks: [
+      { sectionIndex: 8, itemIndex: 0, trophyId: "u18-vc-promo" },
+    ],
     media: {
       photos: [
         "/images/portugal/Trofense1.jpg",
