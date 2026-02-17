@@ -1,10 +1,8 @@
 "use client";
 
-import { useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion } from "framer-motion";
 import { Card, CardContent } from "@/components/ui/card";
-import { Badge } from "@/components/ui/badge";
-import { Trophy, Medal, Award, MapPin, ChevronDown } from "lucide-react";
+import { Trophy, Medal, Award } from "lucide-react";
 import { useTranslations } from "@/components/providers/i18n-provider";
 
 type TrophyType = "champion" | "vice-champion" | "promotion";
@@ -30,7 +28,6 @@ const championships: Championship[] = [
     country: "china",
     type: "vice-champion",
     timelineId: "job-1",
-
   },
   {
     id: "u15-female-c",
@@ -41,7 +38,6 @@ const championships: Championship[] = [
     country: "china",
     type: "champion",
     timelineId: "job-1",
-
   },
   {
     id: "u18-vc-promo",
@@ -52,7 +48,6 @@ const championships: Championship[] = [
     country: "portugal",
     type: "promotion",
     timelineId: "job-7",
-
   },
   {
     id: "u17-vc",
@@ -63,7 +58,6 @@ const championships: Championship[] = [
     country: "portugal",
     type: "promotion",
     timelineId: "job-7",
-
   },
   {
     id: "u16-c",
@@ -74,7 +68,6 @@ const championships: Championship[] = [
     country: "portugal",
     type: "promotion",
     timelineId: "job-7",
-
   },
 ];
 
@@ -82,46 +75,43 @@ const trophyColors = {
   champion: {
     icon: "text-yellow-500",
     bg: "bg-yellow-500/5",
-    bgActive: "bg-yellow-500/10",
     border: "border-yellow-500/20",
-    borderActive: "border-yellow-500/40",
+    borderHover: "hover:border-yellow-500/40",
     bar: "bg-yellow-500",
-    glow: "shadow-[0_0_25px_rgba(234,179,8,0.25)]",
+    textHover: "hover:text-yellow-500",
   },
   "vice-champion": {
     icon: "text-slate-400",
     bg: "bg-slate-500/5",
-    bgActive: "bg-slate-500/10",
     border: "border-slate-500/20",
-    borderActive: "border-slate-400/40",
+    borderHover: "hover:border-slate-400/40",
     bar: "bg-slate-400",
-    glow: "shadow-[0_0_25px_rgba(148,163,184,0.2)]",
+    textHover: "hover:text-slate-300",
   },
   promotion: {
     icon: "text-football-green",
     bg: "bg-emerald-500/5",
-    bgActive: "bg-emerald-500/10",
     border: "border-emerald-500/20",
-    borderActive: "border-emerald-500/40",
+    borderHover: "hover:border-emerald-500/40",
     bar: "bg-football-green",
-    glow: "shadow-[0_0_25px_rgba(0,214,108,0.25)]",
+    textHover: "hover:text-football-green",
   },
 } as const;
 
 function TrophyBadge({
   championship,
   index,
-  isExpanded,
-  onToggle,
 }: {
   championship: Championship;
   index: number;
-  isExpanded: boolean;
-  onToggle: () => void;
 }) {
   const t = useTranslations();
   const colors = trophyColors[championship.type];
   const Icon = championship.type === "champion" ? Medal : Award;
+
+  const scrollToJob = () => {
+    document.getElementById(championship.timelineId)?.scrollIntoView({ behavior: "smooth", block: "center" });
+  };
 
   return (
     <motion.div
@@ -131,22 +121,18 @@ function TrophyBadge({
       viewport={{ once: true }}
       transition={{ delay: index * 0.08, duration: 0.35 }}
     >
-      <motion.button
-        onClick={onToggle}
-        className={`w-full text-left rounded-lg p-2.5 border transition-all duration-300 cursor-pointer ${
-          isExpanded
-            ? `${colors.bgActive} ${colors.borderActive} ${colors.glow}`
-            : `${colors.bg} ${colors.border} hover:${colors.borderActive}`
-        }`}
+      <motion.div
+        className={`rounded-lg p-2.5 border transition-all duration-300 cursor-pointer ${colors.bg} ${colors.border} ${colors.borderHover}`}
         whileHover={{ scale: 1.015 }}
         whileTap={{ scale: 0.99 }}
         transition={{ type: "spring", stiffness: 400, damping: 25 }}
+        onClick={scrollToJob}
       >
         <div className="flex items-center gap-2.5">
           <div className={`w-0.5 self-stretch rounded-full ${colors.bar}`} />
           <Icon className={`w-4 h-4 ${colors.icon} flex-shrink-0`} />
           <div className="flex-1 min-w-0">
-            <div className="text-xs font-medium text-foreground truncate">
+            <div className={`text-xs font-medium text-foreground ${colors.textHover} hover:underline transition-colors`}>
               {t(championship.titleKey)}
             </div>
             <div className="text-[10px] text-muted-foreground">
@@ -156,54 +142,13 @@ function TrophyBadge({
           <span className="text-[11px] flex-shrink-0">
             {championship.country === "china" ? "🇨🇳" : "🇵🇹"}
           </span>
-          <motion.div
-            animate={{ rotate: isExpanded ? 180 : 0 }}
-            transition={{ duration: 0.2 }}
-          >
-            <ChevronDown className="w-3.5 h-3.5 text-muted-foreground/50" />
-          </motion.div>
         </div>
-      </motion.button>
-
-      <AnimatePresence>
-        {isExpanded && (
-          <motion.div
-            initial={{ opacity: 0, height: 0 }}
-            animate={{ opacity: 1, height: "auto" }}
-            exit={{ opacity: 0, height: 0 }}
-            transition={{ duration: 0.25, ease: "easeInOut" }}
-            className="overflow-hidden"
-          >
-            <div className={`mt-1.5 p-3 rounded-lg ${colors.bg} border ${colors.border}`}>
-              <div className="space-y-2">
-                <div className="flex items-center gap-1.5 text-[11px] text-muted-foreground">
-                  <MapPin className="w-3 h-3 flex-shrink-0" />
-                  <button
-                    onClick={() => document.getElementById(championship.timelineId)?.scrollIntoView({ behavior: "smooth", block: "center" })}
-                    className="hover:text-foreground hover:underline transition-colors cursor-pointer"
-                  >
-                    {championship.location}
-                  </button>
-                </div>
-                <div className="text-[11px] text-muted-foreground/80">
-                  {t(championship.descKey)}
-                </div>
-                {championship.type === "promotion" && (
-                  <Badge className="text-[9px] h-5 bg-football-green/15 text-football-green border border-football-green/30 hover:bg-football-green/20">
-                    PROMOTION
-                  </Badge>
-                )}
-              </div>
-            </div>
-          </motion.div>
-        )}
-      </AnimatePresence>
+      </motion.div>
     </motion.div>
   );
 }
 
 export function TrophyShowcase() {
-  const [expandedId, setExpandedId] = useState<string | null>(null);
   const t = useTranslations();
 
   return (
@@ -224,10 +169,6 @@ export function TrophyShowcase() {
               key={champ.id}
               championship={champ}
               index={idx}
-              isExpanded={expandedId === champ.id}
-              onToggle={() =>
-                setExpandedId(expandedId === champ.id ? null : champ.id)
-              }
             />
           ))}
         </div>
