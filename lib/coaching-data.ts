@@ -242,6 +242,7 @@ export const experience = [
     achievements: [],
     media: {
       photos: [
+        "/images/china/TonglingCity4.jpg",
         "/images/china/TonglingCity1.jpg",
         "/images/china/TonglingCity2.jpg",
       ],
@@ -400,7 +401,10 @@ export const experience = [
     ],
     achievements: [],
     media: {
-      photos: [],
+      photos: [
+        "/images/portugal/Benfica1.jpg",
+        "/images/portugal/Benfica2.jpg",
+      ],
     },
     images: ["portugal-benfica.jpg"],
   },
@@ -488,7 +492,13 @@ export const experience = [
     ],
     achievements: [],
     media: {
-      photos: [],
+      photos: [
+        "/images/portugal/Trofense1.jpg",
+        "/images/portugal/Trofense2.jpg",
+        "/images/portugal/Trofense3.jpg",
+        "/images/portugal/Trofense4.jpg",
+        "/images/portugal/Trofense5.png",
+      ],
     },
     images: ["portugal-trofense.jpg"],
   },
@@ -579,7 +589,9 @@ export const experience = [
     ],
     achievements: [],
     media: {
-      photos: [],
+      photos: [
+        "/images/portugal/Lavrense1.jpg",
+      ],
     },
     images: [],
   },
