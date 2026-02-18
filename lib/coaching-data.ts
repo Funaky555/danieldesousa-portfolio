@@ -504,7 +504,6 @@ export const experience = [
         "/images/portugal/Trofense2.jpg",
         "/images/portugal/Trofense3.jpg",
         "/images/portugal/Trofense4.jpg",
-        "/images/portugal/Trofense5.png",
       ],
     },
     images: ["portugal-trofense.jpg"],
