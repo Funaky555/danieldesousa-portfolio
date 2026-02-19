@@ -4,8 +4,6 @@ import { CareerTimeline } from "@/components/experience/career-timeline";
 import { TrophyShowcase } from "@/components/experience/trophy-showcase";
 import { InternationalShowcase } from "@/components/experience/international-showcase";
 import { AcademiesShowcase } from "@/components/experience/academies-showcase";
-import { Card, CardContent } from "@/components/ui/card";
-import { Badge } from "@/components/ui/badge";
 import { useTranslations } from "@/components/providers/i18n-provider";
 
 export function ExperienceContent() {
@@ -44,25 +42,6 @@ export function ExperienceContent() {
           <CareerTimeline />
         </div>
 
-        {/* China Highlight */}
-        <div className="max-w-4xl mx-auto mt-16">
-          <Card className="border-border/50 glass">
-            <CardContent className="p-8">
-              <div className="flex items-center mb-4">
-                <Badge variant="default" className="mr-3">{t("experience.china.badge")}</Badge>
-                <h3 className="text-2xl font-bold text-foreground">
-                  {t("experience.china.title")}
-                </h3>
-              </div>
-              <p className="text-muted-foreground leading-relaxed mb-4">
-                {t("experience.china.description1")}
-              </p>
-              <p className="text-muted-foreground leading-relaxed">
-                {t("experience.china.description2")}
-              </p>
-            </CardContent>
-          </Card>
-        </div>
       </div>
     </main>
   );
