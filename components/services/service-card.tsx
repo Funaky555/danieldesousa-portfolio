@@ -5,18 +5,101 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import {
-  BarChart3, Search, Users, Target, Presentation,
+  BarChart3, Search, Users, Target, Presentation, Globe,
   ArrowRight, Check
 } from "lucide-react";
+import { cn } from "@/lib/utils";
 import { useTranslations, useTranslationList } from "@/components/providers/i18n-provider";
 
-const iconMap: Record<string, any> = {
+const iconMap: Record<string, React.ElementType> = {
   BarChart3,
   Search,
   Users,
   Target,
   Presentation,
+  Globe,
 };
+
+const serviceColorMap: Record<string, {
+  gradient: string;
+  shadow: string;
+  iconBg: string;
+  iconText: string;
+  border: string;
+  topBar: string;
+  badgeBg: string;
+  badgeText: string;
+  badgeBorder: string;
+}> = {
+  "game-analysis": {
+    gradient: "from-blue-500/15 to-blue-600/5",
+    shadow: "hover:shadow-blue-500/20",
+    iconBg: "bg-blue-500/15",
+    iconText: "text-blue-400",
+    border: "hover:border-blue-500/60",
+    topBar: "from-blue-500 to-blue-600",
+    badgeBg: "bg-blue-500/10",
+    badgeText: "text-blue-400",
+    badgeBorder: "border-blue-500/30",
+  },
+  "scouting": {
+    gradient: "from-emerald-500/15 to-emerald-600/5",
+    shadow: "hover:shadow-emerald-500/20",
+    iconBg: "bg-emerald-500/15",
+    iconText: "text-emerald-400",
+    border: "hover:border-emerald-500/60",
+    topBar: "from-emerald-500 to-emerald-600",
+    badgeBg: "bg-emerald-500/10",
+    badgeText: "text-emerald-400",
+    badgeBorder: "border-emerald-500/30",
+  },
+  "leadership": {
+    gradient: "from-violet-500/15 to-violet-600/5",
+    shadow: "hover:shadow-violet-500/20",
+    iconBg: "bg-violet-500/15",
+    iconText: "text-violet-400",
+    border: "hover:border-violet-500/60",
+    topBar: "from-violet-500 to-violet-600",
+    badgeBg: "bg-violet-500/10",
+    badgeText: "text-violet-400",
+    badgeBorder: "border-violet-500/30",
+  },
+  "training": {
+    gradient: "from-orange-500/15 to-orange-600/5",
+    shadow: "hover:shadow-orange-500/20",
+    iconBg: "bg-orange-500/15",
+    iconText: "text-orange-400",
+    border: "hover:border-orange-500/60",
+    topBar: "from-orange-500 to-orange-600",
+    badgeBg: "bg-orange-500/10",
+    badgeText: "text-orange-400",
+    badgeBorder: "border-orange-500/30",
+  },
+  "seminars": {
+    gradient: "from-teal-500/15 to-teal-600/5",
+    shadow: "hover:shadow-teal-500/20",
+    iconBg: "bg-teal-500/15",
+    iconText: "text-teal-400",
+    border: "hover:border-teal-500/60",
+    topBar: "from-teal-500 to-teal-600",
+    badgeBg: "bg-teal-500/10",
+    badgeText: "text-teal-400",
+    badgeBorder: "border-teal-500/30",
+  },
+  "websites": {
+    gradient: "from-amber-500/15 to-amber-600/5",
+    shadow: "hover:shadow-amber-500/20",
+    iconBg: "bg-amber-500/15",
+    iconText: "text-amber-400",
+    border: "hover:border-amber-500/60",
+    topBar: "from-amber-500 to-amber-600",
+    badgeBg: "bg-amber-500/10",
+    badgeText: "text-amber-400",
+    badgeBorder: "border-amber-500/30",
+  },
+};
+
+const defaultColors = serviceColorMap["game-analysis"];
 
 interface ServiceCardProps {
   service: {
@@ -34,14 +117,16 @@ export function ServiceCard({ service }: ServiceCardProps) {
   const t = useTranslations();
   const tList = useTranslationList();
   const Icon = iconMap[service.icon] || BarChart3;
+  const colors = serviceColorMap[service.id] ?? defaultColors;
+  const isNew = service.id === "websites";
 
-  // Map service id to translation key
   const serviceKeyMap: Record<string, string> = {
     "game-analysis": "gameAnalysis",
     "scouting": "scouting",
     "leadership": "leadership",
     "training": "training",
     "seminars": "seminars",
+    "websites": "websites",
   };
 
   const translationKey = serviceKeyMap[service.id] || service.id;
@@ -49,23 +134,50 @@ export function ServiceCard({ service }: ServiceCardProps) {
   return (
     <Card
       id={service.id}
-      className="border-border/50 hover:border-primary/50 transition-all hover:scale-[1.02] h-full flex flex-col"
+      className={cn(
+        "relative border-border/40 transition-all duration-300 h-full flex flex-col overflow-hidden",
+        "hover:scale-[1.02] hover:shadow-xl",
+        colors.border,
+        colors.shadow,
+      )}
     >
-      <CardHeader>
-        <div className="w-12 h-12 rounded-lg bg-primary/10 flex items-center justify-center mb-4">
-          <Icon className="w-6 h-6 text-primary" />
+      {/* Barra de gradiente no topo */}
+      <div className={cn("h-1 w-full bg-gradient-to-r flex-shrink-0", colors.topBar)} />
+
+      {/* Fundo glassmorphism subtil colorido */}
+      <div className={cn("absolute inset-0 bg-gradient-to-br opacity-40 pointer-events-none", colors.gradient)} />
+
+      <CardHeader className="relative z-10">
+        <div className="flex items-start justify-between mb-4">
+          {/* Ícone com container colorido */}
+          <div className={cn("w-12 h-12 rounded-xl flex items-center justify-center", colors.iconBg)}>
+            <Icon className={cn("w-6 h-6", colors.iconText)} />
+          </div>
+          {/* Badge "New" para o serviço websites */}
+          {isNew && (
+            <Badge className={cn("text-xs font-semibold border", colors.badgeBg, colors.badgeText, colors.badgeBorder)}>
+              {t("services.new")}
+            </Badge>
+          )}
         </div>
-        <CardTitle className="text-2xl">{t(`services.list.${translationKey}.title`)}</CardTitle>
-        <CardDescription className="text-base">{t(`services.list.${translationKey}.description`)}</CardDescription>
+        <CardTitle className="text-xl font-bold text-foreground">
+          {t(`services.list.${translationKey}.title`)}
+        </CardTitle>
+        <CardDescription className="text-sm text-muted-foreground leading-relaxed">
+          {t(`services.list.${translationKey}.description`)}
+        </CardDescription>
       </CardHeader>
-      <CardContent className="flex-1 flex flex-col">
+
+      <CardContent className="flex-1 flex flex-col relative z-10">
         {/* Features */}
         <div className="mb-6">
-          <h4 className="font-semibold text-foreground mb-3">{t("services.features")}:</h4>
+          <h4 className="font-semibold mb-3 text-xs uppercase tracking-widest text-muted-foreground">
+            {t("services.features")}
+          </h4>
           <ul className="space-y-2">
             {tList(`services.list.${translationKey}.features`).map((feature, index) => (
               <li key={index} className="flex items-start text-sm text-muted-foreground">
-                <Check className="w-4 h-4 text-emerald-600 dark:text-football-green mr-2 mt-0.5 flex-shrink-0" />
+                <Check className={cn("w-4 h-4 mr-2 mt-0.5 flex-shrink-0", colors.iconText)} />
                 <span>{feature}</span>
               </li>
             ))}
@@ -74,10 +186,15 @@ export function ServiceCard({ service }: ServiceCardProps) {
 
         {/* Deliverables */}
         <div className="mb-6">
-          <h4 className="font-semibold text-foreground mb-3">{t("services.deliverables")}:</h4>
+          <h4 className="font-semibold mb-3 text-xs uppercase tracking-widest text-muted-foreground">
+            {t("services.deliverables")}
+          </h4>
           <div className="flex flex-wrap gap-2">
             {tList(`services.list.${translationKey}.deliverables`).map((deliverable, index) => (
-              <Badge key={index} variant="secondary">
+              <Badge
+                key={index}
+                className={cn("text-xs border", colors.badgeBg, colors.badgeText, colors.badgeBorder)}
+              >
                 {deliverable}
               </Badge>
             ))}
@@ -86,7 +203,13 @@ export function ServiceCard({ service }: ServiceCardProps) {
 
         {/* CTA */}
         <div className="mt-auto pt-4">
-          <Button asChild className="w-full">
+          <Button
+            asChild
+            className={cn(
+              "w-full bg-gradient-to-r text-white border-0 hover:opacity-90 transition-opacity",
+              colors.topBar,
+            )}
+          >
             <Link href="/contact">
               {t("services.cta")}
               <ArrowRight className="ml-2 h-4 w-4" />

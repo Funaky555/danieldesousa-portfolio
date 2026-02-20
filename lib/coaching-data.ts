@@ -1088,6 +1088,26 @@ export const services = [
       "Resource documents",
     ],
   },
+  {
+    id: "websites",
+    title: "Website & CV Creation",
+    shortDescription: "Professional websites and digital CVs for clubs and individuals",
+    description: "Professional website creation for clubs, academies, businesses and individuals, plus polished CV and digital portfolio design.",
+    icon: "Globe",
+    features: [
+      "Website creation for clubs, academies and businesses",
+      "Personal and professional websites for individuals",
+      "Professional CV and digital portfolio design",
+      "Responsive and mobile-first design",
+      "Modern, clean aesthetic inspired by professional standards",
+      "Basic maintenance and support included",
+    ],
+    deliverables: [
+      "Fully functional website",
+      "Digital CV / Portfolio",
+      "Source files delivered",
+    ],
+  },
 ];
 
 export const servicePricing = {
