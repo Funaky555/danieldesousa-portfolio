@@ -975,10 +975,11 @@
       "email": "Email",
       "phone": "Phone (optional)",
       "service": "Service Interest",
+      "contactMethod": "Preferred Contact Method",
       "message": "Message",
       "submit": "Send Message",
-      "success": "Message sent successfully!",
-      "error": "Error sending message. Please try again."
+      "success": "Message sent successfully! Check your WhatsApp if you selected that option.",
+      "error": "Error sending message. Please try again or contact directly via WhatsApp."
     },
     "info": {
       "email": "Email",
