@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { Mail, Phone, Twitter, Linkedin } from "lucide-react";
+import { Mail, Phone, Twitter, Linkedin, Instagram, Facebook } from "lucide-react";
 import { coachInfo, socialMedia } from "@/lib/coaching-data";
 import { useTranslations } from "@/components/providers/i18n-provider";
 
@@ -64,6 +64,28 @@ export function Footer() {
                   aria-label="LinkedIn"
                 >
                   <Linkedin className="w-6 h-6" />
+                </a>
+              )}
+              {socialMedia.instagram && (
+                <a
+                  href={socialMedia.instagram}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="w-11 h-11 rounded-lg bg-secondary flex items-center justify-center text-pink-500 hover:text-foreground hover:bg-primary/10 transition-colors"
+                  aria-label="Instagram"
+                >
+                  <Instagram className="w-6 h-6" />
+                </a>
+              )}
+              {socialMedia.facebook && (
+                <a
+                  href={socialMedia.facebook}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="w-11 h-11 rounded-lg bg-secondary flex items-center justify-center text-blue-500 hover:text-foreground hover:bg-primary/10 transition-colors"
+                  aria-label="Facebook"
+                >
+                  <Facebook className="w-6 h-6" />
                 </a>
               )}
             </div>

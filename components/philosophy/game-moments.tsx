@@ -190,7 +190,7 @@ export function GameMomentsSection() {
             animate={{ opacity: 1, x: 0 }}
             exit={{ opacity: 0, x: -20 }}
             transition={{ duration: 0.25 }}
-            className={`glass rounded-xl p-8 border ${colors.border} ${colors.glow} relative overflow-hidden h-full`}
+            className={`glass rounded-xl p-4 md:p-8 border ${colors.border} ${colors.glow} relative overflow-hidden h-full`}
           >
             {/* Accent line */}
             <div
@@ -206,7 +206,7 @@ export function GameMomentsSection() {
                   <active.icon className={`w-6 h-6 ${colors.text}`} />
                 </div>
                 <div>
-                  <h3 className="text-xl font-bold text-foreground">
+                  <h3 className="text-base md:text-xl font-bold text-foreground">
                     {t(`philosophy.gameMomentsList.${active.key}`)}
                   </h3>
                   <Badge
@@ -219,7 +219,7 @@ export function GameMomentsSection() {
               </div>
 
               {/* Description */}
-              <p className="text-muted-foreground leading-relaxed mb-6">
+              <p className="text-sm md:text-base text-muted-foreground leading-relaxed mb-6">
                 {t(`philosophy.gameMomentsDescriptions.${active.key}`)}
               </p>
 

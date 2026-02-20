@@ -3,7 +3,7 @@
 import { useState } from "react";
 import { ContactForm } from "@/components/contact/contact-form";
 import { coachInfo, socialMedia } from "@/lib/coaching-data";
-import { Mail, MessageCircle, MapPin, Twitter, Linkedin } from "lucide-react";
+import { Mail, MessageCircle, MapPin, Twitter, Linkedin, Instagram, Facebook } from "lucide-react";
 import { useTranslations } from "@/components/providers/i18n-provider";
 
 const EMAIL_COLOR = "#00D66C";
@@ -11,6 +11,8 @@ const WHATSAPP_COLOR = "#0066FF";
 const LOCATION_COLOR = "#8B5CF6";
 const TWITTER_COLOR = "#1DA1F2";
 const LINKEDIN_COLOR = "#0A66C2";
+const INSTAGRAM_COLOR = "#E4405F";
+const FACEBOOK_COLOR = "#1877F2";
 
 function GlowCard({
   color,
@@ -187,6 +189,22 @@ export function ContactContent() {
                     color={LINKEDIN_COLOR}
                     icon={Linkedin}
                     label="LinkedIn"
+                  />
+                )}
+                {socialMedia.instagram && (
+                  <SocialButton
+                    href={socialMedia.instagram}
+                    color={INSTAGRAM_COLOR}
+                    icon={Instagram}
+                    label="Instagram"
+                  />
+                )}
+                {socialMedia.facebook && (
+                  <SocialButton
+                    href={socialMedia.facebook}
+                    color={FACEBOOK_COLOR}
+                    icon={Facebook}
+                    label="Facebook"
                   />
                 )}
               </div>

@@ -1152,8 +1152,9 @@ export const seoKeywords = {
 export const socialMedia = {
   linkedin: "https://www.linkedin.com/in/daniel-de-sousa-56984a102/",
   twitter: "https://x.com/DanieldeSousa05",
-  instagram: "", // To be added
-  youtube: "", // To be added
+  instagram: "https://www.instagram.com/dan_desousa/",
+  facebook: "https://www.facebook.com/danieldesousa05",
+  youtube: "",
 };
 
 // ============================================================================
