@@ -15,10 +15,10 @@ export function ServicesContent() {
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header */}
         <div className="max-w-3xl mx-auto text-center mb-8 md:mb-16">
-          <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold text-foreground mb-6">
+          <h1 className="text-2xl sm:text-4xl md:text-5xl font-bold text-foreground mb-6">
             {t("services.title")}
           </h1>
-          <p className="text-base sm:text-xl text-muted-foreground">
+          <p className="text-sm sm:text-xl text-muted-foreground">
             {t("services.subtitle")}
           </p>
         </div>
@@ -38,7 +38,7 @@ export function ServicesContent() {
               <div className="flex flex-col md:flex-row items-center gap-6 md:gap-10">
                 {/* Texto esticado */}
                 <div className="flex-1 text-center md:text-left">
-                  <h3 className="text-2xl font-bold text-foreground mb-2">
+                  <h3 className="text-lg font-bold text-foreground mb-2">
                     {t("services.cta")}
                   </h3>
                   <p className="text-muted-foreground leading-relaxed">

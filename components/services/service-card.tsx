@@ -160,7 +160,7 @@ export function ServiceCard({ service }: ServiceCardProps) {
             </Badge>
           )}
         </div>
-        <CardTitle className="text-xl font-bold text-foreground">
+        <CardTitle className="text-base font-bold text-foreground">
           {t(`services.list.${translationKey}.title`)}
         </CardTitle>
         <CardDescription className="text-sm text-muted-foreground leading-relaxed">

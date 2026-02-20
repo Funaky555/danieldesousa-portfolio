@@ -82,10 +82,10 @@ export function ContactContent() {
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header */}
         <div className="max-w-3xl mx-auto text-center mb-8 md:mb-16">
-          <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold text-foreground mb-6">
+          <h1 className="text-2xl sm:text-4xl md:text-5xl font-bold text-foreground mb-6">
             {t("contact.title")}
           </h1>
-          <p className="text-base sm:text-xl text-muted-foreground">
+          <p className="text-sm sm:text-xl text-muted-foreground">
             {t("contact.subtitle")}
           </p>
         </div>
@@ -93,7 +93,7 @@ export function ContactContent() {
         <div className="max-w-6xl mx-auto grid gap-12 lg:grid-cols-3">
           {/* Coluna esquerda — Info */}
           <div className="lg:col-span-1 space-y-4">
-            <h2 className="text-xl font-bold text-foreground mb-2">
+            <h2 className="text-lg font-bold text-foreground mb-2">
               {t("contact.title")}
             </h2>
 

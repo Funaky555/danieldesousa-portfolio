@@ -13,10 +13,10 @@ export function AboutContent() {
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header */}
         <div className="max-w-3xl mx-auto text-center mb-8 md:mb-16">
-          <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold text-foreground mb-6">
+          <h1 className="text-2xl sm:text-4xl md:text-5xl font-bold text-foreground mb-6">
             {t("about.title")}
           </h1>
-          <p className="text-base sm:text-xl text-muted-foreground leading-relaxed">
+          <p className="text-sm sm:text-xl text-muted-foreground leading-relaxed">
             {t("about.bio")}
           </p>
         </div>
@@ -25,7 +25,7 @@ export function AboutContent() {
           {/* Education & Certifications */}
           <section>
             <div className="text-center mb-8 md:mb-12">
-              <h2 className="text-2xl sm:text-3xl font-bold text-foreground mb-4">
+              <h2 className="text-xl sm:text-3xl font-bold text-foreground mb-4">
                 {t("about.education.title")}
               </h2>
               <p className="text-muted-foreground">
@@ -40,7 +40,7 @@ export function AboutContent() {
           {/* Skills & Languages */}
           <section>
             <div className="text-center mb-8 md:mb-12">
-              <h2 className="text-2xl sm:text-3xl font-bold text-foreground mb-4">
+              <h2 className="text-xl sm:text-3xl font-bold text-foreground mb-4">
                 {t("about.skills.title")} & {t("about.languages.title")}
               </h2>
               <p className="text-muted-foreground">

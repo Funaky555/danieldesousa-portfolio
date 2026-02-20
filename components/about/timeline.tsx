@@ -37,7 +37,7 @@ export function EducationTimeline() {
     <div className="space-y-8">
       {/* Certifications */}
       <div>
-        <h3 className="text-2xl font-bold text-foreground mb-6 flex items-center">
+        <h3 className="text-lg font-bold text-foreground mb-6 flex items-center">
           <Award className="w-6 h-6 mr-2 text-primary" />
           {t("about.education.certifications")}
         </h3>
@@ -48,15 +48,15 @@ export function EducationTimeline() {
               <Card key={index} className="border-border/50 hover:border-primary/50 transition-all">
                 <CardHeader>
                   <div className="flex items-start justify-between">
-                    <CardTitle className="text-xl">{t(`about.certs.${certKey}.title`)}</CardTitle>
+                    <CardTitle className="text-base">{t(`about.certs.${certKey}.title`)}</CardTitle>
                     <Badge variant={cert.status === "Certified" ? "default" : "secondary"}>
                       {getStatusTranslation(cert.status)}
                     </Badge>
                   </div>
-                  <CardDescription className="text-base">{t(`about.certs.${certKey}.institution`)}</CardDescription>
+                  <CardDescription className="text-sm">{t(`about.certs.${certKey}.institution`)}</CardDescription>
                 </CardHeader>
                 <CardContent>
-                  <p className="text-base text-muted-foreground">{t(`about.certs.${certKey}.description`)}</p>
+                  <p className="text-sm text-muted-foreground">{t(`about.certs.${certKey}.description`)}</p>
                 </CardContent>
               </Card>
             );
@@ -68,7 +68,7 @@ export function EducationTimeline() {
         <>
           <Separator />
           <div>
-            <h3 className="text-2xl font-bold text-foreground mb-6 flex items-center">
+            <h3 className="text-lg font-bold text-foreground mb-6 flex items-center">
               <GraduationCap className="w-6 h-6 mr-2 text-primary" />
               {t("about.education.academic")}
             </h3>
@@ -78,14 +78,14 @@ export function EducationTimeline() {
                 return (
                   <Card key={index} className="border-border/50">
                     <CardHeader>
-                      <CardTitle className="text-xl">{t(`about.degrees.${degreeKey}.title`)}</CardTitle>
-                      <CardDescription className="text-base">
+                      <CardTitle className="text-base">{t(`about.degrees.${degreeKey}.title`)}</CardTitle>
+                      <CardDescription className="text-sm">
                         {degree.specialization && `${t(`about.degrees.${degreeKey}.specialization`)} • `}
                         {degree.institution} • {degree.startYear} - {degree.endYear}
                       </CardDescription>
                     </CardHeader>
                     <CardContent>
-                      <p className="text-base text-muted-foreground">{t(`about.degrees.${degreeKey}.description`)}</p>
+                      <p className="text-sm text-muted-foreground">{t(`about.degrees.${degreeKey}.description`)}</p>
                     </CardContent>
                   </Card>
                 );
@@ -99,7 +99,7 @@ export function EducationTimeline() {
 
       {/* Exchange Programs */}
       <div>
-        <h3 className="text-2xl font-bold text-foreground mb-6 flex items-center">
+        <h3 className="text-lg font-bold text-foreground mb-6 flex items-center">
           <Globe className="w-6 h-6 mr-2 text-primary" />
           {t("about.education.exchange")}
         </h3>
@@ -109,14 +109,14 @@ export function EducationTimeline() {
             return (
               <Card key={index} className="border-border/50 hover:border-accent/50 transition-all">
                 <CardHeader>
-                  <CardTitle className="text-xl">{t(`about.exchanges.${exchangeKey}.program`)}</CardTitle>
-                  <CardDescription className="text-base">
+                  <CardTitle className="text-base">{t(`about.exchanges.${exchangeKey}.program`)}</CardTitle>
+                  <CardDescription className="text-sm">
                     {program.specialization && `${t(`about.exchanges.${exchangeKey}.specialization`)} • `}
                     {program.institution}, {program.location} • {program.year}
                   </CardDescription>
                 </CardHeader>
                 <CardContent>
-                  <p className="text-base text-muted-foreground">{t(`about.exchanges.${exchangeKey}.description`)}</p>
+                  <p className="text-sm text-muted-foreground">{t(`about.exchanges.${exchangeKey}.description`)}</p>
                 </CardContent>
               </Card>
             );

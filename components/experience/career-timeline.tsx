@@ -141,7 +141,7 @@ export function CareerTimeline() {
                         </Badge>
                         <span className="text-xs text-muted-foreground">{job.period}</span>
                       </div>
-                      <CardTitle className="text-lg">{t(`experience.jobs.${jobKeyMap[job.id]}.role`) || job.role}</CardTitle>
+                      <CardTitle className="text-base">{t(`experience.jobs.${jobKeyMap[job.id]}.role`) || job.role}</CardTitle>
                       <div className="flex items-center text-sm text-muted-foreground mt-1">
                         <MapPin className="w-3.5 h-3.5 mr-1.5 flex-shrink-0" />
                         {job.location}
@@ -195,7 +195,7 @@ export function CareerTimeline() {
                           </button>
                         )}
                         <div className="flex-1">
-                          <CardTitle className="text-lg leading-tight">{t(`experience.jobs.${jobKeyMap[job.id]}.role`) || job.role}</CardTitle>
+                          <CardTitle className="text-base leading-tight">{t(`experience.jobs.${jobKeyMap[job.id]}.role`) || job.role}</CardTitle>
                           <div className="flex flex-col gap-1 mt-1.5">
                             <div className="flex items-center text-sm text-foreground font-medium">
                               <MapPin className="w-3.5 h-3.5 mr-1.5 flex-shrink-0 text-emerald-600 dark:text-football-green" />
@@ -273,7 +273,7 @@ export function CareerTimeline() {
                           return (
                             <AccordionItem key={sectionIndex} value={`section-${sectionIndex}`}>
                               <AccordionTrigger className="hover:no-underline py-3">
-                                <h4 className="text-lg font-bold text-foreground flex items-center">
+                                <h4 className="text-base font-bold text-foreground flex items-center">
                                   <IconComponent className="w-4 h-4 mr-2 text-emerald-600 dark:text-football-green" />
                                   {t(`experience.jobs.${jobKeyMap[job.id]}.sections.${sectionIndex}.title`)}
                                 </h4>
@@ -363,7 +363,7 @@ export function CareerTimeline() {
                       </Badge>
                       <span className="text-xs text-muted-foreground">{job.period}</span>
                     </div>
-                    <CardTitle className="text-lg">{t(`experience.jobs.${jobKeyMap[job.id]}.role`) || job.role}</CardTitle>
+                    <CardTitle className="text-base">{t(`experience.jobs.${jobKeyMap[job.id]}.role`) || job.role}</CardTitle>
                     <div className="flex flex-col gap-1 mt-1.5">
                       <div className="flex items-center text-sm text-muted-foreground">
                         <MapPin className="w-3.5 h-3.5 mr-1.5 flex-shrink-0" />

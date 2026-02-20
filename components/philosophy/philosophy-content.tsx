@@ -180,7 +180,7 @@ export function PhilosophyContent() {
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         {/* === 1. HERO SECTION === */}
         <div className="max-w-3xl mx-auto text-center mb-8 md:mb-16">
-          <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold text-foreground mb-8">
+          <h1 className="text-2xl sm:text-4xl md:text-5xl font-bold text-foreground mb-8">
             {t("philosophy.title")}
           </h1>
 
@@ -195,7 +195,7 @@ export function PhilosophyContent() {
                 >
                   <div className="flex items-center gap-2 sm:gap-2.5">
                     <Icon className={`w-4 h-4 sm:w-6 sm:h-6 ${colors.text} group-hover:scale-110 transition-transform duration-300`} />
-                    <span className={`text-sm sm:text-base md:text-xl font-bold ${colors.text}`}>
+                    <span className={`text-xs sm:text-base md:text-xl font-bold ${colors.text}`}>
                       {word}
                     </span>
                   </div>
@@ -213,7 +213,7 @@ export function PhilosophyContent() {
               <div className="flex gap-4 pl-4">
                 <Quote className="w-6 h-6 md:w-10 md:h-10 text-football-green/40 shrink-0 mt-1" />
                 <div>
-                  <blockquote className="text-sm md:text-base lg:text-xl text-foreground italic leading-relaxed">
+                  <blockquote className="text-xs md:text-base lg:text-xl text-foreground italic leading-relaxed">
                     &ldquo;{t("philosophy.coreClosing")}&rdquo;
                   </blockquote>
                   <p className="mt-4 text-sm text-muted-foreground font-medium">
@@ -227,7 +227,7 @@ export function PhilosophyContent() {
           {/* === 3. PHILOSOPHY TOPICS (TABS) === */}
           <section>
             <div className="text-center mb-8 md:mb-10">
-              <h2 className="text-2xl sm:text-3xl font-bold text-foreground mb-3">
+              <h2 className="text-xl sm:text-3xl font-bold text-foreground mb-3">
                 {t("philosophy.core")}
               </h2>
               <p className="text-muted-foreground">
@@ -263,11 +263,11 @@ export function PhilosophyContent() {
                         <div className={`shrink-0 w-12 h-12 rounded-full ${colors.iconBg} flex items-center justify-center`}>
                           <Icon className={`w-6 h-6 ${colors.iconText}`} />
                         </div>
-                        <h3 className="text-2xl font-bold text-foreground pt-2">
+                        <h3 className="text-lg font-bold text-foreground pt-2">
                           {t(`philosophy.coreBeliefs.${key}.title`)}
                         </h3>
                       </div>
-                      <p className="text-muted-foreground leading-relaxed text-base md:text-lg">
+                      <p className="text-muted-foreground leading-relaxed text-sm md:text-lg">
                         {t(`philosophy.coreBeliefs.${key}.text`)}
                       </p>
                     </div>
@@ -282,7 +282,7 @@ export function PhilosophyContent() {
           {/* === 5. TACTICAL SYSTEMS (existing) === */}
           <section>
             <div className="text-center mb-8 md:mb-12">
-              <h2 className="text-2xl sm:text-3xl font-bold text-foreground mb-4">
+              <h2 className="text-xl sm:text-3xl font-bold text-foreground mb-4">
                 {t("philosophy.formations")}
               </h2>
               <p className="text-muted-foreground">
@@ -297,7 +297,7 @@ export function PhilosophyContent() {
           {/* === 6. GAME MOMENTS (existing) === */}
           <section>
             <div className="text-center mb-8 md:mb-12">
-              <h2 className="text-2xl sm:text-3xl font-bold text-foreground mb-4">
+              <h2 className="text-xl sm:text-3xl font-bold text-foreground mb-4">
                 {t("philosophy.gameMoments")}
               </h2>
               <p className="text-muted-foreground">
@@ -312,7 +312,7 @@ export function PhilosophyContent() {
           {/* === 7. TRAINING APPROACH === */}
           <section>
             <div className="text-center mb-8 md:mb-12">
-              <h2 className="text-2xl sm:text-3xl font-bold text-foreground mb-4">
+              <h2 className="text-xl sm:text-3xl font-bold text-foreground mb-4">
                 {t("philosophy.approach")}
               </h2>
             </div>
@@ -339,7 +339,7 @@ export function PhilosophyContent() {
                           <div className={`shrink-0 w-10 h-10 rounded-lg ${ac.bg} flex items-center justify-center`}>
                             <Icon className={`w-5 h-5 ${ac.text}`} />
                           </div>
-                          <p className="text-sm md:text-base text-foreground/85 leading-relaxed pt-2">
+                          <p className="text-xs md:text-base text-foreground/85 leading-relaxed pt-2">
                             {point}
                           </p>
                         </div>

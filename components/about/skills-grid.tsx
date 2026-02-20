@@ -25,7 +25,7 @@ export function SkillsGrid() {
     <div className="space-y-12">
       {/* Soft Skills */}
       <div>
-        <h3 className="text-2xl font-bold text-foreground mb-6">{t("about.skills.title")}</h3>
+        <h3 className="text-lg font-bold text-foreground mb-6">{t("about.skills.title")}</h3>
         <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
           {skillKeys.map((skill) => {
             const Icon = skill.icon;
@@ -48,7 +48,7 @@ export function SkillsGrid() {
 
       {/* Languages */}
       <div>
-        <h3 className="text-2xl font-bold text-foreground mb-6 flex items-center">
+        <h3 className="text-lg font-bold text-foreground mb-6 flex items-center">
           <LanguagesIcon className="w-6 h-6 mr-2 text-primary" />
           {t("about.languages.title")}
         </h3>

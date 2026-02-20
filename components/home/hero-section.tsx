@@ -67,12 +67,12 @@ export function HeroSection() {
         </div>
 
         {/* Main heading */}
-        <h1 className="text-4xl sm:text-5xl lg:text-7xl font-bold text-foreground leading-tight mb-4">
+        <h1 className="text-2xl sm:text-5xl lg:text-7xl font-bold text-foreground leading-tight mb-4">
           {coachInfo.name}
         </h1>
 
         {/* Subtitle */}
-        <p className="text-lg sm:text-xl text-muted-foreground mb-6">
+        <p className="text-base sm:text-xl text-muted-foreground mb-6">
           {t("home.hero.subtitle")}
         </p>
 
@@ -134,19 +134,19 @@ export function HeroSection() {
       <div className="relative z-10 mt-auto">
         <div className="grid grid-cols-2 md:grid-cols-4">
           <div className="text-center py-5 glass border-t border-border/50 hover:border-primary/50 transition-all border-r border-border/50">
-            <div className="text-2xl font-bold text-foreground">10+</div>
+            <div className="text-xl font-bold text-foreground">10+</div>
             <div className="text-xs text-muted-foreground">{t("home.stats.experience")}</div>
           </div>
           <div className="text-center py-5 glass border-t border-border/50 hover:border-primary/50 transition-all border-r border-border/50">
-            <div className="text-2xl font-bold text-foreground">Portugal & China</div>
+            <div className="text-xl font-bold text-foreground">Portugal & China</div>
             <div className="text-xs text-muted-foreground">{t("home.stats.countries")}</div>
           </div>
           <div className="text-center py-5 glass border-t border-border/50 hover:border-primary/50 transition-all border-r border-border/50">
-            <div className="text-2xl font-bold text-foreground">U4 to U18</div>
+            <div className="text-xl font-bold text-foreground">U4 to U18</div>
             <div className="text-xs text-muted-foreground">{t("home.stats.ageGroups")}</div>
           </div>
           <div className="text-center py-5 glass border-t border-border/50 hover:border-primary/50 transition-all">
-            <div className="text-2xl font-bold text-foreground">UEFA B</div>
+            <div className="text-xl font-bold text-foreground">UEFA B</div>
             <div className="text-xs text-muted-foreground">{t("home.stats.certification")}</div>
           </div>
         </div>
