@@ -1,7 +1,8 @@
 import { NextRequest, NextResponse } from "next/server";
-import { Resend } from "resend";
+import nodemailer from "nodemailer";
 
 const TO_EMAIL = "danieldesousa05@gmail.com";
+const FROM_EMAIL = "danieldesousa05@gmail.com";
 
 const serviceLabels: Record<string, string> = {
   "game-analysis": "Game Analysis",
@@ -27,18 +28,25 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ error: "Missing required fields" }, { status: 400 });
     }
 
-    const apiKey = process.env.RESEND_API_KEY;
-    if (!apiKey) {
-      console.error("RESEND_API_KEY not configured");
+    const appPassword = process.env.GMAIL_APP_PASSWORD;
+    if (!appPassword) {
+      console.error("GMAIL_APP_PASSWORD not configured");
       return NextResponse.json({ error: "Email service not configured" }, { status: 500 });
     }
 
-    const resend = new Resend(apiKey);
+    const transporter = nodemailer.createTransport({
+      service: "gmail",
+      auth: {
+        user: FROM_EMAIL,
+        pass: appPassword,
+      },
+    });
+
     const serviceName = serviceLabels[service] ?? service;
     const contactMethodName = contactMethodLabels[contactMethod] ?? contactMethod;
 
-    const { error } = await resend.emails.send({
-      from: "Daniel de Sousa Portfolio <onboarding@resend.dev>",
+    await transporter.sendMail({
+      from: `"Portfolio Contact" <${FROM_EMAIL}>`,
       to: TO_EMAIL,
       replyTo: email,
       subject: `New Contact: ${serviceName} — ${name}`,
@@ -46,7 +54,7 @@ export async function POST(request: NextRequest) {
         <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; background: #0a0f1e; color: #e2e8f0; padding: 32px; border-radius: 12px;">
           <div style="background: linear-gradient(135deg, #00D66C, #0066FF, #8B5CF6); padding: 2px; border-radius: 12px; margin-bottom: 24px;">
             <div style="background: #0a0f1e; border-radius: 10px; padding: 20px; text-align: center;">
-              <h1 style="margin: 0; font-size: 22px; background: linear-gradient(135deg, #00D66C, #0066FF); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">
+              <h1 style="margin: 0; font-size: 22px; color: #00D66C;">
                 Daniel de Sousa Portfolio
               </h1>
               <p style="margin: 6px 0 0; color: #94a3b8; font-size: 14px;">New Contact Request</p>
@@ -102,11 +110,6 @@ export async function POST(request: NextRequest) {
         </div>
       `,
     });
-
-    if (error) {
-      console.error("Resend error:", error);
-      return NextResponse.json({ error: "Failed to send email" }, { status: 500 });
-    }
 
     return NextResponse.json({ success: true });
   } catch (err) {
