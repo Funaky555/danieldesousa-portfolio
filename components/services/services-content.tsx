@@ -14,11 +14,11 @@ export function ServicesContent() {
     <main className="min-h-screen bg-background/80 pt-24 pb-16">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header */}
-        <div className="max-w-3xl mx-auto text-center mb-16">
-          <h1 className="text-4xl sm:text-5xl font-bold text-foreground mb-6">
+        <div className="max-w-3xl mx-auto text-center mb-8 md:mb-16">
+          <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold text-foreground mb-6">
             {t("services.title")}
           </h1>
-          <p className="text-xl text-muted-foreground">
+          <p className="text-base sm:text-xl text-muted-foreground">
             {t("services.subtitle")}
           </p>
         </div>

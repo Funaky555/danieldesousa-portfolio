@@ -21,11 +21,11 @@ export function SoftwareContent() {
     <main className="min-h-screen bg-background/80 pt-24 pb-16">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header */}
-        <div className="max-w-3xl mx-auto text-center mb-16">
-          <h1 className="text-4xl sm:text-5xl font-bold text-foreground mb-6">
+        <div className="max-w-3xl mx-auto text-center mb-8 md:mb-16">
+          <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold text-foreground mb-6">
             {t("software.title")}
           </h1>
-          <p className="text-xl text-muted-foreground">
+          <p className="text-base sm:text-xl text-muted-foreground">
             {t("software.subtitle")}
           </p>
         </div>
@@ -36,7 +36,7 @@ export function SoftwareContent() {
             const categoryKey = categoryKeyMap[category.category] || "videoAnalysis";
             return (
               <section key={category.category}>
-                <h2 className="text-2xl font-bold text-foreground mb-8 text-center">
+                <h2 className="text-xl sm:text-2xl font-bold text-foreground mb-8 text-center">
                   {t(`software.categories.${categoryKey}`)}
                 </h2>
                 <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">

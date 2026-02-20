@@ -70,7 +70,7 @@ export function Footer() {
           </div>
 
           {/* Quick Links */}
-          <div>
+          <div className="hidden md:block">
             <h3 className="text-sm font-semibold text-foreground mb-4">
               {t("nav.home")}
             </h3>
@@ -89,7 +89,7 @@ export function Footer() {
           </div>
 
           {/* Services */}
-          <div>
+          <div className="hidden md:block">
             <h3 className="text-sm font-semibold text-foreground mb-4">
               {t("nav.services")}
             </h3>

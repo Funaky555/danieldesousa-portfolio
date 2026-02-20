@@ -30,13 +30,16 @@ export function HeroSection() {
       <div className="absolute bottom-1/4 left-1/3 w-80 h-80 rounded-full bg-football-green/20 blur-3xl" />
       <div className="absolute top-1/3 right-1/3 w-72 h-72 rounded-full bg-tech-purple/10 blur-3xl" />
 
-      {/* ── Layer 4: Left side gradient for text legibility ── */}
-      <div className="absolute inset-0 bg-gradient-to-r from-background via-background/85 to-transparent lg:w-2/3" />
+      {/* ── Layer 4: Gradient overlays for text legibility ── */}
+      {/* Mobile: gradient bottom-to-top so photo is visible at top */}
+      <div className="absolute inset-0 bg-gradient-to-t from-background/95 via-background/75 to-transparent md:hidden" />
+      {/* Desktop: gradient left-to-right so photo shows on the right */}
+      <div className="absolute inset-0 bg-gradient-to-r from-background via-background/85 to-transparent lg:w-2/3 hidden md:block" />
 
       {/* ── Layer 5: Text content ── */}
-      <div className="relative z-10 flex-1 flex flex-col justify-center lg:w-1/2 px-6 sm:px-10 lg:px-16 py-16 lg:py-20">
+      <div className="relative z-10 flex-1 flex flex-col justify-end md:justify-center items-center text-center md:items-start md:text-left lg:w-1/2 px-6 sm:px-10 lg:px-16 py-16 lg:py-20">
         {/* Certifications badges with logos */}
-        <div className="flex flex-wrap items-center gap-3 mb-6">
+        <div className="flex flex-wrap items-center justify-center md:justify-start gap-3 mb-6">
           {heroBadges.certifications.map((cert) => (
             <div
               key={cert.name}
@@ -64,7 +67,7 @@ export function HeroSection() {
         </div>
 
         {/* Main heading */}
-        <h1 className="text-5xl sm:text-6xl lg:text-7xl font-bold text-foreground leading-tight mb-4">
+        <h1 className="text-4xl sm:text-5xl lg:text-7xl font-bold text-foreground leading-tight mb-4">
           {coachInfo.name}
         </h1>
 
@@ -74,7 +77,7 @@ export function HeroSection() {
         </p>
 
         {/* Age groups row */}
-        <div className="flex flex-wrap gap-2 mb-4">
+        <div className="flex flex-wrap justify-center md:justify-start gap-2 mb-4">
           {heroBadges.ageGroups.map((group) => (
             <span
               key={group}
@@ -86,7 +89,7 @@ export function HeroSection() {
         </div>
 
         {/* Roles row */}
-        <div className="flex flex-wrap gap-2 mb-8">
+        <div className="flex flex-wrap justify-center md:justify-start gap-2 mb-8">
           {["scouting", "analyst", "peTeacher"].map((roleKey) => (
             <span
               key={roleKey}
@@ -98,7 +101,7 @@ export function HeroSection() {
         </div>
 
         {/* Location / experience tags */}
-        <div className="flex flex-wrap gap-2 mb-10">
+        <div className="flex flex-wrap justify-center md:justify-start gap-2 mb-10">
           <span className="px-3 py-1 rounded-full text-xs font-medium bg-blue-600/10 dark:bg-ai-blue/10 border border-blue-600/30 dark:border-ai-blue/30 text-blue-700 dark:text-ai-blue backdrop-blur-sm">
             Portugal
           </span>
@@ -111,7 +114,7 @@ export function HeroSection() {
         </div>
 
         {/* CTA buttons */}
-        <div className="flex flex-col sm:flex-row gap-3">
+        <div className="flex flex-col sm:flex-row justify-center md:justify-start gap-3">
           <Button asChild size="lg" className="glow-border">
             <Link href="/services">
               {t("home.hero.cta.services")}

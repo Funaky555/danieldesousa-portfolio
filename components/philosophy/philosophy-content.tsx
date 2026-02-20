@@ -179,8 +179,8 @@ export function PhilosophyContent() {
     <main className="min-h-screen bg-background/80 pt-24 pb-16">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         {/* === 1. HERO SECTION === */}
-        <div className="max-w-3xl mx-auto text-center mb-16">
-          <h1 className="text-4xl sm:text-5xl font-bold text-foreground mb-8">
+        <div className="max-w-3xl mx-auto text-center mb-8 md:mb-16">
+          <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold text-foreground mb-8">
             {t("philosophy.title")}
           </h1>
 
@@ -205,10 +205,10 @@ export function PhilosophyContent() {
           </div>
         </div>
 
-        <div className="max-w-6xl mx-auto space-y-16">
+        <div className="max-w-6xl mx-auto space-y-10 md:space-y-16">
           {/* === 2. QUOTE SECTION === */}
           <section>
-            <div className="glass rounded-lg p-8 md:p-10 border border-border/50 glow-border relative overflow-hidden">
+            <div className="glass rounded-lg p-5 md:p-10 border border-border/50 glow-border relative overflow-hidden">
               <div className="absolute top-0 left-0 w-1.5 h-full bg-gradient-to-b from-football-green via-ai-blue to-tech-purple" />
               <div className="flex gap-4 pl-4">
                 <Quote className="w-10 h-10 text-football-green/40 shrink-0 mt-1" />
@@ -226,8 +226,8 @@ export function PhilosophyContent() {
 
           {/* === 3. PHILOSOPHY TOPICS (TABS) === */}
           <section>
-            <div className="text-center mb-10">
-              <h2 className="text-3xl font-bold text-foreground mb-3">
+            <div className="text-center mb-8 md:mb-10">
+              <h2 className="text-2xl sm:text-3xl font-bold text-foreground mb-3">
                 {t("philosophy.core")}
               </h2>
               <p className="text-muted-foreground">
@@ -267,7 +267,7 @@ export function PhilosophyContent() {
                           {t(`philosophy.coreBeliefs.${key}.title`)}
                         </h3>
                       </div>
-                      <p className="text-muted-foreground leading-relaxed text-lg">
+                      <p className="text-muted-foreground leading-relaxed text-base md:text-lg">
                         {t(`philosophy.coreBeliefs.${key}.text`)}
                       </p>
                     </div>
@@ -281,8 +281,8 @@ export function PhilosophyContent() {
 
           {/* === 5. TACTICAL SYSTEMS (existing) === */}
           <section>
-            <div className="text-center mb-12">
-              <h2 className="text-3xl font-bold text-foreground mb-4">
+            <div className="text-center mb-8 md:mb-12">
+              <h2 className="text-2xl sm:text-3xl font-bold text-foreground mb-4">
                 {t("philosophy.formations")}
               </h2>
               <p className="text-muted-foreground">
@@ -296,8 +296,8 @@ export function PhilosophyContent() {
 
           {/* === 6. GAME MOMENTS (existing) === */}
           <section>
-            <div className="text-center mb-12">
-              <h2 className="text-3xl font-bold text-foreground mb-4">
+            <div className="text-center mb-8 md:mb-12">
+              <h2 className="text-2xl sm:text-3xl font-bold text-foreground mb-4">
                 {t("philosophy.gameMoments")}
               </h2>
               <p className="text-muted-foreground">
@@ -311,8 +311,8 @@ export function PhilosophyContent() {
 
           {/* === 7. TRAINING APPROACH === */}
           <section>
-            <div className="text-center mb-12">
-              <h2 className="text-3xl font-bold text-foreground mb-4">
+            <div className="text-center mb-8 md:mb-12">
+              <h2 className="text-2xl sm:text-3xl font-bold text-foreground mb-4">
                 {t("philosophy.approach")}
               </h2>
             </div>
