@@ -138,4 +138,15 @@
   .glow-border:hover {
     box-shadow: 0 0 30px rgba(0, 102, 255, 0.5);
   }
+
+  /* Animated gradient slide for header rainbow line */
+  .animate-gradient-slide {
+    animation: gradient-slide 4s linear infinite;
+    background-size: 200% 100%;
+  }
+
+  @keyframes gradient-slide {
+    0%   { background-position: 0% 50%; }
+    100% { background-position: 200% 50%; }
+  }
 }

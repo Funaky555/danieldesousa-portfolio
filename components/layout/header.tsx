@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { Button } from "@/components/ui/button";
 import { Menu, X } from "lucide-react";
 import { coachInfo } from "@/lib/coaching-data";
@@ -32,6 +33,8 @@ function NavLink({
   mobile?: boolean;
 }) {
   const [hovered, setHovered] = useState(false);
+  const pathname = usePathname();
+  const isActive = href === "/" ? pathname === "/" : pathname.startsWith(href);
 
   return (
     <Link
@@ -41,30 +44,37 @@ function NavLink({
       onMouseLeave={() => setHovered(false)}
       className={`relative ${mobile ? "flex items-center" : ""} px-3 py-2 rounded-md text-sm font-medium transition-all duration-200 group`}
       style={{
-        color: hovered ? color : undefined,
-        backgroundColor: hovered ? `${color}12` : undefined,
+        color: (hovered || isActive) ? color : undefined,
+        backgroundColor: hovered ? `${color}15` : isActive ? `${color}0D` : undefined,
+        textShadow: hovered
+          ? `0 0 8px ${color}CC, 0 0 20px ${color}80`
+          : isActive
+          ? `0 0 6px ${color}80`
+          : "none",
       }}
     >
       {children}
-      {/* Underline indicator colorido */}
+      {/* Underline indicator colorido com glow */}
       {!mobile && (
         <span
-          className="absolute bottom-0 left-3 right-3 h-[2px] rounded-full transition-all duration-200 origin-left"
+          className="absolute bottom-0 left-3 right-3 h-[2px] rounded-full transition-all duration-300 origin-left"
           style={{
             backgroundColor: color,
-            transform: hovered ? "scaleX(1)" : "scaleX(0)",
-            opacity: hovered ? 1 : 0,
+            boxShadow: (hovered || isActive) ? `0 0 6px ${color}, 0 0 12px ${color}60` : "none",
+            transform: (hovered || isActive) ? "scaleX(1)" : "scaleX(0)",
+            opacity: (hovered || isActive) ? 1 : 0,
           }}
         />
       )}
-      {/* Dot indicator para mobile */}
+      {/* Dot indicator para mobile com glow */}
       {mobile && (
         <span
           className="ml-auto w-2 h-2 rounded-full transition-all duration-200"
           style={{
             backgroundColor: color,
-            opacity: hovered ? 1 : 0,
-            transform: hovered ? "scale(1)" : "scale(0)",
+            opacity: (hovered || isActive) ? 1 : 0,
+            transform: (hovered || isActive) ? "scale(1)" : "scale(0)",
+            boxShadow: (hovered || isActive) ? `0 0 6px ${color}` : "none",
           }}
         />
       )}
@@ -78,8 +88,14 @@ export function Header() {
 
   return (
     <header className="fixed top-0 left-0 right-0 z-50 glass border-b border-border/50">
-      {/* Linha gradiente arco-íris no topo */}
-      <div className="h-[2px] w-full bg-gradient-to-r from-[#0066FF] via-[#00D66C] via-[#8B5CF6] via-[#FF6B35] via-[#14B8A6] to-[#F43F5E]" />
+      {/* Linha gradiente arco-íris animada no topo */}
+      <div
+        className="h-[2px] w-full animate-gradient-slide"
+        style={{
+          background: "linear-gradient(90deg, #0066FF, #00D66C, #8B5CF6, #FF6B35, #14B8A6, #F43F5E, #0066FF)",
+          backgroundSize: "200% 100%",
+        }}
+      />
 
       <nav className="container mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-14">
@@ -112,12 +128,16 @@ export function Header() {
               </NavLink>
             ))}
             <ThemeToggle />
-            <Button
-              asChild
-              className="ml-2 relative overflow-hidden bg-gradient-to-r from-red-500 to-red-600 hover:from-red-600 hover:to-red-700 text-white border-0 px-4 font-semibold rounded-xl shadow-md shadow-red-500/25 transition-all duration-200 hover:scale-[1.03] hover:shadow-red-500/50 hover:shadow-lg"
-            >
-              <Link href="/contact">{t("home.hero.cta.contact")}</Link>
-            </Button>
+            {/* CTA button com pulsing glow */}
+            <div className="relative ml-2">
+              <div className="absolute -inset-0.5 bg-gradient-to-r from-red-500 to-red-600 rounded-xl opacity-25 blur-sm animate-pulse" />
+              <Button
+                asChild
+                className="relative overflow-hidden bg-gradient-to-r from-red-500 to-red-600 hover:from-red-600 hover:to-red-700 text-white border-0 px-4 font-semibold rounded-xl shadow-md shadow-red-500/25 transition-all duration-200 hover:scale-[1.03] hover:shadow-red-500/50 hover:shadow-lg"
+              >
+                <Link href="/contact">{t("home.hero.cta.contact")}</Link>
+              </Button>
+            </div>
           </div>
 
           {/* Mobile menu button + theme toggle */}
@@ -137,9 +157,13 @@ export function Header() {
           </div>
         </div>
 
-        {/* Mobile Navigation */}
-        {mobileMenuOpen && (
-          <div className="md:hidden py-3 space-y-0.5 border-t border-border/30 mt-1">
+        {/* Mobile Navigation - com slide animation */}
+        <div
+          className={`md:hidden overflow-hidden transition-all duration-300 ease-in-out ${
+            mobileMenuOpen ? "max-h-[500px] opacity-100" : "max-h-0 opacity-0"
+          }`}
+        >
+          <div className="py-3 space-y-0.5 border-t border-border/30 mt-1">
             {navigationKeys.map((item) => (
               <NavLink
                 key={item.key}
@@ -164,7 +188,7 @@ export function Header() {
               </Button>
             </div>
           </div>
-        )}
+        </div>
       </nav>
     </header>
   );
