@@ -39,13 +39,35 @@ function NavLink({
       onClick={onClick}
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}
-      className={`${mobile ? "block" : ""} px-3 py-2 rounded-md text-sm font-medium transition-all duration-150`}
+      className={`relative ${mobile ? "flex items-center" : ""} px-3 py-2 rounded-md text-sm font-medium transition-all duration-200 group`}
       style={{
         color: hovered ? color : undefined,
-        backgroundColor: hovered ? `${color}15` : undefined,
+        backgroundColor: hovered ? `${color}12` : undefined,
       }}
     >
       {children}
+      {/* Underline indicator colorido */}
+      {!mobile && (
+        <span
+          className="absolute bottom-0 left-3 right-3 h-[2px] rounded-full transition-all duration-200 origin-left"
+          style={{
+            backgroundColor: color,
+            transform: hovered ? "scaleX(1)" : "scaleX(0)",
+            opacity: hovered ? 1 : 0,
+          }}
+        />
+      )}
+      {/* Dot indicator para mobile */}
+      {mobile && (
+        <span
+          className="ml-auto w-2 h-2 rounded-full transition-all duration-200"
+          style={{
+            backgroundColor: color,
+            opacity: hovered ? 1 : 0,
+            transform: hovered ? "scale(1)" : "scale(0)",
+          }}
+        />
+      )}
     </Link>
   );
 }
@@ -55,21 +77,35 @@ export function Header() {
   const t = useTranslations();
 
   return (
-    <header className="fixed top-0 left-0 right-0 z-50 glass border-b border-border">
+    <header className="fixed top-0 left-0 right-0 z-50 glass border-b border-border/50">
+      {/* Linha gradiente arco-íris no topo */}
+      <div className="h-[2px] w-full bg-gradient-to-r from-[#0066FF] via-[#00D66C] via-[#8B5CF6] via-[#FF6B35] via-[#14B8A6] to-[#F43F5E]" />
+
       <nav className="container mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between h-16">
-          {/* Logo */}
-          <Link href="/" className="flex items-center space-x-2">
-            <div className="w-10 h-10 rounded-full bg-gradient-football flex items-center justify-center">
-              <span className="text-white font-bold text-lg">DS</span>
+        <div className="flex items-center justify-between h-14">
+          {/* Logo com glow */}
+          <Link href="/" className="flex items-center space-x-2 group">
+            <div
+              className="w-9 h-9 rounded-full bg-gradient-football flex items-center justify-center transition-all duration-300"
+              style={{
+                boxShadow: "0 0 0 0 rgba(0, 214, 108, 0)",
+              }}
+              onMouseEnter={(e) => {
+                (e.currentTarget as HTMLDivElement).style.boxShadow = "0 0 16px 4px rgba(0, 214, 108, 0.4), 0 0 32px 8px rgba(0, 102, 255, 0.2)";
+              }}
+              onMouseLeave={(e) => {
+                (e.currentTarget as HTMLDivElement).style.boxShadow = "0 0 0 0 rgba(0, 214, 108, 0)";
+              }}
+            >
+              <span className="text-white font-bold text-sm">DS</span>
             </div>
-            <span className="font-bold text-lg text-foreground">
+            <span className="font-bold text-base text-foreground group-hover:text-transparent group-hover:bg-clip-text group-hover:bg-gradient-to-r group-hover:from-[#00D66C] group-hover:to-[#0066FF] transition-all duration-300">
               {coachInfo.name}
             </span>
           </Link>
 
           {/* Desktop Navigation */}
-          <div className="hidden md:flex items-center space-x-1">
+          <div className="hidden md:flex items-center space-x-0.5">
             {navigationKeys.map((item) => (
               <NavLink key={item.key} href={item.href} color={item.color}>
                 {t(`nav.${item.key}`)}
@@ -78,7 +114,7 @@ export function Header() {
             <ThemeToggle />
             <Button
               asChild
-              className="ml-2 bg-gradient-to-r from-red-500 to-red-600 hover:from-red-600 hover:to-red-700 text-white border-0 px-4 font-semibold rounded-xl shadow-md shadow-red-500/20 transition-all hover:scale-[1.02] hover:shadow-red-500/40"
+              className="ml-2 relative overflow-hidden bg-gradient-to-r from-red-500 to-red-600 hover:from-red-600 hover:to-red-700 text-white border-0 px-4 font-semibold rounded-xl shadow-md shadow-red-500/25 transition-all duration-200 hover:scale-[1.03] hover:shadow-red-500/50 hover:shadow-lg"
             >
               <Link href="/contact">{t("home.hero.cta.contact")}</Link>
             </Button>
@@ -89,13 +125,13 @@ export function Header() {
             <ThemeToggle />
             <button
               type="button"
-              className="p-2 rounded-md text-foreground hover:bg-secondary"
+              className="p-2 rounded-md text-foreground hover:bg-secondary transition-colors"
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
             >
               {mobileMenuOpen ? (
-                <X className="h-6 w-6" />
+                <X className="h-5 w-5" />
               ) : (
-                <Menu className="h-6 w-6" />
+                <Menu className="h-5 w-5" />
               )}
             </button>
           </div>
@@ -103,7 +139,7 @@ export function Header() {
 
         {/* Mobile Navigation */}
         {mobileMenuOpen && (
-          <div className="md:hidden py-4 space-y-1">
+          <div className="md:hidden py-3 space-y-0.5 border-t border-border/30 mt-1">
             {navigationKeys.map((item) => (
               <NavLink
                 key={item.key}
@@ -112,15 +148,21 @@ export function Header() {
                 mobile
                 onClick={() => setMobileMenuOpen(false)}
               >
+                <span
+                  className="w-2 h-2 rounded-full mr-3 flex-shrink-0"
+                  style={{ backgroundColor: item.color }}
+                />
                 {t(`nav.${item.key}`)}
               </NavLink>
             ))}
-            <Button
-              asChild
-              className="w-full mt-4 bg-gradient-to-r from-red-500 to-red-600 hover:from-red-600 hover:to-red-700 text-white border-0 font-semibold rounded-xl"
-            >
-              <Link href="/contact">{t("home.hero.cta.contact")}</Link>
-            </Button>
+            <div className="pt-2 pb-1">
+              <Button
+                asChild
+                className="w-full bg-gradient-to-r from-red-500 to-red-600 hover:from-red-600 hover:to-red-700 text-white border-0 font-semibold rounded-xl shadow-md shadow-red-500/25"
+              >
+                <Link href="/contact">{t("home.hero.cta.contact")}</Link>
+              </Button>
+            </div>
           </div>
         )}
       </nav>

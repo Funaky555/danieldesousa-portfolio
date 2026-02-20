@@ -28,6 +28,17 @@ const formSchema = z.object({
 
 type FormData = z.infer<typeof formSchema>;
 
+const WHATSAPP_NUMBER = "351913350837";
+
+const serviceLabels: Record<string, string> = {
+  "game-analysis": "Game Analysis",
+  "scouting": "Scouting Consultancy",
+  "leadership": "Leadership Courses",
+  "training": "Personalized Training",
+  "seminars": "Seminars & Webinars",
+  "websites": "Website & CV Creation",
+};
+
 export function ContactForm() {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitStatus, setSubmitStatus] = useState<"idle" | "success" | "error">("idle");
@@ -50,15 +61,28 @@ export function ContactForm() {
     setSubmitStatus("idle");
 
     try {
-      // In a real implementation, this would send to an API endpoint
-      console.log("Form data:", data);
+      const response = await fetch("/api/contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(data),
+      });
 
-      // Simulate API call
-      await new Promise(resolve => setTimeout(resolve, 1500));
+      if (!response.ok) {
+        throw new Error("Failed to send");
+      }
 
       setSubmitStatus("success");
       form.reset();
-    } catch (error) {
+
+      // Se preferência for WhatsApp ou qualquer um, abre o WhatsApp com mensagem pré-preenchida
+      if (data.contactMethod === "whatsapp" || data.contactMethod === "either") {
+        const serviceName = serviceLabels[data.service] ?? data.service;
+        const text = encodeURIComponent(
+          `Hi Daniel! I'm ${data.name} and I contacted you through your website. I'm interested in: ${serviceName}.\n\n${data.message}`
+        );
+        window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${text}`, "_blank");
+      }
+    } catch {
       setSubmitStatus("error");
     } finally {
       setIsSubmitting(false);
@@ -132,6 +156,29 @@ export function ContactForm() {
                     <option value="leadership">{t("services.list.leadership.title")}</option>
                     <option value="training">{t("services.list.training.title")}</option>
                     <option value="seminars">{t("services.list.seminars.title")}</option>
+                    <option value="websites">{t("services.list.websites.title")}</option>
+                  </select>
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+
+          {/* Contact Method */}
+          <FormField
+            control={form.control}
+            name="contactMethod"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>{t("contact.form.contactMethod")}</FormLabel>
+                <FormControl>
+                  <select
+                    className="w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+                    {...field}
+                  >
+                    <option value="email">Email</option>
+                    <option value="whatsapp">WhatsApp</option>
+                    <option value="either">Either (Email or WhatsApp)</option>
                   </select>
                 </FormControl>
                 <FormMessage />
@@ -159,11 +206,16 @@ export function ContactForm() {
           />
 
           {/* Submit Button */}
-          <Button type="submit" size="lg" className="w-full" disabled={isSubmitting}>
+          <Button
+            type="submit"
+            size="lg"
+            className="w-full bg-gradient-to-r from-red-500 to-red-600 hover:from-red-600 hover:to-red-700 text-white border-0 font-semibold rounded-xl shadow-lg shadow-red-500/20 transition-all hover:shadow-red-500/40 hover:scale-[1.01]"
+            disabled={isSubmitting}
+          >
             {isSubmitting ? (
               <>
                 <Loader2 className="mr-2 h-5 w-5 animate-spin" />
-                ...
+                Sending...
               </>
             ) : (
               <>
