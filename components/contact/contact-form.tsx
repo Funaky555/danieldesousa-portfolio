@@ -14,7 +14,19 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
-import { Loader2, Send } from "lucide-react";
+import {
+  Loader2,
+  Send,
+  Mail,
+  MessageCircle,
+  Zap,
+  Target,
+  Search,
+  Users,
+  Activity,
+  BookOpen,
+  Code2,
+} from "lucide-react";
 import { useTranslations } from "@/components/providers/i18n-provider";
 
 const formSchema = z.object({
@@ -38,6 +50,91 @@ const serviceLabels: Record<string, string> = {
   "seminars": "Seminars & Webinars",
   "websites": "Website & CV Creation",
 };
+
+const services = [
+  { value: "game-analysis", icon: Target,       color: "#0066FF", labelKey: "services.list.gameAnalysis.title" },
+  { value: "scouting",      icon: Search,       color: "#00D66C", labelKey: "services.list.scouting.title" },
+  { value: "leadership",    icon: Users,        color: "#8B5CF6", labelKey: "services.list.leadership.title" },
+  { value: "training",      icon: Activity,     color: "#FF6B35", labelKey: "services.list.training.title" },
+  { value: "seminars",      icon: BookOpen,     color: "#14B8A6", labelKey: "services.list.seminars.title" },
+  { value: "websites",      icon: Code2,        color: "#F43F5E", labelKey: "services.list.websites.title" },
+] as const;
+
+const contactMethods = [
+  { value: "email",    icon: Mail,          color: "#0066FF", label: "Email" },
+  { value: "whatsapp", icon: MessageCircle, color: "#00D66C", label: "WhatsApp" },
+  { value: "either",   icon: Zap,           color: "#8B5CF6", label: "Either" },
+] as const;
+
+function ServicePill({
+  service,
+  isSelected,
+  onClick,
+  label,
+}: {
+  service: (typeof services)[number];
+  isSelected: boolean;
+  onClick: () => void;
+  label: string;
+}) {
+  const [hovered, setHovered] = useState(false);
+  const Icon = service.icon;
+  const active = isSelected || hovered;
+
+  return (
+    <button
+      type="button"
+      onClick={onClick}
+      onMouseEnter={() => setHovered(true)}
+      onMouseLeave={() => setHovered(false)}
+      className="relative flex items-center gap-2 px-3 py-2.5 rounded-lg text-sm font-medium transition-all duration-200 text-left w-full"
+      style={{
+        border: `1px solid ${isSelected ? service.color : hovered ? `${service.color}50` : `${service.color}25`}`,
+        color: active ? service.color : undefined,
+        background: isSelected ? `${service.color}15` : hovered ? `${service.color}08` : "transparent",
+        boxShadow: isSelected ? `0 0 14px ${service.color}30, 0 0 1px ${service.color}60` : "none",
+        textShadow: isSelected ? `0 0 8px ${service.color}80` : "none",
+      }}
+    >
+      <Icon className="w-4 h-4 flex-shrink-0" />
+      <span className="leading-tight">{label}</span>
+    </button>
+  );
+}
+
+function MethodButton({
+  method,
+  isActive,
+  onClick,
+}: {
+  method: (typeof contactMethods)[number];
+  isActive: boolean;
+  onClick: () => void;
+}) {
+  const [hovered, setHovered] = useState(false);
+  const Icon = method.icon;
+  const active = isActive || hovered;
+
+  return (
+    <button
+      type="button"
+      onClick={onClick}
+      onMouseEnter={() => setHovered(true)}
+      onMouseLeave={() => setHovered(false)}
+      className="relative flex-1 flex items-center justify-center gap-2 px-3 py-2.5 rounded-lg text-sm font-semibold transition-all duration-200"
+      style={{
+        border: `1px solid ${isActive ? method.color : hovered ? `${method.color}50` : `${method.color}25`}`,
+        color: active ? method.color : undefined,
+        background: isActive ? `${method.color}15` : hovered ? `${method.color}08` : "transparent",
+        boxShadow: isActive ? `0 0 16px ${method.color}35, 0 0 1px ${method.color}70` : "none",
+        textShadow: isActive ? `0 0 8px ${method.color}90` : "none",
+      }}
+    >
+      <Icon className="w-4 h-4" />
+      {method.label}
+    </button>
+  );
+}
 
 export function ContactForm() {
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -74,7 +171,6 @@ export function ContactForm() {
       setSubmitStatus("success");
       form.reset();
 
-      // Se preferência for WhatsApp ou qualquer um, abre o WhatsApp com mensagem pré-preenchida
       if (data.contactMethod === "whatsapp" || data.contactMethod === "either") {
         const serviceName = serviceLabels[data.service] ?? data.service;
         const text = encodeURIComponent(
@@ -138,7 +234,7 @@ export function ContactForm() {
             )}
           />
 
-          {/* Service Interest */}
+          {/* Service Interest — Grid de pills */}
           <FormField
             control={form.control}
             name="service"
@@ -146,25 +242,24 @@ export function ContactForm() {
               <FormItem>
                 <FormLabel>{t("contact.form.service")} *</FormLabel>
                 <FormControl>
-                  <select
-                    className="w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
-                    {...field}
-                  >
-                    <option value="">{t("contact.form.service")}</option>
-                    <option value="game-analysis">{t("services.list.gameAnalysis.title")}</option>
-                    <option value="scouting">{t("services.list.scouting.title")}</option>
-                    <option value="leadership">{t("services.list.leadership.title")}</option>
-                    <option value="training">{t("services.list.training.title")}</option>
-                    <option value="seminars">{t("services.list.seminars.title")}</option>
-                    <option value="websites">{t("services.list.websites.title")}</option>
-                  </select>
+                  <div className="grid grid-cols-2 sm:grid-cols-3 gap-2 mt-1">
+                    {services.map((service) => (
+                      <ServicePill
+                        key={service.value}
+                        service={service}
+                        isSelected={field.value === service.value}
+                        onClick={() => field.onChange(service.value)}
+                        label={t(service.labelKey)}
+                      />
+                    ))}
+                  </div>
                 </FormControl>
                 <FormMessage />
               </FormItem>
             )}
           />
 
-          {/* Contact Method */}
+          {/* Contact Method — Toggle buttons */}
           <FormField
             control={form.control}
             name="contactMethod"
@@ -172,14 +267,16 @@ export function ContactForm() {
               <FormItem>
                 <FormLabel>{t("contact.form.contactMethod")}</FormLabel>
                 <FormControl>
-                  <select
-                    className="w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
-                    {...field}
-                  >
-                    <option value="email">Email</option>
-                    <option value="whatsapp">WhatsApp</option>
-                    <option value="either">Either (Email or WhatsApp)</option>
-                  </select>
+                  <div className="flex gap-2 mt-1">
+                    {contactMethods.map((method) => (
+                      <MethodButton
+                        key={method.value}
+                        method={method}
+                        isActive={field.value === method.value}
+                        onClick={() => field.onChange(method.value)}
+                      />
+                    ))}
+                  </div>
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -205,25 +302,28 @@ export function ContactForm() {
             )}
           />
 
-          {/* Submit Button */}
-          <Button
-            type="submit"
-            size="lg"
-            className="w-full bg-gradient-to-r from-red-500 to-red-600 hover:from-red-600 hover:to-red-700 text-white border-0 font-semibold rounded-xl shadow-lg shadow-red-500/20 transition-all hover:shadow-red-500/40 hover:scale-[1.01]"
-            disabled={isSubmitting}
-          >
-            {isSubmitting ? (
-              <>
-                <Loader2 className="mr-2 h-5 w-5 animate-spin" />
-                Sending...
-              </>
-            ) : (
-              <>
-                <Send className="mr-2 h-5 w-5" />
-                {t("contact.form.submit")}
-              </>
-            )}
-          </Button>
+          {/* Submit Button com pulsing glow */}
+          <div className="relative">
+            <div className="absolute -inset-0.5 bg-gradient-to-r from-red-500 to-red-600 rounded-xl opacity-25 blur-sm animate-pulse" />
+            <Button
+              type="submit"
+              size="lg"
+              className="relative w-full bg-gradient-to-r from-red-500 to-red-600 hover:from-red-600 hover:to-red-700 text-white border-0 font-semibold rounded-xl shadow-lg shadow-red-500/20 transition-all hover:shadow-red-500/40 hover:scale-[1.01]"
+              disabled={isSubmitting}
+            >
+              {isSubmitting ? (
+                <>
+                  <Loader2 className="mr-2 h-5 w-5 animate-spin" />
+                  Sending...
+                </>
+              ) : (
+                <>
+                  <Send className="mr-2 h-5 w-5" />
+                  {t("contact.form.submit")}
+                </>
+              )}
+            </Button>
+          </div>
 
           {/* Status Messages */}
           {submitStatus === "success" && (

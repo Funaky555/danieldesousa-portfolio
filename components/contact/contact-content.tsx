@@ -1,11 +1,76 @@
 "use client";
 
+import { useState } from "react";
 import { ContactForm } from "@/components/contact/contact-form";
-import { Card, CardContent } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
 import { coachInfo, socialMedia } from "@/lib/coaching-data";
 import { Mail, MessageCircle, MapPin, Twitter, Linkedin } from "lucide-react";
 import { useTranslations } from "@/components/providers/i18n-provider";
+
+const EMAIL_COLOR = "#00D66C";
+const WHATSAPP_COLOR = "#0066FF";
+const LOCATION_COLOR = "#8B5CF6";
+const TWITTER_COLOR = "#1DA1F2";
+const LINKEDIN_COLOR = "#0A66C2";
+
+function GlowCard({
+  color,
+  children,
+}: {
+  color: string;
+  children: React.ReactNode;
+}) {
+  const [hovered, setHovered] = useState(false);
+
+  return (
+    <div
+      className="rounded-xl p-6 transition-all duration-300"
+      onMouseEnter={() => setHovered(true)}
+      onMouseLeave={() => setHovered(false)}
+      style={{
+        background: "hsl(var(--card))",
+        border: `1px solid ${hovered ? `${color}50` : `${color}20`}`,
+        boxShadow: hovered ? `0 0 20px ${color}25, 0 0 1px ${color}50` : "none",
+      }}
+    >
+      {children}
+    </div>
+  );
+}
+
+function SocialButton({
+  href,
+  color,
+  icon: Icon,
+  label,
+}: {
+  href: string;
+  color: string;
+  icon: React.ElementType;
+  label: string;
+}) {
+  const [hovered, setHovered] = useState(false);
+
+  return (
+    <a
+      href={href}
+      target="_blank"
+      rel="noopener noreferrer"
+      onMouseEnter={() => setHovered(true)}
+      onMouseLeave={() => setHovered(false)}
+      className="flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-medium transition-all duration-200"
+      style={{
+        border: `1px solid ${hovered ? `${color}60` : `${color}25`}`,
+        color: hovered ? color : undefined,
+        background: hovered ? `${color}12` : `${color}08`,
+        boxShadow: hovered ? `0 0 14px ${color}40` : "none",
+        textShadow: hovered ? `0 0 8px ${color}80` : "none",
+      }}
+    >
+      <Icon className="w-4 h-4" />
+      {label}
+    </a>
+  );
+}
 
 export function ContactContent() {
   const t = useTranslations();
@@ -24,132 +89,150 @@ export function ContactContent() {
         </div>
 
         <div className="max-w-6xl mx-auto grid gap-12 lg:grid-cols-3">
-          {/* Contact Info */}
-          <div className="lg:col-span-1 space-y-6">
-            <div>
-              <h2 className="text-2xl font-bold text-foreground mb-6">
-                {t("contact.title")}
-              </h2>
+          {/* Coluna esquerda — Info */}
+          <div className="lg:col-span-1 space-y-4">
+            <h2 className="text-xl font-bold text-foreground mb-2">
+              {t("contact.title")}
+            </h2>
 
-              {/* Email Card */}
-              <Card className="mb-4 border-border/50 hover:border-primary/50 transition-all">
-                <CardContent className="p-6">
-                  <div className="flex items-start space-x-4">
-                    <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center flex-shrink-0">
-                      <Mail className="w-5 h-5 text-primary" />
-                    </div>
-                    <div className="flex-1 min-w-0">
-                      <h3 className="font-semibold text-foreground mb-1">{t("contact.info.email")}</h3>
-                      <a
-                        href={`mailto:${coachInfo.contact.email}`}
-                        className="text-sm text-muted-foreground hover:text-foreground break-all"
-                      >
-                        {coachInfo.contact.email}
-                      </a>
-                    </div>
-                  </div>
-                </CardContent>
-              </Card>
+            {/* Email */}
+            <GlowCard color={EMAIL_COLOR}>
+              <div className="flex items-start space-x-4">
+                <div
+                  className="w-10 h-10 rounded-lg flex items-center justify-center flex-shrink-0"
+                  style={{ background: `${EMAIL_COLOR}15` }}
+                >
+                  <Mail className="w-5 h-5" style={{ color: EMAIL_COLOR }} />
+                </div>
+                <div className="flex-1 min-w-0">
+                  <h3 className="font-semibold text-foreground mb-1">{t("contact.info.email")}</h3>
+                  <a
+                    href={`mailto:${coachInfo.contact.email}`}
+                    className="text-sm text-muted-foreground hover:text-foreground break-all transition-colors"
+                  >
+                    {coachInfo.contact.email}
+                  </a>
+                </div>
+              </div>
+            </GlowCard>
 
-              {/* WhatsApp Card */}
-              <Card className="mb-4 border-border/50 hover:border-accent/50 transition-all">
-                <CardContent className="p-6">
-                  <div className="flex items-start space-x-4">
-                    <div className="w-10 h-10 rounded-lg bg-accent/10 flex items-center justify-center flex-shrink-0">
-                      <MessageCircle className="w-5 h-5 text-accent" />
-                    </div>
-                    <div className="flex-1">
-                      <h3 className="font-semibold text-foreground mb-1">{t("contact.info.whatsapp")}</h3>
-                      <a
-                        href={coachInfo.contact.whatsappLink}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="text-sm text-muted-foreground hover:text-foreground"
-                      >
-                        {coachInfo.contact.whatsapp}
-                      </a>
-                      <div className="mt-3">
-                        <Button asChild size="sm" variant="outline" className="w-full">
-                          <a
-                            href={coachInfo.contact.whatsappLink}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                          >
-                            <MessageCircle className="w-4 h-4 mr-2" />
-                            {t("contact.info.whatsapp")}
-                          </a>
-                        </Button>
-                      </div>
-                    </div>
+            {/* WhatsApp */}
+            <GlowCard color={WHATSAPP_COLOR}>
+              <div className="flex items-start space-x-4">
+                <div
+                  className="w-10 h-10 rounded-lg flex items-center justify-center flex-shrink-0"
+                  style={{ background: `${WHATSAPP_COLOR}15` }}
+                >
+                  <MessageCircle className="w-5 h-5" style={{ color: WHATSAPP_COLOR }} />
+                </div>
+                <div className="flex-1">
+                  <h3 className="font-semibold text-foreground mb-1">{t("contact.info.whatsapp")}</h3>
+                  <a
+                    href={coachInfo.contact.whatsappLink}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-sm text-muted-foreground hover:text-foreground transition-colors"
+                  >
+                    {coachInfo.contact.whatsapp}
+                  </a>
+                  <div className="mt-3">
+                    <SocialButton
+                      href={coachInfo.contact.whatsappLink}
+                      color={WHATSAPP_COLOR}
+                      icon={MessageCircle}
+                      label={t("contact.info.whatsapp")}
+                    />
                   </div>
-                </CardContent>
-              </Card>
+                </div>
+              </div>
+            </GlowCard>
 
-              {/* Location Card */}
-              <Card className="border-border/50">
-                <CardContent className="p-6">
-                  <div className="flex items-start space-x-4">
-                    <div className="w-10 h-10 rounded-lg bg-emerald-600/10 dark:bg-football-green/10 flex items-center justify-center flex-shrink-0">
-                      <MapPin className="w-5 h-5 text-emerald-600 dark:text-football-green" />
-                    </div>
-                    <div>
-                      <h3 className="font-semibold text-foreground mb-1">{t("contact.info.location")}</h3>
-                      <p className="text-sm text-muted-foreground">{coachInfo.location}</p>
-                    </div>
-                  </div>
-                </CardContent>
-              </Card>
-            </div>
+            {/* Location */}
+            <GlowCard color={LOCATION_COLOR}>
+              <div className="flex items-start space-x-4">
+                <div
+                  className="w-10 h-10 rounded-lg flex items-center justify-center flex-shrink-0"
+                  style={{ background: `${LOCATION_COLOR}15` }}
+                >
+                  <MapPin className="w-5 h-5" style={{ color: LOCATION_COLOR }} />
+                </div>
+                <div>
+                  <h3 className="font-semibold text-foreground mb-1">{t("contact.info.location")}</h3>
+                  <p className="text-sm text-muted-foreground">{coachInfo.location}</p>
+                </div>
+              </div>
+            </GlowCard>
 
             {/* Social Media */}
-            <Card className="mb-4 border-border/50">
-              <CardContent className="p-6">
-                <h3 className="font-semibold text-foreground mb-4">Social Media</h3>
-                <div className="flex gap-4">
-                  {socialMedia.twitter && (
-                    <a
-                      href={socialMedia.twitter}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="w-12 h-12 rounded-lg bg-secondary flex items-center justify-center text-blue-600 dark:text-ai-blue hover:text-foreground hover:bg-primary/10 transition-colors"
-                      aria-label="Twitter / X"
-                    >
-                      <Twitter className="w-6 h-6" />
-                    </a>
-                  )}
-                  {socialMedia.linkedin && (
-                    <a
-                      href={socialMedia.linkedin}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="w-12 h-12 rounded-lg bg-secondary flex items-center justify-center text-blue-600 dark:text-ai-blue hover:text-foreground hover:bg-primary/10 transition-colors"
-                      aria-label="LinkedIn"
-                    >
-                      <Linkedin className="w-6 h-6" />
-                    </a>
-                  )}
-                </div>
-              </CardContent>
-            </Card>
+            <div
+              className="rounded-xl p-6"
+              style={{
+                background: "hsl(var(--card))",
+                border: "1px solid rgba(255,255,255,0.07)",
+              }}
+            >
+              <h3 className="font-semibold text-foreground mb-4">Social Media</h3>
+              <div className="flex flex-col gap-2">
+                {socialMedia.twitter && (
+                  <SocialButton
+                    href={socialMedia.twitter}
+                    color={TWITTER_COLOR}
+                    icon={Twitter}
+                    label="X / Twitter"
+                  />
+                )}
+                {socialMedia.linkedin && (
+                  <SocialButton
+                    href={socialMedia.linkedin}
+                    color={LINKEDIN_COLOR}
+                    icon={Linkedin}
+                    label="LinkedIn"
+                  />
+                )}
+              </div>
+            </div>
 
-            {/* Availability Statement */}
-            <Card className="glass border-border/50">
-              <CardContent className="p-6">
-                <h3 className="font-semibold text-foreground mb-3">{t("contact.title")}</h3>
-                <p className="text-sm text-muted-foreground">
+            {/* Availability — gradient border */}
+            <div
+              style={{
+                padding: "1px",
+                borderRadius: "12px",
+                background: "linear-gradient(135deg, #0066FF, #00D66C, #8B5CF6)",
+              }}
+            >
+              <div
+                className="rounded-[11px] p-6"
+                style={{ background: "hsl(var(--card))" }}
+              >
+                <h3 className="font-semibold text-foreground mb-3">Disponibilidade</h3>
+                <p className="text-sm text-muted-foreground leading-relaxed">
                   {t("contact.availability")}
                 </p>
-              </CardContent>
-            </Card>
+              </div>
+            </div>
           </div>
 
-          {/* Contact Form */}
+          {/* Coluna direita — Formulário */}
           <div className="lg:col-span-2">
-            <Card className="border-border/50">
-              <CardContent className="p-8">
+            <div
+              className="rounded-xl overflow-hidden"
+              style={{
+                background: "hsl(var(--card))",
+                border: "1px solid rgba(255,255,255,0.07)",
+              }}
+            >
+              {/* Linha gradient animada no topo (igual ao header) */}
+              <div
+                className="h-[2px] w-full animate-gradient-slide"
+                style={{
+                  background: "linear-gradient(90deg, #0066FF, #00D66C, #8B5CF6, #FF6B35, #14B8A6, #F43F5E, #0066FF)",
+                  backgroundSize: "200% 100%",
+                }}
+              />
+              <div className="p-8">
                 <ContactForm />
-              </CardContent>
-            </Card>
+              </div>
+            </div>
           </div>
         </div>
       </div>
