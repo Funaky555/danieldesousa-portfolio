@@ -126,10 +126,10 @@ export function AboutContent() {
                     <TabsTrigger
                       key={key}
                       value={key}
-                      className={`glass flex items-center gap-2 px-4 py-2.5 border rounded-lg transition-all duration-300 ${tc.inactiveBorder} ${tc.inactiveBg} ${tc.inactiveText} ${tc.hoverGlow} hover:border-opacity-50 ${tc.activeBg}`}
+                      className={`glass flex items-center gap-2 px-3 sm:px-4 py-2.5 border rounded-lg transition-all duration-300 ${tc.inactiveBorder} ${tc.inactiveBg} ${tc.inactiveText} ${tc.hoverGlow} hover:border-opacity-50 ${tc.activeBg}`}
                     >
-                      <Icon className="w-4 h-4" />
-                      <span className="text-sm font-medium">{t(labelKey)}</span>
+                      <Icon className="w-4 h-4 shrink-0" />
+                      <span className="hidden sm:inline text-sm font-medium">{t(labelKey)}</span>
                     </TabsTrigger>
                   );
                 })}
@@ -141,14 +141,14 @@ export function AboutContent() {
                   <TabsContent key={key} value={key} className="mt-0">
                     <div className="glass rounded-xl border border-border/50 overflow-hidden">
                       {/* Header colorido do content — igual ao padrão Philosophy */}
-                      <div className={`flex items-center gap-3 px-6 py-4 border-b border-border/40 ${tc.inactiveBg}`}>
+                      <div className={`flex items-center gap-3 px-4 sm:px-6 py-3 sm:py-4 border-b border-border/40 ${tc.inactiveBg}`}>
                         <div className={`w-9 h-9 rounded-lg ${tc.iconBg} flex items-center justify-center`}>
                           <Icon className={`w-5 h-5 ${tc.iconText}`} />
                         </div>
                         <h2 className={`font-semibold text-base ${tc.iconText}`}>{t(labelKey)}</h2>
                       </div>
                       {/* Conteúdo */}
-                      <div className="p-6 md:p-8">
+                      <div className="p-4 sm:p-6 md:p-8">
                         {key === "certificacoes" && <EducationTimeline filterType="certs" />}
                         {key === "formacao"      && <EducationTimeline filterType="academic" />}
                         {key === "competencias"  && <SkillsGrid variant="skills" />}
