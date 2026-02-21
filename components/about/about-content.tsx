@@ -15,92 +15,22 @@ import {
   Users,
 } from "lucide-react";
 
-const tabColorMap = {
-  "football-green": {
-    iconBg: "bg-football-green/20",
-    iconText: "text-football-green",
-    inactiveBorder: "border-football-green/20",
-    inactiveBg: "bg-football-green/5",
-    hoverGlow: "hover:shadow-[0_0_20px_rgba(0,214,108,0.1)]",
-    activeBg:
-      "data-[state=active]:bg-football-green/20 data-[state=active]:border-football-green/50 data-[state=active]:text-football-green data-[state=active]:shadow-[0_0_30px_rgba(0,214,108,0.2)]",
-  },
-  "ai-blue": {
-    iconBg: "bg-ai-blue/20",
-    iconText: "text-ai-blue",
-    inactiveBorder: "border-ai-blue/20",
-    inactiveBg: "bg-ai-blue/5",
-    hoverGlow: "hover:shadow-[0_0_20px_rgba(0,102,255,0.1)]",
-    activeBg:
-      "data-[state=active]:bg-ai-blue/20 data-[state=active]:border-ai-blue/50 data-[state=active]:text-ai-blue data-[state=active]:shadow-[0_0_30px_rgba(0,102,255,0.2)]",
-  },
-  "tech-purple": {
-    iconBg: "bg-tech-purple/20",
-    iconText: "text-tech-purple",
-    inactiveBorder: "border-tech-purple/20",
-    inactiveBg: "bg-tech-purple/5",
-    hoverGlow: "hover:shadow-[0_0_20px_rgba(139,92,246,0.1)]",
-    activeBg:
-      "data-[state=active]:bg-tech-purple/20 data-[state=active]:border-tech-purple/50 data-[state=active]:text-tech-purple data-[state=active]:shadow-[0_0_30px_rgba(139,92,246,0.2)]",
-  },
-  "energy-orange": {
-    iconBg: "bg-energy-orange/20",
-    iconText: "text-energy-orange",
-    inactiveBorder: "border-energy-orange/20",
-    inactiveBg: "bg-energy-orange/5",
-    hoverGlow: "hover:shadow-[0_0_20px_rgba(255,107,53,0.1)]",
-    activeBg:
-      "data-[state=active]:bg-energy-orange/20 data-[state=active]:border-energy-orange/50 data-[state=active]:text-energy-orange data-[state=active]:shadow-[0_0_30px_rgba(255,107,53,0.2)]",
-  },
-} as const;
+const aboutTabs = [
+  { key: "certificacoes", icon: Award,         labelKey: "about.education.certifications" },
+  { key: "formacao",      icon: GraduationCap, labelKey: "about.education.academic" },
+  { key: "competencias",  icon: Brain,         labelKey: "about.skills.title" },
+  { key: "idiomas",       icon: LanguagesIcon, labelKey: "about.languages.title" },
+] as const;
 
-const statColorMap = {
-  "football-green": {
-    text: "text-football-green",
-    border: "border-football-green/20",
-    hoverBorder: "hover:border-football-green/50",
-    shadow: "hover:shadow-[0_0_20px_rgba(0,214,108,0.2)]",
-    iconBg: "bg-football-green/20",
-  },
-  "ai-blue": {
-    text: "text-ai-blue",
-    border: "border-ai-blue/20",
-    hoverBorder: "hover:border-ai-blue/50",
-    shadow: "hover:shadow-[0_0_20px_rgba(0,102,255,0.2)]",
-    iconBg: "bg-ai-blue/20",
-  },
-  "tech-purple": {
-    text: "text-tech-purple",
-    border: "border-tech-purple/20",
-    hoverBorder: "hover:border-tech-purple/50",
-    shadow: "hover:shadow-[0_0_20px_rgba(139,92,246,0.2)]",
-    iconBg: "bg-tech-purple/20",
-  },
-  "energy-orange": {
-    text: "text-energy-orange",
-    border: "border-energy-orange/20",
-    hoverBorder: "hover:border-energy-orange/50",
-    shadow: "hover:shadow-[0_0_20px_rgba(255,107,53,0.2)]",
-    iconBg: "bg-energy-orange/20",
-  },
-} as const;
+const statsConfig = [
+  { value: "10+",    labelKey: "home.stats.experience",    icon: Calendar },
+  { value: "2",      labelKey: "home.stats.countries",     icon: Globe },
+  { value: "U4-U18", labelKey: "home.stats.ageGroups",     icon: Users },
+  { value: "UEFA B", labelKey: "home.stats.certification", icon: Award },
+] as const;
 
 export function AboutContent() {
   const t = useTranslations();
-
-  const aboutTabs = [
-    { key: "certificacoes", icon: Award,          color: "football-green" as const, label: t("about.education.certifications") },
-    { key: "formacao",      icon: GraduationCap,  color: "ai-blue" as const,        label: t("about.education.academic") },
-    { key: "competencias",  icon: Brain,          color: "tech-purple" as const,    label: t("about.skills.title") },
-    { key: "idiomas",       icon: LanguagesIcon,  color: "energy-orange" as const,  label: t("about.languages.title") },
-  ];
-
-  const stats = [
-    { value: "10+",    labelKey: "home.stats.experience",    icon: Calendar,  color: "football-green" as const },
-    { value: "2",      labelKey: "home.stats.countries",     icon: Globe,     color: "ai-blue" as const },
-    { value: "U4-U18", labelKey: "home.stats.ageGroups",     icon: Users,     color: "tech-purple" as const },
-    { value: "UEFA B", labelKey: "home.stats.certification", icon: Award,     color: "energy-orange" as const },
-  ];
 
   return (
     <main className="min-h-screen pt-24 pb-16">
@@ -121,51 +51,49 @@ export function AboutContent() {
         </motion.div>
 
         <div className="max-w-6xl mx-auto">
-          {/* Stats row */}
+          {/* Stats row — neutro, apenas o valor em football-green */}
           <div className="grid grid-cols-2 md:grid-cols-4 gap-3 md:gap-4 mb-10 md:mb-14">
-            {stats.map((stat, idx) => {
-              const sc = statColorMap[stat.color];
+            {statsConfig.map((stat, idx) => {
               const Icon = stat.icon;
               return (
                 <motion.div
-                  key={stat.color}
+                  key={stat.labelKey}
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: idx * 0.1, duration: 0.5 }}
-                  className={`glass rounded-xl p-4 border ${sc.border} ${sc.hoverBorder} ${sc.shadow} transition-all duration-300 text-center cursor-default`}
+                  className="glass rounded-xl p-4 border border-border/40 hover:border-border/70 transition-all duration-300 text-center cursor-default"
                 >
-                  <div className={`w-9 h-9 rounded-lg ${sc.iconBg} flex items-center justify-center mx-auto mb-2`}>
-                    <Icon className={`w-5 h-5 ${sc.text}`} />
+                  <div className="w-9 h-9 rounded-lg bg-muted/60 flex items-center justify-center mx-auto mb-2">
+                    <Icon className="w-5 h-5 text-muted-foreground" />
                   </div>
-                  <div className={`text-lg md:text-xl font-bold ${sc.text}`}>{stat.value}</div>
-                  <div className="text-xs text-muted-foreground mt-0.5">{t(stat.labelKey as Parameters<typeof t>[0])}</div>
+                  <div className="text-lg md:text-xl font-bold text-football-green">{stat.value}</div>
+                  <div className="text-xs text-muted-foreground mt-0.5">{t(stat.labelKey)}</div>
                 </motion.div>
               );
             })}
           </div>
 
-          {/* Tabs de navegação */}
+          {/* Tabs de navegação — estilo pill neutro, ativo em football-green */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.5, duration: 0.5 }}
           >
             <Tabs defaultValue="certificacoes" className="w-full">
-              <TabsList className="w-full flex flex-wrap justify-center gap-2 bg-transparent h-auto p-0 mb-8">
-                {aboutTabs.map(({ key, icon: Icon, color, label }) => {
-                  const tc = tabColorMap[color];
-                  return (
+              <div className="flex justify-center mb-8">
+                <TabsList className="inline-flex flex-wrap justify-center gap-1 bg-muted/30 p-1 rounded-xl border border-border/40 h-auto">
+                  {aboutTabs.map(({ key, icon: Icon, labelKey }) => (
                     <TabsTrigger
                       key={key}
                       value={key}
-                      className={`glass flex items-center gap-2 px-3 sm:px-4 py-2.5 border rounded-lg transition-all duration-300 ${tc.inactiveBorder} ${tc.inactiveBg} text-muted-foreground ${tc.hoverGlow} ${tc.activeBg}`}
+                      className="flex items-center gap-2 px-3 sm:px-4 py-2 rounded-lg text-xs sm:text-sm font-medium text-muted-foreground transition-all duration-200 data-[state=active]:bg-football-green/15 data-[state=active]:text-football-green data-[state=active]:border data-[state=active]:border-football-green/30"
                     >
-                      <Icon className="w-4 h-4" />
-                      <span className="text-xs sm:text-sm font-medium">{label}</span>
+                      <Icon className="w-4 h-4 shrink-0" />
+                      <span>{t(labelKey)}</span>
                     </TabsTrigger>
-                  );
-                })}
-              </TabsList>
+                  ))}
+                </TabsList>
+              </div>
 
               <TabsContent value="certificacoes" className="mt-0">
                 <EducationTimeline filterType="certs" />

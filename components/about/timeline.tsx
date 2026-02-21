@@ -6,7 +6,6 @@ import { education } from "@/lib/coaching-data";
 import { Award, GraduationCap, Globe } from "lucide-react";
 import { useTranslations } from "@/components/providers/i18n-provider";
 
-// Map education data to translation keys
 const certKeyMap: Record<string, string> = {
   "UEFA B License": "uefaB",
   "IPDJ Football Coach Level 2": "ipdj",
@@ -22,42 +21,6 @@ const exchangeKeyMap: Record<string, string> = {
   "Erasmus Exchange": "erasmus",
   "University Project (IMPAS)": "impas",
 };
-
-const typeColors = {
-  cert: {
-    dot: "bg-football-green",
-    ring: "ring-football-green/30",
-    border: "border-football-green/30",
-    badge: "bg-football-green/20 text-football-green border-football-green/30",
-    glow: "hover:shadow-[0_0_20px_rgba(0,214,108,0.2)]",
-    icon: "text-football-green",
-    iconBg: "bg-football-green/20",
-    sectionIcon: "text-football-green",
-    sectionIconBg: "bg-football-green/20",
-  },
-  degree: {
-    dot: "bg-ai-blue",
-    ring: "ring-ai-blue/30",
-    border: "border-ai-blue/30",
-    badge: "bg-ai-blue/20 text-ai-blue border-ai-blue/30",
-    glow: "hover:shadow-[0_0_20px_rgba(0,102,255,0.2)]",
-    icon: "text-ai-blue",
-    iconBg: "bg-ai-blue/20",
-    sectionIcon: "text-ai-blue",
-    sectionIconBg: "bg-ai-blue/20",
-  },
-  exchange: {
-    dot: "bg-tech-purple",
-    ring: "ring-tech-purple/30",
-    border: "border-tech-purple/30",
-    badge: "bg-tech-purple/20 text-tech-purple border-tech-purple/30",
-    glow: "hover:shadow-[0_0_20px_rgba(139,92,246,0.2)]",
-    icon: "text-tech-purple",
-    iconBg: "bg-tech-purple/20",
-    sectionIcon: "text-tech-purple",
-    sectionIconBg: "bg-tech-purple/20",
-  },
-} as const;
 
 interface EducationTimelineProps {
   filterType?: "certs" | "academic" | "all";
@@ -75,7 +38,6 @@ export function EducationTimeline({ filterType = "all" }: EducationTimelineProps
   const showCerts = filterType === "certs" || filterType === "all";
   const showAcademic = filterType === "academic" || filterType === "all";
 
-  // Flatten items in display order
   type TimelineItem =
     | { type: "section-header"; sectionType: "cert" | "degree" | "exchange"; label: string }
     | { type: "cert-item"; index: number; globalIdx: number }
@@ -109,20 +71,19 @@ export function EducationTimeline({ filterType = "all" }: EducationTimelineProps
 
   return (
     <div className="relative">
-      {/* Vertical gradient line */}
-      <div className="absolute left-6 top-0 bottom-0 w-0.5 bg-gradient-to-b from-football-green via-ai-blue to-tech-purple opacity-60" />
+      {/* Linha vertical gradient — subtil */}
+      <div className="absolute left-6 top-0 bottom-0 w-0.5 bg-gradient-to-b from-football-green via-ai-blue to-tech-purple opacity-30" />
 
       <div className="space-y-2">
         {items.map((item, listIdx) => {
           if (item.type === "section-header") {
-            const tc = typeColors[item.sectionType];
             const SectionIcon = item.sectionType === "cert" ? Award : item.sectionType === "degree" ? GraduationCap : Globe;
             return (
               <div key={`header-${listIdx}`} className="relative flex items-center gap-3 pl-14 md:pl-16 py-4">
-                <div className={`absolute left-[10px] w-8 h-8 rounded-full ${tc.sectionIconBg} flex items-center justify-center z-10 border-2 border-background`}>
-                  <SectionIcon className={`w-4 h-4 ${tc.sectionIcon}`} />
+                <div className="absolute left-[10px] w-8 h-8 rounded-full bg-muted/50 flex items-center justify-center z-10 border-2 border-background">
+                  <SectionIcon className="w-4 h-4 text-muted-foreground" />
                 </div>
-                <h3 className={`text-sm font-bold uppercase tracking-wider ${tc.sectionIcon}`}>{item.label}</h3>
+                <h3 className="text-sm font-bold uppercase tracking-wider text-muted-foreground">{item.label}</h3>
               </div>
             );
           }
@@ -130,7 +91,6 @@ export function EducationTimeline({ filterType = "all" }: EducationTimelineProps
           if (item.type === "cert-item") {
             const cert = education.certifications[item.index];
             const certKey = certKeyMap[cert.title] || "uefaB";
-            const tc = typeColors.cert;
             return (
               <motion.div
                 key={`cert-${item.index}`}
@@ -140,20 +100,20 @@ export function EducationTimeline({ filterType = "all" }: EducationTimelineProps
                 transition={{ delay: item.globalIdx * 0.1, duration: 0.4 }}
                 className="relative flex items-start gap-4 pl-14 md:pl-16"
               >
-                <div className={`absolute left-[18px] top-5 w-4 h-4 rounded-full ${tc.dot} ring-4 ${tc.ring} border-2 border-background z-10`} />
+                <div className="absolute left-[20px] top-5 w-3 h-3 rounded-full bg-border border-2 border-background z-10" />
                 <motion.div
                   whileHover={{ scale: 1.01 }}
                   transition={{ type: "spring", stiffness: 400, damping: 25 }}
-                  className={`w-full glass rounded-xl p-4 md:p-5 border ${tc.border} ${tc.glow} transition-all duration-300`}
+                  className="w-full glass rounded-xl p-4 md:p-5 border border-border/40 hover:border-border/70 transition-all duration-300"
                 >
                   <div className="flex items-start justify-between gap-3 mb-2">
                     <div className="flex items-center gap-3">
-                      <div className={`shrink-0 w-8 h-8 rounded-lg ${tc.iconBg} flex items-center justify-center`}>
-                        <Award className={`w-4 h-4 ${tc.icon}`} />
+                      <div className="shrink-0 w-8 h-8 rounded-lg bg-muted/60 flex items-center justify-center">
+                        <Award className="w-4 h-4 text-muted-foreground" />
                       </div>
                       <h4 className="font-semibold text-foreground text-sm leading-tight">{t(`about.certs.${certKey}.title`)}</h4>
                     </div>
-                    <Badge className={`text-xs shrink-0 border ${tc.badge}`}>
+                    <Badge variant="outline" className="text-xs shrink-0">
                       {getStatusTranslation(cert.status)}
                     </Badge>
                   </div>
@@ -167,7 +127,6 @@ export function EducationTimeline({ filterType = "all" }: EducationTimelineProps
           if (item.type === "degree-item") {
             const degree = education.degrees[item.index];
             const degreeKey = degreeKeyMap[degree.title] || "masters";
-            const tc = typeColors.degree;
             return (
               <motion.div
                 key={`degree-${item.index}`}
@@ -177,20 +136,20 @@ export function EducationTimeline({ filterType = "all" }: EducationTimelineProps
                 transition={{ delay: item.globalIdx * 0.1, duration: 0.4 }}
                 className="relative flex items-start gap-4 pl-14 md:pl-16"
               >
-                <div className={`absolute left-[18px] top-5 w-4 h-4 rounded-full ${tc.dot} ring-4 ${tc.ring} border-2 border-background z-10`} />
+                <div className="absolute left-[20px] top-5 w-3 h-3 rounded-full bg-border border-2 border-background z-10" />
                 <motion.div
                   whileHover={{ scale: 1.01 }}
                   transition={{ type: "spring", stiffness: 400, damping: 25 }}
-                  className={`w-full glass rounded-xl p-4 md:p-5 border ${tc.border} ${tc.glow} transition-all duration-300`}
+                  className="w-full glass rounded-xl p-4 md:p-5 border border-border/40 hover:border-border/70 transition-all duration-300"
                 >
                   <div className="flex items-start justify-between gap-3 mb-2">
                     <div className="flex items-center gap-3">
-                      <div className={`shrink-0 w-8 h-8 rounded-lg ${tc.iconBg} flex items-center justify-center`}>
-                        <GraduationCap className={`w-4 h-4 ${tc.icon}`} />
+                      <div className="shrink-0 w-8 h-8 rounded-lg bg-muted/60 flex items-center justify-center">
+                        <GraduationCap className="w-4 h-4 text-muted-foreground" />
                       </div>
                       <h4 className="font-semibold text-foreground text-sm leading-tight">{t(`about.degrees.${degreeKey}.title`)}</h4>
                     </div>
-                    <Badge className={`text-xs shrink-0 border ${tc.badge}`}>
+                    <Badge variant="outline" className="text-xs shrink-0">
                       {degree.startYear} – {degree.endYear}
                     </Badge>
                   </div>
@@ -207,7 +166,6 @@ export function EducationTimeline({ filterType = "all" }: EducationTimelineProps
           if (item.type === "exchange-item") {
             const program = education.exchangePrograms[item.index];
             const exchangeKey = exchangeKeyMap[program.program] || "erasmus";
-            const tc = typeColors.exchange;
             return (
               <motion.div
                 key={`exchange-${item.index}`}
@@ -217,20 +175,20 @@ export function EducationTimeline({ filterType = "all" }: EducationTimelineProps
                 transition={{ delay: item.globalIdx * 0.1, duration: 0.4 }}
                 className="relative flex items-start gap-4 pl-14 md:pl-16"
               >
-                <div className={`absolute left-[18px] top-5 w-4 h-4 rounded-full ${tc.dot} ring-4 ${tc.ring} border-2 border-background z-10`} />
+                <div className="absolute left-[20px] top-5 w-3 h-3 rounded-full bg-border border-2 border-background z-10" />
                 <motion.div
                   whileHover={{ scale: 1.01 }}
                   transition={{ type: "spring", stiffness: 400, damping: 25 }}
-                  className={`w-full glass rounded-xl p-4 md:p-5 border ${tc.border} ${tc.glow} transition-all duration-300`}
+                  className="w-full glass rounded-xl p-4 md:p-5 border border-border/40 hover:border-border/70 transition-all duration-300"
                 >
                   <div className="flex items-start justify-between gap-3 mb-2">
                     <div className="flex items-center gap-3">
-                      <div className={`shrink-0 w-8 h-8 rounded-lg ${tc.iconBg} flex items-center justify-center`}>
-                        <Globe className={`w-4 h-4 ${tc.icon}`} />
+                      <div className="shrink-0 w-8 h-8 rounded-lg bg-muted/60 flex items-center justify-center">
+                        <Globe className="w-4 h-4 text-muted-foreground" />
                       </div>
                       <h4 className="font-semibold text-foreground text-sm leading-tight">{t(`about.exchanges.${exchangeKey}.program`)}</h4>
                     </div>
-                    <Badge className={`text-xs shrink-0 border ${tc.badge}`}>
+                    <Badge variant="outline" className="text-xs shrink-0">
                       {program.year}
                     </Badge>
                   </div>
