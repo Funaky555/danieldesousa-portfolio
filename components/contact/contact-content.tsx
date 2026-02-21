@@ -93,10 +93,6 @@ export function ContactContent() {
         <div className="max-w-6xl mx-auto grid gap-12 lg:grid-cols-3">
           {/* Coluna esquerda — Info */}
           <div className="lg:col-span-1 space-y-4">
-            <h2 className="text-lg font-bold text-foreground mb-2">
-              {t("contact.title")}
-            </h2>
-
             {/* Email */}
             <GlowCard color={EMAIL_COLOR}>
               <div className="flex items-start space-x-4">
@@ -210,24 +206,6 @@ export function ContactContent() {
               </div>
             </div>
 
-            {/* Availability — gradient border */}
-            <div
-              style={{
-                padding: "1px",
-                borderRadius: "12px",
-                background: "linear-gradient(135deg, #0066FF, #00D66C, #8B5CF6)",
-              }}
-            >
-              <div
-                className="rounded-[11px] p-6"
-                style={{ background: "hsl(var(--card))" }}
-              >
-                <h3 className="font-semibold text-foreground mb-3">Disponibilidade</h3>
-                <p className="text-sm text-muted-foreground leading-relaxed">
-                  {t("contact.availability")}
-                </p>
-              </div>
-            </div>
           </div>
 
           {/* Coluna direita — Formulário */}
