@@ -33,7 +33,7 @@ export function AboutContent() {
   const t = useTranslations();
 
   return (
-    <main className="min-h-screen pt-24 pb-16">
+    <main className="min-h-screen bg-background/80 pt-24 pb-16 overflow-x-hidden">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header animado */}
         <motion.div
@@ -61,7 +61,7 @@ export function AboutContent() {
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: idx * 0.1, duration: 0.5 }}
-                  className="glass rounded-xl p-4 border border-border/40 hover:border-border/70 transition-all duration-300 text-center cursor-default"
+                  className="glass rounded-xl p-4 border border-border/40 hover:border-football-green/40 transition-all duration-300 text-center cursor-default"
                 >
                   <div className="w-9 h-9 rounded-lg bg-muted/60 flex items-center justify-center mx-auto mb-2">
                     <Icon className="w-5 h-5 text-muted-foreground" />
@@ -81,7 +81,7 @@ export function AboutContent() {
           >
             <Tabs defaultValue="certificacoes" className="w-full">
               <div className="flex justify-center mb-8">
-                <TabsList className="inline-flex flex-wrap justify-center gap-1 bg-muted/30 p-1 rounded-xl border border-border/40 h-auto">
+                <TabsList className="inline-flex flex-wrap justify-center gap-1 bg-muted/30 p-1 rounded-xl border border-football-green/20 h-auto shadow-[0_0_30px_rgba(0,214,108,0.06)]">
                   {aboutTabs.map(({ key, icon: Icon, labelKey }) => (
                     <TabsTrigger
                       key={key}
