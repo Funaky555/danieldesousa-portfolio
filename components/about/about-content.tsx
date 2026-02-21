@@ -15,19 +15,58 @@ import {
   Users,
 } from "lucide-react";
 
+const tabColorMap = {
+  "football-green": {
+    iconBg: "bg-football-green/20",
+    iconText: "text-football-green",
+    inactiveText: "text-football-green/60",
+    inactiveBorder: "border-football-green/20",
+    inactiveBg: "bg-football-green/5",
+    hoverGlow: "hover:shadow-[0_0_20px_rgba(0,214,108,0.1)]",
+    activeBg: "data-[state=active]:bg-football-green/20 data-[state=active]:border-football-green/50 data-[state=active]:text-football-green data-[state=active]:shadow-[0_0_30px_rgba(0,214,108,0.2)]",
+  },
+  "ai-blue": {
+    iconBg: "bg-ai-blue/20",
+    iconText: "text-ai-blue",
+    inactiveText: "text-ai-blue/60",
+    inactiveBorder: "border-ai-blue/20",
+    inactiveBg: "bg-ai-blue/5",
+    hoverGlow: "hover:shadow-[0_0_20px_rgba(0,102,255,0.1)]",
+    activeBg: "data-[state=active]:bg-ai-blue/20 data-[state=active]:border-ai-blue/50 data-[state=active]:text-ai-blue data-[state=active]:shadow-[0_0_30px_rgba(0,102,255,0.2)]",
+  },
+  "tech-purple": {
+    iconBg: "bg-tech-purple/20",
+    iconText: "text-tech-purple",
+    inactiveText: "text-tech-purple/60",
+    inactiveBorder: "border-tech-purple/20",
+    inactiveBg: "bg-tech-purple/5",
+    hoverGlow: "hover:shadow-[0_0_20px_rgba(139,92,246,0.1)]",
+    activeBg: "data-[state=active]:bg-tech-purple/20 data-[state=active]:border-tech-purple/50 data-[state=active]:text-tech-purple data-[state=active]:shadow-[0_0_30px_rgba(139,92,246,0.2)]",
+  },
+  "energy-orange": {
+    iconBg: "bg-energy-orange/20",
+    iconText: "text-energy-orange",
+    inactiveText: "text-energy-orange/60",
+    inactiveBorder: "border-energy-orange/20",
+    inactiveBg: "bg-energy-orange/5",
+    hoverGlow: "hover:shadow-[0_0_20px_rgba(255,107,53,0.1)]",
+    activeBg: "data-[state=active]:bg-energy-orange/20 data-[state=active]:border-energy-orange/50 data-[state=active]:text-energy-orange data-[state=active]:shadow-[0_0_30px_rgba(255,107,53,0.2)]",
+  },
+} as const;
+
 const aboutTabs = [
-  { key: "certificacoes", icon: Award,         labelKey: "about.education.certifications" },
-  { key: "formacao",      icon: GraduationCap, labelKey: "about.education.academic" },
-  { key: "competencias",  icon: Brain,         labelKey: "about.skills.title" },
-  { key: "idiomas",       icon: LanguagesIcon, labelKey: "about.languages.title" },
-] as const;
+  { key: "certificacoes", icon: Award,         color: "football-green" as const, labelKey: "about.education.certifications" as const },
+  { key: "formacao",      icon: GraduationCap, color: "ai-blue" as const,        labelKey: "about.education.academic" as const },
+  { key: "competencias",  icon: Brain,         color: "tech-purple" as const,    labelKey: "about.skills.title" as const },
+  { key: "idiomas",       icon: LanguagesIcon, color: "energy-orange" as const,  labelKey: "about.languages.title" as const },
+];
 
 const statsConfig = [
-  { value: "10+",    labelKey: "home.stats.experience",    icon: Calendar },
-  { value: "2",      labelKey: "home.stats.countries",     icon: Globe },
-  { value: "U4-U18", labelKey: "home.stats.ageGroups",     icon: Users },
-  { value: "UEFA B", labelKey: "home.stats.certification", icon: Award },
-] as const;
+  { value: "10+",    labelKey: "home.stats.experience" as const,    icon: Calendar },
+  { value: "2",      labelKey: "home.stats.countries" as const,     icon: Globe },
+  { value: "U4-U18", labelKey: "home.stats.ageGroups" as const,     icon: Users },
+  { value: "UEFA B", labelKey: "home.stats.certification" as const, icon: Award },
+];
 
 export function AboutContent() {
   const t = useTranslations();
@@ -51,7 +90,7 @@ export function AboutContent() {
         </motion.div>
 
         <div className="max-w-6xl mx-auto">
-          {/* Stats row — neutro, apenas o valor em football-green */}
+          {/* Stats row — neutro, valor em football-green */}
           <div className="grid grid-cols-2 md:grid-cols-4 gap-3 md:gap-4 mb-10 md:mb-14">
             {statsConfig.map((stat, idx) => {
               const Icon = stat.icon;
@@ -73,43 +112,52 @@ export function AboutContent() {
             })}
           </div>
 
-          {/* Tabs de navegação — estilo pill neutro, ativo em football-green */}
+          {/* Tabs — estilo Philosophy */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.5, duration: 0.5 }}
           >
             <Tabs defaultValue="certificacoes" className="w-full">
-              <div className="flex justify-center mb-8">
-                <TabsList className="inline-flex flex-wrap justify-center gap-1 bg-muted/30 p-1 rounded-xl border border-football-green/20 h-auto shadow-[0_0_30px_rgba(0,214,108,0.06)]">
-                  {aboutTabs.map(({ key, icon: Icon, labelKey }) => (
+              <TabsList className="w-full flex flex-wrap justify-center gap-2 bg-transparent h-auto p-0 mb-8">
+                {aboutTabs.map(({ key, icon: Icon, color, labelKey }) => {
+                  const tc = tabColorMap[color];
+                  return (
                     <TabsTrigger
                       key={key}
                       value={key}
-                      className="flex items-center gap-2 px-3 sm:px-4 py-2 rounded-lg text-xs sm:text-sm font-medium text-muted-foreground transition-all duration-200 data-[state=active]:bg-football-green/15 data-[state=active]:text-football-green data-[state=active]:border data-[state=active]:border-football-green/30"
+                      className={`glass flex items-center gap-2 px-4 py-2.5 border rounded-lg transition-all duration-300 ${tc.inactiveBorder} ${tc.inactiveBg} ${tc.inactiveText} ${tc.hoverGlow} hover:border-opacity-50 ${tc.activeBg}`}
                     >
-                      <Icon className="w-4 h-4 shrink-0" />
-                      <span>{t(labelKey)}</span>
+                      <Icon className="w-4 h-4" />
+                      <span className="text-sm font-medium">{t(labelKey)}</span>
                     </TabsTrigger>
-                  ))}
-                </TabsList>
-              </div>
+                  );
+                })}
+              </TabsList>
 
-              <TabsContent value="certificacoes" className="mt-0">
-                <EducationTimeline filterType="certs" />
-              </TabsContent>
-
-              <TabsContent value="formacao" className="mt-0">
-                <EducationTimeline filterType="academic" />
-              </TabsContent>
-
-              <TabsContent value="competencias" className="mt-0">
-                <SkillsGrid variant="skills" />
-              </TabsContent>
-
-              <TabsContent value="idiomas" className="mt-0">
-                <SkillsGrid variant="languages" />
-              </TabsContent>
+              {aboutTabs.map(({ key, icon: Icon, color, labelKey }) => {
+                const tc = tabColorMap[color];
+                return (
+                  <TabsContent key={key} value={key} className="mt-0">
+                    <div className="glass rounded-xl border border-border/50 overflow-hidden">
+                      {/* Header colorido do content — igual ao padrão Philosophy */}
+                      <div className={`flex items-center gap-3 px-6 py-4 border-b border-border/40 ${tc.inactiveBg}`}>
+                        <div className={`w-9 h-9 rounded-lg ${tc.iconBg} flex items-center justify-center`}>
+                          <Icon className={`w-5 h-5 ${tc.iconText}`} />
+                        </div>
+                        <h2 className={`font-semibold text-base ${tc.iconText}`}>{t(labelKey)}</h2>
+                      </div>
+                      {/* Conteúdo */}
+                      <div className="p-6 md:p-8">
+                        {key === "certificacoes" && <EducationTimeline filterType="certs" />}
+                        {key === "formacao"      && <EducationTimeline filterType="academic" />}
+                        {key === "competencias"  && <SkillsGrid variant="skills" />}
+                        {key === "idiomas"       && <SkillsGrid variant="languages" />}
+                      </div>
+                    </div>
+                  </TabsContent>
+                );
+              })}
             </Tabs>
           </motion.div>
         </div>
