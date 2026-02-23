@@ -6,7 +6,8 @@
     "experience": "Experience",
     "services": "Services",
     "software": "Software",
-    "contact": "Contact"
+    "contact": "Contact",
+    "media": "Media"
   },
   "home": {
     "hero": {
@@ -987,6 +988,49 @@
       "location": "Location"
     },
     "availability": "Open to partnerships, international opportunities, speaking engagements, and consulting projects."
+  },
+  "media": {
+    "title": "Analysis & Media",
+    "subtitle": "Football articles, opinions, podcast and press appearances",
+    "tabs": {
+      "articles": "Articles",
+      "podcast":  "Podcast",
+      "press":    "Press",
+      "sports":   "Other Sports"
+    },
+    "badges": {
+      "football": "Football",
+      "sports":   "Sports",
+      "podcast":  "Podcast",
+      "press":    "Press"
+    },
+    "article": {
+      "readMore":    "Read Article",
+      "readTime":    "min read",
+      "opinion":     "Opinion",
+      "analysis":    "Analysis",
+      "tactics":     "Tactics",
+      "development": "Development"
+    },
+    "podcast": {
+      "listen":    "Listen",
+      "episode":   "Episode",
+      "duration":  "Duration",
+      "platforms": "Available on"
+    },
+    "press": {
+      "readArticle": "Read Article",
+      "newspaper":   "Newspaper",
+      "television":  "Television",
+      "online":      "Online",
+      "radio":       "Radio"
+    },
+    "cta": {
+      "title":       "Collaborate or Follow",
+      "description": "Interested in a collaboration, interview, or want to follow the podcast? Get in touch.",
+      "contact":     "Contact for Collaborations",
+      "podcast":     "Follow the Podcast"
+    }
   },
   "footer": {
     "rights": "All rights reserved",

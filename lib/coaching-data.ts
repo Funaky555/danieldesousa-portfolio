@@ -1257,3 +1257,235 @@ export const softwareTools = [
     ],
   },
 ];
+
+// ============================================================================
+// MEDIA CONTENT
+// ============================================================================
+
+export type MediaCategory = "football" | "sports";
+export type ArticleType = "opinion" | "analysis" | "tactics" | "development";
+export type PressType = "newspaper" | "television" | "online" | "radio";
+
+export interface MediaArticle {
+  id: number;
+  category: MediaCategory;
+  type: ArticleType;
+  title: string;
+  excerpt: string;
+  date: string;
+  readTime: number;
+  tags: string[];
+  url: string;
+}
+
+export interface PodcastEpisode {
+  id: number;
+  episodeNumber: number;
+  title: string;
+  description: string;
+  duration: string;
+  date: string;
+  platforms: { name: string; url: string }[];
+  tags: string[];
+}
+
+export interface PressAppearance {
+  id: number;
+  outlet: string;
+  type: PressType;
+  title: string;
+  description: string;
+  date: string;
+  url: string;
+}
+
+export const mediaContent = {
+  featuredArticles: [
+    {
+      id: 1,
+      category: "football" as MediaCategory,
+      type: "tactics" as ArticleType,
+      title: "Tactical Periodization: The Portuguese Model Explained",
+      excerpt: "An in-depth look at how Portuguese football coaching methodology, rooted in Vitor Frade's Tactical Periodization, shapes modern youth development from grassroots to elite level.",
+      date: "2024-11",
+      readTime: 8,
+      tags: ["Tactics", "Youth Development", "Portuguese Football"],
+      url: "#",
+    },
+    {
+      id: 2,
+      category: "football" as MediaCategory,
+      type: "opinion" as ArticleType,
+      title: "Why the 4-3-3 Remains the Most Versatile Formation",
+      excerpt: "From Guardiola's Barcelona to modern high-press systems, the 4-3-3 continues to evolve. I analyse why it remains the preferred choice for coaches who want to dominate possession and press aggressively.",
+      date: "2024-10",
+      readTime: 6,
+      tags: ["Formation", "4-3-3", "Analysis"],
+      url: "#",
+    },
+    {
+      id: 3,
+      category: "football" as MediaCategory,
+      type: "analysis" as ArticleType,
+      title: "Coaching in China: Cultural Adaptation and Football Development",
+      excerpt: "Four years coaching in four Chinese cities taught me lessons no coaching badge can provide. This is my honest reflection on cultural adaptation, communication barriers, and the incredible resilience of young Chinese athletes.",
+      date: "2024-09",
+      readTime: 10,
+      tags: ["China", "Culture", "Coaching"],
+      url: "#",
+    },
+    {
+      id: 4,
+      category: "football" as MediaCategory,
+      type: "development" as ArticleType,
+      title: "U13 vs U15 Coaching: How Development Priorities Must Shift",
+      excerpt: "The gap between U13 and U15 is often underestimated by coaches. I break down why training methodology, tactical demands, and psychological approach need to be fundamentally different across these two age groups.",
+      date: "2024-08",
+      readTime: 7,
+      tags: ["Youth Football", "U13", "U15"],
+      url: "#",
+    },
+    {
+      id: 5,
+      category: "football" as MediaCategory,
+      type: "opinion" as ArticleType,
+      title: "The Scouting Crisis: Are We Developing or Selecting?",
+      excerpt: "Modern youth academies face a paradox: they claim to develop players but often just select the already-talented. Drawing from my scouting experience, I examine this systemic problem.",
+      date: "2024-07",
+      readTime: 5,
+      tags: ["Scouting", "Academies", "Youth Development"],
+      url: "#",
+    },
+    {
+      id: 6,
+      category: "football" as MediaCategory,
+      type: "tactics" as ArticleType,
+      title: "Defensive Transitions: The Moment Most Teams Get Wrong",
+      excerpt: "Losing the ball is inevitable. What happens in the next 3–5 seconds defines whether you have a reactive or proactive defensive culture. I explore the principles that make elite teams so hard to counter-attack against.",
+      date: "2024-06",
+      readTime: 6,
+      tags: ["Defence", "Transitions", "Tactics"],
+      url: "#",
+    },
+  ] as MediaArticle[],
+
+  podcastEpisodes: [
+    {
+      id: 1,
+      episodeNumber: 1,
+      title: "Football in China: A Portuguese Coach's Journey",
+      description: "In this first episode, I share the story of how I ended up coaching in China, what I found when I arrived, and the lessons that changed the way I see football and coaching forever.",
+      duration: "47 min",
+      date: "2025-01",
+      platforms: [
+        { name: "Spotify", url: "#" },
+        { name: "Apple Podcasts", url: "#" },
+        { name: "YouTube", url: "#" },
+      ],
+      tags: ["China", "Coaching Journey", "Football"],
+    },
+    {
+      id: 2,
+      episodeNumber: 2,
+      title: "What the UEFA B Course Actually Teaches You",
+      description: "Beyond the technical content of the UEFA B licence, I discuss what the certification process really develops in a coach — and what it doesn't. A candid conversation about modern coaching education.",
+      duration: "38 min",
+      date: "2025-02",
+      platforms: [
+        { name: "Spotify", url: "#" },
+        { name: "Apple Podcasts", url: "#" },
+        { name: "YouTube", url: "#" },
+      ],
+      tags: ["UEFA", "Coach Education", "Certification"],
+    },
+    {
+      id: 3,
+      episodeNumber: 3,
+      title: "Talking Tactics: The 4-3-3 Deep Dive",
+      description: "A technical episode entirely focused on the 4-3-3 formation — from build-up structures and pressing triggers to transition principles and set-piece organisation. Ideal for coaches and tactical enthusiasts.",
+      duration: "52 min",
+      date: "2025-03",
+      platforms: [
+        { name: "Spotify", url: "#" },
+        { name: "Apple Podcasts", url: "#" },
+        { name: "YouTube", url: "#" },
+      ],
+      tags: ["Tactics", "4-3-3", "Formation Analysis"],
+    },
+  ] as PodcastEpisode[],
+
+  pressAppearances: [
+    {
+      id: 1,
+      outlet: "TL News (Tongling)",
+      type: "online" as PressType,
+      title: "The Foreign Coach's Last Football Lesson",
+      description: "Featured article in the Tongling local press covering my final season at Middle School no.2 and the impact of the football programme on the school community.",
+      date: "2024-07",
+      url: "https://app.tlnews.cn/detailArticle/24332680_68885_tonglingrb.html",
+    },
+    {
+      id: 2,
+      outlet: "Record",
+      type: "newspaper" as PressType,
+      title: "Portuguese Coach Builds Football Bridge Between Porto and China",
+      description: "Interview about the experience of coaching in China and the cultural exchange promoted through football, from the perspective of a Portuguese UEFA B coach.",
+      date: "2023-09",
+      url: "#",
+    },
+    {
+      id: 3,
+      outlet: "Porto Canal",
+      type: "television" as PressType,
+      title: "Football Without Borders — Daniel de Sousa",
+      description: "Television appearance discussing youth football development, the challenges of coaching abroad, and the Portuguese coaching methodology applied in China.",
+      date: "2023-06",
+      url: "#",
+    },
+    {
+      id: 4,
+      outlet: "A Bola",
+      type: "newspaper" as PressType,
+      title: "From CD Trofense to the Great Wall: A Coaching Story",
+      description: "Profile piece tracing the career path from grassroots coaching in Portugal to leading football programmes in Chinese schools.",
+      date: "2022-10",
+      url: "#",
+    },
+  ] as PressAppearance[],
+
+  otherSportsArticles: [
+    {
+      id: 101,
+      category: "sports" as MediaCategory,
+      type: "opinion" as ArticleType,
+      title: "What Football Coaches Can Learn from Basketball's Motion Offense",
+      excerpt: "The principles of spacing, off-ball movement, and read-and-react decision-making in basketball's motion offense have striking parallels with modern positional play in football. I explore these cross-sport lessons.",
+      date: "2024-05",
+      readTime: 7,
+      tags: ["Basketball", "Tactics", "Cross-Sport Learning"],
+      url: "#",
+    },
+    {
+      id: 102,
+      category: "sports" as MediaCategory,
+      type: "analysis" as ArticleType,
+      title: "Rugby Union vs Football: Collective Organization Compared",
+      excerpt: "Both sports demand complex collective organization, but the structural rules that shape team shape are very different. This comparative analysis reveals how each sport has developed unique solutions to the same fundamental tactical problem.",
+      date: "2024-04",
+      readTime: 8,
+      tags: ["Rugby", "Tactics", "Analysis"],
+      url: "#",
+    },
+    {
+      id: 103,
+      category: "sports" as MediaCategory,
+      type: "opinion" as ArticleType,
+      title: "Portugal's Olympic Ambitions: Are We Building the Right Structures?",
+      excerpt: "A frank assessment of Portuguese sport beyond football — from athletics to swimming — and whether the national sports infrastructure is genuinely set up to produce Olympic champions consistently.",
+      date: "2024-03",
+      readTime: 6,
+      tags: ["Portugal", "Olympics", "Sports Policy"],
+      url: "#",
+    },
+  ] as MediaArticle[],
+};

@@ -16,6 +16,7 @@ const navigationKeys = [
   { key: "experience", href: "/experience", color: "#FF6B35" },
   { key: "services", href: "/services", color: "#14B8A6" },
   { key: "software", href: "/software", color: "#F43F5E" },
+  { key: "media", href: "/media", color: "#CC8A00" },
   { key: "contact", href: "/contact", color: "#EF4444" },
 ];
 
