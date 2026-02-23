@@ -993,10 +993,14 @@
     "title": "Analysis & Media",
     "subtitle": "Football articles, opinions, podcast and press appearances",
     "tabs": {
-      "articles": "Articles",
+      "articles": "Football",
       "podcast":  "Podcast",
       "press":    "Press",
-      "sports":   "Other Sports"
+      "sports":   "Sports"
+    },
+    "underConstruction": {
+      "title":    "Coming Soon",
+      "subtitle": "Articles, analysis and tactical insights are being prepared. Check back soon."
     },
     "badges": {
       "football": "Football",
@@ -1013,10 +1017,12 @@
       "development": "Development"
     },
     "podcast": {
-      "listen":    "Listen",
-      "episode":   "Episode",
-      "duration":  "Duration",
-      "platforms": "Available on"
+      "listen":     "Listen",
+      "episode":    "Episode",
+      "duration":   "Duration",
+      "platforms":  "Available on",
+      "comingSoon": "Podcast coming soon",
+      "channelCta": "Meanwhile, explore this channel:"
     },
     "press": {
       "readArticle": "Read Article",
