@@ -139,6 +139,13 @@
     box-shadow: 0 0 30px rgba(0, 102, 255, 0.5);
   }
 
+  /* Football cursor — hide native cursor on hover-capable devices */
+  @media (hover: hover) {
+    *, *::before, *::after {
+      cursor: none !important;
+    }
+  }
+
   /* Animated gradient slide for header rainbow line */
   .animate-gradient-slide {
     animation: gradient-slide 4s linear infinite;

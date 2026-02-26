@@ -73,10 +73,10 @@ const tabColorMap = {
 } as const;
 
 const mediaTabs = [
-  { key: "articles", icon: FileText, color: "football-green" as const },
-  { key: "podcast",  icon: Mic,      color: "tech-purple" as const  },
-  { key: "press",    icon: Newspaper, color: "ai-blue" as const     },
-  { key: "sports",   icon: Trophy,   color: "energy-orange" as const },
+  { key: "articles", icon: FileText, color: "football-green" as const, label: "Artigos Futebol"      },
+  { key: "podcast",  icon: Mic,      color: "tech-purple" as const,    label: "Podcast"              },
+  { key: "press",    icon: Newspaper, color: "ai-blue" as const,       label: "Notícias Futebol"     },
+  { key: "sports",   icon: Trophy,   color: "energy-orange" as const,  label: "Notícias Desportivas" },
 ] as const;
 
 // ─── TiltCard ────────────────────────────────────────────────────────────────
@@ -159,6 +159,43 @@ function UnderConstructionSection() {
   );
 }
 
+// ─── YouTube Embed ────────────────────────────────────────────────────────────
+
+function YoutubeEmbed({ videoId, channelUrl }: { videoId: string; channelUrl: string }) {
+  return (
+    <motion.div
+      initial={{ opacity: 0, y: 20 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.5 }}
+      className="w-full"
+    >
+      <div className="glass rounded-xl border border-tech-purple/30 overflow-hidden">
+        <div className="relative w-full" style={{ paddingBottom: "56.25%" }}>
+          <iframe
+            className="absolute inset-0 w-full h-full"
+            src={`https://www.youtube.com/embed/${videoId}?rel=0&modestbranding=1`}
+            title="The Coaches Voice — Vídeo mais recente"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+            allowFullScreen
+          />
+        </div>
+        <div className="px-5 py-3 flex items-center justify-between border-t border-border/30">
+          <span className="text-xs text-muted-foreground">The Coaches Voice — vídeo mais recente</span>
+          <a
+            href={channelUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center gap-1.5 text-xs text-tech-purple hover:text-tech-purple/80 font-medium transition-colors"
+          >
+            Ver mais vídeos no canal
+            <ExternalLink className="w-3 h-3" />
+          </a>
+        </div>
+      </div>
+    </motion.div>
+  );
+}
+
 // ─── Channel Card (Podcast) ───────────────────────────────────────────────────
 
 function ChannelCard({ channel }: { channel: RecommendedChannel }) {
@@ -204,50 +241,55 @@ function ChannelCard({ channel }: { channel: RecommendedChannel }) {
 
 // ─── Podcast Coming Soon ──────────────────────────────────────────────────────
 
-function PodcastSection() {
+function PodcastSection({ latestVideoId }: { latestVideoId?: string }) {
   const t = useTranslations();
+  const coachesVoice = mediaContent.recommendedChannels.find((c) => c.platform === "youtube");
+
   return (
     <div className="flex flex-col gap-8">
-      {/* Banner em grande */}
-      <motion.div
-        initial={{ opacity: 0, scale: 0.98 }}
-        animate={{ opacity: 1, scale: 1 }}
-        transition={{ duration: 0.5 }}
-        className="relative w-full rounded-2xl overflow-hidden min-h-[240px] sm:min-h-[280px] flex items-center justify-center"
-        style={{
-          backgroundImage: "url('/images/backgrounds/green.png')",
-          backgroundSize: "cover",
-          backgroundPosition: "center",
-        }}
-      >
-        {/* Overlay escuro */}
-        <div className="absolute inset-0 bg-background/80" />
-        {/* Glow ring */}
-        <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
-          <div className="w-64 h-64 rounded-full bg-tech-purple/10 blur-3xl" />
-        </div>
-        {/* Content */}
-        <div className="relative z-10 flex flex-col items-center gap-5 py-12 text-center px-6">
+      {/* Vídeo mais recente do Coaches Voice */}
+      {latestVideoId && coachesVoice ? (
+        <YoutubeEmbed videoId={latestVideoId} channelUrl={coachesVoice.url} />
+      ) : (
+        <>
+          {/* Banner em grande (fallback quando não há vídeo) */}
           <motion.div
-            animate={{ scale: [1, 1.06, 1] }}
-            transition={{ repeat: Infinity, duration: 3, ease: "easeInOut" }}
-            className="w-24 h-24 rounded-full bg-tech-purple/25 border-2 border-tech-purple/50 flex items-center justify-center shadow-[0_0_40px_rgba(139,92,246,0.3)]"
+            initial={{ opacity: 0, scale: 0.98 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 0.5 }}
+            className="relative w-full rounded-2xl overflow-hidden min-h-[240px] sm:min-h-[280px] flex items-center justify-center"
+            style={{
+              backgroundImage: "url('/images/backgrounds/green.png')",
+              backgroundSize: "cover",
+              backgroundPosition: "center",
+            }}
           >
-            <Mic className="w-12 h-12 text-tech-purple" />
+            <div className="absolute inset-0 bg-background/80" />
+            <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
+              <div className="w-64 h-64 rounded-full bg-tech-purple/10 blur-3xl" />
+            </div>
+            <div className="relative z-10 flex flex-col items-center gap-5 py-12 text-center px-6">
+              <motion.div
+                animate={{ scale: [1, 1.06, 1] }}
+                transition={{ repeat: Infinity, duration: 3, ease: "easeInOut" }}
+                className="w-24 h-24 rounded-full bg-tech-purple/25 border-2 border-tech-purple/50 flex items-center justify-center shadow-[0_0_40px_rgba(139,92,246,0.3)]"
+              >
+                <Mic className="w-12 h-12 text-tech-purple" />
+              </motion.div>
+              <p className="text-2xl sm:text-3xl font-bold text-foreground">
+                {t("media.podcast.comingSoon")}
+              </p>
+            </div>
           </motion.div>
-          <p className="text-2xl sm:text-3xl font-bold text-foreground">
-            {t("media.podcast.comingSoon")}
+          {/* Canal recomendado (fallback) */}
+          <p className="text-center text-sm text-muted-foreground -mb-2">
+            {t("media.podcast.channelCta")}
           </p>
-        </div>
-      </motion.div>
-
-      {/* Canal recomendado */}
-      <p className="text-center text-sm text-muted-foreground -mb-2">
-        {t("media.podcast.channelCta")}
-      </p>
-      {mediaContent.recommendedChannels.map((channel) => (
-        <ChannelCard key={channel.id} channel={channel} />
-      ))}
+          {mediaContent.recommendedChannels.map((channel) => (
+            <ChannelCard key={channel.id} channel={channel} />
+          ))}
+        </>
+      )}
     </div>
   );
 }
@@ -404,7 +446,7 @@ function PressCard({ appearance }: { appearance: PressAppearance }) {
 
 // ─── Main Component ───────────────────────────────────────────────────────────
 
-export function MediaContent() {
+export function MediaContent({ latestVideoId }: { latestVideoId?: string }) {
   const t = useTranslations();
 
   return (
@@ -430,14 +472,15 @@ export function MediaContent() {
           >
             <Tabs defaultValue="articles" className="w-full">
               <TabsList className="w-full flex flex-wrap justify-center gap-2 bg-transparent h-auto p-0 mb-8">
-                {mediaTabs.map(({ key, icon: Icon, color }) => {
+                {mediaTabs.map(({ key, icon: Icon, color, label }) => {
                   const tc = tabColorMap[color];
                   return (
                     <TabsTrigger
                       key={key}
                       value={key}
-                      className={`glass flex items-center justify-center px-4 py-3 border rounded-lg transition-all duration-300 ${tc.inactiveBorder} ${tc.inactiveBg} ${tc.inactiveText} ${tc.hoverGlow} ${tc.activeBg}`}
+                      className={`glass flex flex-col items-center justify-center gap-1.5 px-4 py-2.5 border rounded-lg transition-all duration-300 ${tc.inactiveBorder} ${tc.inactiveBg} ${tc.inactiveText} ${tc.hoverGlow} ${tc.activeBg}`}
                     >
+                      <span className="text-[10px] font-semibold uppercase tracking-wide leading-none">{label}</span>
                       <Icon className="w-5 h-5" />
                     </TabsTrigger>
                   );
@@ -454,7 +497,7 @@ export function MediaContent() {
               {/* Podcast */}
               <TabsContent value="podcast" className="mt-0">
                 <div className="glass rounded-xl border border-border/50 p-4 sm:p-6 md:p-8">
-                  <PodcastSection />
+                  <PodcastSection latestVideoId={latestVideoId} />
                 </div>
               </TabsContent>
 

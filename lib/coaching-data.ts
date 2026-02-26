@@ -1305,6 +1305,7 @@ export interface RecommendedChannel {
   description: string;
   url: string;
   platform: "youtube" | "spotify" | "podcast";
+  youtubeChannelId?: string;
 }
 
 export const mediaContent = {
@@ -1322,6 +1323,8 @@ export const mediaContent = {
       description: "In-depth interviews and analysis with world-class football managers and coaches.",
       url: "https://www.youtube.com/@TheCoachesVoice",
       platform: "youtube" as const,
+      // YouTube channel ID — verify at: https://www.youtube.com/@CoachesVoice (view source → search "channelId")
+      youtubeChannelId: "UCRyq4C_X2XgLNUEq49aBhXA",
     },
   ] as RecommendedChannel[],
 

@@ -3,6 +3,7 @@ import { Inter } from 'next/font/google'
 import { ThemeProvider } from "next-themes"
 import { I18nProvider } from "@/components/providers/i18n-provider"
 import { ChatWidget } from "@/components/chatbot/chat-widget"
+import { FootballCursor } from "@/components/football-cursor"
 import './globals.css'
 
 const inter = Inter({ subsets: ['latin'] })
@@ -24,6 +25,7 @@ export default function RootLayout({
           <I18nProvider>
             {children}
             <ChatWidget />
+            <FootballCursor />
           </I18nProvider>
         </ThemeProvider>
       </body>
