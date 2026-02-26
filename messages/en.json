@@ -898,7 +898,6 @@
   "software": {
     "title": "Software & Tools",
     "subtitle": "Technology stack I use for coaching and analysis",
-    "howIUseAI": "How I Use AI in Coaching",
     "categories": {
       "videoAnalysis": "Video & Match Analysis",
       "aiProductivity": "AI & Productivity",
@@ -912,29 +911,33 @@
       "dailyUse": "Daily Use"
     },
     "tools": {
-      "premiere": {
-        "name": "Adobe Premiere Pro",
-        "description": "Professional video editing for match highlights and training footage"
+      "longomatch": {
+        "name": "LongoMatch",
+        "description": "Professional football video analysis software for match review and performance coding"
       },
-      "davinci": {
-        "name": "DaVinci Resolve",
-        "description": "Color grading and advanced video editing for tactical presentations"
-      },
-      "hudl": {
-        "name": "Hudl",
-        "description": "Football-specific video analysis and team management platform"
+      "coachpaint": {
+        "name": "Coach Paint",
+        "description": "Video annotation and telestration tool for presenting tactical concepts to players"
       },
       "chatgpt": {
         "name": "ChatGPT",
         "description": "AI-powered assistant for training plan generation and tactical brainstorming"
       },
-      "copilot": {
-        "name": "Microsoft Copilot",
-        "description": "AI integration across Office tools for document creation"
+      "claude": {
+        "name": "Claude AI",
+        "description": "Advanced AI assistant for in-depth analysis, content creation, and strategic planning"
+      },
+      "easymusicai": {
+        "name": "eASYmUSIC ai",
+        "description": "AI-powered music tool for creating motivational audio content for training sessions"
       },
       "wyscout": {
         "name": "Wyscout",
         "description": "Player scouting, match data, and performance analytics platform"
+      },
+      "instat": {
+        "name": "Instat",
+        "description": "Advanced football statistics and performance data for player and team analysis"
       },
       "fm": {
         "name": "Football Manager",
@@ -942,29 +945,19 @@
       },
       "office": {
         "name": "Microsoft Office",
-        "description": "Word, Excel, PowerPoint for reports and presentations"
+        "description": "Word, PowerPoint and Excel for reports and presentations"
       },
-      "google": {
-        "name": "Google Workspace",
-        "description": "Docs, Sheets, Drive for collaborative work"
-      }
-    },
-    "aiUseCases": {
-      "trainingPlan": {
-        "title": "Training Plan Generation",
-        "description": "AI tools help me rapidly draft and iterate on training session plans."
+      "discord": {
+        "name": "Discord",
+        "description": "Team communication platform for coordinating with staff, players, and coaching networks"
       },
-      "reports": {
-        "title": "Report Writing",
-        "description": "Match reports and scouting evaluations drafted with AI assistance."
+      "teamspeak": {
+        "name": "TeamSpeak",
+        "description": "Voice communication tool for real-time coordination during training and analysis sessions"
       },
-      "tactical": {
-        "title": "Tactical Brainstorming",
-        "description": "Using AI as a tactical sounding board for formation variations."
-      },
-      "translation": {
-        "title": "Communication & Translation",
-        "description": "AI assists with translating tactical concepts across language barriers."
+      "skype": {
+        "name": "Skype",
+        "description": "Video conferencing for remote coaching sessions and international team meetings"
       }
     }
   },
