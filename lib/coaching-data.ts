@@ -1297,6 +1297,7 @@ export interface PressAppearance {
   description: string;
   date: string;
   url: string;
+  image?: string;
 }
 
 export interface RecommendedChannel {
@@ -1337,6 +1338,7 @@ export const mediaContent = {
       description: "Featured in the Tongling local press for my final season at Middle School no.2 and the football programme's community impact.",
       date: "2024-07",
       url: "https://app.tlnews.cn/detailArticle/24332680_68885_tonglingrb.html",
+      image: "/images/china/Tongling1.jpg",
     },
     {
       id: 2,
@@ -1346,6 +1348,7 @@ export const mediaContent = {
       description: "O Jornal Record é um dos principais diários desportivos de Portugal. Acompanha as últimas notícias do futebol português e europeu.",
       date: "2026-02",
       url: "https://www.record.pt",
+      image: "/images/portugal/Trofense1.jpg",
     },
     {
       id: 3,
@@ -1355,6 +1358,7 @@ export const mediaContent = {
       description: "A Bola é um dos mais antigos diários desportivos de Portugal, com cobertura diária do futebol nacional e internacional.",
       date: "2026-02",
       url: "https://www.abola.pt",
+      image: "/images/portugal/Benfica1.jpg",
     },
     {
       id: 4,
@@ -1364,6 +1368,7 @@ export const mediaContent = {
       description: "O Jogo é um dos principais jornais desportivos do Porto, com foco no futebol português e europeu.",
       date: "2026-02",
       url: "https://www.ojogo.pt",
+      image: "/images/portugal/Trofense3.jpg",
     },
   ] as PressAppearance[],
 

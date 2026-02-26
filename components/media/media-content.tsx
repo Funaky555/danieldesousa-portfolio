@@ -5,6 +5,7 @@ import { motion } from "framer-motion";
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
+import { Dialog, DialogContent } from "@/components/ui/dialog";
 import { useTranslations } from "@/components/providers/i18n-provider";
 import { mediaContent } from "@/lib/coaching-data";
 import type { MediaArticle, PressAppearance, RecommendedChannel } from "@/lib/coaching-data";
@@ -21,6 +22,7 @@ import {
   PlayCircle,
   Mail,
   HardHat,
+  Maximize2,
 } from "lucide-react";
 
 // ─── Color map ───────────────────────────────────────────────────────────────
@@ -161,38 +163,69 @@ function UnderConstructionSection() {
 
 // ─── YouTube Embed ────────────────────────────────────────────────────────────
 
+const ALLOW = "accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; fullscreen; web-share";
+
 function YoutubeEmbed({ videoId, channelUrl }: { videoId: string; channelUrl: string }) {
+  const [expanded, setExpanded] = useState(false);
+
   return (
-    <motion.div
-      initial={{ opacity: 0, y: 20 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.5 }}
-      className="w-full"
-    >
-      <div className="glass rounded-xl border border-tech-purple/30 overflow-hidden">
-        <div className="relative w-full" style={{ paddingBottom: "56.25%" }}>
-          <iframe
-            className="absolute inset-0 w-full h-full"
-            src={`https://www.youtube.com/embed/${videoId}?rel=0&modestbranding=1`}
-            title="The Coaches Voice — Vídeo mais recente"
-            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-            allowFullScreen
-          />
+    <>
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.5 }}
+        className="w-full"
+      >
+        <div className="glass rounded-xl border border-tech-purple/30 overflow-hidden">
+          <div className="relative w-full" style={{ paddingBottom: "56.25%" }}>
+            <iframe
+              className="absolute inset-0 w-full h-full"
+              src={`https://www.youtube.com/embed/${videoId}?rel=0&modestbranding=1`}
+              title="The Coaches Voice — Vídeo mais recente"
+              allow={ALLOW}
+              allowFullScreen
+            />
+          </div>
+          <div className="px-5 py-3 flex items-center justify-between border-t border-border/30">
+            <span className="text-xs text-muted-foreground">The Coaches Voice — latest video</span>
+            <div className="flex items-center gap-3">
+              <button
+                onClick={() => setExpanded(true)}
+                className="inline-flex items-center gap-1.5 text-xs text-tech-purple hover:text-tech-purple/80 font-medium transition-colors"
+                title="Expand video"
+              >
+                <Maximize2 className="w-3.5 h-3.5" />
+                Expand
+              </button>
+              <a
+                href={channelUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-1.5 text-xs text-tech-purple hover:text-tech-purple/80 font-medium transition-colors"
+              >
+                More videos
+                <ExternalLink className="w-3 h-3" />
+              </a>
+            </div>
+          </div>
         </div>
-        <div className="px-5 py-3 flex items-center justify-between border-t border-border/30">
-          <span className="text-xs text-muted-foreground">The Coaches Voice — vídeo mais recente</span>
-          <a
-            href={channelUrl}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="inline-flex items-center gap-1.5 text-xs text-tech-purple hover:text-tech-purple/80 font-medium transition-colors"
-          >
-            Ver mais vídeos no canal
-            <ExternalLink className="w-3 h-3" />
-          </a>
-        </div>
-      </div>
-    </motion.div>
+      </motion.div>
+
+      {/* Expanded modal */}
+      <Dialog open={expanded} onOpenChange={setExpanded}>
+        <DialogContent className="max-w-4xl w-full p-0 bg-background border border-tech-purple/30 overflow-hidden">
+          <div className="relative w-full" style={{ paddingBottom: "56.25%" }}>
+            <iframe
+              className="absolute inset-0 w-full h-full"
+              src={`https://www.youtube.com/embed/${videoId}?rel=0&modestbranding=1&autoplay=1`}
+              title="The Coaches Voice — Expanded"
+              allow={ALLOW}
+              allowFullScreen
+            />
+          </div>
+        </DialogContent>
+      </Dialog>
+    </>
   );
 }
 
@@ -400,43 +433,65 @@ function PressCard({ appearance }: { appearance: PressAppearance }) {
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true }}
       transition={{ duration: 0.4 }}
-      className="relative group"
+      className="relative group h-full"
     >
-      <TiltCard glowColor="rgba(0,102,255,0.1)" className="relative">
-        <div className="glass rounded-xl border border-border/40 hover:border-ai-blue/30 transition-all duration-300 p-5">
-          <div className="flex items-start gap-4 mb-3">
-            <div className="w-10 h-10 rounded-lg bg-ai-blue/15 flex items-center justify-center shrink-0">
-              <TypeIcon className="w-5 h-5 text-ai-blue" />
-            </div>
-            <div className="flex-1 min-w-0">
-              <div className="flex items-center gap-2 mb-1 flex-wrap">
-                <span className="text-xs font-semibold text-foreground">{appearance.outlet}</span>
-                <Badge className={`text-xs border ${badgeColor}`}>{typeLabel}</Badge>
+      <TiltCard glowColor="rgba(0,102,255,0.1)" className="relative h-full">
+        <div className="glass rounded-xl border border-border/40 hover:border-ai-blue/30 transition-all duration-300 overflow-hidden flex flex-col h-full">
+
+          {/* Image banner — shown when image is provided */}
+          {appearance.image && (
+            <a
+              href={appearance.url !== "#" ? appearance.url : undefined}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="block relative h-44 overflow-hidden shrink-0"
+            >
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img
+                src={appearance.image}
+                alt={appearance.title}
+                className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-background/60 to-transparent" />
+            </a>
+          )}
+
+          {/* Card body */}
+          <div className="p-5 flex flex-col flex-1">
+            <div className="flex items-start gap-4 mb-3">
+              <div className="w-10 h-10 rounded-lg bg-ai-blue/15 flex items-center justify-center shrink-0">
+                <TypeIcon className="w-5 h-5 text-ai-blue" />
               </div>
-              <h3 className="font-semibold text-foreground text-sm leading-snug line-clamp-2">
-                {appearance.title}
-              </h3>
+              <div className="flex-1 min-w-0">
+                <div className="flex items-center gap-2 mb-1 flex-wrap">
+                  <span className="text-xs font-semibold text-foreground">{appearance.outlet}</span>
+                  <Badge className={`text-xs border ${badgeColor}`}>{typeLabel}</Badge>
+                </div>
+                <h3 className="font-semibold text-foreground text-sm leading-snug line-clamp-2">
+                  {appearance.title}
+                </h3>
+              </div>
             </div>
-          </div>
-          <p className="text-xs text-muted-foreground leading-relaxed mb-3 line-clamp-3">
-            {appearance.description}
-          </p>
-          <div className="flex items-center justify-between">
-            <span className="text-xs text-muted-foreground flex items-center gap-1">
-              <Calendar className="w-3 h-3" />
-              {appearance.date}
-            </span>
-            {appearance.url !== "#" && (
-              <a
-                href={appearance.url}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-xs text-ai-blue hover:text-ai-blue/80 flex items-center gap-1 transition-colors"
-              >
-                {t("media.press.readArticle")}
-                <ExternalLink className="w-3 h-3" />
-              </a>
-            )}
+            <p className="text-xs text-muted-foreground leading-relaxed mb-3 line-clamp-3 flex-1">
+              {appearance.description}
+            </p>
+            <div className="flex items-center justify-between mt-auto">
+              <span className="text-xs text-muted-foreground flex items-center gap-1">
+                <Calendar className="w-3 h-3" />
+                {appearance.date}
+              </span>
+              {appearance.url !== "#" && (
+                <a
+                  href={appearance.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-xs text-ai-blue hover:text-ai-blue/80 flex items-center gap-1 transition-colors"
+                >
+                  {t("media.press.readArticle")}
+                  <ExternalLink className="w-3 h-3" />
+                </a>
+              )}
+            </div>
           </div>
         </div>
       </TiltCard>
