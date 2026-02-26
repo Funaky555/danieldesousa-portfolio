@@ -73,10 +73,10 @@ const tabColorMap = {
 } as const;
 
 const mediaTabs = [
-  { key: "articles", icon: FileText, color: "football-green" as const, label: "Artigos Futebol"      },
-  { key: "podcast",  icon: Mic,      color: "tech-purple" as const,    label: "Podcast"              },
-  { key: "press",    icon: Newspaper, color: "ai-blue" as const,       label: "Notícias Futebol"     },
-  { key: "sports",   icon: Trophy,   color: "energy-orange" as const,  label: "Notícias Desportivas" },
+  { key: "articles", icon: FileText, color: "football-green" as const, label: "Football Articles" },
+  { key: "podcast",  icon: Mic,      color: "tech-purple" as const,    label: "Podcast"           },
+  { key: "press",    icon: Newspaper, color: "ai-blue" as const,       label: "Football News"     },
+  { key: "sports",   icon: Trophy,   color: "energy-orange" as const,  label: "Sports News"       },
 ] as const;
 
 // ─── TiltCard ────────────────────────────────────────────────────────────────
