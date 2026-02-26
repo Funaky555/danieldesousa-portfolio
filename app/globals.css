@@ -146,12 +146,6 @@
     }
   }
 
-  /* Soccer ball rotation animation */
-  @keyframes ball-spin {
-    from { transform: rotate(0deg); }
-    to   { transform: rotate(360deg); }
-  }
-
   /* Animated gradient slide for header rainbow line */
   .animate-gradient-slide {
     animation: gradient-slide 4s linear infinite;
