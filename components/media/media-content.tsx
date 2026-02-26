@@ -207,24 +207,44 @@ function ChannelCard({ channel }: { channel: RecommendedChannel }) {
 function PodcastSection() {
   const t = useTranslations();
   return (
-    <div className="flex flex-col items-center gap-10 py-4">
-      {/* Coming soon note */}
+    <div className="flex flex-col gap-8">
+      {/* Banner em grande */}
       <motion.div
-        initial={{ opacity: 0, y: 10 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.4 }}
-        className="text-center"
+        initial={{ opacity: 0, scale: 0.98 }}
+        animate={{ opacity: 1, scale: 1 }}
+        transition={{ duration: 0.5 }}
+        className="relative w-full rounded-2xl overflow-hidden min-h-[240px] sm:min-h-[280px] flex items-center justify-center"
+        style={{
+          backgroundImage: "url('/images/backgrounds/green.png')",
+          backgroundSize: "cover",
+          backgroundPosition: "center",
+        }}
       >
-        <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-tech-purple/10 border border-tech-purple/20 text-tech-purple text-sm font-medium mb-3">
-          <Mic className="w-4 h-4" />
-          {t("media.podcast.comingSoon")}
+        {/* Overlay escuro */}
+        <div className="absolute inset-0 bg-background/80" />
+        {/* Glow ring */}
+        <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
+          <div className="w-64 h-64 rounded-full bg-tech-purple/10 blur-3xl" />
         </div>
-        <p className="text-sm text-muted-foreground max-w-sm">
-          {t("media.podcast.channelCta")}
-        </p>
+        {/* Content */}
+        <div className="relative z-10 flex flex-col items-center gap-5 py-12 text-center px-6">
+          <motion.div
+            animate={{ scale: [1, 1.06, 1] }}
+            transition={{ repeat: Infinity, duration: 3, ease: "easeInOut" }}
+            className="w-24 h-24 rounded-full bg-tech-purple/25 border-2 border-tech-purple/50 flex items-center justify-center shadow-[0_0_40px_rgba(139,92,246,0.3)]"
+          >
+            <Mic className="w-12 h-12 text-tech-purple" />
+          </motion.div>
+          <p className="text-2xl sm:text-3xl font-bold text-foreground">
+            {t("media.podcast.comingSoon")}
+          </p>
+        </div>
       </motion.div>
 
-      {/* Channel recommendation */}
+      {/* Canal recomendado */}
+      <p className="text-center text-sm text-muted-foreground -mb-2">
+        {t("media.podcast.channelCta")}
+      </p>
       {mediaContent.recommendedChannels.map((channel) => (
         <ChannelCard key={channel.id} channel={channel} />
       ))}
@@ -400,30 +420,6 @@ export function MediaContent() {
           <h1 className="text-2xl sm:text-4xl md:text-5xl font-bold text-foreground mb-4">
             {t("media.title")}
           </h1>
-          <p className="text-sm sm:text-xl text-muted-foreground leading-relaxed mb-6">
-            {t("media.subtitle")}
-          </p>
-          <div className="flex flex-wrap justify-center gap-2">
-            {(["football", "sports", "podcast", "press"] as const).map((badge, i) => {
-              const colors = [
-                "bg-football-green/15 text-football-green border-football-green/30",
-                "bg-energy-orange/15 text-energy-orange border-energy-orange/30",
-                "bg-tech-purple/15 text-tech-purple border-tech-purple/30",
-                "bg-ai-blue/15 text-ai-blue border-ai-blue/30",
-              ];
-              return (
-                <motion.span
-                  key={badge}
-                  initial={{ opacity: 0, scale: 0.9 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                  transition={{ delay: 0.3 + i * 0.08 }}
-                  className={`text-xs px-3 py-1 rounded-full border ${colors[i]}`}
-                >
-                  {t(`media.badges.${badge}`)}
-                </motion.span>
-              );
-            })}
-          </div>
         </motion.div>
 
         <div className="max-w-6xl mx-auto">
@@ -440,12 +436,9 @@ export function MediaContent() {
                     <TabsTrigger
                       key={key}
                       value={key}
-                      className={`glass flex items-center gap-2 px-3 sm:px-4 py-2.5 border rounded-lg transition-all duration-300 ${tc.inactiveBorder} ${tc.inactiveBg} ${tc.inactiveText} ${tc.hoverGlow} hover:border-opacity-50 ${tc.activeBg}`}
+                      className={`glass flex items-center justify-center px-4 py-3 border rounded-lg transition-all duration-300 ${tc.inactiveBorder} ${tc.inactiveBg} ${tc.inactiveText} ${tc.hoverGlow} ${tc.activeBg}`}
                     >
-                      <Icon className="w-4 h-4 shrink-0" />
-                      <span className="hidden sm:inline text-sm font-medium">
-                        {t(`media.tabs.${key}`)}
-                      </span>
+                      <Icon className="w-5 h-5" />
                     </TabsTrigger>
                   );
                 })}
@@ -479,7 +472,7 @@ export function MediaContent() {
               {/* Other Sports */}
               <TabsContent value="sports" className="mt-0">
                 <div className="glass rounded-xl border border-border/50 p-4 sm:p-6 md:p-8">
-                  <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                     {mediaContent.otherSportsArticles.map((article) => (
                       <ArticleCard key={article.id} article={article} />
                     ))}
