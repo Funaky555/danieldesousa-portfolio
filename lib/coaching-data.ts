@@ -1190,7 +1190,7 @@ export const softwareTools = [
         description: "Professional football video analysis software for match review and performance coding",
         icon: "Video",
         level: "Advanced",
-        logo: "/logos/longomatch.png",
+        logo: "/logos/longomatch.svg",
         logoBackground: "dark",
       },
       {
@@ -1211,7 +1211,8 @@ export const softwareTools = [
         description: "AI-powered assistant for training plan generation, report writing, and tactical idea brainstorming",
         icon: "Bot",
         level: "Daily Use",
-        logo: "https://cdn.simpleicons.org/openai/ffffff",
+        logo: "/logos/chatgpt.svg",
+        logoBackground: "dark",
       },
       {
         name: "Claude AI",
@@ -1266,7 +1267,8 @@ export const softwareTools = [
         description: "Word, PowerPoint and Excel for reports and presentations",
         icon: "FileText",
         level: "Daily Use",
-        logo: "https://cdn.simpleicons.org/microsoftoffice/ffffff",
+        logo: "/logos/office.svg",
+        logoBackground: "dark",
       },
       {
         name: "Discord",
@@ -1287,7 +1289,8 @@ export const softwareTools = [
         description: "Video conferencing for remote coaching sessions and international team meetings",
         icon: "Video",
         level: "Regular",
-        logo: "https://cdn.simpleicons.org/skype/ffffff",
+        logo: "/logos/skype.svg",
+        logoBackground: "dark",
       },
     ],
   },
