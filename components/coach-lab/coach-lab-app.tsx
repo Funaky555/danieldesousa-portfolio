@@ -135,6 +135,7 @@ export function CoachLabApp() {
   const drawStartRef     = useRef<Point | null>(null);
   const pendingHistoryRef = useRef<BoardSnapshot | null>(null);
   const historyRef       = useRef<BoardSnapshot[]>([]);
+  const hasMovedRef      = useRef(false);
 
   const activeToolRef  = useRef<Tool>("select");
   const fieldViewRef   = useRef<FieldView>("full");
@@ -186,6 +187,10 @@ export function CoachLabApp() {
   const [pendingTextValue, setPendingTextValue] = useState("");
   const [editingNameId, setEditingNameId] = useState<string | null>(null);
   const [editingNameValue, setEditingNameValue] = useState("");
+  const [teamAName, setTeamAName]         = useState("Team A");
+  const [teamBName, setTeamBName]         = useState("Team B");
+  const [editingTeamId, setEditingTeamId] = useState<"A" | "B" | null>(null);
+  const [editingTeamValue, setEditingTeamValue] = useState("");
   const [downloadUrl, setDownloadUrl]     = useState<string | null>(null);
   const [setPieceMode, setPieceModeState] = useState(false);
   const [editingInstrId, setEditingInstrId] = useState<string | null>(null);
@@ -390,6 +395,7 @@ export function CoachLabApp() {
     const { x, y } = toLogical(e.clientX, e.clientY);
 
     if (draggingRef.current) {
+      hasMovedRef.current = true;
       const clamped = { x: Math.max(0, Math.min(PITCH_W, x - draggingRef.current.offsetX)), y: Math.max(0, Math.min(PITCH_H, y - draggingRef.current.offsetY)) };
       if (draggingRef.current.type === "player") {
         const id = draggingRef.current.id;
@@ -400,6 +406,7 @@ export function CoachLabApp() {
     }
 
     if (draggingHandleRef.current) {
+      hasMovedRef.current = true;
       const { drawingId, handleIdx } = draggingHandleRef.current;
       setDrawings(prev => prev.map(d => {
         if (d.id !== drawingId) return d;
@@ -471,7 +478,8 @@ export function CoachLabApp() {
       drawStartRef.current = null;
     }
 
-    if (wasDragging || wasHandle) commitHistory();
+    if ((wasDragging || wasHandle) && hasMovedRef.current) commitHistory();
+    hasMovedRef.current = false;
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [currentDraw, commitHistory]);
 
@@ -724,16 +732,46 @@ export function CoachLabApp() {
   function TeamPanel({ team }: { team: "A" | "B" }) {
     const list = team === "A" ? teamA : teamB;
     const color = team === "A" ? BORDEAUX : OCEAN;
-    const label = team === "A" ? "Team A" : "Team B";
+    const label = team === "A" ? teamAName : teamBName;
     const isOpenTactic = openTacticTeam === team;
+    const isEditingTeam = editingTeamId === team;
 
     return (
       <div className="mb-3">
         {/* Team header */}
         <div className="flex items-center gap-1 mb-1 px-1">
-          <span className="text-xs font-bold" style={{ color }}>
-            {label}
-          </span>
+          {isEditingTeam ? (
+            <input
+              autoFocus
+              value={editingTeamValue}
+              onChange={e => setEditingTeamValue(e.target.value)}
+              onBlur={() => {
+                const v = editingTeamValue.trim() || (team === "A" ? "Team A" : "Team B");
+                team === "A" ? setTeamAName(v) : setTeamBName(v);
+                setEditingTeamId(null);
+              }}
+              onKeyDown={e => {
+                if (e.key === "Enter") {
+                  const v = editingTeamValue.trim() || (team === "A" ? "Team A" : "Team B");
+                  team === "A" ? setTeamAName(v) : setTeamBName(v);
+                  setEditingTeamId(null);
+                }
+                if (e.key === "Escape") setEditingTeamId(null);
+              }}
+              className="flex-1 min-w-0 text-xs font-bold px-1 py-0 rounded bg-card border border-primary outline-none"
+              style={{ color }}
+              placeholder={team === "A" ? "Team A" : "Team B"}
+            />
+          ) : (
+            <button
+              className="text-xs font-bold hover:opacity-70 transition-opacity text-left"
+              style={{ color }}
+              title="Click to rename"
+              onClick={() => { setEditingTeamId(team); setEditingTeamValue(label); }}
+            >
+              {label} ✎
+            </button>
+          )}
           <button
             onClick={() => resetToBorder(team)}
             className="ml-auto text-[9px] px-1 py-0.5 rounded bg-secondary/40 text-muted-foreground hover:text-foreground border border-border/30 transition-colors"
@@ -1188,7 +1226,7 @@ export function CoachLabApp() {
                   </div>
 
                   {/* Team A */}
-                  <p className="text-[9px] text-muted-foreground/60 mt-1">Team A</p>
+                  <p className="text-[9px] text-muted-foreground/60 mt-1">{teamAName}</p>
                   {teamA.map(p => (
                     <div key={p.id} className="flex items-center gap-1">
                       <button
@@ -1213,7 +1251,7 @@ export function CoachLabApp() {
                   ))}
 
                   {/* Team B */}
-                  <p className="text-[9px] text-muted-foreground/60 mt-1">Team B</p>
+                  <p className="text-[9px] text-muted-foreground/60 mt-1">{teamBName}</p>
                   {teamB.map(p => (
                     <div key={p.id} className="flex items-center gap-1">
                       <button

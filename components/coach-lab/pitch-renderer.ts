@@ -79,12 +79,14 @@ export function logicalToCanvas(lx: number, ly: number, canvas: HTMLCanvasElemen
   };
 }
 
-// ─── Player radius — constant visual size across all views ────────────────────
+// ─── Player radius — scales with view so pins stay proportional to field ─────
 export function getPlayerRadius(canvas: HTMLCanvasElement, view: FieldView): number {
   const { viewW } = getViewBounds(view);
   const dpr = Math.min(window.devicePixelRatio || 1, 2);
   const displayW = canvas.width / dpr;
-  return Math.max(8, (13 * viewW) / displayW);
+  // Base size ~14px at full pitch; scales up in zoomed views (corner/area)
+  // so players are visually proportional to the field area shown.
+  return Math.max(5, (14 * viewW) / displayW);
 }
 
 // ─── Pitch drawing ────────────────────────────────────────────────────────────
@@ -186,7 +188,7 @@ export function drawPlayers(
       ctx.restore();
     }
 
-    // Drop shadow + fill (no border)
+    // Drop shadow + fill + crisp outline
     ctx.save();
     ctx.shadowColor = 'rgba(0,0,0,0.55)';
     ctx.shadowBlur = R * 0.5;
@@ -196,6 +198,14 @@ export function drawPlayers(
     ctx.arc(x, y, R, 0, Math.PI * 2);
     ctx.fillStyle = fillColor;
     ctx.fill();
+    ctx.restore();
+    // Crisp border for sharpness
+    ctx.save();
+    ctx.beginPath();
+    ctx.arc(x, y, R, 0, Math.PI * 2);
+    ctx.strokeStyle = 'rgba(255,255,255,0.25)';
+    ctx.lineWidth = Math.max(0.8, R * 0.08);
+    ctx.stroke();
     ctx.restore();
 
     // Photo or number text
