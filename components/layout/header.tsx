@@ -15,6 +15,7 @@ const navigationKeys = [
   { key: "philosophy", href: "/philosophy", color: "#8B5CF6" },
   { key: "experience", href: "/experience", color: "#FF6B35" },
   { key: "services", href: "/services", color: "#14B8A6" },
+  { key: "coachlab", href: "/coach-lab", color: "#10B981" },
   { key: "software", href: "/software", color: "#F43F5E" },
   { key: "media", href: "/media", color: "#CC8A00" },
   { key: "contact", href: "/contact", color: "#EF4444" },
