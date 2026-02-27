@@ -54,12 +54,7 @@ const toolKeyMap: Record<string, string> = {
 
 // Colored initials for tools without logos
 const toolInitials: Record<string, { letters: string; bg: string; text: string }> = {
-  "LongoMatch": { letters: "LM", bg: "bg-energy-orange/20", text: "text-energy-orange" },
-  "Coach Paint": { letters: "CP", bg: "bg-orange-500/20", text: "text-orange-400" },
   "eASYmUSIC ai": { letters: "eM", bg: "bg-tech-purple/20", text: "text-tech-purple" },
-  "Wyscout": { letters: "WS", bg: "bg-football-green/20", text: "text-football-green" },
-  "Instat": { letters: "IN", bg: "bg-ai-blue/20", text: "text-ai-blue" },
-  "Football Manager": { letters: "FM", bg: "bg-emerald-500/20", text: "text-emerald-400" },
 };
 
 // Map levels to translation keys
@@ -76,6 +71,7 @@ interface Tool {
   icon: string;
   level: string;
   logo?: string | null;
+  logoBackground?: string | null;
 }
 
 export function ToolCard({ tool }: { tool: Tool }) {
@@ -89,7 +85,7 @@ export function ToolCard({ tool }: { tool: Tool }) {
     <Card className="border-border/50 hover:border-primary/50 transition-all hover:scale-[1.02] hover:shadow-lg">
       <CardContent className="p-6">
         <div className="flex items-start justify-between mb-3">
-          <div className="w-10 h-10 rounded-lg bg-secondary flex items-center justify-center overflow-hidden flex-shrink-0">
+          <div className={`w-10 h-10 rounded-lg flex items-center justify-center overflow-hidden flex-shrink-0 ${tool.logo && tool.logoBackground === "white" ? "bg-white p-1" : "bg-secondary"}`}>
             {tool.logo ? (
               // eslint-disable-next-line @next/next/no-img-element
               <img
@@ -97,7 +93,7 @@ export function ToolCard({ tool }: { tool: Tool }) {
                 alt={tool.name}
                 width={24}
                 height={24}
-                className="w-6 h-6 object-contain"
+                className="w-full h-full object-contain"
               />
             ) : initials ? (
               <span className={`text-xs font-bold ${initials.text}`}>
