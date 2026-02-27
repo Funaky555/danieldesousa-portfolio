@@ -1,74 +1,66 @@
-import type { Player, Ball, Drawing, Point, Tool, FieldView, ViewBounds } from './types';
+import type { Player, Ball, Drawing, Point, FieldView, ViewBounds, Movement, RenderOptions } from './types';
 
-// Logical pitch dimensions
+// ─── Pitch dimensions (logical units) ────────────────────────────────────────
 export const PITCH_W = 1050;
 export const PITCH_H = 680;
 
-// Field boundaries (15px margin on all sides)
-const PL = 15;  // pitch left
-const PR = 1035; // pitch right
-const PT = 15;  // pitch top
-const PB = 665; // pitch bottom
-
-// Derived constants
+const PL = 15;
+const PR = 1035;
+const PT = 15;
+const PB = 665;
 const CENTER_X = 525;
 const CENTER_Y = 340;
-const CENTER_CIRCLE_R = 88;   // 9.15m scaled
-const PENALTY_DEPTH = 160;     // 16.5m from goal line
-const PENALTY_HEIGHT = 386;    // 40.32m wide (half = 193)
-const GOAL_AREA_DEPTH = 53;    // 5.5m
-const GOAL_AREA_HEIGHT = 174;  // 18.32m wide (half = 87)
-const PENALTY_SPOT_OFFSET = 107; // 11m
+const CENTER_CIRCLE_R = 88;
+const PENALTY_DEPTH = 160;
+const PENALTY_HEIGHT = 386;
+const GOAL_AREA_DEPTH = 53;
+const GOAL_AREA_HEIGHT = 174;
+const PENALTY_SPOT_OFFSET = 107;
 const CORNER_R = 10;
-const PLAYER_R = 18;
 const BALL_R = 12;
-const PENALTY_ARC_ANGLE = Math.acos(53 / 88); // ~52.7°
-const GOAL_HALF = 35; // half goal width (7m ≈ 70px, so 35 each side)
-const GOAL_DEPTH = 15; // visual goal depth
+const PENALTY_ARC_ANGLE = Math.acos(53 / 88);
+const GOAL_HALF = 35;
+const GOAL_DEPTH = 15;
 
+// ─── Team colors ─────────────────────────────────────────────────────────────
+export const BORDEAUX      = '#7B1E3C';
+export const BORDEAUX_GK   = '#4A0F22';
+export const OCEAN         = '#0A3060';
+export const OCEAN_GK      = '#051E3E';
+export const SELECTED_GLOW = '#FFD700';
+
+// ─── View bounds ─────────────────────────────────────────────────────────────
 export function getViewBounds(view: FieldView): ViewBounds {
   switch (view) {
-    case 'full':       return { viewX: 0,   viewY: 0,   viewW: PITCH_W,   viewH: PITCH_H };
-    case 'half-left':  return { viewX: 0,   viewY: 0,   viewW: PITCH_W/2, viewH: PITCH_H };
-    case 'half-right': return { viewX: PITCH_W/2, viewY: 0, viewW: PITCH_W/2, viewH: PITCH_H };
-    case 'area-left':  return { viewX: 0,   viewY: 130, viewW: 400, viewH: 420 };
-    case 'area-right': return { viewX: 650, viewY: 130, viewW: 400, viewH: 420 };
+    case 'full':        return { viewX: 0,          viewY: 0,   viewW: PITCH_W,     viewH: PITCH_H };
+    case 'half-left':   return { viewX: 0,          viewY: 0,   viewW: PITCH_W / 2, viewH: PITCH_H };
+    case 'half-right':  return { viewX: PITCH_W / 2, viewY: 0,  viewW: PITCH_W / 2, viewH: PITCH_H };
+    case 'area-left':   return { viewX: 0,           viewY: 130, viewW: 400,        viewH: 420 };
+    case 'area-right':  return { viewX: 650,          viewY: 130, viewW: 400,        viewH: 420 };
+    case 'futsal':      return { viewX: 190,          viewY: 80,  viewW: 670,        viewH: 520 };
+    case 'five-aside':  return { viewX: 260,          viewY: 140, viewW: 530,        viewH: 400 };
+    case 'seven-aside': return { viewX: 130,          viewY: 60,  viewW: 790,        viewH: 560 };
   }
 }
 
-export function setupTransform(
-  ctx: CanvasRenderingContext2D,
-  canvas: HTMLCanvasElement,
-  view: FieldView,
-) {
+export function setupTransform(ctx: CanvasRenderingContext2D, canvas: HTMLCanvasElement, view: FieldView) {
   const { viewX, viewY, viewW, viewH } = getViewBounds(view);
   const w = canvas.width;
   const h = canvas.height;
   ctx.setTransform(w / viewW, 0, 0, h / viewH, -viewX * (w / viewW), -viewY * (h / viewH));
 }
 
-export function canvasToLogical(
-  clientX: number,
-  clientY: number,
-  canvas: HTMLCanvasElement,
-  view: FieldView,
-): Point {
+// ─── Coordinate conversion ────────────────────────────────────────────────────
+export function canvasToLogical(clientX: number, clientY: number, canvas: HTMLCanvasElement, view: FieldView): Point {
   const rect = canvas.getBoundingClientRect();
-  const relX = clientX - rect.left;
-  const relY = clientY - rect.top;
   const { viewX, viewY, viewW, viewH } = getViewBounds(view);
   return {
-    x: viewX + (relX / rect.width) * viewW,
-    y: viewY + (relY / rect.height) * viewH,
+    x: viewX + ((clientX - rect.left) / rect.width) * viewW,
+    y: viewY + ((clientY - rect.top) / rect.height) * viewH,
   };
 }
 
-export function logicalToCanvas(
-  lx: number,
-  ly: number,
-  canvas: HTMLCanvasElement,
-  view: FieldView,
-): Point {
+export function logicalToCanvas(lx: number, ly: number, canvas: HTMLCanvasElement, view: FieldView): Point {
   const { viewX, viewY, viewW, viewH } = getViewBounds(view);
   const rect = canvas.getBoundingClientRect();
   return {
@@ -77,225 +69,185 @@ export function logicalToCanvas(
   };
 }
 
-export function drawPitch(
-  ctx: CanvasRenderingContext2D,
-  lightMode: boolean,
-  showZones: boolean,
-) {
+// ─── Player radius — constant visual size across all views ────────────────────
+export function getPlayerRadius(canvas: HTMLCanvasElement, view: FieldView): number {
+  const { viewW } = getViewBounds(view);
+  const dpr = Math.min(window.devicePixelRatio || 1, 2);
+  const displayW = canvas.width / dpr;
+  return Math.max(8, (13 * viewW) / displayW);
+}
+
+// ─── Pitch drawing ────────────────────────────────────────────────────────────
+export function drawPitch(ctx: CanvasRenderingContext2D, lightMode: boolean, showZones: boolean) {
   const green1 = lightMode ? '#5a9e4a' : '#1f5c32';
   const green2 = lightMode ? '#4f8e40' : '#1a4f2b';
   const lineColor = 'rgba(255,255,255,0.9)';
   const lw = 2;
 
-  // Alternating grass stripes
-  const stripeW = PITCH_W / 10;
   for (let i = 0; i < 10; i++) {
     ctx.fillStyle = i % 2 === 0 ? green1 : green2;
-    ctx.fillRect(i * stripeW, 0, stripeW, PITCH_H);
+    ctx.fillRect(i * (PITCH_W / 10), 0, PITCH_W / 10, PITCH_H);
   }
 
   ctx.strokeStyle = lineColor;
   ctx.lineWidth = lw;
-
-  // Outer boundary
   ctx.strokeRect(PL, PT, PR - PL, PB - PT);
-
-  // Center line
-  ctx.beginPath();
-  ctx.moveTo(CENTER_X, PT);
-  ctx.lineTo(CENTER_X, PB);
-  ctx.stroke();
-
-  // Center circle
-  ctx.beginPath();
-  ctx.arc(CENTER_X, CENTER_Y, CENTER_CIRCLE_R, 0, Math.PI * 2);
-  ctx.stroke();
-
-  // Center spot
+  ctx.beginPath(); ctx.moveTo(CENTER_X, PT); ctx.lineTo(CENTER_X, PB); ctx.stroke();
+  ctx.beginPath(); ctx.arc(CENTER_X, CENTER_Y, CENTER_CIRCLE_R, 0, Math.PI * 2); ctx.stroke();
   ctx.fillStyle = lineColor;
-  ctx.beginPath();
-  ctx.arc(CENTER_X, CENTER_Y, 3, 0, Math.PI * 2);
-  ctx.fill();
+  ctx.beginPath(); ctx.arc(CENTER_X, CENTER_Y, 3, 0, Math.PI * 2); ctx.fill();
 
-  // --- LEFT SIDE ---
-  const leftPenaltyX = PL + PENALTY_DEPTH;
-  const leftPenaltyTop = CENTER_Y - PENALTY_HEIGHT / 2;
-  const leftGoalAreaX = PL + GOAL_AREA_DEPTH;
-  const leftGoalAreaTop = CENTER_Y - GOAL_AREA_HEIGHT / 2;
+  // Left side
   const leftSpotX = PL + PENALTY_SPOT_OFFSET;
-
-  // Left penalty area
-  ctx.strokeRect(PL, leftPenaltyTop, PENALTY_DEPTH, PENALTY_HEIGHT);
-  // Left goal area
-  ctx.strokeRect(PL, leftGoalAreaTop, GOAL_AREA_DEPTH, GOAL_AREA_HEIGHT);
-  // Left penalty spot
+  ctx.strokeRect(PL, CENTER_Y - PENALTY_HEIGHT / 2, PENALTY_DEPTH, PENALTY_HEIGHT);
+  ctx.strokeRect(PL, CENTER_Y - GOAL_AREA_HEIGHT / 2, GOAL_AREA_DEPTH, GOAL_AREA_HEIGHT);
   ctx.fillStyle = lineColor;
-  ctx.beginPath();
-  ctx.arc(leftSpotX, CENTER_Y, 3, 0, Math.PI * 2);
-  ctx.fill();
-  // Left penalty arc (portion outside penalty area)
-  ctx.beginPath();
-  ctx.arc(leftSpotX, CENTER_Y, CENTER_CIRCLE_R, -PENALTY_ARC_ANGLE, PENALTY_ARC_ANGLE);
-  ctx.stroke();
-
-  // Left goal (in margin, extends to left edge)
+  ctx.beginPath(); ctx.arc(leftSpotX, CENTER_Y, 3, 0, Math.PI * 2); ctx.fill();
+  ctx.beginPath(); ctx.arc(leftSpotX, CENTER_Y, CENTER_CIRCLE_R, -PENALTY_ARC_ANGLE, PENALTY_ARC_ANGLE); ctx.stroke();
   ctx.fillStyle = 'rgba(255,255,255,0.15)';
   ctx.fillRect(0, CENTER_Y - GOAL_HALF, GOAL_DEPTH, GOAL_HALF * 2);
-  ctx.strokeStyle = 'rgba(255,255,255,0.8)';
-  ctx.lineWidth = 1.5;
+  ctx.strokeStyle = 'rgba(255,255,255,0.8)'; ctx.lineWidth = 1.5;
   ctx.strokeRect(0, CENTER_Y - GOAL_HALF, GOAL_DEPTH, GOAL_HALF * 2);
-  ctx.lineWidth = lw;
-  ctx.strokeStyle = lineColor;
+  ctx.lineWidth = lw; ctx.strokeStyle = lineColor;
 
-  // --- RIGHT SIDE ---
-  const rightPenaltyX = PR - PENALTY_DEPTH;
-  const rightPenaltyTop = leftPenaltyTop;
-  const rightGoalAreaX = PR - GOAL_AREA_DEPTH;
-  const rightGoalAreaTop = leftGoalAreaTop;
+  // Right side
   const rightSpotX = PR - PENALTY_SPOT_OFFSET;
-
-  // Right penalty area
-  ctx.strokeRect(rightPenaltyX, rightPenaltyTop, PENALTY_DEPTH, PENALTY_HEIGHT);
-  // Right goal area
-  ctx.strokeRect(rightGoalAreaX, rightGoalAreaTop, GOAL_AREA_DEPTH, GOAL_AREA_HEIGHT);
-  // Right penalty spot
+  ctx.strokeRect(PR - PENALTY_DEPTH, CENTER_Y - PENALTY_HEIGHT / 2, PENALTY_DEPTH, PENALTY_HEIGHT);
+  ctx.strokeRect(PR - GOAL_AREA_DEPTH, CENTER_Y - GOAL_AREA_HEIGHT / 2, GOAL_AREA_DEPTH, GOAL_AREA_HEIGHT);
   ctx.fillStyle = lineColor;
-  ctx.beginPath();
-  ctx.arc(rightSpotX, CENTER_Y, 3, 0, Math.PI * 2);
-  ctx.fill();
-  // Right penalty arc
-  ctx.beginPath();
-  ctx.arc(rightSpotX, CENTER_Y, CENTER_CIRCLE_R, Math.PI - PENALTY_ARC_ANGLE, Math.PI + PENALTY_ARC_ANGLE);
-  ctx.stroke();
-
-  // Right goal
+  ctx.beginPath(); ctx.arc(rightSpotX, CENTER_Y, 3, 0, Math.PI * 2); ctx.fill();
+  ctx.beginPath(); ctx.arc(rightSpotX, CENTER_Y, CENTER_CIRCLE_R, Math.PI - PENALTY_ARC_ANGLE, Math.PI + PENALTY_ARC_ANGLE); ctx.stroke();
   ctx.fillStyle = 'rgba(255,255,255,0.15)';
   ctx.fillRect(PR, CENTER_Y - GOAL_HALF, GOAL_DEPTH, GOAL_HALF * 2);
-  ctx.strokeStyle = 'rgba(255,255,255,0.8)';
-  ctx.lineWidth = 1.5;
+  ctx.strokeStyle = 'rgba(255,255,255,0.8)'; ctx.lineWidth = 1.5;
   ctx.strokeRect(PR, CENTER_Y - GOAL_HALF, GOAL_DEPTH, GOAL_HALF * 2);
-  ctx.lineWidth = lw;
-  ctx.strokeStyle = lineColor;
+  ctx.lineWidth = lw; ctx.strokeStyle = lineColor;
 
-  // --- CORNER ARCS ---
-  ctx.beginPath(); ctx.arc(PL,  PT,  CORNER_R, 0,          Math.PI / 2); ctx.stroke();
-  ctx.beginPath(); ctx.arc(PR,  PT,  CORNER_R, Math.PI / 2, Math.PI);    ctx.stroke();
-  ctx.beginPath(); ctx.arc(PL,  PB,  CORNER_R, -Math.PI / 2, 0);         ctx.stroke();
-  ctx.beginPath(); ctx.arc(PR,  PB,  CORNER_R, -Math.PI,     -Math.PI/2); ctx.stroke();
+  // Corner arcs
+  ctx.beginPath(); ctx.arc(PL, PT, CORNER_R, 0, Math.PI / 2); ctx.stroke();
+  ctx.beginPath(); ctx.arc(PR, PT, CORNER_R, Math.PI / 2, Math.PI); ctx.stroke();
+  ctx.beginPath(); ctx.arc(PL, PB, CORNER_R, -Math.PI / 2, 0); ctx.stroke();
+  ctx.beginPath(); ctx.arc(PR, PB, CORNER_R, -Math.PI, -Math.PI / 2); ctx.stroke();
 
-  // --- ZONE LABELS ---
   if (showZones) {
-    ctx.fillStyle = 'rgba(255,255,255,0.25)';
+    ctx.fillStyle = 'rgba(255,255,255,0.20)';
     ctx.font = 'bold 28px Inter, system-ui, sans-serif';
-    ctx.textAlign = 'center';
-    ctx.textBaseline = 'middle';
+    ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
     ctx.fillText('DEF', CENTER_X * 0.4, CENTER_Y);
     ctx.fillText('MID', CENTER_X, CENTER_Y);
     ctx.fillText('ATK', CENTER_X * 1.6, CENTER_Y);
-    ctx.textBaseline = 'alphabetic';
+    ctx.textBaseline = 'alphabetic'; ctx.textAlign = 'left';
   }
 }
 
+// ─── Players drawing ──────────────────────────────────────────────────────────
 export function drawPlayers(
   ctx: CanvasRenderingContext2D,
+  canvas: HTMLCanvasElement,
+  view: FieldView,
   players: Player[],
   selectedId: string | null,
   showNames: boolean,
+  imageCache: Map<string, HTMLImageElement>,
 ) {
+  const R = getPlayerRadius(canvas, view);
+  const fontSize = Math.max(9, R * 0.82);
+
   for (const player of players) {
     if (!player.visible) continue;
-    const { x, y, team, type, number, name, id } = player;
+    const { x, y, team, type, number, name, id, photo } = player;
+    const isSelected = id === selectedId;
 
-    let fillColor: string;
-    let textColor: string;
-    let borderColor: string;
+    const fillColor = type === 'goalkeeper'
+      ? (team === 'A' ? BORDEAUX_GK : OCEAN_GK)
+      : (team === 'A' ? BORDEAUX : OCEAN);
 
-    if (type === 'goalkeeper') {
-      if (team === 'A') {
-        fillColor = '#f0f4ff';
-        textColor = '#0055dd';
-        borderColor = '#0066FF';
-      } else {
-        fillColor = '#111111';
-        textColor = '#ffffff';
-        borderColor = '#EF4444';
-      }
-    } else {
-      if (team === 'A') {
-        fillColor = '#0066FF';
-        textColor = '#ffffff';
-        borderColor = 'rgba(255,255,255,0.8)';
-      } else {
-        fillColor = '#EF4444';
-        textColor = '#ffffff';
-        borderColor = 'rgba(255,255,255,0.8)';
-      }
+    // Selection glow ring
+    if (isSelected) {
+      ctx.save();
+      ctx.shadowColor = SELECTED_GLOW;
+      ctx.shadowBlur = R * 2.2;
+      ctx.beginPath();
+      ctx.arc(x, y, R + 2, 0, Math.PI * 2);
+      ctx.fillStyle = SELECTED_GLOW;
+      ctx.globalAlpha = 0.5;
+      ctx.fill();
+      ctx.restore();
     }
 
-    // Shadow
-    ctx.shadowColor = 'rgba(0,0,0,0.5)';
-    ctx.shadowBlur = 6;
-    ctx.shadowOffsetX = 2;
-    ctx.shadowOffsetY = 2;
-
-    // Fill
+    // Drop shadow + fill (no border)
+    ctx.save();
+    ctx.shadowColor = 'rgba(0,0,0,0.55)';
+    ctx.shadowBlur = R * 0.5;
+    ctx.shadowOffsetX = R * 0.15;
+    ctx.shadowOffsetY = R * 0.18;
     ctx.beginPath();
-    ctx.arc(x, y, PLAYER_R, 0, Math.PI * 2);
+    ctx.arc(x, y, R, 0, Math.PI * 2);
     ctx.fillStyle = fillColor;
     ctx.fill();
+    ctx.restore();
 
-    ctx.shadowColor = 'transparent';
-    ctx.shadowBlur = 0;
+    // Photo or number text
+    const img = photo ? imageCache.get(id) : null;
+    if (img && img.complete && img.naturalWidth > 0) {
+      ctx.save();
+      ctx.beginPath();
+      ctx.arc(x, y, R, 0, Math.PI * 2);
+      ctx.clip();
+      ctx.drawImage(img, x - R, y - R, R * 2, R * 2);
+      ctx.restore();
+    } else {
+      if (type === 'goalkeeper') {
+        ctx.fillStyle = 'rgba(255,255,255,0.45)';
+        ctx.beginPath();
+        ctx.arc(x, y - R * 0.52, R * 0.22, 0, Math.PI * 2);
+        ctx.fill();
+      }
+      ctx.fillStyle = 'rgba(255,255,255,0.92)';
+      ctx.font = `bold ${fontSize}px Inter, system-ui, sans-serif`;
+      ctx.textAlign = 'center';
+      ctx.textBaseline = 'middle';
+      ctx.fillText(String(number), x, type === 'goalkeeper' ? y + R * 0.18 : y);
+    }
 
-    // Border
-    ctx.lineWidth = id === selectedId ? 3 : 2;
-    ctx.strokeStyle = id === selectedId ? '#FFD700' : borderColor;
-    ctx.stroke();
-
-    // Number
-    ctx.fillStyle = textColor;
-    ctx.font = `bold 13px Inter, system-ui, sans-serif`;
-    ctx.textAlign = 'center';
-    ctx.textBaseline = 'middle';
-    ctx.fillText(String(number), x, y);
-
-    // Name label
+    // Name below pin
     if (showNames && name) {
-      ctx.fillStyle = 'rgba(255,255,255,0.95)';
-      ctx.font = `10px Inter, system-ui, sans-serif`;
-      ctx.fillText(name, x, y + PLAYER_R + 10);
+      ctx.fillStyle = 'rgba(255,255,255,0.88)';
+      ctx.font = `${Math.max(7, fontSize * 0.78)}px Inter, system-ui, sans-serif`;
+      ctx.textAlign = 'center';
+      ctx.textBaseline = 'top';
+      ctx.fillText(name, x, y + R + 3);
+      ctx.textBaseline = 'alphabetic';
     }
   }
   ctx.textBaseline = 'alphabetic';
+  ctx.textAlign = 'left';
 }
 
+// ─── Ball ─────────────────────────────────────────────────────────────────────
 export function drawBall(ctx: CanvasRenderingContext2D, ball: Ball) {
   const { x, y } = ball;
-
-  ctx.shadowColor = 'rgba(0,0,0,0.6)';
-  ctx.shadowBlur = 5;
+  ctx.save();
+  ctx.shadowColor = 'rgba(0,0,0,0.7)';
+  ctx.shadowBlur = 6;
   ctx.shadowOffsetX = 2;
   ctx.shadowOffsetY = 2;
-
   ctx.beginPath();
   ctx.arc(x, y, BALL_R, 0, Math.PI * 2);
   ctx.fillStyle = '#ffffff';
   ctx.fill();
-  ctx.strokeStyle = '#333333';
-  ctx.lineWidth = 1;
+  ctx.strokeStyle = '#111111';
+  ctx.lineWidth = 1.2;
   ctx.stroke();
+  ctx.restore();
 
-  ctx.shadowColor = 'transparent';
-  ctx.shadowBlur = 0;
-
-  // Simplified football pattern
-  ctx.fillStyle = '#1a1a1a';
+  ctx.fillStyle = '#111111';
   const patches: [number, number, number][] = [
-    [x, y - 5, 3.5],
-    [x + 6.5, y + 4, 2.5],
-    [x - 6.5, y + 4, 2.5],
-    [x + 4, y - 7, 2],
-    [x - 4, y - 7, 2],
+    [x,       y - 4.5, 3.2],
+    [x + 6,   y + 3,   2.4],
+    [x - 6,   y + 3,   2.4],
+    [x + 3.8, y - 6.5, 1.8],
+    [x - 3.8, y - 6.5, 1.8],
   ];
   for (const [px, py, pr] of patches) {
     ctx.beginPath();
@@ -304,41 +256,55 @@ export function drawBall(ctx: CanvasRenderingContext2D, ball: Ball) {
   }
 }
 
-function drawArrowHead(
-  ctx: CanvasRenderingContext2D,
-  from: Point,
-  to: Point,
-  size = 14,
-) {
-  const angle = Math.atan2(to.y - from.y, to.x - from.x);
-  ctx.beginPath();
-  ctx.moveTo(to.x, to.y);
-  ctx.lineTo(
-    to.x - size * Math.cos(angle - Math.PI / 6),
-    to.y - size * Math.sin(angle - Math.PI / 6),
-  );
-  ctx.lineTo(
-    to.x - size * Math.cos(angle + Math.PI / 6),
-    to.y - size * Math.sin(angle + Math.PI / 6),
-  );
-  ctx.closePath();
-  ctx.fill();
+// ─── Shape helpers ────────────────────────────────────────────────────────────
+function computeCurvedCP(start: Point, end: Point): Point {
+  const mx = (start.x + end.x) / 2;
+  const my = (start.y + end.y) / 2;
+  const dx = end.x - start.x;
+  const dy = end.y - start.y;
+  const len = Math.hypot(dx, dy) || 1;
+  return { x: mx - (dy / len) * 70, y: my + (dx / len) * 70 };
 }
 
+function computeTrianglePts(start: Point, end: Point): [Point, Point, Point] {
+  return [
+    { x: (start.x + end.x) / 2, y: start.y },
+    { x: start.x, y: end.y },
+    { x: end.x,   y: end.y },
+  ];
+}
+
+function drawArrowHead(ctx: CanvasRenderingContext2D, from: Point, to: Point, size = 13) {
+  const angle = Math.atan2(to.y - from.y, to.x - from.x);
+  ctx.save();
+  ctx.beginPath();
+  ctx.moveTo(to.x, to.y);
+  ctx.lineTo(to.x - size * Math.cos(angle - Math.PI / 6), to.y - size * Math.sin(angle - Math.PI / 6));
+  ctx.lineTo(to.x - size * Math.cos(angle + Math.PI / 6), to.y - size * Math.sin(angle + Math.PI / 6));
+  ctx.closePath();
+  ctx.fill();
+  ctx.restore();
+}
+
+// ─── Shape drawing ────────────────────────────────────────────────────────────
 export function drawShape(
   ctx: CanvasRenderingContext2D,
   tool: Drawing['tool'],
   start: Point,
   end: Point,
   color: string,
+  filled = false,
+  strokeWidth = 2.5,
+  text = '',
+  points?: Point[],
   isPreview = false,
 ) {
   ctx.save();
   ctx.strokeStyle = color;
   ctx.fillStyle = color;
-  ctx.lineWidth = isPreview ? 2 : 2.5;
+  ctx.lineWidth = strokeWidth;
   ctx.setLineDash([]);
-  if (isPreview) ctx.globalAlpha = 0.65;
+  if (isPreview) ctx.globalAlpha = 0.55;
 
   switch (tool) {
     case 'line': {
@@ -363,62 +329,268 @@ export function drawShape(
       ctx.lineTo(end.x, end.y);
       ctx.stroke();
       ctx.setLineDash([]);
+      drawArrowHead(ctx, start, end, 11);
+      break;
+    }
+    case 'curved-arrow': {
+      const cp = points?.[0] ?? computeCurvedCP(start, end);
+      ctx.beginPath();
+      ctx.moveTo(start.x, start.y);
+      ctx.quadraticCurveTo(cp.x, cp.y, end.x, end.y);
+      ctx.stroke();
+      drawArrowHead(ctx, cp, end, 12);
+      break;
+    }
+    case 'double-arrow': {
+      ctx.beginPath();
+      ctx.moveTo(start.x, start.y);
+      ctx.lineTo(end.x, end.y);
+      ctx.stroke();
       drawArrowHead(ctx, start, end, 12);
+      drawArrowHead(ctx, end, start, 12);
+      break;
+    }
+    case 'wavy-arrow': {
+      const dx = end.x - start.x;
+      const dy = end.y - start.y;
+      const len = Math.hypot(dx, dy) || 1;
+      const ux = dx / len;
+      const uy = dy / len;
+      const AMP = 7;
+      const STEPS = Math.ceil(len);
+      ctx.beginPath();
+      ctx.moveTo(start.x, start.y);
+      for (let i = 1; i <= STEPS; i++) {
+        const t = i / STEPS;
+        const wave = Math.sin(t * len * 0.09 * Math.PI * 2) * AMP;
+        ctx.lineTo(start.x + t * dx + wave * (-uy), start.y + t * dy + wave * ux);
+      }
+      ctx.stroke();
+      drawArrowHead(ctx, { x: end.x - 20 * ux, y: end.y - 20 * uy }, end, 13);
       break;
     }
     case 'triangle': {
-      const mx = (start.x + end.x) / 2;
+      const [p0, p1, p2] = (points?.length === 3 ? points : computeTrianglePts(start, end)) as [Point, Point, Point];
       ctx.beginPath();
-      ctx.moveTo(mx, start.y);
-      ctx.lineTo(start.x, end.y);
-      ctx.lineTo(end.x, end.y);
+      ctx.moveTo(p0.x, p0.y);
+      ctx.lineTo(p1.x, p1.y);
+      ctx.lineTo(p2.x, p2.y);
       ctx.closePath();
+      if (filled) {
+        ctx.save(); ctx.globalAlpha = (ctx.globalAlpha ?? 1) * 0.45; ctx.fill(); ctx.restore();
+      }
       ctx.stroke();
       break;
     }
     case 'rect': {
+      const w = end.x - start.x;
+      const h = end.y - start.y;
+      if (filled) {
+        ctx.save(); ctx.globalAlpha = (ctx.globalAlpha ?? 1) * 0.3; ctx.fillRect(start.x, start.y, w, h); ctx.restore();
+      }
+      ctx.strokeRect(start.x, start.y, w, h);
+      break;
+    }
+    case 'circle': {
+      const cx = (start.x + end.x) / 2;
+      const cy = (start.y + end.y) / 2;
+      const rx = Math.abs(end.x - start.x) / 2;
+      const ry = Math.abs(end.y - start.y) / 2;
       ctx.beginPath();
-      ctx.strokeRect(start.x, start.y, end.x - start.x, end.y - start.y);
+      ctx.ellipse(cx, cy, rx || 1, ry || 1, 0, 0, Math.PI * 2);
+      if (filled) {
+        ctx.save(); ctx.globalAlpha = (ctx.globalAlpha ?? 1) * 0.3; ctx.fill(); ctx.restore();
+      }
+      ctx.stroke();
+      break;
+    }
+    case 'zone': {
+      const w = end.x - start.x;
+      const h = end.y - start.y;
+      ctx.save();
+      ctx.globalAlpha = isPreview ? 0.2 : 0.28;
+      ctx.fillRect(start.x, start.y, w, h);
+      ctx.restore();
+      ctx.save();
+      ctx.setLineDash([6, 4]);
+      ctx.strokeRect(start.x, start.y, w, h);
+      ctx.restore();
+      break;
+    }
+    case 'text': {
+      if (text) {
+        const sz = Math.max(12, 14 * ((strokeWidth ?? 2.5) / 2.5));
+        ctx.fillStyle = color;
+        ctx.font = `bold ${sz}px Inter, system-ui, sans-serif`;
+        ctx.textBaseline = 'middle';
+        ctx.fillText(text, start.x, start.y);
+        ctx.textBaseline = 'alphabetic';
+      }
       break;
     }
   }
   ctx.restore();
 }
 
-export function drawDrawings(
-  ctx: CanvasRenderingContext2D,
-  drawings: Drawing[],
-) {
-  for (const d of drawings) {
-    drawShape(ctx, d.tool, d.start, d.end, d.color);
+// ─── Handle points for selected shapes ───────────────────────────────────────
+export function getHandlePoints(drawing: Drawing): Point[] {
+  const { start, end, tool, points } = drawing;
+  switch (tool) {
+    case 'triangle': {
+      if (points?.length === 3) return points;
+      return computeTrianglePts(start, end);
+    }
+    case 'rect':
+    case 'zone': {
+      return [
+        { x: start.x, y: start.y },
+        { x: end.x,   y: start.y },
+        { x: end.x,   y: end.y   },
+        { x: start.x, y: end.y   },
+      ];
+    }
+    case 'circle': {
+      const cx = (start.x + end.x) / 2;
+      const cy = (start.y + end.y) / 2;
+      const rx = Math.abs(end.x - start.x) / 2;
+      const ry = Math.abs(end.y - start.y) / 2;
+      return [
+        { x: cx + rx, y: cy },
+        { x: cx,      y: cy + ry },
+        { x: cx - rx, y: cy },
+        { x: cx,      y: cy - ry },
+      ];
+    }
+    case 'curved-arrow': {
+      return [start, points?.[0] ?? computeCurvedCP(start, end), end];
+    }
+    default:
+      return [start, end];
   }
 }
 
+function drawHandles(ctx: CanvasRenderingContext2D, handles: Point[], R: number) {
+  const hs = Math.max(5, R * 0.55);
+  ctx.save();
+  ctx.fillStyle = '#ffffff';
+  ctx.strokeStyle = '#333333';
+  ctx.lineWidth = 1;
+  for (const h of handles) {
+    ctx.fillRect(h.x - hs / 2, h.y - hs / 2, hs, hs);
+    ctx.strokeRect(h.x - hs / 2, h.y - hs / 2, hs, hs);
+  }
+  ctx.restore();
+}
+
+// ─── Animation paths ──────────────────────────────────────────────────────────
+export function drawAnimPaths(
+  ctx: CanvasRenderingContext2D,
+  players: Player[],
+  ball: Ball,
+  movements: Movement[],
+  activeMovePiece: string | null,
+  R: number,
+) {
+  for (const mv of movements) {
+    if (mv.waypoints.length === 0) continue;
+    const isActive = mv.playerId === activeMovePiece;
+    const isBall = mv.playerId === '__ball__';
+    const player = players.find(p => p.id === mv.playerId);
+    const pathColor = isBall ? '#FFD700' : (player?.team === 'A' ? BORDEAUX : OCEAN);
+    const startPos: Point = isBall ? { ...ball } : player ? { x: player.x, y: player.y } : { x: 0, y: 0 };
+    if (!player && !isBall) continue;
+
+    ctx.save();
+    ctx.globalAlpha = isActive ? 0.85 : 0.45;
+    ctx.strokeStyle = pathColor;
+    ctx.fillStyle = pathColor;
+    ctx.lineWidth = Math.max(1.5, R * 0.28);
+    ctx.setLineDash([8, 5]);
+
+    ctx.beginPath();
+    ctx.moveTo(startPos.x, startPos.y);
+    for (const wp of mv.waypoints) ctx.lineTo(wp.x, wp.y);
+    ctx.stroke();
+    ctx.setLineDash([]);
+
+    const lastWp = mv.waypoints[mv.waypoints.length - 1];
+    const fromPt = mv.waypoints.length >= 2 ? mv.waypoints[mv.waypoints.length - 2] : startPos;
+    const dx = lastWp.x - fromPt.x;
+    const dy = lastWp.y - fromPt.y;
+    const angle = Math.atan2(dy, dx);
+    const as = R * 0.9;
+    ctx.beginPath();
+    ctx.moveTo(lastWp.x, lastWp.y);
+    ctx.lineTo(lastWp.x - as * Math.cos(angle - Math.PI / 6), lastWp.y - as * Math.sin(angle - Math.PI / 6));
+    ctx.lineTo(lastWp.x - as * Math.cos(angle + Math.PI / 6), lastWp.y - as * Math.sin(angle + Math.PI / 6));
+    ctx.closePath();
+    ctx.fill();
+
+    for (const wp of mv.waypoints) {
+      ctx.beginPath();
+      ctx.arc(wp.x, wp.y, R * 0.38, 0, Math.PI * 2);
+      ctx.fill();
+    }
+    ctx.restore();
+  }
+}
+
+// ─── Main render ──────────────────────────────────────────────────────────────
 export function renderBoard(
   ctx: CanvasRenderingContext2D,
   canvas: HTMLCanvasElement,
   players: Player[],
   ball: Ball,
   drawings: Drawing[],
-  view: FieldView,
-  showNames: boolean,
-  showZones: boolean,
-  lightField: boolean,
-  currentDraw: { start: Point; end: Point; tool: Drawing['tool']; color: string } | null,
-  selectedPlayerId: string | null,
+  options: RenderOptions,
 ) {
-  const w = canvas.width;
-  const h = canvas.height;
-  ctx.clearRect(0, 0, w, h);
+  const {
+    view, showNames, showZones, lightField,
+    currentDraw, selectedPlayerId, selectedDrawingId,
+    imageCache, movements, activeMovePiece, animMode,
+  } = options;
+
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
   setupTransform(ctx, canvas, view);
+
+  const R = getPlayerRadius(canvas, view);
+
   drawPitch(ctx, lightField, showZones);
-  drawDrawings(ctx, drawings);
-  if (currentDraw) {
-    drawShape(ctx, currentDraw.tool, currentDraw.start, currentDraw.end, currentDraw.color, true);
+
+  for (const d of drawings) {
+    drawShape(ctx, d.tool, d.start, d.end, d.color, d.filled, d.strokeWidth, d.text, d.points);
+    if (d.id === selectedDrawingId) drawHandles(ctx, getHandlePoints(d), R);
   }
-  drawPlayers(ctx, players, selectedPlayerId, showNames);
+
+  if (currentDraw) {
+    drawShape(ctx, currentDraw.tool, currentDraw.start, currentDraw.end, currentDraw.color, currentDraw.filled, 2.5, '', undefined, true);
+  }
+
+  if (animMode) {
+    drawAnimPaths(ctx, players, ball, movements, activeMovePiece, R);
+  }
+
+  drawPlayers(ctx, canvas, view, players, selectedPlayerId, showNames, imageCache);
   drawBall(ctx, ball);
+
   ctx.resetTransform();
+}
+
+// ─── Hit detection ────────────────────────────────────────────────────────────
+export function findPlayerAtPoint(
+  players: Player[],
+  ball: Ball,
+  x: number,
+  y: number,
+  playerRadius: number,
+): { type: 'player'; id: string } | { type: 'ball' } | null {
+  if (Math.hypot(x - ball.x, y - ball.y) <= BALL_R + 8) return { type: 'ball' };
+  for (let i = players.length - 1; i >= 0; i--) {
+    const p = players[i];
+    if (!p.visible) continue;
+    if (Math.hypot(x - p.x, y - p.y) <= playerRadius + 6) return { type: 'player', id: p.id };
+  }
+  return null;
 }
 
 function distToSegment(p: Point, a: Point, b: Point): number {
@@ -429,31 +601,34 @@ function distToSegment(p: Point, a: Point, b: Point): number {
   return Math.hypot(p.x - a.x - t * dx, p.y - a.y - t * dy);
 }
 
-export function findPlayerAtPoint(
-  players: Player[],
-  ball: Ball,
-  x: number,
-  y: number,
-): { type: 'player'; id: string } | { type: 'ball' } | null {
-  if (Math.hypot(x - ball.x, y - ball.y) <= BALL_R + 6) {
-    return { type: 'ball' };
-  }
-  for (let i = players.length - 1; i >= 0; i--) {
-    const p = players[i];
-    if (!p.visible) continue;
-    if (Math.hypot(x - p.x, y - p.y) <= PLAYER_R + 6) {
-      return { type: 'player', id: p.id };
-    }
+export function findDrawingAtPoint(drawings: Drawing[], x: number, y: number): string | null {
+  for (let i = drawings.length - 1; i >= 0; i--) {
+    if (distToSegment({ x, y }, drawings[i].start, drawings[i].end) < 12) return drawings[i].id;
   }
   return null;
 }
 
-export function findDrawingAtPoint(drawings: Drawing[], x: number, y: number): string | null {
-  const TOLERANCE = 10;
-  for (let i = drawings.length - 1; i >= 0; i--) {
-    const d = drawings[i];
-    if (distToSegment({ x, y }, d.start, d.end) < TOLERANCE) {
-      return d.id;
+export function findHandleAtPoint(drawing: Drawing, x: number, y: number, R: number): number {
+  const handles = getHandlePoints(drawing);
+  const hs = Math.max(5, R * 0.55) + 5;
+  for (let i = 0; i < handles.length; i++) {
+    if (Math.abs(x - handles[i].x) <= hs && Math.abs(y - handles[i].y) <= hs) return i;
+  }
+  return -1;
+}
+
+export function findWaypointAtPoint(
+  movements: Movement[],
+  x: number,
+  y: number,
+  R: number,
+): { playerId: string; index: number } | null {
+  const hitR = Math.max(6, R * 0.5);
+  for (const mv of movements) {
+    for (let i = 0; i < mv.waypoints.length; i++) {
+      if (Math.hypot(x - mv.waypoints[i].x, y - mv.waypoints[i].y) <= hitR) {
+        return { playerId: mv.playerId, index: i };
+      }
     }
   }
   return null;

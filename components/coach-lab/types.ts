@@ -1,8 +1,37 @@
-export type Tool = 'select' | 'line' | 'arrow' | 'run' | 'triangle' | 'rect' | 'eraser';
+export type Tool =
+  | 'select'
+  | 'line'
+  | 'arrow'
+  | 'run'
+  | 'curved-arrow'
+  | 'double-arrow'
+  | 'wavy-arrow'
+  | 'triangle'
+  | 'rect'
+  | 'circle'
+  | 'zone'
+  | 'text'
+  | 'eraser';
+
 export type TeamType = 'A' | 'B';
 export type PlayerType = 'player' | 'goalkeeper';
-export type FieldView = 'full' | 'half-left' | 'half-right' | 'area-left' | 'area-right';
-export type FormationName = '4-3-3' | '4-4-2' | '4-2-3-1' | '3-5-2';
+
+export type FieldView =
+  | 'full'
+  | 'half-left'
+  | 'half-right'
+  | 'area-left'
+  | 'area-right'
+  | 'futsal'
+  | 'five-aside'
+  | 'seven-aside';
+
+export type FormationName =
+  | '1-4-3-3' | '1-4-4-2' | '1-4-2-3-1' | '1-3-5-2' | '1-3-6-1' | '1-3-4-3'
+  | '1-4-5-1' | '1-4-1-4-1' | '1-5-4-1' | '1-5-3-2' | '1-5-2-3'
+  | '1-4-3-2-1' | '1-4-1-2-3' | '1-3-4-2-1' | '1-4-4-1-1' | '1-3-3-4'
+  | '1-4-2-2-2' | '1-3-4-1-2' | '1-4-6-0' | '1-2-3-5'
+  | '1-4-3-1-2' | '1-3-1-4-2' | '1-4-1-3-2' | '1-3-2-4-1';
 
 export interface Point {
   x: number;
@@ -18,6 +47,7 @@ export interface Player {
   x: number;
   y: number;
   visible: boolean;
+  photo?: string | null; // base64 data URL
 }
 
 export interface Ball {
@@ -31,13 +61,10 @@ export interface Drawing {
   start: Point;
   end: Point;
   color: string;
-}
-
-export interface Keyframe {
-  id: string;
-  label: string;
-  players: Player[];
-  ball: Ball;
+  filled?: boolean;
+  strokeWidth?: number;
+  text?: string; // for text tool
+  points?: Point[]; // triangle: 3 vertices; curved-arrow: 1 control point
 }
 
 export interface BoardSnapshot {
@@ -51,4 +78,23 @@ export interface ViewBounds {
   viewY: number;
   viewW: number;
   viewH: number;
+}
+
+export interface Movement {
+  playerId: string; // player id or '__ball__'
+  waypoints: Point[];
+}
+
+export interface RenderOptions {
+  view: FieldView;
+  showNames: boolean;
+  showZones: boolean;
+  lightField: boolean;
+  currentDraw: { start: Point; end: Point; tool: Drawing['tool']; color: string; filled?: boolean } | null;
+  selectedPlayerId: string | null;
+  selectedDrawingId: string | null;
+  imageCache: Map<string, HTMLImageElement>;
+  movements: Movement[];
+  activeMovePiece: string | null;
+  animMode: boolean;
 }

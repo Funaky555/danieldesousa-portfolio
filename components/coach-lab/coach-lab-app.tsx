@@ -2,126 +2,184 @@
 
 import { useCallback, useEffect, useRef, useState } from "react";
 import {
-  ArrowRight, Camera, Eraser, Eye, EyeOff, Minus, MousePointer2,
-  Play, Plus, Square, Triangle, Undo2, Trash2, X, ZapIcon,
-  ChevronRight, ChevronLeft, StopCircle,
+  ArrowRight, Camera, ChevronDown, ChevronLeft, ChevronRight,
+  Circle, Eraser, Eye, EyeOff, ImagePlus, Minus, MousePointer2,
+  Play, RotateCcw, Square, StopCircle, Triangle, Trash2, Type,
+  Undo2, ZapIcon, Waypoints,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import type { Ball, BoardSnapshot, Drawing, FieldView, FormationName, Keyframe, Player, Point, Tool } from "./types";
+import type {
+  Ball, BoardSnapshot, Drawing, FieldView, FormationName,
+  Movement, Player, Point, RenderOptions, Tool,
+} from "./types";
 import {
-  PITCH_W, PITCH_H,
-  canvasToLogical, logicalToCanvas, renderBoard, findPlayerAtPoint,
-  findDrawingAtPoint,
+  PITCH_W, PITCH_H, BORDEAUX, OCEAN,
+  canvasToLogical, logicalToCanvas, renderBoard,
+  findPlayerAtPoint, findDrawingAtPoint, findHandleAtPoint,
+  getHandlePoints, getPlayerRadius, findWaypointAtPoint,
 } from "./pitch-renderer";
 
 // ─── Constants ────────────────────────────────────────────────────────────────
 const PL = 15, PR = PITCH_W - 15, PT = 15, PB = PITCH_H - 15;
 
 const FORMATIONS: Record<FormationName, Array<{ x: number; y: number }>> = {
-  "4-3-3": [
-    { x: 0.04, y: 0.50 }, { x: 0.20, y: 0.15 }, { x: 0.20, y: 0.36 },
-    { x: 0.20, y: 0.64 }, { x: 0.20, y: 0.85 }, { x: 0.41, y: 0.26 },
-    { x: 0.42, y: 0.50 }, { x: 0.41, y: 0.74 }, { x: 0.65, y: 0.15 },
-    { x: 0.68, y: 0.50 }, { x: 0.65, y: 0.85 },
-  ],
-  "4-4-2": [
-    { x: 0.04, y: 0.50 }, { x: 0.20, y: 0.10 }, { x: 0.20, y: 0.37 },
-    { x: 0.20, y: 0.63 }, { x: 0.20, y: 0.90 }, { x: 0.42, y: 0.10 },
-    { x: 0.42, y: 0.37 }, { x: 0.42, y: 0.63 }, { x: 0.42, y: 0.90 },
-    { x: 0.64, y: 0.33 }, { x: 0.64, y: 0.67 },
-  ],
-  "4-2-3-1": [
-    { x: 0.04, y: 0.50 }, { x: 0.20, y: 0.10 }, { x: 0.20, y: 0.37 },
-    { x: 0.20, y: 0.63 }, { x: 0.20, y: 0.90 }, { x: 0.37, y: 0.37 },
-    { x: 0.37, y: 0.63 }, { x: 0.52, y: 0.15 }, { x: 0.53, y: 0.50 },
-    { x: 0.52, y: 0.85 }, { x: 0.68, y: 0.50 },
-  ],
-  "3-5-2": [
-    { x: 0.04, y: 0.50 }, { x: 0.20, y: 0.23 }, { x: 0.20, y: 0.50 },
-    { x: 0.20, y: 0.77 }, { x: 0.39, y: 0.08 }, { x: 0.41, y: 0.30 },
-    { x: 0.42, y: 0.50 }, { x: 0.41, y: 0.70 }, { x: 0.39, y: 0.92 },
-    { x: 0.63, y: 0.35 }, { x: 0.63, y: 0.65 },
-  ],
+  "1-4-3-3":   [{ x:0.04,y:.50 },{ x:.20,y:.15 },{ x:.20,y:.38 },{ x:.20,y:.62 },{ x:.20,y:.85 },{ x:.41,y:.27 },{ x:.42,y:.50 },{ x:.41,y:.73 },{ x:.65,y:.15 },{ x:.68,y:.50 },{ x:.65,y:.85 }],
+  "1-4-4-2":   [{ x:0.04,y:.50 },{ x:.20,y:.10 },{ x:.20,y:.37 },{ x:.20,y:.63 },{ x:.20,y:.90 },{ x:.42,y:.10 },{ x:.42,y:.37 },{ x:.42,y:.63 },{ x:.42,y:.90 },{ x:.64,y:.33 },{ x:.64,y:.67 }],
+  "1-4-2-3-1": [{ x:0.04,y:.50 },{ x:.20,y:.10 },{ x:.20,y:.37 },{ x:.20,y:.63 },{ x:.20,y:.90 },{ x:.37,y:.37 },{ x:.37,y:.63 },{ x:.53,y:.15 },{ x:.54,y:.50 },{ x:.53,y:.85 },{ x:.69,y:.50 }],
+  "1-3-5-2":   [{ x:0.04,y:.50 },{ x:.20,y:.23 },{ x:.20,y:.50 },{ x:.20,y:.77 },{ x:.39,y:.08 },{ x:.41,y:.30 },{ x:.42,y:.50 },{ x:.41,y:.70 },{ x:.39,y:.92 },{ x:.63,y:.35 },{ x:.63,y:.65 }],
+  "1-3-6-1":   [{ x:0.04,y:.50 },{ x:.20,y:.22 },{ x:.20,y:.50 },{ x:.20,y:.78 },{ x:.37,y:.10 },{ x:.40,y:.28 },{ x:.41,y:.44 },{ x:.41,y:.56 },{ x:.40,y:.72 },{ x:.37,y:.90 },{ x:.68,y:.50 }],
+  "1-3-4-3":   [{ x:0.04,y:.50 },{ x:.19,y:.22 },{ x:.20,y:.50 },{ x:.19,y:.78 },{ x:.40,y:.15 },{ x:.40,y:.40 },{ x:.40,y:.60 },{ x:.40,y:.85 },{ x:.63,y:.15 },{ x:.66,y:.50 },{ x:.63,y:.85 }],
+  "1-4-5-1":   [{ x:0.04,y:.50 },{ x:.20,y:.10 },{ x:.20,y:.35 },{ x:.20,y:.65 },{ x:.20,y:.90 },{ x:.42,y:.10 },{ x:.42,y:.30 },{ x:.43,y:.50 },{ x:.42,y:.70 },{ x:.42,y:.90 },{ x:.68,y:.50 }],
+  "1-4-1-4-1": [{ x:0.04,y:.50 },{ x:.20,y:.10 },{ x:.20,y:.35 },{ x:.20,y:.65 },{ x:.20,y:.90 },{ x:.34,y:.50 },{ x:.50,y:.10 },{ x:.50,y:.35 },{ x:.50,y:.65 },{ x:.50,y:.90 },{ x:.68,y:.50 }],
+  "1-5-4-1":   [{ x:0.04,y:.50 },{ x:.18,y:.08 },{ x:.20,y:.27 },{ x:.20,y:.50 },{ x:.20,y:.73 },{ x:.18,y:.92 },{ x:.42,y:.15 },{ x:.42,y:.38 },{ x:.42,y:.62 },{ x:.42,y:.85 },{ x:.68,y:.50 }],
+  "1-5-3-2":   [{ x:0.04,y:.50 },{ x:.18,y:.08 },{ x:.20,y:.27 },{ x:.20,y:.50 },{ x:.20,y:.73 },{ x:.18,y:.92 },{ x:.42,y:.27 },{ x:.43,y:.50 },{ x:.42,y:.73 },{ x:.65,y:.33 },{ x:.65,y:.67 }],
+  "1-5-2-3":   [{ x:0.04,y:.50 },{ x:.18,y:.08 },{ x:.20,y:.27 },{ x:.20,y:.50 },{ x:.20,y:.73 },{ x:.18,y:.92 },{ x:.40,y:.38 },{ x:.40,y:.62 },{ x:.63,y:.15 },{ x:.66,y:.50 },{ x:.63,y:.85 }],
+  "1-4-3-2-1": [{ x:0.04,y:.50 },{ x:.20,y:.10 },{ x:.20,y:.37 },{ x:.20,y:.63 },{ x:.20,y:.90 },{ x:.38,y:.25 },{ x:.39,y:.50 },{ x:.38,y:.75 },{ x:.53,y:.38 },{ x:.53,y:.62 },{ x:.68,y:.50 }],
+  "1-4-1-2-3": [{ x:0.04,y:.50 },{ x:.20,y:.10 },{ x:.20,y:.37 },{ x:.20,y:.63 },{ x:.20,y:.90 },{ x:.34,y:.50 },{ x:.48,y:.38 },{ x:.48,y:.62 },{ x:.63,y:.15 },{ x:.66,y:.50 },{ x:.63,y:.85 }],
+  "1-3-4-2-1": [{ x:0.04,y:.50 },{ x:.19,y:.22 },{ x:.20,y:.50 },{ x:.19,y:.78 },{ x:.37,y:.15 },{ x:.38,y:.38 },{ x:.38,y:.62 },{ x:.37,y:.85 },{ x:.53,y:.38 },{ x:.53,y:.62 },{ x:.68,y:.50 }],
+  "1-4-4-1-1": [{ x:0.04,y:.50 },{ x:.20,y:.10 },{ x:.20,y:.37 },{ x:.20,y:.63 },{ x:.20,y:.90 },{ x:.40,y:.10 },{ x:.40,y:.37 },{ x:.40,y:.63 },{ x:.40,y:.90 },{ x:.55,y:.50 },{ x:.68,y:.50 }],
+  "1-3-3-4":   [{ x:0.04,y:.50 },{ x:.19,y:.22 },{ x:.20,y:.50 },{ x:.19,y:.78 },{ x:.39,y:.25 },{ x:.40,y:.50 },{ x:.39,y:.75 },{ x:.60,y:.10 },{ x:.62,y:.38 },{ x:.62,y:.62 },{ x:.60,y:.90 }],
+  "1-4-2-2-2": [{ x:0.04,y:.50 },{ x:.20,y:.10 },{ x:.20,y:.37 },{ x:.20,y:.63 },{ x:.20,y:.90 },{ x:.37,y:.38 },{ x:.37,y:.62 },{ x:.52,y:.38 },{ x:.52,y:.62 },{ x:.65,y:.33 },{ x:.65,y:.67 }],
+  "1-3-4-1-2": [{ x:0.04,y:.50 },{ x:.19,y:.22 },{ x:.20,y:.50 },{ x:.19,y:.78 },{ x:.37,y:.15 },{ x:.38,y:.38 },{ x:.38,y:.62 },{ x:.37,y:.85 },{ x:.53,y:.50 },{ x:.65,y:.33 },{ x:.65,y:.67 }],
+  "1-4-6-0":   [{ x:0.04,y:.50 },{ x:.20,y:.10 },{ x:.20,y:.35 },{ x:.20,y:.65 },{ x:.20,y:.90 },{ x:.40,y:.10 },{ x:.41,y:.28 },{ x:.42,y:.46 },{ x:.42,y:.54 },{ x:.41,y:.72 },{ x:.40,y:.90 }],
+  "1-2-3-5":   [{ x:0.04,y:.50 },{ x:.19,y:.33 },{ x:.19,y:.67 },{ x:.39,y:.22 },{ x:.40,y:.50 },{ x:.39,y:.78 },{ x:.60,y:.08 },{ x:.62,y:.27 },{ x:.64,y:.50 },{ x:.62,y:.73 },{ x:.60,y:.92 }],
+  "1-4-3-1-2": [{ x:0.04,y:.50 },{ x:.20,y:.10 },{ x:.20,y:.37 },{ x:.20,y:.63 },{ x:.20,y:.90 },{ x:.38,y:.25 },{ x:.39,y:.50 },{ x:.38,y:.75 },{ x:.53,y:.50 },{ x:.65,y:.33 },{ x:.65,y:.67 }],
+  "1-3-1-4-2": [{ x:0.04,y:.50 },{ x:.19,y:.22 },{ x:.20,y:.50 },{ x:.19,y:.78 },{ x:.33,y:.50 },{ x:.48,y:.15 },{ x:.49,y:.38 },{ x:.49,y:.62 },{ x:.48,y:.85 },{ x:.65,y:.33 },{ x:.65,y:.67 }],
+  "1-4-1-3-2": [{ x:0.04,y:.50 },{ x:.20,y:.10 },{ x:.20,y:.37 },{ x:.20,y:.63 },{ x:.20,y:.90 },{ x:.34,y:.50 },{ x:.49,y:.27 },{ x:.50,y:.50 },{ x:.49,y:.73 },{ x:.65,y:.33 },{ x:.65,y:.67 }],
+  "1-3-2-4-1": [{ x:0.04,y:.50 },{ x:.19,y:.22 },{ x:.20,y:.50 },{ x:.19,y:.78 },{ x:.36,y:.38 },{ x:.36,y:.62 },{ x:.52,y:.15 },{ x:.53,y:.38 },{ x:.53,y:.62 },{ x:.52,y:.85 },{ x:.68,y:.50 }],
 };
 
-function genId() {
-  return Math.random().toString(36).slice(2, 9) + Date.now().toString(36);
-}
+const FORMATION_GROUPS = [
+  { label: "4 Defenders", formations: ["1-4-3-3","1-4-4-2","1-4-2-3-1","1-4-5-1","1-4-1-4-1","1-4-3-2-1","1-4-1-2-3","1-4-4-1-1","1-4-2-2-2","1-4-6-0","1-4-3-1-2","1-4-1-3-2"] as FormationName[] },
+  { label: "3 Defenders", formations: ["1-3-5-2","1-3-6-1","1-3-4-3","1-3-4-2-1","1-3-3-4","1-3-4-1-2","1-3-1-4-2","1-3-2-4-1"] as FormationName[] },
+  { label: "5 Defenders", formations: ["1-5-4-1","1-5-3-2","1-5-2-3"] as FormationName[] },
+  { label: "Historical", formations: ["1-2-3-5"] as FormationName[] },
+];
 
-function makeTeam(team: "A" | "B", formation: FormationName): Player[] {
-  return FORMATIONS[formation].map((pos, i) => {
-    const rawX = PL + pos.x * (PR - PL);
-    const rawY = PT + pos.y * (PB - PT);
-    return {
-      id: `${team}${i + 1}`,
-      team,
-      type: i === 0 ? "goalkeeper" : "player",
-      number: i + 1,
-      name: "",
-      x: team === "A" ? rawX : PITCH_W - rawX,
-      y: rawY,
-      visible: true,
-    };
-  });
+const SHAPE_TOOLS: Array<{ t: Extract<Tool,'line'|'triangle'|'rect'|'circle'|'zone'|'text'>; icon: React.ReactNode; label: string }> = [
+  { t: "line",     icon: <Minus className="h-3.5 w-3.5" />,    label: "Line" },
+  { t: "triangle", icon: <Triangle className="h-3.5 w-3.5" />, label: "Triangle" },
+  { t: "rect",     icon: <Square className="h-3.5 w-3.5" />,   label: "Rectangle" },
+  { t: "circle",   icon: <Circle className="h-3.5 w-3.5" />,   label: "Circle" },
+  { t: "zone",     icon: <Square className="h-3.5 w-3.5 opacity-60" />, label: "Zone" },
+  { t: "text",     icon: <Type className="h-3.5 w-3.5" />,     label: "Text" },
+];
+
+const ARROW_TOOLS: Array<{ t: Extract<Tool,'arrow'|'run'|'curved-arrow'|'double-arrow'|'wavy-arrow'>; icon: React.ReactNode; label: string }> = [
+  { t: "arrow",        icon: <ArrowRight className="h-3.5 w-3.5" />,       label: "Arrow" },
+  { t: "run",          icon: <ZapIcon className="h-3.5 w-3.5" />,          label: "Run (dashed)" },
+  { t: "curved-arrow", icon: <RotateCcw className="h-3.5 w-3.5" />,        label: "Curved Arrow" },
+  { t: "double-arrow", icon: <ArrowRight className="h-3.5 w-3.5" />,       label: "Double Arrow" },
+  { t: "wavy-arrow",   icon: <Waypoints className="h-3.5 w-3.5" />,        label: "Pressing Arrow" },
+];
+
+const FIELD_FORMATS: Array<{ value: FieldView; label: string; desc: string }> = [
+  { value: "full",        label: "Full Pitch",  desc: "11v11 complete field" },
+  { value: "half-left",   label: "Left Half",   desc: "Attacking / defending half" },
+  { value: "half-right",  label: "Right Half",  desc: "Attacking / defending half" },
+  { value: "area-left",   label: "Left Box",    desc: "Left penalty area zoom" },
+  { value: "area-right",  label: "Right Box",   desc: "Right penalty area zoom" },
+  { value: "seven-aside", label: "7-a-side",    desc: "Medium pitch format" },
+  { value: "futsal",      label: "Futsal",      desc: "Futsal / indoor format" },
+  { value: "five-aside",  label: "5-a-side",    desc: "Small-sided game" },
+];
+
+const PRESET_COLORS = ["#ffffff","#FFD700","#00D66C","#0066FF","#FF6B35","#EF4444","#8B5CF6","#14B8A6","#F43F5E","#000000"];
+
+function genId() { return Math.random().toString(36).slice(2, 9) + Date.now().toString(36); }
+
+function makeTeamOnBorder(team: "A" | "B"): Player[] {
+  const x = team === "A" ? PL + 22 : PR - 22;
+  return Array.from({ length: 11 }, (_, i) => ({
+    id: `${team}${i + 1}`,
+    team,
+    type: i === 0 ? "goalkeeper" : "player",
+    number: i + 1,
+    name: "",
+    x,
+    y: PT + i * ((PB - PT) / 10),
+    visible: true,
+    photo: null,
+  } as Player));
 }
 
 function getInitialPlayers(): Player[] {
-  return [...makeTeam("A", "4-3-3"), ...makeTeam("B", "4-3-3")];
+  return [...makeTeamOnBorder("A"), ...makeTeamOnBorder("B")];
 }
 
 // ─── Component ────────────────────────────────────────────────────────────────
 export function CoachLabApp() {
-  const canvasRef = useRef<HTMLCanvasElement>(null);
-  const containerRef = useRef<HTMLDivElement>(null);
-  const animFrameRef = useRef<number>(0);
-  const isPlayingRef = useRef(false);
-  const nameInputRef = useRef<HTMLInputElement>(null);
+  const canvasRef      = useRef<HTMLCanvasElement>(null);
+  const containerRef   = useRef<HTMLDivElement>(null);
+  const animFrameRef   = useRef<number>(0);
+  const isPlayingRef   = useRef(false);
+  const dropdownRef    = useRef<HTMLDivElement>(null);
+  const textInputRef   = useRef<HTMLInputElement>(null);
 
-  // Drag / draw refs (no re-render needed during operation)
-  const draggingRef = useRef<{ id: string; type: "player" | "ball"; offsetX: number; offsetY: number } | null>(null);
-  const isDrawingRef = useRef(false);
-  const drawStartRef = useRef<Point | null>(null);
+  const draggingRef      = useRef<{ id: string; type: "player" | "ball"; offsetX: number; offsetY: number } | null>(null);
+  const draggingHandleRef = useRef<{ drawingId: string; handleIdx: number } | null>(null);
+  const isDrawingRef     = useRef(false);
+  const drawStartRef     = useRef<Point | null>(null);
   const pendingHistoryRef = useRef<BoardSnapshot | null>(null);
 
-  // Live value refs (for event handlers & animation loop)
-  const activeToolRef = useRef<Tool>("select");
-  const fieldViewRef = useRef<FieldView>("full");
-  const drawColorRef = useRef("#ffffff");
-  const showNamesRef = useRef(true);
-  const showZonesRef = useRef(false);
-  const lightFieldRef = useRef(false);
-  const playersRef = useRef<Player[]>([]);
-  const ballRef = useRef<Ball>({ x: PITCH_W / 2, y: PITCH_H / 2 });
-  const drawingsRef = useRef<Drawing[]>([]);
+  const activeToolRef  = useRef<Tool>("select");
+  const fieldViewRef   = useRef<FieldView>("full");
+  const drawColorRef   = useRef("#ffffff");
+  const drawFilledRef  = useRef(false);
+  const showNamesRef   = useRef(true);
+  const showZonesRef   = useRef(false);
+  const lightFieldRef  = useRef(false);
+  const playersRef     = useRef<Player[]>([]);
+  const ballRef        = useRef<Ball>({ x: PITCH_W / 2, y: PITCH_H / 2 });
+  const drawingsRef    = useRef<Drawing[]>([]);
+  const movementsRef   = useRef<Movement[]>([]);
+  const animModeRef    = useRef(false);
+  const activeMovePieceRef = useRef<string | null>(null);
+
+  // Image cache for player photos
+  const imageCache = useRef<Map<string, HTMLImageElement>>(new Map());
 
   // ─── State ──────────────────────────────────────────────────────────────────
-  const [players, setPlayers] = useState<Player[]>(getInitialPlayers);
-  const [ball, setBall] = useState<Ball>({ x: PITCH_W / 2, y: PITCH_H / 2 });
-  const [drawings, setDrawings] = useState<Drawing[]>([]);
-  const [currentDraw, setCurrentDraw] = useState<{ start: Point; end: Point; tool: Drawing["tool"]; color: string } | null>(null);
-  const [history, setHistory] = useState<BoardSnapshot[]>([]);
-  const [keyframes, setKeyframes] = useState<Keyframe[]>([]);
-  const [activeTool, setActiveTool] = useState<Tool>("select");
-  const [drawColor, setDrawColor] = useState("#ffffff");
-  const [fieldView, setFieldView] = useState<FieldView>("full");
-  const [showNames, setShowNames] = useState(true);
-  const [showZones, setShowZones] = useState(false);
-  const [lightField, setLightField] = useState(false);
-  const [instructions, setInstructions] = useState("");
-  const [editingPlayerId, setEditingPlayerId] = useState<string | null>(null);
-  const [editingName, setEditingName] = useState("");
-  const [selectedPlayerId, setSelectedPlayerId] = useState<string | null>(null);
-  const [isPlaying, setIsPlaying] = useState(false);
-  const [isRecording, setIsRecording] = useState(false);
-  const [playProgress, setPlayProgress] = useState(0);
-  const [canvasSize, setCanvasSize] = useState({ w: 0, h: 0 });
-  const [leftOpen, setLeftOpen] = useState(true);
-  const [rightOpen, setRightOpen] = useState(true);
+  const [players, setPlayers]             = useState<Player[]>(getInitialPlayers);
+  const [ball, setBall]                   = useState<Ball>({ x: PITCH_W / 2, y: PITCH_H / 2 });
+  const [drawings, setDrawings]           = useState<Drawing[]>([]);
+  const [movements, setMovements]         = useState<Movement[]>([]);
+  const [currentDraw, setCurrentDraw]     = useState<RenderOptions["currentDraw"]>(null);
+  const [history, setHistory]             = useState<BoardSnapshot[]>([]);
+  const [activeTool, setActiveTool]       = useState<Tool>("select");
+  const [drawColor, setDrawColor]         = useState("#ffffff");
+  const [drawFilled, setDrawFilled]       = useState(false);
+  const [fieldView, setFieldView]         = useState<FieldView>("full");
+  const [showNames, setShowNames]         = useState(true);
+  const [showZones, setShowZones]         = useState(false);
+  const [lightField, setLightField]       = useState(false);
+  const [instructions, setInstructions]   = useState("");
+  const [selectedPlayerId, setSelectedPlayerId]   = useState<string | null>(null);
+  const [selectedDrawingId, setSelectedDrawingId] = useState<string | null>(null);
+  const [isPlaying, setIsPlaying]         = useState(false);
+  const [isRecording, setIsRecording]     = useState(false);
+  const [playProgress, setPlayProgress]   = useState(0);
+  const [canvasSize, setCanvasSize]       = useState({ w: 0, h: 0 });
+  const [leftOpen, setLeftOpen]           = useState(true);
+  const [rightOpen, setRightOpen]         = useState(true);
+  const [openDropdown, setOpenDropdown]   = useState<"shapes" | "arrows" | "field" | null>(null);
+  const [animMode, setAnimMode]           = useState(false);
+  const [activeMovePiece, setActiveMovePiece] = useState<string | null>(null);
+  const [openTacticTeam, setOpenTacticTeam] = useState<"A" | "B" | null>(null);
+  const [openTacticGroup, setOpenTacticGroup] = useState<string | null>(null);
+  const [pendingText, setPendingText]     = useState<Point | null>(null);
+  const [pendingTextValue, setPendingTextValue] = useState("");
+  const [editingNameId, setEditingNameId] = useState<string | null>(null);
+  const [editingNameValue, setEditingNameValue] = useState("");
+  const [downloadUrl, setDownloadUrl]     = useState<string | null>(null);
 
-  // Sync refs with state
+  // Sync refs
   useEffect(() => { playersRef.current = players; }, [players]);
   useEffect(() => { ballRef.current = ball; }, [ball]);
   useEffect(() => { drawingsRef.current = drawings; }, [drawings]);
+  useEffect(() => { movementsRef.current = movements; }, [movements]);
+  useEffect(() => { animModeRef.current = animMode; }, [animMode]);
+  useEffect(() => { activeMovePieceRef.current = activeMovePiece; }, [activeMovePiece]);
 
   // ─── Canvas resize ──────────────────────────────────────────────────────────
   useEffect(() => {
@@ -130,7 +188,7 @@ export function CoachLabApp() {
     if (!container || !canvas) return;
     const resize = () => {
       const dpr = Math.min(window.devicePixelRatio || 1, 2);
-      canvas.width = container.clientWidth * dpr;
+      canvas.width  = container.clientWidth  * dpr;
       canvas.height = container.clientHeight * dpr;
       setCanvasSize({ w: canvas.width, h: canvas.height });
     };
@@ -146,28 +204,44 @@ export function CoachLabApp() {
     if (!canvas || canvas.width === 0) return;
     const ctx = canvas.getContext("2d");
     if (!ctx) return;
-    renderBoard(ctx, canvas, players, ball, drawings, fieldView, showNames, showZones, lightField, currentDraw, selectedPlayerId);
-  }, [players, ball, drawings, fieldView, showNames, showZones, lightField, currentDraw, selectedPlayerId, canvasSize]);
+    const options: RenderOptions = {
+      view: fieldView, showNames, showZones, lightField,
+      currentDraw, selectedPlayerId, selectedDrawingId,
+      imageCache: imageCache.current, movements, activeMovePiece, animMode,
+    };
+    renderBoard(ctx, canvas, players, ball, drawings, options);
+  }, [players, ball, drawings, fieldView, showNames, showZones, lightField,
+      currentDraw, selectedPlayerId, selectedDrawingId, movements, activeMovePiece, animMode, canvasSize]);
 
-  // ─── Keyboard shortcuts ─────────────────────────────────────────────────────
+  // ─── Close dropdowns on outside click ───────────────────────────────────────
+  useEffect(() => {
+    if (!openDropdown) return;
+    const handler = (e: MouseEvent) => {
+      if (dropdownRef.current && !dropdownRef.current.contains(e.target as Node)) {
+        setOpenDropdown(null);
+      }
+    };
+    document.addEventListener("mousedown", handler);
+    return () => document.removeEventListener("mousedown", handler);
+  }, [openDropdown]);
+
+  // ─── Keyboard shortcuts ──────────────────────────────────────────────────────
   useEffect(() => {
     const handler = (e: KeyboardEvent) => {
-      if (editingPlayerId) return;
-      if ((e.ctrlKey || e.metaKey) && e.key === "z") {
-        e.preventDefault();
-        undo();
-      }
+      if (editingNameId || pendingText) return;
+      if ((e.ctrlKey || e.metaKey) && e.key === "z") { e.preventDefault(); undo(); }
       if (e.key === "Escape") {
         setSelectedPlayerId(null);
-        setEditingPlayerId(null);
+        setSelectedDrawingId(null);
+        setActiveMovePiece(null);
       }
     };
     window.addEventListener("keydown", handler);
     return () => window.removeEventListener("keydown", handler);
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [editingPlayerId]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [editingNameId, pendingText]);
 
-  // ─── History helpers ────────────────────────────────────────────────────────
+  // ─── History ─────────────────────────────────────────────────────────────────
   const captureHistory = useCallback(() => {
     pendingHistoryRef.current = {
       players: playersRef.current,
@@ -194,58 +268,98 @@ export function CoachLabApp() {
     });
   }, []);
 
-  // ─── Canvas coordinate helper ───────────────────────────────────────────────
+  // ─── Coord helper ────────────────────────────────────────────────────────────
   const toLogical = useCallback((clientX: number, clientY: number): Point => {
     const canvas = canvasRef.current;
     if (!canvas) return { x: 0, y: 0 };
     return canvasToLogical(clientX, clientY, canvas, fieldViewRef.current);
   }, []);
 
-  // ─── Pointer handlers ───────────────────────────────────────────────────────
+  const getR = useCallback((): number => {
+    const canvas = canvasRef.current;
+    if (!canvas) return 14;
+    return getPlayerRadius(canvas, fieldViewRef.current);
+  }, []);
+
+  // ─── Pointer handlers ────────────────────────────────────────────────────────
   const handlePointerDown = useCallback((e: React.PointerEvent<HTMLCanvasElement>) => {
-    if (editingPlayerId) return;
+    if (editingNameId || pendingText) return;
     e.currentTarget.setPointerCapture(e.pointerId);
     const { x, y } = toLogical(e.clientX, e.clientY);
+    const tool = activeToolRef.current;
     captureHistory();
 
-    const tool = activeToolRef.current;
-
-    if (tool === "eraser") {
-      const drawId = findDrawingAtPoint(drawingsRef.current, x, y);
-      if (drawId) {
-        commitHistory();
-        setDrawings(prev => prev.filter(d => d.id !== drawId));
-      }
+    // ── Animation mode: add waypoint ──
+    if (animModeRef.current && activeMovePieceRef.current) {
+      const piece = activeMovePieceRef.current;
+      setMovements(prev => {
+        const idx = prev.findIndex(m => m.playerId === piece);
+        if (idx >= 0) {
+          return prev.map(m => m.playerId === piece ? { ...m, waypoints: [...m.waypoints, { x, y }] } : m);
+        }
+        return [...prev, { playerId: piece, waypoints: [{ x, y }] }];
+      });
       return;
     }
 
+    // ── Eraser ──
+    if (tool === "eraser") {
+      const drawId = findDrawingAtPoint(drawingsRef.current, x, y);
+      if (drawId) { commitHistory(); setDrawings(prev => prev.filter(d => d.id !== drawId)); }
+      return;
+    }
+
+    // ── Select ──
     if (tool === "select") {
-      const hit = findPlayerAtPoint(playersRef.current, ballRef.current, x, y);
+      // Check drawing vertex handle first
+      if (selectedDrawingId) {
+        const selDrawing = drawingsRef.current.find(d => d.id === selectedDrawingId);
+        if (selDrawing) {
+          const hi = findHandleAtPoint(selDrawing, x, y, getR());
+          if (hi >= 0) {
+            draggingHandleRef.current = { drawingId: selectedDrawingId, handleIdx: hi };
+            return;
+          }
+        }
+      }
+      // Check drawing click
+      const drawId = findDrawingAtPoint(drawingsRef.current, x, y);
+      if (drawId) { setSelectedDrawingId(drawId); setSelectedPlayerId(null); return; }
+
+      // Check player/ball
+      const hit = findPlayerAtPoint(playersRef.current, ballRef.current, x, y, getR());
       if (hit) {
+        setSelectedDrawingId(null);
         setSelectedPlayerId(hit.type === "player" ? hit.id : null);
         const px = hit.type === "player" ? playersRef.current.find(p => p.id === hit.id)!.x : ballRef.current.x;
         const py = hit.type === "player" ? playersRef.current.find(p => p.id === hit.id)!.y : ballRef.current.y;
         draggingRef.current = { id: hit.type === "player" ? hit.id : "__ball__", type: hit.type, offsetX: x - px, offsetY: y - py };
       } else {
         setSelectedPlayerId(null);
+        setSelectedDrawingId(null);
       }
       return;
     }
 
-    // Drawing tool
+    // ── Text tool ──
+    if (tool === "text") {
+      setPendingText({ x, y });
+      setPendingTextValue("");
+      setTimeout(() => textInputRef.current?.focus(), 30);
+      return;
+    }
+
+    // ── Drawing tool ──
     isDrawingRef.current = true;
     drawStartRef.current = { x, y };
-    setCurrentDraw({ start: { x, y }, end: { x, y }, tool: tool as Drawing["tool"], color: drawColorRef.current });
-  }, [toLogical, captureHistory, commitHistory, editingPlayerId]);
+    setCurrentDraw({ start: { x, y }, end: { x, y }, tool: tool as Drawing["tool"], color: drawColorRef.current, filled: drawFilledRef.current });
+  }, [toLogical, captureHistory, commitHistory, selectedDrawingId, editingNameId, pendingText, getR]);
 
   const handlePointerMove = useCallback((e: React.PointerEvent<HTMLCanvasElement>) => {
     const { x, y } = toLogical(e.clientX, e.clientY);
 
     if (draggingRef.current) {
-      const clamped = {
-        x: Math.max(0, Math.min(PITCH_W, x - draggingRef.current.offsetX)),
-        y: Math.max(0, Math.min(PITCH_H, y - draggingRef.current.offsetY)),
-      };
+      const clamped = { x: Math.max(0, Math.min(PITCH_W, x - draggingRef.current.offsetX)), y: Math.max(0, Math.min(PITCH_H, y - draggingRef.current.offsetY)) };
       if (draggingRef.current.type === "player") {
         const id = draggingRef.current.id;
         setPlayers(prev => prev.map(p => p.id === id ? { ...p, ...clamped } : p));
@@ -254,100 +368,160 @@ export function CoachLabApp() {
       }
     }
 
+    if (draggingHandleRef.current) {
+      const { drawingId, handleIdx } = draggingHandleRef.current;
+      setDrawings(prev => prev.map(d => {
+        if (d.id !== drawingId) return d;
+        const handles = getHandlePoints(d);
+        handles[handleIdx] = { x, y };
+        // Apply handle updates back to drawing
+        if (d.tool === "triangle") return { ...d, points: handles };
+        if (d.tool === "curved-arrow") return { ...d, points: [handles[1]] };
+        if (d.tool === "rect" || d.tool === "zone") {
+          const tl = handles[0], tr = handles[1], br = handles[2];
+          if (handleIdx === 0) return { ...d, start: { x, y } };
+          if (handleIdx === 1) return { ...d, end: { x: x, y: d.end.y }, start: { x: d.start.x, y: y } };
+          if (handleIdx === 2) return { ...d, end: { x, y } };
+          if (handleIdx === 3) return { ...d, start: { x: x, y: d.start.y }, end: { x: d.end.x, y: y } };
+          return { ...d, start: tl, end: br };
+        }
+        if (d.tool === "circle") {
+          const cx = (d.start.x + d.end.x) / 2;
+          const cy = (d.start.y + d.end.y) / 2;
+          const rx = Math.abs(x - cx);
+          const ry = Math.abs(y - cy);
+          return { ...d, start: { x: cx - rx, y: cy - ry }, end: { x: cx + rx, y: cy + ry } };
+        }
+        if (handleIdx === 0) return { ...d, start: { x, y } };
+        return { ...d, end: { x, y } };
+      }));
+    }
+
     if (isDrawingRef.current && drawStartRef.current) {
       setCurrentDraw(prev => prev ? { ...prev, end: { x, y } } : null);
     }
   }, [toLogical]);
 
   const handlePointerUp = useCallback(() => {
-    const wasDragging = draggingRef.current !== null;
-    const wasDrawing = isDrawingRef.current;
+    const wasDragging = !!draggingRef.current;
+    const wasHandle   = !!draggingHandleRef.current;
+    const wasDrawing  = isDrawingRef.current;
 
     draggingRef.current = null;
+    draggingHandleRef.current = null;
 
     if (wasDrawing && currentDraw) {
       const dx = currentDraw.end.x - currentDraw.start.x;
       const dy = currentDraw.end.y - currentDraw.start.y;
-      if (Math.hypot(dx, dy) > 8) {
+      if (Math.hypot(dx, dy) > 6) {
         commitHistory();
-        setDrawings(prev => [...prev, { id: genId(), ...currentDraw }]);
+        const newDrawing: Drawing = {
+          id: genId(),
+          tool: currentDraw.tool,
+          start: currentDraw.start,
+          end: currentDraw.end,
+          color: currentDraw.color,
+          filled: currentDraw.filled,
+          strokeWidth: 2.5,
+        };
+        // For triangle: initialize points
+        if (currentDraw.tool === "triangle") {
+          const mx = (currentDraw.start.x + currentDraw.end.x) / 2;
+          newDrawing.points = [
+            { x: mx, y: currentDraw.start.y },
+            { x: currentDraw.start.x, y: currentDraw.end.y },
+            { x: currentDraw.end.x,   y: currentDraw.end.y },
+          ];
+        }
+        setDrawings(prev => [...prev, newDrawing]);
       }
       setCurrentDraw(null);
       isDrawingRef.current = false;
       drawStartRef.current = null;
     }
 
-    if (wasDragging) commitHistory();
+    if (wasDragging || wasHandle) commitHistory();
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [currentDraw, commitHistory]);
 
-  const handleDoubleClick = useCallback((e: React.MouseEvent<HTMLCanvasElement>) => {
-    const { x, y } = toLogical(e.clientX, e.clientY);
-    const hit = findPlayerAtPoint(playersRef.current, ballRef.current, x, y);
-    if (hit?.type === "player") {
-      const player = playersRef.current.find(p => p.id === hit.id);
-      if (player) {
-        setEditingPlayerId(hit.id);
-        setEditingName(player.name);
-        setTimeout(() => nameInputRef.current?.focus(), 50);
-      }
-    }
-  }, [toLogical]);
+  // ─── Text commit ─────────────────────────────────────────────────────────────
+  const commitText = useCallback(() => {
+    if (!pendingText || !pendingTextValue.trim()) { setPendingText(null); return; }
+    commitHistory();
+    setDrawings(prev => [...prev, { id: genId(), tool: "text", start: pendingText, end: pendingText, color: drawColorRef.current, text: pendingTextValue, strokeWidth: 2.5 }]);
+    setPendingText(null);
+    setPendingTextValue("");
+  }, [pendingText, pendingTextValue, commitHistory]);
 
-  const commitEdit = useCallback(() => {
-    if (!editingPlayerId) return;
-    setPlayers(prev => prev.map(p => p.id === editingPlayerId ? { ...p, name: editingName } : p));
-    setEditingPlayerId(null);
-  }, [editingPlayerId, editingName]);
-
-  // ─── Tool/setting setters (sync ref + state) ────────────────────────────────
-  const changeTool = (t: Tool) => { activeToolRef.current = t; setActiveTool(t); };
-  const changeView = (v: FieldView) => { fieldViewRef.current = v; setFieldView(v); };
+  // ─── Tool / setting setters ───────────────────────────────────────────────────
+  const changeTool = (t: Tool) => { activeToolRef.current = t; setActiveTool(t); setOpenDropdown(null); };
+  const changeView = (v: FieldView) => { fieldViewRef.current = v; setFieldView(v); setOpenDropdown(null); };
   const changeColor = (c: string) => { drawColorRef.current = c; setDrawColor(c); };
-  const toggleNames = () => { showNamesRef.current = !showNames; setShowNames(v => !v); };
-  const toggleZones = () => { showZonesRef.current = !showZones; setShowZones(v => !v); };
-  const toggleLight = () => { lightFieldRef.current = !lightField; setLightField(v => !v); };
+  const toggleFilled = () => { drawFilledRef.current = !drawFilled; setDrawFilled(v => !v); };
+  const toggleNames  = () => { showNamesRef.current = !showNames; setShowNames(v => !v); };
+  const toggleZones  = () => { showZonesRef.current = !showZones; setShowZones(v => !v); };
+  const toggleLight  = () => { lightFieldRef.current = !lightField; setLightField(v => !v); };
 
-  // ─── Board actions ──────────────────────────────────────────────────────────
-  const clearDrawings = () => {
-    setHistory(prev => [...prev.slice(-49), { players, ball, drawings }]);
-    setDrawings([]);
-  };
+  // ─── Board actions ────────────────────────────────────────────────────────────
+  const clearDrawings = () => { setHistory(prev => [...prev.slice(-49), { players, ball, drawings }]); setDrawings([]); };
   const clearAll = () => {
     setHistory(prev => [...prev.slice(-49), { players, ball, drawings }]);
     setDrawings([]);
     setPlayers(getInitialPlayers());
     setBall({ x: PITCH_W / 2, y: PITCH_H / 2 });
-    setKeyframes([]);
+    setMovements([]);
   };
-  const ballToCenter = () => {
-    setHistory(prev => [...prev.slice(-49), { players, ball, drawings }]);
-    setBall({ x: PITCH_W / 2, y: PITCH_H / 2 });
-  };
+  const ballToCenter = () => { setHistory(prev => [...prev.slice(-49), { players, ball, drawings }]); setBall({ x: PITCH_W / 2, y: PITCH_H / 2 }); };
 
   const applyFormation = (team: "A" | "B", formation: FormationName) => {
     setHistory(prev => [...prev.slice(-49), { players, ball, drawings }]);
-    const newTeam = makeTeam(team, formation);
-    setPlayers(prev => [...prev.filter(p => p.team !== team), ...newTeam]);
+    const positions = FORMATIONS[formation];
+    setPlayers(prev => prev.map(p => {
+      if (p.team !== team) return p;
+      const pos = positions[p.number - 1];
+      if (!pos) return p;
+      const rawX = PL + pos.x * (PR - PL);
+      const rawY = PT + pos.y * (PB - PT);
+      return { ...p, x: team === "A" ? rawX : PITCH_W - rawX, y: rawY };
+    }));
+    setOpenTacticTeam(null);
+    setOpenTacticGroup(null);
   };
 
-  const mirrorAtoB = () => {
+  const resetToBorder = (team: "A" | "B") => {
     setHistory(prev => [...prev.slice(-49), { players, ball, drawings }]);
-    const teamA = players.filter(p => p.team === "A");
-    setPlayers(prev => [
-      ...prev.filter(p => p.team === "A"),
-      ...prev.filter(p => p.team === "B").map(pb => {
-        const matchA = teamA.find(pa => pa.number === pb.number);
-        return matchA ? { ...pb, x: PITCH_W - matchA.x, y: matchA.y } : pb;
-      }),
-    ]);
+    setPlayers(prev => prev.map(p => {
+      if (p.team !== team) return p;
+      const idx = p.number - 1;
+      return { ...p, x: team === "A" ? PL + 22 : PR - 22, y: PT + idx * ((PB - PT) / 10) };
+    }));
+  };
+
+  const resetAllNames = () => {
+    setPlayers(prev => prev.map(p => ({ ...p, name: "" })));
   };
 
   const togglePlayerVisibility = (id: string) => {
     setPlayers(prev => prev.map(p => p.id === id ? { ...p, visible: !p.visible } : p));
   };
 
-  // ─── Screenshot ─────────────────────────────────────────────────────────────
+  const updatePlayerName = (id: string, name: string) => {
+    setPlayers(prev => prev.map(p => p.id === id ? { ...p, name } : p));
+  };
+
+  const handlePhotoUpload = (id: string, file: File) => {
+    const reader = new FileReader();
+    reader.onload = (ev) => {
+      const data = ev.target?.result as string;
+      setPlayers(prev => prev.map(p => p.id === id ? { ...p, photo: data } : p));
+      const img = new Image();
+      img.src = data;
+      img.onload = () => imageCache.current.set(id, img);
+    };
+    reader.readAsDataURL(file);
+  };
+
+  // ─── Screenshot ──────────────────────────────────────────────────────────────
   const takeScreenshot = useCallback(() => {
     const canvas = canvasRef.current;
     if (!canvas) return;
@@ -357,18 +531,7 @@ export function CoachLabApp() {
     link.click();
   }, []);
 
-  // ─── Keyframes ──────────────────────────────────────────────────────────────
-  const saveKeyframe = () => {
-    const label = `Phase ${keyframes.length + 1}`;
-    setKeyframes(prev => [...prev, {
-      id: genId(), label,
-      players: JSON.parse(JSON.stringify(players)),
-      ball: { ...ball },
-    }]);
-  };
-  const deleteKeyframe = (id: string) => setKeyframes(prev => prev.filter(k => k.id !== id));
-
-  // ─── Animation ──────────────────────────────────────────────────────────────
+  // ─── Animation ───────────────────────────────────────────────────────────────
   const stopAnimation = useCallback(() => {
     isPlayingRef.current = false;
     cancelAnimationFrame(animFrameRef.current);
@@ -378,9 +541,12 @@ export function CoachLabApp() {
   }, []);
 
   const playAnimation = useCallback(async (shouldRecord: boolean) => {
-    if (keyframes.length < 2 || isPlayingRef.current) return;
+    const mvs = movementsRef.current;
+    if (mvs.every(m => m.waypoints.length === 0) || isPlayingRef.current) return;
+
     isPlayingRef.current = true;
     setIsPlaying(true);
+    setDownloadUrl(null);
 
     const canvas = canvasRef.current;
     if (!canvas) { stopAnimation(); return; }
@@ -393,58 +559,75 @@ export function CoachLabApp() {
     if (shouldRecord) {
       try {
         const stream = canvas.captureStream(30);
-        const mimeType = ["video/webm;codecs=vp9", "video/webm;codecs=vp8", "video/webm"]
-          .find(t => MediaRecorder.isTypeSupported(t)) ?? "video/webm";
+        const mimeType = ["video/webm;codecs=vp9","video/webm;codecs=vp8","video/webm"].find(t => MediaRecorder.isTypeSupported(t)) ?? "video/webm";
         recorder = new MediaRecorder(stream, { mimeType });
-        recorder.ondataavailable = (e) => { if (e.data.size > 0) chunks.push(e.data); };
+        recorder.ondataavailable = (ev) => { if (ev.data.size > 0) chunks.push(ev.data); };
         recorder.start();
         setIsRecording(true);
-      } catch {
-        // MediaRecorder not supported
-      }
+      } catch { /* not supported */ }
     }
 
-    const DURATION = 1500;
-    for (let i = 0; i < keyframes.length - 1; i++) {
-      if (!isPlayingRef.current) break;
-      const from = keyframes[i];
-      const to = keyframes[i + 1];
-      await new Promise<void>(resolve => {
-        const t0 = performance.now();
-        const tick = (now: number) => {
-          if (!isPlayingRef.current) { resolve(); return; }
-          const t = Math.min((now - t0) / DURATION, 1);
-          const e = t < 0.5 ? 2 * t * t : -1 + (4 - 2 * t) * t;
-          const ap = from.players.map(fp => {
-            const tp = to.players.find(p => p.id === fp.id);
-            return tp ? { ...fp, x: fp.x + (tp.x - fp.x) * e, y: fp.y + (tp.y - fp.y) * e } : fp;
-          });
-          const ab = { x: from.ball.x + (to.ball.x - from.ball.x) * e, y: from.ball.y + (to.ball.y - from.ball.y) * e };
-          renderBoard(ctx, canvas, ap, ab, drawingsRef.current, fieldViewRef.current, showNamesRef.current, showZonesRef.current, lightFieldRef.current, null, null);
-          setPlayProgress((i + t) / (keyframes.length - 1));
-          if (t < 1) { animFrameRef.current = requestAnimationFrame(tick); }
-          else { resolve(); }
+    const maxWps = Math.max(...mvs.map(m => m.waypoints.length), 1);
+    const STEP_MS = 1200;
+    const totalDuration = maxWps * STEP_MS;
+
+    const startPositions: Record<string, Point> = {};
+    for (const mv of mvs) {
+      const p = playersRef.current.find(pl => pl.id === mv.playerId);
+      startPositions[mv.playerId] = p ? { x: p.x, y: p.y } : { ...ballRef.current };
+    }
+
+    await new Promise<void>(resolve => {
+      const t0 = performance.now();
+      const tick = (now: number) => {
+        if (!isPlayingRef.current) { resolve(); return; }
+        const elapsed = now - t0;
+        const globalT = Math.min(elapsed / totalDuration, 1);
+        const eased = globalT < 0.5 ? 2 * globalT * globalT : -1 + (4 - 2 * globalT) * globalT;
+
+        const animPlayers = playersRef.current.map(p => {
+          const mv = mvs.find(m => m.playerId === p.id);
+          if (!mv || mv.waypoints.length === 0) return p;
+          const segCount = mv.waypoints.length;
+          const segT = eased * segCount;
+          const segIdx = Math.min(Math.floor(segT), segCount - 1);
+          const localT = segT - segIdx;
+          const fromPos = segIdx === 0 ? (startPositions[p.id] ?? p) : mv.waypoints[segIdx - 1];
+          const toPos   = mv.waypoints[segIdx];
+          return { ...p, x: fromPos.x + (toPos.x - fromPos.x) * localT, y: fromPos.y + (toPos.y - fromPos.y) * localT };
+        });
+
+        const ballMv = mvs.find(m => m.playerId === "__ball__");
+        let animBall = { ...ballRef.current };
+        if (ballMv && ballMv.waypoints.length > 0) {
+          const segCount = ballMv.waypoints.length;
+          const segT = eased * segCount;
+          const segIdx = Math.min(Math.floor(segT), segCount - 1);
+          const localT = segT - segIdx;
+          const fromPos = segIdx === 0 ? (startPositions["__ball__"] ?? animBall) : ballMv.waypoints[segIdx - 1];
+          const toPos   = ballMv.waypoints[segIdx];
+          animBall = { x: fromPos.x + (toPos.x - fromPos.x) * localT, y: fromPos.y + (toPos.y - fromPos.y) * localT };
+        }
+
+        const opts: RenderOptions = {
+          view: fieldViewRef.current, showNames: showNamesRef.current, showZones: showZonesRef.current,
+          lightField: lightFieldRef.current, currentDraw: null, selectedPlayerId: null, selectedDrawingId: null,
+          imageCache: imageCache.current, movements: movementsRef.current, activeMovePiece: null, animMode: true,
         };
-        animFrameRef.current = requestAnimationFrame(tick);
-      });
-    }
+        renderBoard(ctx, canvas, animPlayers, animBall, drawingsRef.current, opts);
+        setPlayProgress(globalT);
 
-    if (isPlayingRef.current) {
-      const last = keyframes[keyframes.length - 1];
-      setPlayers([...last.players]);
-      setBall({ ...last.ball });
-    }
+        if (globalT < 1) { animFrameRef.current = requestAnimationFrame(tick); }
+        else { resolve(); }
+      };
+      animFrameRef.current = requestAnimationFrame(tick);
+    });
 
     if (recorder && recorder.state !== "inactive") {
       recorder.stop();
       recorder.onstop = () => {
         const blob = new Blob(chunks, { type: "video/webm" });
-        const url = URL.createObjectURL(blob);
-        const a = document.createElement("a");
-        a.href = url;
-        a.download = `coach-lab-${Date.now()}.webm`;
-        a.click();
-        URL.revokeObjectURL(url);
+        setDownloadUrl(URL.createObjectURL(blob));
       };
     }
 
@@ -452,115 +635,331 @@ export function CoachLabApp() {
     setIsPlaying(false);
     setIsRecording(false);
     setPlayProgress(0);
-  }, [keyframes, stopAnimation]);
+  }, [stopAnimation]);
 
-  // ─── Cursor ─────────────────────────────────────────────────────────────────
+  // ─── Animation: clear paths ───────────────────────────────────────────────
+  const clearPath = (pieceId: string) => setMovements(prev => prev.filter(m => m.playerId !== pieceId));
+  const clearAllPaths = () => setMovements([]);
+
+  // ─── Cursor ──────────────────────────────────────────────────────────────────
   const getCursor = () => {
+    if (animMode && activeMovePiece) return "crosshair";
     if (activeTool === "eraser") return "cell";
-    if (activeTool === "select") return "grab";
+    if (activeTool === "select") return "default";
     return "crosshair";
   };
 
-  // ─── Editing player screen position ─────────────────────────────────────────
-  const getEditInputPos = () => {
+  // ─── Text overlay position ────────────────────────────────────────────────────
+  const getTextOverlayPos = () => {
     const canvas = canvasRef.current;
-    if (!canvas || !editingPlayerId) return null;
-    const player = players.find(p => p.id === editingPlayerId);
-    if (!player) return null;
-    return logicalToCanvas(player.x, player.y + 22, canvas, fieldView);
+    if (!canvas || !pendingText) return null;
+    return logicalToCanvas(pendingText.x, pendingText.y, canvas, fieldView);
   };
 
-  const editPos = getEditInputPos();
+  const textPos = getTextOverlayPos();
 
-  // ─── UI helpers ─────────────────────────────────────────────────────────────
+  // ─── UI helpers ──────────────────────────────────────────────────────────────
   const teamA = players.filter(p => p.team === "A").sort((a, b) => a.number - b.number);
   const teamB = players.filter(p => p.team === "B").sort((a, b) => a.number - b.number);
-  const formations: FormationName[] = ["4-3-3", "4-4-2", "4-2-3-1", "3-5-2"];
-  const viewOptions: { label: string; value: FieldView }[] = [
-    { label: "Full", value: "full" }, { label: "½L", value: "half-left" },
-    { label: "½R", value: "half-right" }, { label: "AreaL", value: "area-left" },
-    { label: "AreaR", value: "area-right" },
-  ];
-  const TOOL_COLORS: Record<"A" | "B", string> = { A: "#0066FF", B: "#EF4444" };
 
-  // ─── JSX ────────────────────────────────────────────────────────────────────
+  const isShapeTool = SHAPE_TOOLS.some(s => s.t === activeTool);
+  const isArrowTool = ARROW_TOOLS.some(s => s.t === activeTool);
+  const activeShapeInfo = SHAPE_TOOLS.find(s => s.t === activeTool);
+  const activeArrowInfo = ARROW_TOOLS.find(s => s.t === activeTool);
+  const activeFieldInfo = FIELD_FORMATS.find(f => f.value === fieldView)!;
+
+  const getMovementCount = (id: string) => movements.find(m => m.playerId === id)?.waypoints.length ?? 0;
+
+  // ─── Team panel ────────────────────────────────────────────────────────────
+  function TeamPanel({ team }: { team: "A" | "B" }) {
+    const list = team === "A" ? teamA : teamB;
+    const color = team === "A" ? BORDEAUX : OCEAN;
+    const label = team === "A" ? "Team A" : "Team B";
+    const isOpenTactic = openTacticTeam === team;
+
+    return (
+      <div className="mb-3">
+        {/* Team header */}
+        <div className="flex items-center gap-1 mb-1 px-1">
+          <span className="text-xs font-bold" style={{ color }}>
+            {label}
+          </span>
+          <button
+            onClick={() => resetToBorder(team)}
+            className="ml-auto text-[9px] px-1 py-0.5 rounded bg-secondary/40 text-muted-foreground hover:text-foreground border border-border/30 transition-colors"
+            title="Reset to border"
+          >
+            ← Border
+          </button>
+        </div>
+
+        {/* Tactical Systems accordion */}
+        <button
+          onClick={() => setOpenTacticTeam(isOpenTactic ? null : team)}
+          className="w-full flex items-center justify-between text-[10px] px-2 py-1 rounded bg-secondary/50 border border-border/30 mb-1 hover:bg-secondary/80 transition-colors"
+        >
+          <span className="font-semibold">Tactical Systems</span>
+          <ChevronDown className={`h-3 w-3 transition-transform ${isOpenTactic ? "rotate-180" : ""}`} />
+        </button>
+
+        {isOpenTactic && (
+          <div className="mb-1 rounded border border-border/30 bg-secondary/20 overflow-hidden">
+            {FORMATION_GROUPS.map(grp => (
+              <div key={grp.label}>
+                <button
+                  onClick={() => setOpenTacticGroup(v => v === grp.label ? null : grp.label)}
+                  className="w-full flex items-center justify-between text-[10px] px-2 py-1 text-muted-foreground hover:text-foreground hover:bg-secondary/60 transition-colors"
+                >
+                  <span>{grp.label}</span>
+                  <ChevronRight className={`h-2.5 w-2.5 transition-transform ${openTacticGroup === grp.label ? "rotate-90" : ""}`} />
+                </button>
+                {openTacticGroup === grp.label && (
+                  <div className="px-1 pb-1 flex flex-wrap gap-0.5">
+                    {grp.formations.map(f => (
+                      <button
+                        key={f}
+                        onClick={() => applyFormation(team, f)}
+                        className="text-[9px] px-1.5 py-0.5 rounded border border-border hover:border-muted-foreground/50 bg-card/50 font-mono transition-colors hover:bg-secondary"
+                      >
+                        {f}
+                      </button>
+                    ))}
+                  </div>
+                )}
+              </div>
+            ))}
+          </div>
+        )}
+
+        {/* Player list */}
+        <div className="space-y-0.5">
+          {list.map(p => (
+            <div key={p.id} className="flex items-center gap-1 group">
+              {/* Visibility */}
+              <button onClick={() => togglePlayerVisibility(p.id)} className="flex-none opacity-50 hover:opacity-100 transition-opacity">
+                {p.visible ? <Eye className="h-3 w-3" /> : <EyeOff className="h-3 w-3 opacity-30" />}
+              </button>
+              {/* Number badge */}
+              <span
+                className="flex-none w-5 h-5 rounded-full flex items-center justify-center text-[9px] font-bold text-white flex-shrink-0"
+                style={{ background: p.type === "goalkeeper" ? (team === "A" ? "#4A0F22" : "#051E3E") : color }}
+              >
+                {p.number}
+              </span>
+              {/* Name input */}
+              {editingNameId === p.id ? (
+                <input
+                  autoFocus
+                  value={editingNameValue}
+                  onChange={e => setEditingNameValue(e.target.value)}
+                  onBlur={() => { updatePlayerName(p.id, editingNameValue); setEditingNameId(null); }}
+                  onKeyDown={e => { if (e.key === "Enter") { updatePlayerName(p.id, editingNameValue); setEditingNameId(null); } if (e.key === "Escape") setEditingNameId(null); }}
+                  className="flex-1 min-w-0 text-[10px] px-1 py-0.5 rounded bg-card border border-primary text-foreground outline-none"
+                  placeholder="Player name"
+                />
+              ) : (
+                <button
+                  onClick={() => { setEditingNameId(p.id); setEditingNameValue(p.name); }}
+                  className="flex-1 min-w-0 text-left text-[10px] text-muted-foreground hover:text-foreground truncate transition-colors"
+                  title="Click to edit name"
+                >
+                  {p.name || <span className="italic opacity-40">Name...</span>}
+                </button>
+              )}
+              {/* Photo upload */}
+              <label className="flex-none cursor-pointer opacity-0 group-hover:opacity-60 hover:!opacity-100 transition-opacity">
+                <ImagePlus className="h-3 w-3" />
+                <input
+                  type="file"
+                  accept="image/*"
+                  className="sr-only"
+                  onChange={e => { const f = e.target.files?.[0]; if (f) handlePhotoUpload(p.id, f); }}
+                />
+              </label>
+            </div>
+          ))}
+        </div>
+      </div>
+    );
+  }
+
+  // ─── JSX ──────────────────────────────────────────────────────────────────────
   return (
     <div className="fixed inset-0 flex flex-col" style={{ top: "3.5rem" }}>
 
-      {/* ── Toolbar ───────────────────────────────────────────────────────────── */}
-      <div className="flex-none bg-card border-b border-border flex items-center gap-1 px-2 py-1 overflow-x-auto">
+      {/* ── Toolbar ─────────────────────────────────────────────────────────── */}
+      <div className="flex-none bg-card border-b border-border flex items-center gap-0.5 px-2 py-1 overflow-x-auto shrink-0" ref={dropdownRef}>
 
-        {/* Drawing tools */}
-        {([
-          { t: "select", icon: <MousePointer2 className="h-4 w-4" />, title: "Select / Move (drag players)" },
-          { t: "line",   icon: <Minus className="h-4 w-4" />,          title: "Line" },
-          { t: "arrow",  icon: <ArrowRight className="h-4 w-4" />,     title: "Arrow (movement)" },
-          { t: "run",    icon: <ZapIcon className="h-4 w-4" />,        title: "Run / Desmarcação (dashed arrow)" },
-          { t: "triangle",icon: <Triangle className="h-4 w-4" />,      title: "Triangle" },
-          { t: "rect",   icon: <Square className="h-4 w-4" />,         title: "Rectangle" },
-          { t: "eraser", icon: <Eraser className="h-4 w-4" />,         title: "Eraser" },
-        ] as { t: Tool; icon: React.ReactNode; title: string }[]).map(({ t, icon, title }) => (
-          <Button key={t} size="sm" variant={activeTool === t ? "default" : "ghost"}
-            className="h-8 w-8 p-0" title={title} onClick={() => changeTool(t)}>
-            {icon}
-          </Button>
-        ))}
+        {/* Select */}
+        <Button
+          size="sm" variant={activeTool === "select" ? "default" : "ghost"}
+          className="h-8 w-8 p-0 shrink-0" title="Select / Move"
+          onClick={() => changeTool("select")}
+        >
+          <MousePointer2 className="h-4 w-4" />
+        </Button>
 
-        {/* Color picker */}
-        <div className="relative mx-1 flex items-center gap-1" title="Arrow / Line color">
-          <div className="h-6 w-6 rounded border-2 border-border" style={{ background: drawColor }} />
-          <input type="color" value={drawColor} onChange={e => changeColor(e.target.value)}
-            className="absolute inset-0 opacity-0 w-full h-full cursor-pointer" />
+        <div className="w-px h-5 bg-border mx-0.5 shrink-0" />
+
+        {/* Shapes dropdown */}
+        <div className="relative shrink-0">
+          <button
+            onClick={() => setOpenDropdown(v => v === "shapes" ? null : "shapes")}
+            className={`flex items-center gap-1 h-8 px-2 rounded text-xs font-medium transition-colors border ${isShapeTool ? "bg-primary text-primary-foreground border-primary" : "border-border/40 bg-transparent hover:bg-secondary text-foreground"}`}
+          >
+            {activeShapeInfo?.icon ?? <Minus className="h-3.5 w-3.5" />}
+            <span className="hidden sm:inline">{activeShapeInfo?.label ?? "Shapes"}</span>
+            <ChevronDown className="h-3 w-3" />
+          </button>
+          {openDropdown === "shapes" && (
+            <div className="absolute top-full left-0 mt-1 z-50 bg-card border border-border rounded-lg shadow-xl p-2 min-w-[160px]">
+              {SHAPE_TOOLS.map(s => (
+                <button key={s.t} onClick={() => changeTool(s.t)}
+                  className={`w-full flex items-center gap-2 px-2 py-1.5 rounded text-xs hover:bg-secondary transition-colors ${activeTool === s.t ? "bg-secondary font-semibold" : ""}`}>
+                  {s.icon} {s.label}
+                </button>
+              ))}
+              <div className="w-full h-px bg-border my-1.5" />
+              {/* Fill toggle */}
+              <button onClick={toggleFilled}
+                className={`w-full flex items-center gap-2 px-2 py-1.5 rounded text-xs transition-colors ${drawFilled ? "bg-primary/20 text-primary" : "hover:bg-secondary"}`}>
+                <Square className={`h-3.5 w-3.5 ${drawFilled ? "fill-current" : ""}`} />
+                {drawFilled ? "Filled: ON" : "Filled: OFF"}
+              </button>
+              {/* Color */}
+              <div className="mt-1.5 px-2">
+                <p className="text-[10px] text-muted-foreground mb-1">Color</p>
+                <div className="flex flex-wrap gap-1">
+                  {PRESET_COLORS.map(c => (
+                    <button key={c} onClick={() => changeColor(c)}
+                      className={`w-4 h-4 rounded-full border-2 transition-transform hover:scale-110 ${drawColor === c ? "border-white scale-110" : "border-transparent"}`}
+                      style={{ background: c === "#000000" ? "#111" : c }}
+                    />
+                  ))}
+                </div>
+                <div className="flex items-center gap-1 mt-1">
+                  <div className="w-5 h-5 rounded border border-border flex-shrink-0" style={{ background: drawColor }} />
+                  <input type="color" value={drawColor} onChange={e => changeColor(e.target.value)}
+                    className="w-full h-5 cursor-pointer opacity-0 absolute" />
+                  <label className="text-[10px] text-muted-foreground cursor-pointer relative">
+                    Custom
+                    <input type="color" value={drawColor} onChange={e => changeColor(e.target.value)}
+                      className="absolute inset-0 opacity-0 w-full h-full cursor-pointer" />
+                  </label>
+                </div>
+              </div>
+            </div>
+          )}
         </div>
 
-        <div className="w-px h-6 bg-border mx-1" />
+        {/* Arrows dropdown */}
+        <div className="relative shrink-0">
+          <button
+            onClick={() => setOpenDropdown(v => v === "arrows" ? null : "arrows")}
+            className={`flex items-center gap-1 h-8 px-2 rounded text-xs font-medium transition-colors border ${isArrowTool ? "bg-primary text-primary-foreground border-primary" : "border-border/40 bg-transparent hover:bg-secondary text-foreground"}`}
+          >
+            {activeArrowInfo?.icon ?? <ArrowRight className="h-3.5 w-3.5" />}
+            <span className="hidden sm:inline">{activeArrowInfo?.label ?? "Arrows"}</span>
+            <ChevronDown className="h-3 w-3" />
+          </button>
+          {openDropdown === "arrows" && (
+            <div className="absolute top-full left-0 mt-1 z-50 bg-card border border-border rounded-lg shadow-xl p-2 min-w-[180px]">
+              {ARROW_TOOLS.map(a => (
+                <button key={a.t} onClick={() => changeTool(a.t)}
+                  className={`w-full flex items-center gap-2 px-2 py-1.5 rounded text-xs hover:bg-secondary transition-colors ${activeTool === a.t ? "bg-secondary font-semibold" : ""}`}>
+                  {a.icon} {a.label}
+                </button>
+              ))}
+              <div className="w-full h-px bg-border my-1.5" />
+              <div className="px-2">
+                <p className="text-[10px] text-muted-foreground mb-1">Color</p>
+                <div className="flex flex-wrap gap-1">
+                  {PRESET_COLORS.map(c => (
+                    <button key={c} onClick={() => changeColor(c)}
+                      className={`w-4 h-4 rounded-full border-2 transition-transform hover:scale-110 ${drawColor === c ? "border-white scale-110" : "border-transparent"}`}
+                      style={{ background: c === "#000000" ? "#111" : c }}
+                    />
+                  ))}
+                </div>
+              </div>
+            </div>
+          )}
+        </div>
 
-        {/* Field view */}
-        {viewOptions.map(v => (
-          <Button key={v.value} size="sm" variant={fieldView === v.value ? "default" : "ghost"}
-            className="h-8 px-2 text-xs font-medium" onClick={() => changeView(v.value)}>
-            {v.label}
-          </Button>
-        ))}
+        {/* Color swatch (quick access) */}
+        <label className="relative flex-none cursor-pointer" title="Drawing color">
+          <div className="w-6 h-6 rounded-full border-2 border-border" style={{ background: drawColor }} />
+          <input type="color" value={drawColor} onChange={e => changeColor(e.target.value)}
+            className="absolute inset-0 opacity-0 w-full h-full cursor-pointer" />
+        </label>
 
-        <div className="w-px h-6 bg-border mx-1" />
+        <div className="w-px h-5 bg-border mx-0.5 shrink-0" />
 
-        {/* Actions */}
-        <Button size="sm" variant="ghost" className="h-8 w-8 p-0" title="Undo (Ctrl+Z)" onClick={undo} disabled={history.length === 0}>
-          <Undo2 className="h-4 w-4" />
+        {/* Field Formats dropdown */}
+        <div className="relative shrink-0">
+          <button
+            onClick={() => setOpenDropdown(v => v === "field" ? null : "field")}
+            className="flex items-center gap-1 h-8 px-2 rounded text-xs font-medium border border-border/40 bg-transparent hover:bg-secondary text-foreground transition-colors"
+          >
+            <span className="hidden sm:inline">⬛ {activeFieldInfo?.label}</span>
+            <span className="sm:hidden">Field</span>
+            <ChevronDown className="h-3 w-3" />
+          </button>
+          {openDropdown === "field" && (
+            <div className="absolute top-full left-0 mt-1 z-50 bg-card border border-border rounded-lg shadow-xl p-1 min-w-[180px]">
+              {FIELD_FORMATS.map(f => (
+                <button key={f.value} onClick={() => changeView(f.value)}
+                  className={`w-full flex flex-col items-start px-3 py-1.5 rounded text-xs transition-colors hover:bg-secondary ${fieldView === f.value ? "bg-secondary font-semibold" : ""}`}>
+                  <span>{f.label}</span>
+                  <span className="text-[10px] text-muted-foreground">{f.desc}</span>
+                </button>
+              ))}
+            </div>
+          )}
+        </div>
+
+        <div className="w-px h-5 bg-border mx-0.5 shrink-0" />
+
+        {/* Action buttons with labels */}
+        <Button size="sm" variant="ghost" className="h-8 px-2 gap-1 text-xs shrink-0" title="Undo (Ctrl+Z)"
+          onClick={undo} disabled={history.length === 0}>
+          <Undo2 className="h-3.5 w-3.5" /> <span className="hidden sm:inline">Undo</span>
         </Button>
-        <Button size="sm" variant="ghost" className="h-8 w-8 p-0" title="Clear drawings" onClick={clearDrawings}>
-          <Eraser className="h-4 w-4" />
+        <Button size="sm" variant="ghost" className="h-8 px-2 gap-1 text-xs shrink-0" title="Clear all drawings"
+          onClick={clearDrawings}>
+          <Eraser className="h-3.5 w-3.5" /> <span className="hidden sm:inline">Clear</span>
         </Button>
-        <Button size="sm" variant="ghost" className="h-8 w-8 p-0 text-red-500 hover:text-red-400" title="Reset all" onClick={clearAll}>
-          <Trash2 className="h-4 w-4" />
+        <Button size="sm" variant="ghost" className="h-8 px-2 gap-1 text-xs text-red-500 hover:text-red-400 shrink-0" title="Reset everything"
+          onClick={clearAll}>
+          <Trash2 className="h-3.5 w-3.5" /> <span className="hidden sm:inline">Reset</span>
         </Button>
-        <Button size="sm" variant="ghost" className="h-8 w-8 p-0" title="Screenshot (PNG)" onClick={takeScreenshot}>
-          <Camera className="h-4 w-4" />
+        <Button size="sm" variant="ghost" className="h-8 px-2 gap-1 text-xs shrink-0" title="Screenshot (PNG)"
+          onClick={takeScreenshot}>
+          <Camera className="h-3.5 w-3.5" />
         </Button>
 
-        <div className="w-px h-6 bg-border mx-1" />
+        <div className="w-px h-5 bg-border mx-0.5 shrink-0" />
 
         {/* Toggles */}
-        <Button size="sm" variant={showNames ? "default" : "ghost"} className="h-8 px-2 text-xs" title="Show player names" onClick={toggleNames}>
-          {showNames ? <Eye className="h-3 w-3 mr-1" /> : <EyeOff className="h-3 w-3 mr-1" />} Names
+        <Button size="sm" variant={showNames ? "default" : "ghost"} className="h-8 px-2 text-xs shrink-0 gap-1" onClick={toggleNames}>
+          {showNames ? <Eye className="h-3 w-3" /> : <EyeOff className="h-3 w-3" />}
+          <span className="hidden sm:inline">Names</span>
         </Button>
-        <Button size="sm" variant={showZones ? "default" : "ghost"} className="h-8 px-2 text-xs" title="Show zone labels" onClick={toggleZones}>
+        <Button size="sm" variant={showZones ? "default" : "ghost"} className="h-8 px-2 text-xs shrink-0" onClick={toggleZones}>
           Zones
         </Button>
-        <Button size="sm" variant={lightField ? "default" : "ghost"} className="h-8 px-2 text-xs" title="Light field (for print)" onClick={toggleLight}>
+        <Button size="sm" variant={lightField ? "default" : "ghost"} className="h-8 px-2 text-xs shrink-0" onClick={toggleLight}>
           Light
         </Button>
 
-        <div className="w-px h-6 bg-border mx-1" />
+        <div className="w-px h-5 bg-border mx-0.5 shrink-0" />
 
-        {/* Ball to center */}
-        <Button size="sm" variant="ghost" className="h-8 px-2 text-xs" title="Ball to center" onClick={ballToCenter}>
-          ⚽ Center
+        <Button size="sm" variant="ghost" className="h-8 px-2 text-xs shrink-0" title="Ball to center" onClick={ballToCenter}>
+          ⚽
         </Button>
 
-        {/* Sidebar toggles (mobile friendly) */}
-        <div className="ml-auto flex items-center gap-1">
+        {/* Sidebar toggles */}
+        <div className="ml-auto flex items-center gap-0.5 shrink-0">
           <Button size="sm" variant="ghost" className="h-8 w-8 p-0 lg:hidden" onClick={() => setLeftOpen(v => !v)}>
             {leftOpen ? <ChevronLeft className="h-4 w-4" /> : <ChevronRight className="h-4 w-4" />}
           </Button>
@@ -570,63 +969,27 @@ export function CoachLabApp() {
         </div>
       </div>
 
-      {/* ── Main area ─────────────────────────────────────────────────────────── */}
+      {/* ── Main area ──────────────────────────────────────────────────────────── */}
       <div className="flex-1 flex overflow-hidden min-h-0">
 
-        {/* Left panel: Teams */}
+        {/* ── Left panel ─────────────────────────────────────────────────────── */}
         <div className={`flex-none bg-card border-r border-border overflow-y-auto transition-all duration-200 ${leftOpen ? "w-48" : "w-0 overflow-hidden"}`}>
           <div className="p-2 min-w-[12rem]">
-            {(["A", "B"] as const).map(team => (
-              <div key={team} className="mb-4">
-                <div className="flex items-center gap-1 mb-1">
-                  <span className="text-xs font-bold" style={{ color: TOOL_COLORS[team] }}>
-                    Team {team}
-                  </span>
-                </div>
+            {/* Reset names */}
+            <button
+              onClick={resetAllNames}
+              className="w-full text-[10px] px-2 py-1 rounded bg-secondary/40 border border-border/30 hover:bg-secondary text-muted-foreground hover:text-foreground transition-colors mb-2"
+            >
+              ↺ Reset All Names
+            </button>
 
-                {/* Formation presets */}
-                <div className="flex flex-wrap gap-0.5 mb-1">
-                  {formations.map(f => (
-                    <button key={f} onClick={() => applyFormation(team, f)}
-                      className="text-[10px] px-1 py-0.5 rounded border border-border hover:border-muted-foreground/50 bg-secondary/50 transition-colors font-mono">
-                      {f}
-                    </button>
-                  ))}
-                </div>
-
-                {team === "A" && (
-                  <button onClick={mirrorAtoB}
-                    className="text-[10px] px-1.5 py-0.5 rounded border border-border hover:border-muted-foreground/50 bg-secondary/50 mb-1 w-full text-center">
-                    Mirror A → B
-                  </button>
-                )}
-
-                {/* Player list */}
-                <div className="space-y-0.5">
-                  {(team === "A" ? teamA : teamB).map(p => (
-                    <div key={p.id} className="flex items-center gap-1 text-xs">
-                      <button onClick={() => togglePlayerVisibility(p.id)} className="flex-none">
-                        {p.visible
-                          ? <Eye className="h-3 w-3 text-muted-foreground" />
-                          : <EyeOff className="h-3 w-3 text-muted-foreground/40" />
-                        }
-                      </button>
-                      <span className="flex-none w-5 h-5 rounded-full flex items-center justify-center text-[10px] font-bold text-white"
-                        style={{ background: p.type === "goalkeeper" ? (team === "A" ? "#93c5fd" : "#fca5a5") : TOOL_COLORS[team] }}>
-                        {p.number}
-                      </span>
-                      <span className="truncate text-muted-foreground text-[10px]" title={p.name || "(no name)"}>
-                        {p.name || <span className="italic opacity-50">dbl-click</span>}
-                      </span>
-                    </div>
-                  ))}
-                </div>
-              </div>
-            ))}
+            <TeamPanel team="A" />
+            <div className="w-full h-px bg-border/50 my-2" />
+            <TeamPanel team="B" />
           </div>
         </div>
 
-        {/* Canvas */}
+        {/* ── Canvas ─────────────────────────────────────────────────────────── */}
         <div ref={containerRef} className="flex-1 relative overflow-hidden min-w-0">
           <canvas
             ref={canvasRef}
@@ -636,29 +999,28 @@ export function CoachLabApp() {
             onPointerMove={handlePointerMove}
             onPointerUp={handlePointerUp}
             onPointerCancel={handlePointerUp}
-            onDoubleClick={handleDoubleClick}
           />
 
-          {/* Player name editing overlay */}
-          {editPos && editingPlayerId && (
+          {/* Text input overlay */}
+          {pendingText && textPos && (
             <input
-              ref={nameInputRef}
-              value={editingName}
-              onChange={e => setEditingName(e.target.value)}
-              onBlur={commitEdit}
-              onKeyDown={e => { if (e.key === "Enter") commitEdit(); if (e.key === "Escape") setEditingPlayerId(null); }}
-              placeholder="Player name"
-              style={{ left: editPos.x - 50, top: editPos.y }}
-              className="absolute z-10 w-24 text-xs px-1 py-0.5 rounded bg-card border border-border text-foreground shadow-lg outline-none focus:ring-1 focus:ring-primary"
+              ref={textInputRef}
+              value={pendingTextValue}
+              onChange={e => setPendingTextValue(e.target.value)}
+              onBlur={commitText}
+              onKeyDown={e => { if (e.key === "Enter") commitText(); if (e.key === "Escape") setPendingText(null); }}
+              placeholder="Type text…"
+              style={{ left: textPos.x, top: textPos.y - 12 }}
+              className="absolute z-10 text-xs px-1.5 py-0.5 rounded bg-card border border-primary text-foreground shadow-lg outline-none min-w-[120px]"
             />
           )}
 
-          {/* Playing overlay */}
+          {/* Playing progress overlay */}
           {isPlaying && (
-            <div className="absolute top-2 left-1/2 -translate-x-1/2 flex items-center gap-2 bg-black/60 rounded-full px-3 py-1">
+            <div className="absolute top-2 left-1/2 -translate-x-1/2 flex items-center gap-2 bg-black/70 rounded-full px-3 py-1.5">
               <div className="w-2 h-2 rounded-full bg-red-500 animate-pulse" />
               <div className="w-32 h-1.5 bg-border rounded-full overflow-hidden">
-                <div className="h-full bg-football-green transition-all" style={{ width: `${playProgress * 100}%` }} />
+                <div className="h-full bg-[#00D66C] transition-all" style={{ width: `${playProgress * 100}%` }} />
               </div>
               <button onClick={stopAnimation} className="text-white/80 hover:text-white">
                 <StopCircle className="h-4 w-4" />
@@ -667,60 +1029,147 @@ export function CoachLabApp() {
           )}
         </div>
 
-        {/* Right panel: Animation + Instructions */}
+        {/* ── Right panel ────────────────────────────────────────────────────── */}
         <div className={`flex-none bg-card border-l border-border overflow-y-auto transition-all duration-200 ${rightOpen ? "w-52" : "w-0 overflow-hidden"}`}>
           <div className="p-2 min-w-[13rem]">
 
-            {/* Keyframes */}
-            <p className="text-xs font-semibold text-foreground mb-1">Keyframes</p>
-            <div className="space-y-0.5 mb-2">
-              {keyframes.length === 0 && (
-                <p className="text-[10px] text-muted-foreground italic">No keyframes yet. Save a moment to start animating.</p>
-              )}
-              {keyframes.map((kf, i) => (
-                <div key={kf.id} className="flex items-center gap-1 bg-secondary/40 rounded px-1.5 py-0.5">
-                  <span className="text-[10px] font-mono text-muted-foreground w-4">{i + 1}</span>
-                  <span className="flex-1 text-xs truncate">{kf.label}</span>
-                  <button onClick={() => deleteKeyframe(kf.id)} className="text-muted-foreground/60 hover:text-red-400">
-                    <X className="h-3 w-3" />
+            {/* Animation Mode Toggle */}
+            <button
+              onClick={() => { setAnimMode(v => !v); setActiveMovePiece(null); }}
+              className={`w-full flex items-center gap-2 px-3 py-1.5 rounded-lg border text-xs font-semibold transition-all mb-2 ${animMode ? "bg-[#00D66C]/20 border-[#00D66C]/50 text-[#00D66C]" : "border-border/40 bg-secondary/30 text-muted-foreground hover:text-foreground"}`}
+            >
+              <Waypoints className="h-3.5 w-3.5" />
+              {animMode ? "Animation Mode ON" : "Animation Mode"}
+            </button>
+
+            {animMode ? (
+              <>
+                <p className="text-[10px] text-muted-foreground mb-1.5">
+                  Click a piece → then click on the field to add waypoints
+                </p>
+
+                {/* Piece list */}
+                <div className="space-y-0.5 mb-2">
+                  {/* Ball */}
+                  <div className="flex items-center gap-1.5">
+                    <button
+                      onClick={() => setActiveMovePiece(v => v === "__ball__" ? null : "__ball__")}
+                      className={`flex-1 flex items-center gap-1.5 text-[10px] px-2 py-1 rounded border transition-colors ${activeMovePiece === "__ball__" ? "border-yellow-400/60 bg-yellow-400/10 text-yellow-400" : "border-border/30 bg-secondary/20 text-muted-foreground hover:text-foreground"}`}
+                    >
+                      <span>⚽</span>
+                      <span>Ball</span>
+                      {getMovementCount("__ball__") > 0 && (
+                        <span className="ml-auto text-[9px] bg-yellow-400/20 text-yellow-400 rounded px-1">{getMovementCount("__ball__")}</span>
+                      )}
+                    </button>
+                    {getMovementCount("__ball__") > 0 && (
+                      <button onClick={() => clearPath("__ball__")} className="text-muted-foreground/50 hover:text-red-400 transition-colors">
+                        <Trash2 className="h-3 w-3" />
+                      </button>
+                    )}
+                  </div>
+
+                  {/* Team A */}
+                  <p className="text-[9px] text-muted-foreground/60 mt-1">Team A</p>
+                  {teamA.map(p => (
+                    <div key={p.id} className="flex items-center gap-1">
+                      <button
+                        onClick={() => setActiveMovePiece(v => v === p.id ? null : p.id)}
+                        className={`flex-1 flex items-center gap-1.5 text-[10px] px-2 py-1 rounded border transition-colors ${activeMovePiece === p.id ? "border-[#7B1E3C]/60 bg-[#7B1E3C]/20 text-[#c45f7a]" : "border-border/30 bg-secondary/20 text-muted-foreground hover:text-foreground"}`}
+                      >
+                        <span className="w-4 h-4 rounded-full text-[9px] text-white flex items-center justify-center flex-shrink-0"
+                          style={{ background: BORDEAUX }}>
+                          {p.number}
+                        </span>
+                        <span className="truncate">{p.name || `#${p.number}`}</span>
+                        {getMovementCount(p.id) > 0 && (
+                          <span className="ml-auto text-[9px] bg-[#7B1E3C]/20 text-[#c45f7a] rounded px-1">{getMovementCount(p.id)}</span>
+                        )}
+                      </button>
+                      {getMovementCount(p.id) > 0 && (
+                        <button onClick={() => clearPath(p.id)} className="text-muted-foreground/50 hover:text-red-400 transition-colors">
+                          <Trash2 className="h-3 w-3" />
+                        </button>
+                      )}
+                    </div>
+                  ))}
+
+                  {/* Team B */}
+                  <p className="text-[9px] text-muted-foreground/60 mt-1">Team B</p>
+                  {teamB.map(p => (
+                    <div key={p.id} className="flex items-center gap-1">
+                      <button
+                        onClick={() => setActiveMovePiece(v => v === p.id ? null : p.id)}
+                        className={`flex-1 flex items-center gap-1.5 text-[10px] px-2 py-1 rounded border transition-colors ${activeMovePiece === p.id ? "border-[#0A3060]/60 bg-[#0A3060]/30 text-[#5b9bd5]" : "border-border/30 bg-secondary/20 text-muted-foreground hover:text-foreground"}`}
+                      >
+                        <span className="w-4 h-4 rounded-full text-[9px] text-white flex items-center justify-center flex-shrink-0"
+                          style={{ background: OCEAN }}>
+                          {p.number}
+                        </span>
+                        <span className="truncate">{p.name || `#${p.number}`}</span>
+                        {getMovementCount(p.id) > 0 && (
+                          <span className="ml-auto text-[9px] bg-[#0A3060]/20 text-[#5b9bd5] rounded px-1">{getMovementCount(p.id)}</span>
+                        )}
+                      </button>
+                      {getMovementCount(p.id) > 0 && (
+                        <button onClick={() => clearPath(p.id)} className="text-muted-foreground/50 hover:text-red-400 transition-colors">
+                          <Trash2 className="h-3 w-3" />
+                        </button>
+                      )}
+                    </div>
+                  ))}
+                </div>
+
+                {/* Clear all paths */}
+                {movements.length > 0 && (
+                  <button onClick={clearAllPaths}
+                    className="w-full text-[10px] px-2 py-1 rounded border border-red-500/30 text-red-400 hover:bg-red-500/10 mb-2 transition-colors">
+                    ✕ Clear All Paths
                   </button>
+                )}
+
+                {/* Playback */}
+                <div className="space-y-1 mb-2">
+                  <Button size="sm" className="w-full h-7 text-xs bg-[#00D66C]/80 hover:bg-[#00D66C] text-white border-0 gap-1"
+                    onClick={() => playAnimation(false)} disabled={movements.every(m => m.waypoints.length === 0) || isPlaying}>
+                    <Play className="h-3 w-3" /> Play
+                  </Button>
+                  <Button size="sm"
+                    className={`w-full h-7 text-xs text-white border-0 gap-1 ${isRecording ? "bg-red-600 hover:bg-red-700" : "bg-red-500/80 hover:bg-red-500"}`}
+                    onClick={isRecording ? stopAnimation : () => playAnimation(true)}
+                    disabled={movements.every(m => m.waypoints.length === 0) || (isPlaying && !isRecording)}>
+                    {isRecording
+                      ? <><StopCircle className="h-3 w-3" /> Stop & Save</>
+                      : <><span>⏺</span> Record + Download</>
+                    }
+                  </Button>
+                  {isPlaying && (
+                    <div className="w-full h-1.5 bg-border rounded-full overflow-hidden">
+                      <div className="h-full bg-[#00D66C] transition-all" style={{ width: `${playProgress * 100}%` }} />
+                    </div>
+                  )}
                 </div>
-              ))}
-            </div>
 
-            <Button size="sm" variant="outline" className="w-full h-7 text-xs mb-2" onClick={saveKeyframe}>
-              <Plus className="h-3 w-3 mr-1" /> Save Moment
-            </Button>
-
-            {/* Animation controls */}
-            <div className="space-y-1 mb-3">
-              <Button size="sm" variant="default" className="w-full h-7 text-xs bg-football-green/80 hover:bg-football-green text-white"
-                onClick={() => playAnimation(false)} disabled={keyframes.length < 2 || isPlaying}>
-                <Play className="h-3 w-3 mr-1" /> Play
-              </Button>
-              <Button size="sm" variant="default"
-                className={`w-full h-7 text-xs ${isRecording ? "bg-red-600 hover:bg-red-700" : "bg-red-500/80 hover:bg-red-500"} text-white`}
-                onClick={isRecording ? stopAnimation : () => playAnimation(true)}
-                disabled={keyframes.length < 2 || (isPlaying && !isRecording)}>
-                {isRecording ? <><StopCircle className="h-3 w-3 mr-1" /> Stop Rec</> : <><span className="mr-1">⏺</span> Record + Play</>}
-              </Button>
-              {isPlaying && (
-                <div className="w-full h-1.5 bg-border rounded-full overflow-hidden">
-                  <div className="h-full bg-football-green transition-all duration-100" style={{ width: `${playProgress * 100}%` }} />
-                </div>
-              )}
-            </div>
-
-            <div className="w-full h-px bg-border mb-2" />
-
-            {/* Instructions */}
-            <p className="text-xs font-semibold text-foreground mb-1">Instructions</p>
-            <textarea
-              value={instructions}
-              onChange={e => setInstructions(e.target.value)}
-              placeholder="Write tactical notes here..."
-              className="w-full h-32 text-xs bg-secondary/30 border border-border rounded p-1.5 resize-none text-foreground placeholder:text-muted-foreground/50 focus:outline-none focus:ring-1 focus:ring-primary"
-            />
+                {/* Download link */}
+                {downloadUrl && (
+                  <a href={downloadUrl} download={`coach-lab-${Date.now()}.webm`}
+                    className="block w-full text-center text-[10px] px-2 py-1.5 rounded bg-[#00D66C]/20 border border-[#00D66C]/40 text-[#00D66C] hover:bg-[#00D66C]/30 transition-colors">
+                    ⬇ Download Video (.webm)
+                  </a>
+                )}
+              </>
+            ) : (
+              <>
+                {/* Non-animation mode: Instructions */}
+                <p className="text-xs font-semibold text-foreground mb-1">Notes</p>
+                <textarea
+                  value={instructions}
+                  onChange={e => setInstructions(e.target.value)}
+                  placeholder="Tactical notes…"
+                  className="w-full h-40 text-xs bg-secondary/30 border border-border rounded p-1.5 resize-none text-foreground placeholder:text-muted-foreground/50 focus:outline-none focus:ring-1 focus:ring-primary"
+                />
+              </>
+            )}
           </div>
         </div>
       </div>
