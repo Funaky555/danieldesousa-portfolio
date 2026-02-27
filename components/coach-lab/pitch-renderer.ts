@@ -37,6 +37,16 @@ export function getViewBounds(view: FieldView): ViewBounds {
     case 'half-right':  return { viewX: PITCH_W / 2, viewY: 0,  viewW: PITCH_W / 2, viewH: PITCH_H };
     case 'area-left':   return { viewX: 0,           viewY: 130, viewW: 400,        viewH: 420 };
     case 'area-right':  return { viewX: 650,          viewY: 130, viewW: 400,        viewH: 420 };
+    // Cantos — corner flag + metade da área de penálti
+    case 'corner-tl':   return { viewX: 0,   viewY: 0,   viewW: 350, viewH: 400 };
+    case 'corner-bl':   return { viewX: 0,   viewY: 280, viewW: 350, viewH: 400 };
+    case 'corner-tr':   return { viewX: 700, viewY: 0,   viewW: 350, viewH: 400 };
+    case 'corner-br':   return { viewX: 700, viewY: 280, viewW: 350, viewH: 400 };
+    // Livres laterais — flanco + área de penálti
+    case 'freekick-left-top':    return { viewX: 0,   viewY: 0,   viewW: 500, viewH: 370 };
+    case 'freekick-left-bottom': return { viewX: 0,   viewY: 310, viewW: 500, viewH: 370 };
+    case 'freekick-right-top':   return { viewX: 550, viewY: 0,   viewW: 500, viewH: 370 };
+    case 'freekick-right-bottom':return { viewX: 550, viewY: 310, viewW: 500, viewH: 370 };
     case 'futsal':      return { viewX: 190,          viewY: 80,  viewW: 670,        viewH: 520 };
     case 'five-aside':  return { viewX: 260,          viewY: 140, viewW: 530,        viewH: 400 };
     case 'seven-aside': return { viewX: 130,          viewY: 60,  viewW: 790,        viewH: 560 };
@@ -149,6 +159,7 @@ export function drawPlayers(
   selectedId: string | null,
   showNames: boolean,
   imageCache: Map<string, HTMLImageElement>,
+  setPieceMode = false,
 ) {
   const R = getPlayerRadius(canvas, view);
   const fontSize = Math.max(9, R * 0.82);
@@ -217,6 +228,43 @@ export function drawPlayers(
       ctx.textAlign = 'center';
       ctx.textBaseline = 'top';
       ctx.fillText(name, x, y + R + 3);
+      ctx.textBaseline = 'alphabetic';
+    }
+
+    // Set piece instruction label
+    if (setPieceMode && player.instruction) {
+      const label = player.instruction.slice(0, 24);
+      const instrFontSize = Math.max(6, R * 0.52);
+      ctx.font = `bold ${instrFontSize}px Inter, system-ui, sans-serif`;
+      ctx.textAlign = 'center';
+      const tw = ctx.measureText(label).width;
+      const labelY = y + R + (showNames && name ? instrFontSize * 1.6 + 4 : 4);
+      // background pill
+      ctx.save();
+      ctx.fillStyle = 'rgba(0,0,0,0.75)';
+      const padX = 4, padY = 2;
+      ctx.beginPath();
+      const bx = x - tw / 2 - padX;
+      const by = labelY - padY;
+      const bw = tw + padX * 2;
+      const bh = instrFontSize + padY * 2;
+      const br2 = 3;
+      ctx.moveTo(bx + br2, by);
+      ctx.lineTo(bx + bw - br2, by);
+      ctx.quadraticCurveTo(bx + bw, by, bx + bw, by + br2);
+      ctx.lineTo(bx + bw, by + bh - br2);
+      ctx.quadraticCurveTo(bx + bw, by + bh, bx + bw - br2, by + bh);
+      ctx.lineTo(bx + br2, by + bh);
+      ctx.quadraticCurveTo(bx, by + bh, bx, by + bh - br2);
+      ctx.lineTo(bx, by + br2);
+      ctx.quadraticCurveTo(bx, by, bx + br2, by);
+      ctx.closePath();
+      ctx.fill();
+      ctx.restore();
+      // text
+      ctx.fillStyle = '#fff';
+      ctx.textBaseline = 'top';
+      ctx.fillText(label, x, labelY);
       ctx.textBaseline = 'alphabetic';
     }
   }
@@ -547,7 +595,7 @@ export function renderBoard(
   const {
     view, showNames, showZones, lightField,
     currentDraw, selectedPlayerId, selectedDrawingId,
-    imageCache, movements, activeMovePiece, animMode,
+    imageCache, movements, activeMovePiece, animMode, setPieceMode,
   } = options;
 
   ctx.clearRect(0, 0, canvas.width, canvas.height);
@@ -570,7 +618,7 @@ export function renderBoard(
     drawAnimPaths(ctx, players, ball, movements, activeMovePiece, R);
   }
 
-  drawPlayers(ctx, canvas, view, players, selectedPlayerId, showNames, imageCache);
+  drawPlayers(ctx, canvas, view, players, selectedPlayerId, showNames, imageCache, setPieceMode);
   drawBall(ctx, ball);
 
   ctx.resetTransform();

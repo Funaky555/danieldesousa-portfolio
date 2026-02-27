@@ -22,6 +22,14 @@ export type FieldView =
   | 'half-right'
   | 'area-left'
   | 'area-right'
+  | 'corner-tl'
+  | 'corner-bl'
+  | 'corner-tr'
+  | 'corner-br'
+  | 'freekick-left-top'
+  | 'freekick-left-bottom'
+  | 'freekick-right-top'
+  | 'freekick-right-bottom'
   | 'futsal'
   | 'five-aside'
   | 'seven-aside';
@@ -48,6 +56,7 @@ export interface Player {
   y: number;
   visible: boolean;
   photo?: string | null; // base64 data URL
+  instruction?: string;  // set piece instruction text
 }
 
 export interface Ball {
@@ -97,4 +106,5 @@ export interface RenderOptions {
   movements: Movement[];
   activeMovePiece: string | null;
   animMode: boolean;
+  setPieceMode: boolean;
 }

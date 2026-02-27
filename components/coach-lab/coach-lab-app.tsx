@@ -3,7 +3,7 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 import {
   ArrowRight, Camera, ChevronDown, ChevronLeft, ChevronRight,
-  Circle, Eraser, Eye, EyeOff, ImagePlus, Minus, MousePointer2,
+  Circle, ClipboardList, Eraser, Eye, EyeOff, ImagePlus, Minus, MousePointer2,
   Play, RotateCcw, Square, StopCircle, Triangle, Trash2, Type,
   Undo2, ZapIcon, Waypoints,
 } from "lucide-react";
@@ -73,15 +73,28 @@ const ARROW_TOOLS: Array<{ t: Extract<Tool,'arrow'|'run'|'curved-arrow'|'double-
   { t: "wavy-arrow",   icon: <Waypoints className="h-3.5 w-3.5" />,        label: "Pressing Arrow" },
 ];
 
-const FIELD_FORMATS: Array<{ value: FieldView; label: string; desc: string }> = [
-  { value: "full",        label: "Full Pitch",  desc: "11v11 complete field" },
-  { value: "half-left",   label: "Left Half",   desc: "Attacking / defending half" },
-  { value: "half-right",  label: "Right Half",  desc: "Attacking / defending half" },
-  { value: "area-left",   label: "Left Box",    desc: "Left penalty area zoom" },
-  { value: "area-right",  label: "Right Box",   desc: "Right penalty area zoom" },
-  { value: "seven-aside", label: "7-a-side",    desc: "Medium pitch format" },
-  { value: "futsal",      label: "Futsal",      desc: "Futsal / indoor format" },
-  { value: "five-aside",  label: "5-a-side",    desc: "Small-sided game" },
+const FIELD_FORMATS: Array<{ value: FieldView; label: string; desc: string; group: string }> = [
+  // Regular
+  { value: "full",                  label: "Full Pitch",    desc: "Campo completo 11v11",       group: "Regular" },
+  { value: "half-left",             label: "Left Half",     desc: "Metade esquerda",             group: "Regular" },
+  { value: "half-right",            label: "Right Half",    desc: "Metade direita",              group: "Regular" },
+  // Áreas
+  { value: "area-left",             label: "Left Box",      desc: "Área de penálti esquerda",    group: "Areas" },
+  { value: "area-right",            label: "Right Box",     desc: "Área de penálti direita",     group: "Areas" },
+  // Cantos
+  { value: "corner-tl",             label: "Corner ↖",      desc: "Canto sup. esq. (golo esq.)", group: "Corners" },
+  { value: "corner-bl",             label: "Corner ↙",      desc: "Canto inf. esq. (golo esq.)", group: "Corners" },
+  { value: "corner-tr",             label: "Corner ↗",      desc: "Canto sup. dir. (golo dir.)", group: "Corners" },
+  { value: "corner-br",             label: "Corner ↘",      desc: "Canto inf. dir. (golo dir.)", group: "Corners" },
+  // Livres laterais
+  { value: "freekick-left-top",     label: "FK Left ↑",     desc: "Livre lateral esq. topo",     group: "Free Kicks" },
+  { value: "freekick-left-bottom",  label: "FK Left ↓",     desc: "Livre lateral esq. baixo",    group: "Free Kicks" },
+  { value: "freekick-right-top",    label: "FK Right ↑",    desc: "Livre lateral dir. topo",     group: "Free Kicks" },
+  { value: "freekick-right-bottom", label: "FK Right ↓",    desc: "Livre lateral dir. baixo",    group: "Free Kicks" },
+  // Formato reduzido
+  { value: "seven-aside",           label: "7-a-side",      desc: "Formato 7v7",                 group: "Small Sided" },
+  { value: "futsal",                label: "Futsal",        desc: "Campo de futsal",             group: "Small Sided" },
+  { value: "five-aside",            label: "5-a-side",      desc: "Campo 5v5",                   group: "Small Sided" },
 ];
 
 const PRESET_COLORS = ["#ffffff","#FFD700","#00D66C","#0066FF","#FF6B35","#EF4444","#8B5CF6","#14B8A6","#F43F5E","#000000"];
@@ -135,6 +148,7 @@ export function CoachLabApp() {
   const movementsRef   = useRef<Movement[]>([]);
   const animModeRef    = useRef(false);
   const activeMovePieceRef = useRef<string | null>(null);
+  const setPieceModeRef = useRef(false);
 
   // Image cache for player photos
   const imageCache = useRef<Map<string, HTMLImageElement>>(new Map());
@@ -172,6 +186,9 @@ export function CoachLabApp() {
   const [editingNameId, setEditingNameId] = useState<string | null>(null);
   const [editingNameValue, setEditingNameValue] = useState("");
   const [downloadUrl, setDownloadUrl]     = useState<string | null>(null);
+  const [setPieceMode, setPieceModeState] = useState(false);
+  const [editingInstrId, setEditingInstrId] = useState<string | null>(null);
+  const [editingInstrValue, setEditingInstrValue] = useState("");
 
   // Sync refs
   useEffect(() => { playersRef.current = players; }, [players]);
@@ -180,6 +197,7 @@ export function CoachLabApp() {
   useEffect(() => { movementsRef.current = movements; }, [movements]);
   useEffect(() => { animModeRef.current = animMode; }, [animMode]);
   useEffect(() => { activeMovePieceRef.current = activeMovePiece; }, [activeMovePiece]);
+  useEffect(() => { setPieceModeRef.current = setPieceMode; }, [setPieceMode]);
 
   // ─── Canvas resize ──────────────────────────────────────────────────────────
   useEffect(() => {
@@ -208,10 +226,11 @@ export function CoachLabApp() {
       view: fieldView, showNames, showZones, lightField,
       currentDraw, selectedPlayerId, selectedDrawingId,
       imageCache: imageCache.current, movements, activeMovePiece, animMode,
+      setPieceMode,
     };
     renderBoard(ctx, canvas, players, ball, drawings, options);
   }, [players, ball, drawings, fieldView, showNames, showZones, lightField,
-      currentDraw, selectedPlayerId, selectedDrawingId, movements, activeMovePiece, animMode, canvasSize]);
+      currentDraw, selectedPlayerId, selectedDrawingId, movements, activeMovePiece, animMode, canvasSize, setPieceMode]);
 
   // ─── Close dropdowns on outside click ───────────────────────────────────────
   useEffect(() => {
@@ -228,7 +247,7 @@ export function CoachLabApp() {
   // ─── Keyboard shortcuts ──────────────────────────────────────────────────────
   useEffect(() => {
     const handler = (e: KeyboardEvent) => {
-      if (editingNameId || pendingText) return;
+      if (editingNameId || pendingText || editingInstrId) return;
       if ((e.ctrlKey || e.metaKey) && e.key === "z") { e.preventDefault(); undo(); }
       if (e.key === "Escape") {
         setSelectedPlayerId(null);
@@ -239,7 +258,7 @@ export function CoachLabApp() {
     window.addEventListener("keydown", handler);
     return () => window.removeEventListener("keydown", handler);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [editingNameId, pendingText]);
+  }, [editingNameId, pendingText, editingInstrId]);
 
   // ─── History ─────────────────────────────────────────────────────────────────
   const captureHistory = useCallback(() => {
@@ -283,11 +302,22 @@ export function CoachLabApp() {
 
   // ─── Pointer handlers ────────────────────────────────────────────────────────
   const handlePointerDown = useCallback((e: React.PointerEvent<HTMLCanvasElement>) => {
-    if (editingNameId || pendingText) return;
+    if (editingNameId || pendingText || editingInstrId) return;
     e.currentTarget.setPointerCapture(e.pointerId);
     const { x, y } = toLogical(e.clientX, e.clientY);
     const tool = activeToolRef.current;
     captureHistory();
+
+    // ── Set Piece mode: click player to edit instruction ──
+    if (setPieceModeRef.current && tool === "select") {
+      const hit = findPlayerAtPoint(playersRef.current, ballRef.current, x, y, getR());
+      if (hit?.type === "player") {
+        const player = playersRef.current.find(p => p.id === hit.id);
+        setEditingInstrId(hit.id);
+        setEditingInstrValue(player?.instruction ?? "");
+        return;
+      }
+    }
 
     // ── Animation mode: add waypoint ──
     if (animModeRef.current && activeMovePieceRef.current) {
@@ -353,7 +383,7 @@ export function CoachLabApp() {
     isDrawingRef.current = true;
     drawStartRef.current = { x, y };
     setCurrentDraw({ start: { x, y }, end: { x, y }, tool: tool as Drawing["tool"], color: drawColorRef.current, filled: drawFilledRef.current });
-  }, [toLogical, captureHistory, commitHistory, selectedDrawingId, editingNameId, pendingText, getR]);
+  }, [toLogical, captureHistory, commitHistory, selectedDrawingId, editingNameId, pendingText, editingInstrId, getR]);
 
   const handlePointerMove = useCallback((e: React.PointerEvent<HTMLCanvasElement>) => {
     const { x, y } = toLogical(e.clientX, e.clientY);
@@ -443,6 +473,15 @@ export function CoachLabApp() {
     if (wasDragging || wasHandle) commitHistory();
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [currentDraw, commitHistory]);
+
+  // ─── Set Piece instruction commit ────────────────────────────────────────────
+  const confirmInstruction = useCallback(() => {
+    if (!editingInstrId) return;
+    const val = editingInstrValue.trim();
+    setPlayers(prev => prev.map(p => p.id === editingInstrId ? { ...p, instruction: val || undefined } : p));
+    setEditingInstrId(null);
+    setEditingInstrValue("");
+  }, [editingInstrId, editingInstrValue]);
 
   // ─── Text commit ─────────────────────────────────────────────────────────────
   const commitText = useCallback(() => {
@@ -613,6 +652,7 @@ export function CoachLabApp() {
           view: fieldViewRef.current, showNames: showNamesRef.current, showZones: showZonesRef.current,
           lightField: lightFieldRef.current, currentDraw: null, selectedPlayerId: null, selectedDrawingId: null,
           imageCache: imageCache.current, movements: movementsRef.current, activeMovePiece: null, animMode: true,
+          setPieceMode: false,
         };
         renderBoard(ctx, canvas, animPlayers, animBall, drawingsRef.current, opts);
         setPlayProgress(globalT);
@@ -657,6 +697,15 @@ export function CoachLabApp() {
   };
 
   const textPos = getTextOverlayPos();
+
+  // ─── Instruction overlay position ─────────────────────────────────────────────
+  const instrOverlayPos = (() => {
+    const canvas = canvasRef.current;
+    if (!canvas || !editingInstrId) return null;
+    const player = players.find(p => p.id === editingInstrId);
+    if (!player) return null;
+    return logicalToCanvas(player.x, player.y, canvas, fieldView);
+  })();
 
   // ─── UI helpers ──────────────────────────────────────────────────────────────
   const teamA = players.filter(p => p.team === "A").sort((a, b) => a.number - b.number);
@@ -734,48 +783,60 @@ export function CoachLabApp() {
         {/* Player list */}
         <div className="space-y-0.5">
           {list.map(p => (
-            <div key={p.id} className="flex items-center gap-1 group">
-              {/* Visibility */}
-              <button onClick={() => togglePlayerVisibility(p.id)} className="flex-none opacity-50 hover:opacity-100 transition-opacity">
-                {p.visible ? <Eye className="h-3 w-3" /> : <EyeOff className="h-3 w-3 opacity-30" />}
-              </button>
-              {/* Number badge */}
-              <span
-                className="flex-none w-5 h-5 rounded-full flex items-center justify-center text-[9px] font-bold text-white flex-shrink-0"
-                style={{ background: p.type === "goalkeeper" ? (team === "A" ? "#4A0F22" : "#051E3E") : color }}
-              >
-                {p.number}
-              </span>
-              {/* Name input */}
-              {editingNameId === p.id ? (
-                <input
-                  autoFocus
-                  value={editingNameValue}
-                  onChange={e => setEditingNameValue(e.target.value)}
-                  onBlur={() => { updatePlayerName(p.id, editingNameValue); setEditingNameId(null); }}
-                  onKeyDown={e => { if (e.key === "Enter") { updatePlayerName(p.id, editingNameValue); setEditingNameId(null); } if (e.key === "Escape") setEditingNameId(null); }}
-                  className="flex-1 min-w-0 text-[10px] px-1 py-0.5 rounded bg-card border border-primary text-foreground outline-none"
-                  placeholder="Player name"
-                />
-              ) : (
-                <button
-                  onClick={() => { setEditingNameId(p.id); setEditingNameValue(p.name); }}
-                  className="flex-1 min-w-0 text-left text-[10px] text-muted-foreground hover:text-foreground truncate transition-colors"
-                  title="Click to edit name"
-                >
-                  {p.name || <span className="italic opacity-40">Name...</span>}
+            <div key={p.id}>
+              <div className="flex items-center gap-1 group">
+                {/* Visibility */}
+                <button onClick={() => togglePlayerVisibility(p.id)} className="flex-none opacity-50 hover:opacity-100 transition-opacity">
+                  {p.visible ? <Eye className="h-3 w-3" /> : <EyeOff className="h-3 w-3 opacity-30" />}
                 </button>
-              )}
-              {/* Photo upload */}
-              <label className="flex-none cursor-pointer opacity-0 group-hover:opacity-60 hover:!opacity-100 transition-opacity">
-                <ImagePlus className="h-3 w-3" />
+                {/* Number badge */}
+                <span
+                  className="flex-none w-5 h-5 rounded-full flex items-center justify-center text-[9px] font-bold text-white flex-shrink-0"
+                  style={{ background: p.type === "goalkeeper" ? (team === "A" ? "#4A0F22" : "#051E3E") : color }}
+                >
+                  {p.number}
+                </span>
+                {/* Name input */}
+                {editingNameId === p.id ? (
+                  <input
+                    autoFocus
+                    value={editingNameValue}
+                    onChange={e => setEditingNameValue(e.target.value)}
+                    onBlur={() => { updatePlayerName(p.id, editingNameValue); setEditingNameId(null); }}
+                    onKeyDown={e => { if (e.key === "Enter") { updatePlayerName(p.id, editingNameValue); setEditingNameId(null); } if (e.key === "Escape") setEditingNameId(null); }}
+                    className="flex-1 min-w-0 text-[10px] px-1 py-0.5 rounded bg-card border border-primary text-foreground outline-none"
+                    placeholder="Player name"
+                  />
+                ) : (
+                  <button
+                    onClick={() => { setEditingNameId(p.id); setEditingNameValue(p.name); }}
+                    className="flex-1 min-w-0 text-left text-[10px] text-muted-foreground hover:text-foreground truncate transition-colors"
+                    title="Click to edit name"
+                  >
+                    {p.name || <span className="italic opacity-40">Name...</span>}
+                  </button>
+                )}
+                {/* Photo upload */}
+                <label className="flex-none cursor-pointer opacity-0 group-hover:opacity-60 hover:!opacity-100 transition-opacity">
+                  <ImagePlus className="h-3 w-3" />
+                  <input
+                    type="file"
+                    accept="image/*"
+                    className="sr-only"
+                    onChange={e => { const f = e.target.files?.[0]; if (f) handlePhotoUpload(p.id, f); }}
+                  />
+                </label>
+              </div>
+              {/* Set Piece instruction field */}
+              {setPieceMode && (
                 <input
-                  type="file"
-                  accept="image/*"
-                  className="sr-only"
-                  onChange={e => { const f = e.target.files?.[0]; if (f) handlePhotoUpload(p.id, f); }}
+                  value={p.instruction ?? ""}
+                  onChange={e => setPlayers(prev => prev.map(pl => pl.id === p.id ? { ...pl, instruction: e.target.value || undefined } : pl))}
+                  placeholder="Instrução..."
+                  className="w-full ml-6 mt-0.5 text-[9px] px-1.5 py-0.5 rounded bg-secondary/40 border border-border/30 text-muted-foreground outline-none focus:border-primary/60 focus:text-foreground transition-colors"
+                  style={{ maxWidth: "calc(100% - 1.5rem)" }}
                 />
-              </label>
+              )}
             </div>
           ))}
         </div>
@@ -788,7 +849,7 @@ export function CoachLabApp() {
     <div className="fixed inset-0 flex flex-col" style={{ top: "3.5rem" }}>
 
       {/* ── Toolbar ─────────────────────────────────────────────────────────── */}
-      <div className="flex-none bg-card border-b border-border flex items-center gap-0.5 px-2 py-1 overflow-x-auto shrink-0" ref={dropdownRef}>
+      <div className="flex-none bg-card border-b border-border flex flex-wrap items-center gap-0.5 px-2 py-1 shrink-0" ref={dropdownRef}>
 
         {/* Select */}
         <Button
@@ -906,14 +967,22 @@ export function CoachLabApp() {
             <ChevronDown className="h-3 w-3" />
           </button>
           {openDropdown === "field" && (
-            <div className="absolute top-full left-0 mt-1 z-50 bg-card border border-border rounded-lg shadow-xl p-1 min-w-[180px]">
-              {FIELD_FORMATS.map(f => (
-                <button key={f.value} onClick={() => changeView(f.value)}
-                  className={`w-full flex flex-col items-start px-3 py-1.5 rounded text-xs transition-colors hover:bg-secondary ${fieldView === f.value ? "bg-secondary font-semibold" : ""}`}>
-                  <span>{f.label}</span>
-                  <span className="text-[10px] text-muted-foreground">{f.desc}</span>
-                </button>
-              ))}
+            <div className="absolute top-full left-0 mt-1 z-50 bg-card border border-border rounded-lg shadow-xl p-1 min-w-[210px] max-h-[420px] overflow-y-auto">
+              {(() => {
+                let lastGroup = "";
+                return FIELD_FORMATS.map(f => {
+                  const groupHeader = f.group !== lastGroup ? (lastGroup = f.group, (
+                    <p key={`g-${f.group}`} className="px-2 pt-2 pb-0.5 text-[10px] font-bold text-muted-foreground uppercase tracking-wider">{f.group}</p>
+                  )) : null;
+                  return [groupHeader, (
+                    <button key={f.value} onClick={() => changeView(f.value)}
+                      className={`w-full flex flex-col items-start px-3 py-1.5 rounded text-xs transition-colors hover:bg-secondary ${fieldView === f.value ? "bg-secondary font-semibold" : ""}`}>
+                      <span>{f.label}</span>
+                      <span className="text-[10px] text-muted-foreground">{f.desc}</span>
+                    </button>
+                  )];
+                });
+              })()}
             </div>
           )}
         </div>
@@ -950,6 +1019,16 @@ export function CoachLabApp() {
         </Button>
         <Button size="sm" variant={lightField ? "default" : "ghost"} className="h-8 px-2 text-xs shrink-0" onClick={toggleLight}>
           Light
+        </Button>
+        <Button
+          size="sm"
+          variant={setPieceMode ? "default" : "ghost"}
+          className="h-8 px-2 text-xs shrink-0 gap-1"
+          title="Set Piece mode — click player to add instruction"
+          onClick={() => { setPieceModeState(v => !v); setEditingInstrId(null); changeTool("select"); }}
+        >
+          <ClipboardList className="h-3 w-3" />
+          <span className="hidden sm:inline">Set Piece</span>
         </Button>
 
         <div className="w-px h-5 bg-border mx-0.5 shrink-0" />
@@ -1014,6 +1093,44 @@ export function CoachLabApp() {
               className="absolute z-10 text-xs px-1.5 py-0.5 rounded bg-card border border-primary text-foreground shadow-lg outline-none min-w-[120px]"
             />
           )}
+
+          {/* Set Piece instruction overlay */}
+          {editingInstrId && instrOverlayPos && (() => {
+            const player = players.find(p => p.id === editingInstrId);
+            if (!player) return null;
+            return (
+              <div
+                style={{ left: instrOverlayPos.x + 16, top: instrOverlayPos.y - 14, zIndex: 60 }}
+                className="absolute bg-card border border-border rounded-lg shadow-2xl p-2 flex flex-col gap-1.5 min-w-[200px]"
+              >
+                <p className="text-[10px] font-bold text-muted-foreground">
+                  #{player.number} {player.name || "Player"}
+                </p>
+                <input
+                  autoFocus
+                  value={editingInstrValue}
+                  onChange={e => setEditingInstrValue(e.target.value)}
+                  onKeyDown={e => {
+                    if (e.key === "Enter") confirmInstruction();
+                    if (e.key === "Escape") setEditingInstrId(null);
+                  }}
+                  onBlur={confirmInstruction}
+                  className="text-xs bg-background border border-border rounded px-2 py-1 outline-none focus:border-primary"
+                  placeholder="Ex: defende poste..."
+                />
+                <div className="flex gap-1">
+                  <button onClick={confirmInstruction}
+                    className="flex-1 text-[10px] px-2 py-0.5 rounded bg-primary text-primary-foreground hover:bg-primary/80 transition-colors">
+                    OK
+                  </button>
+                  <button onClick={() => { setPlayers(prev => prev.map(p => p.id === editingInstrId ? { ...p, instruction: undefined } : p)); setEditingInstrId(null); }}
+                    className="flex-1 text-[10px] px-2 py-0.5 rounded bg-secondary text-muted-foreground hover:text-foreground transition-colors">
+                    Clear
+                  </button>
+                </div>
+              </div>
+            );
+          })()}
 
           {/* Playing progress overlay */}
           {isPlaying && (
