@@ -42,7 +42,7 @@ const toolKeyMap: Record<string, string> = {
   "Coach Paint": "coachpaint",
   "ChatGPT": "chatgpt",
   "Claude AI": "claude",
-  "eASYmUSIC ai": "easymusicai",
+  "eASYmUSIC AI": "easymusicai",
   "Wyscout": "wyscout",
   "Instat": "instat",
   "Football Manager": "fm",
@@ -53,9 +53,7 @@ const toolKeyMap: Record<string, string> = {
 };
 
 // Colored initials for tools without logos
-const toolInitials: Record<string, { letters: string; bg: string; text: string }> = {
-  "eASYmUSIC ai": { letters: "eM", bg: "bg-tech-purple/20", text: "text-tech-purple" },
-};
+const toolInitials: Record<string, { letters: string; bg: string; text: string }> = {};
 
 // Map levels to translation keys
 const levelKeyMap: Record<string, string> = {
