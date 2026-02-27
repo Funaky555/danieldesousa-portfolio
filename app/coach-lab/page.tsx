@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { CoachLabApp } from "@/components/coach-lab/coach-lab-app";
+import { Header } from "@/components/layout/header";
 
 export const metadata: Metadata = {
   title: "Coach Lab | Daniel de Sousa",
@@ -9,8 +10,11 @@ export const metadata: Metadata = {
 
 export default function CoachLabPage() {
   return (
-    <main className="min-h-screen bg-background">
-      <CoachLabApp />
-    </main>
+    <>
+      <Header />
+      <main className="min-h-screen bg-background">
+        <CoachLabApp />
+      </main>
+    </>
   );
 }
