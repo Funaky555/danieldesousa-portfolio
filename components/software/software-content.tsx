@@ -109,7 +109,7 @@ export function SoftwareContent() {
                 <div className="flex justify-center mb-8">
                   <div
                     className={`
-                      inline-flex items-center gap-3 px-6 py-3 rounded-2xl
+                      inline-flex items-center gap-3 px-6 py-3 rounded-2xl min-w-[320px] justify-center
                       border ${config?.border ?? "border-border/50"}
                       ${config?.bg ?? "bg-secondary"}
                       ${config?.glow ?? ""}
