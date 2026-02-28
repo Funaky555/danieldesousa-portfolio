@@ -15,7 +15,6 @@ const navigationKeys = [
   { key: "philosophy", href: "/philosophy", color: "#8B5CF6" },
   { key: "experience", href: "/experience", color: "#FF6B35" },
   { key: "services", href: "/services", color: "#14B8A6" },
-  { key: "coachlab", href: "/coach-lab", color: "#10B981" },
   { key: "software", href: "/software", color: "#F43F5E" },
   { key: "media", href: "/media", color: "#CC8A00" },
   { key: "contact", href: "/contact", color: "#EF4444" },
@@ -87,7 +86,6 @@ function NavLink({
 export function Header() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const t = useTranslations();
-  const pathname = usePathname();
 
   return (
     <header className="fixed top-0 left-0 right-0 z-50 glass border-b border-border/50">
@@ -141,13 +139,6 @@ export function Header() {
                 <Link href="/contact">{t("home.hero.cta.contact")}</Link>
               </Button>
             </div>
-            {/* Coach Lab page indicator */}
-            {pathname === "/coach-lab" && (
-              <div className="ml-2 px-3 py-1.5 rounded-xl text-xs font-bold"
-                style={{ color: "#10B981", background: "rgba(16,185,129,0.12)", border: "1px solid rgba(16,185,129,0.3)" }}>
-                Coach Lab
-              </div>
-            )}
           </div>
 
           {/* Mobile menu button + theme toggle */}

@@ -2,10 +2,9 @@
 
 import { useCallback, useEffect, useRef, useState } from "react";
 import {
-  ArrowRight, Camera, ChevronDown, ChevronLeft, ChevronRight,
-  Circle, ClipboardList, Eraser, Eye, EyeOff, ImagePlus, Minus, MousePointer2,
-  Play, RotateCcw, Square, StopCircle, Triangle, Trash2, Type,
-  Undo2, ZapIcon, Waypoints,
+  Camera, ChevronDown, ChevronLeft, ChevronRight,
+  ClipboardList, Eraser, Eye, EyeOff, ImagePlus, MousePointer2,
+  Play, StopCircle, Trash2, Undo2, Waypoints,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import type {
@@ -56,48 +55,16 @@ const FORMATION_GROUPS = [
   { label: "Historical", formations: ["1-2-3-5"] as FormationName[] },
 ];
 
-const SHAPE_TOOLS: Array<{ t: Extract<Tool,'line'|'triangle'|'rect'|'circle'|'zone'|'text'>; icon: React.ReactNode; label: string }> = [
-  { t: "line",     icon: <Minus className="h-3.5 w-3.5" />,    label: "Line" },
-  { t: "triangle", icon: <Triangle className="h-3.5 w-3.5" />, label: "Triangle" },
-  { t: "rect",     icon: <Square className="h-3.5 w-3.5" />,   label: "Rectangle" },
-  { t: "circle",   icon: <Circle className="h-3.5 w-3.5" />,   label: "Circle" },
-  { t: "zone",     icon: <Square className="h-3.5 w-3.5 opacity-60" />, label: "Zone" },
-  { t: "text",     icon: <Type className="h-3.5 w-3.5" />,     label: "Text" },
-];
-
-const ARROW_TOOLS: Array<{ t: Extract<Tool,'arrow'|'run'|'curved-arrow'|'double-arrow'|'wavy-arrow'>; icon: React.ReactNode; label: string }> = [
-  { t: "arrow",        icon: <ArrowRight className="h-3.5 w-3.5" />,       label: "Arrow" },
-  { t: "run",          icon: <ZapIcon className="h-3.5 w-3.5" />,          label: "Run (dashed)" },
-  { t: "curved-arrow", icon: <RotateCcw className="h-3.5 w-3.5" />,        label: "Curved Arrow" },
-  { t: "double-arrow", icon: <ArrowRight className="h-3.5 w-3.5" />,       label: "Double Arrow" },
-  { t: "wavy-arrow",   icon: <Waypoints className="h-3.5 w-3.5" />,        label: "Pressing Arrow" },
-];
-
 const FIELD_FORMATS: Array<{ value: FieldView; label: string; desc: string; group: string }> = [
-  // Regular
-  { value: "full",                  label: "Full Pitch",    desc: "Campo completo 11v11",       group: "Regular" },
-  { value: "half-left",             label: "Left Half",     desc: "Metade esquerda",             group: "Regular" },
-  { value: "half-right",            label: "Right Half",    desc: "Metade direita",              group: "Regular" },
-  // Áreas
-  { value: "area-left",             label: "Left Box",      desc: "Área de penálti esquerda",    group: "Areas" },
-  { value: "area-right",            label: "Right Box",     desc: "Área de penálti direita",     group: "Areas" },
-  // Cantos
-  { value: "corner-tl",             label: "Corner ↖",      desc: "Canto sup. esq. (golo esq.)", group: "Corners" },
-  { value: "corner-bl",             label: "Corner ↙",      desc: "Canto inf. esq. (golo esq.)", group: "Corners" },
-  { value: "corner-tr",             label: "Corner ↗",      desc: "Canto sup. dir. (golo dir.)", group: "Corners" },
-  { value: "corner-br",             label: "Corner ↘",      desc: "Canto inf. dir. (golo dir.)", group: "Corners" },
-  // Livres laterais
-  { value: "freekick-left-top",     label: "FK Left ↑",     desc: "Livre lateral esq. topo",     group: "Free Kicks" },
-  { value: "freekick-left-bottom",  label: "FK Left ↓",     desc: "Livre lateral esq. baixo",    group: "Free Kicks" },
-  { value: "freekick-right-top",    label: "FK Right ↑",    desc: "Livre lateral dir. topo",     group: "Free Kicks" },
-  { value: "freekick-right-bottom", label: "FK Right ↓",    desc: "Livre lateral dir. baixo",    group: "Free Kicks" },
-  // Formato reduzido
-  { value: "seven-aside",           label: "7-a-side",      desc: "Formato 7v7",                 group: "Small Sided" },
-  { value: "futsal",                label: "Futsal",        desc: "Campo de futsal",             group: "Small Sided" },
-  { value: "five-aside",            label: "5-a-side",      desc: "Campo 5v5",                   group: "Small Sided" },
+  { value: "full",         label: "Full Pitch",   desc: "Campo inteiro 11v11",          group: "Full Field"  },
+  { value: "half-left",    label: "Left Half",    desc: "Meio campo esquerdo + baliza", group: "Half Field"  },
+  { value: "half-right",   label: "Right Half",   desc: "Meio campo direito + baliza",  group: "Half Field"  },
+  { value: "corner-left",  label: "Corner Left",  desc: "Canto esq. — baliza esquerda", group: "Set Pieces"  },
+  { value: "corner-right", label: "Corner Right", desc: "Canto dir. — baliza direita",  group: "Set Pieces"  },
+  { value: "penalty",      label: "Penalty",      desc: "Área + zona de penálti",       group: "Set Pieces"  },
+  { value: "seven-aside",  label: "7-a-side",     desc: "Campo de 7 com balizas",       group: "Small Sided" },
+  { value: "five-aside",   label: "5-a-side",     desc: "Campo de 5 com balizas",       group: "Small Sided" },
 ];
-
-const PRESET_COLORS = ["#ffffff","#FFD700","#00D66C","#0066FF","#FF6B35","#EF4444","#8B5CF6","#14B8A6","#F43F5E","#000000"];
 
 function genId() { return Math.random().toString(36).slice(2, 9) + Date.now().toString(36); }
 
@@ -178,7 +145,7 @@ export function CoachLabApp() {
   const [canvasSize, setCanvasSize]       = useState({ w: 0, h: 0 });
   const [leftOpen, setLeftOpen]           = useState(true);
   const [rightOpen, setRightOpen]         = useState(true);
-  const [openDropdown, setOpenDropdown]   = useState<"shapes" | "arrows" | "field" | null>(null);
+  const [openDropdown, setOpenDropdown]   = useState<"field" | null>(null);
   const [animMode, setAnimMode]           = useState(false);
   const [activeMovePiece, setActiveMovePiece] = useState<string | null>(null);
   const [openTacticTeam, setOpenTacticTeam] = useState<"A" | "B" | null>(null);
@@ -720,10 +687,6 @@ export function CoachLabApp() {
   const teamA = players.filter(p => p.team === "A").sort((a, b) => a.number - b.number);
   const teamB = players.filter(p => p.team === "B").sort((a, b) => a.number - b.number);
 
-  const isShapeTool = SHAPE_TOOLS.some(s => s.t === activeTool);
-  const isArrowTool = ARROW_TOOLS.some(s => s.t === activeTool);
-  const activeShapeInfo = SHAPE_TOOLS.find(s => s.t === activeTool);
-  const activeArrowInfo = ARROW_TOOLS.find(s => s.t === activeTool);
   const activeFieldInfo = FIELD_FORMATS.find(f => f.value === fieldView)!;
 
   const getMovementCount = (id: string) => movements.find(m => m.playerId === id)?.waypoints.length ?? 0;
@@ -899,182 +862,112 @@ export function CoachLabApp() {
           <MousePointer2 className="h-4 w-4" />
         </Button>
 
-        <div className="w-px h-5 bg-border mx-0.5 shrink-0" />
+        <div className="w-px h-5 bg-border mx-1 shrink-0" />
 
-        {/* Shapes dropdown */}
-        <div className="relative shrink-0">
-          <button
-            onClick={() => setOpenDropdown(v => v === "shapes" ? null : "shapes")}
-            className={`flex items-center gap-1 h-8 px-2 rounded text-xs font-medium transition-colors border ${isShapeTool ? "bg-primary text-primary-foreground border-primary" : "border-border/40 bg-transparent hover:bg-secondary text-foreground"}`}
-          >
-            {activeShapeInfo?.icon ?? <Minus className="h-3.5 w-3.5" />}
-            <span className="hidden sm:inline">{activeShapeInfo?.label ?? "Shapes"}</span>
-            <ChevronDown className="h-3 w-3" />
-          </button>
-          {openDropdown === "shapes" && (
-            <div className="absolute top-full left-0 mt-1 z-50 bg-card border border-border rounded-lg shadow-xl p-2 min-w-[160px]">
-              {SHAPE_TOOLS.map(s => (
-                <button key={s.t} onClick={() => changeTool(s.t)}
-                  className={`w-full flex items-center gap-2 px-2 py-1.5 rounded text-xs hover:bg-secondary transition-colors ${activeTool === s.t ? "bg-secondary font-semibold" : ""}`}>
-                  {s.icon} {s.label}
-                </button>
-              ))}
-              <div className="w-full h-px bg-border my-1.5" />
-              {/* Fill toggle */}
-              <button onClick={toggleFilled}
-                className={`w-full flex items-center gap-2 px-2 py-1.5 rounded text-xs transition-colors ${drawFilled ? "bg-primary/20 text-primary" : "hover:bg-secondary"}`}>
-                <Square className={`h-3.5 w-3.5 ${drawFilled ? "fill-current" : ""}`} />
-                {drawFilled ? "Filled: ON" : "Filled: OFF"}
-              </button>
-              {/* Color */}
-              <div className="mt-1.5 px-2">
-                <p className="text-[10px] text-muted-foreground mb-1">Color</p>
-                <div className="flex flex-wrap gap-1">
-                  {PRESET_COLORS.map(c => (
-                    <button key={c} onClick={() => changeColor(c)}
-                      className={`w-4 h-4 rounded-full border-2 transition-transform hover:scale-110 ${drawColor === c ? "border-white scale-110" : "border-transparent"}`}
-                      style={{ background: c === "#000000" ? "#111" : c }}
-                    />
-                  ))}
-                </div>
-                <div className="flex items-center gap-1 mt-1">
-                  <div className="w-5 h-5 rounded border border-border flex-shrink-0" style={{ background: drawColor }} />
-                  <input type="color" value={drawColor} onChange={e => changeColor(e.target.value)}
-                    className="w-full h-5 cursor-pointer opacity-0 absolute" />
-                  <label className="text-[10px] text-muted-foreground cursor-pointer relative">
-                    Custom
-                    <input type="color" value={drawColor} onChange={e => changeColor(e.target.value)}
-                      className="absolute inset-0 opacity-0 w-full h-full cursor-pointer" />
-                  </label>
-                </div>
+        {/* ── Grupo Pitch Size (azul) ────────────────────────── */}
+        <div className="flex items-center gap-0.5 px-1.5 py-0.5 rounded-md bg-blue-500/10 border border-blue-500/25 shrink-0">
+          <div className="relative">
+            <button
+              onClick={() => setOpenDropdown(v => v === "field" ? null : "field")}
+              className="flex items-center gap-1 h-7 px-2 rounded text-xs font-medium text-blue-400 hover:bg-blue-500/15 transition-colors"
+            >
+              <span className="hidden sm:inline">⬛ {activeFieldInfo?.label}</span>
+              <span className="sm:hidden">Pitch</span>
+              <ChevronDown className="h-3 w-3" />
+            </button>
+            {openDropdown === "field" && (
+              <div className="absolute top-full left-0 mt-1 z-50 bg-card border border-border rounded-lg shadow-xl p-1 min-w-[200px] max-h-[400px] overflow-y-auto">
+                {(() => {
+                  let lastGroup = "";
+                  return FIELD_FORMATS.map(f => {
+                    const groupHeader = f.group !== lastGroup ? (lastGroup = f.group, (
+                      <p key={`g-${f.group}`} className="px-2 pt-2 pb-0.5 text-[10px] font-bold text-muted-foreground uppercase tracking-wider">{f.group}</p>
+                    )) : null;
+                    return [groupHeader, (
+                      <button key={f.value} onClick={() => changeView(f.value)}
+                        className={`w-full flex flex-col items-start px-3 py-1.5 rounded text-xs transition-colors hover:bg-secondary ${fieldView === f.value ? "bg-secondary font-semibold" : ""}`}>
+                        <span>{f.label}</span>
+                        <span className="text-[10px] text-muted-foreground">{f.desc}</span>
+                      </button>
+                    )];
+                  });
+                })()}
               </div>
-            </div>
-          )}
+            )}
+          </div>
         </div>
 
-        {/* Arrows dropdown */}
-        <div className="relative shrink-0">
-          <button
-            onClick={() => setOpenDropdown(v => v === "arrows" ? null : "arrows")}
-            className={`flex items-center gap-1 h-8 px-2 rounded text-xs font-medium transition-colors border ${isArrowTool ? "bg-primary text-primary-foreground border-primary" : "border-border/40 bg-transparent hover:bg-secondary text-foreground"}`}
+        <div className="w-px h-5 bg-border mx-1 shrink-0" />
+
+        {/* ── Grupo Actions (laranja) ────────────────────────── */}
+        <div className="flex items-center gap-0.5 px-1.5 py-0.5 rounded-md bg-orange-500/10 border border-orange-500/25 shrink-0">
+          <Button size="sm" variant="ghost" className="h-7 px-2 gap-1 text-xs text-orange-400 hover:bg-orange-500/15 hover:text-orange-300 shrink-0" title="Undo (Ctrl+Z)"
+            onClick={undo} disabled={history.length === 0}>
+            <Undo2 className="h-3.5 w-3.5" /> <span className="hidden sm:inline">Undo</span>
+          </Button>
+          <Button size="sm" variant="ghost" className="h-7 px-2 gap-1 text-xs text-orange-400 hover:bg-orange-500/15 hover:text-orange-300 shrink-0" title="Clear all drawings"
+            onClick={clearDrawings}>
+            <Eraser className="h-3.5 w-3.5" /> <span className="hidden sm:inline">Clear</span>
+          </Button>
+          <Button size="sm" variant="ghost" className="h-7 px-2 gap-1 text-xs text-orange-400 hover:bg-orange-500/15 hover:text-orange-300 shrink-0" title="Reset everything"
+            onClick={clearAll}>
+            <Trash2 className="h-3.5 w-3.5" /> <span className="hidden sm:inline">Reset</span>
+          </Button>
+        </div>
+
+        <div className="w-px h-5 bg-border mx-1 shrink-0" />
+
+        {/* ── Grupo Camera (verde) ───────────────────────────── */}
+        <div className="flex items-center gap-0.5 px-1.5 py-0.5 rounded-md bg-green-500/10 border border-green-500/25 shrink-0">
+          <Button size="sm" variant="ghost" className="h-7 px-2 gap-1 text-xs text-green-400 hover:bg-green-500/15 hover:text-green-300 shrink-0" title="Screenshot (PNG)"
+            onClick={takeScreenshot}>
+            <Camera className="h-3.5 w-3.5" />
+          </Button>
+          <Button size="sm" variant="ghost" className="h-7 px-2 text-xs text-green-400 hover:bg-green-500/15 hover:text-green-300 shrink-0" title="Ball to center" onClick={ballToCenter}>
+            ⚽
+          </Button>
+        </div>
+
+        <div className="w-px h-5 bg-border mx-1 shrink-0" />
+
+        {/* ── Grupo View (roxo) ──────────────────────────────── */}
+        <div className="flex items-center gap-0.5 px-1.5 py-0.5 rounded-md bg-purple-500/10 border border-purple-500/25 shrink-0">
+          <Button size="sm" variant={showNames ? "default" : "ghost"} className="h-7 px-2 text-xs text-purple-400 hover:bg-purple-500/15 hover:text-purple-300 data-[state=active]:bg-purple-500/30 shrink-0 gap-1" onClick={toggleNames}
+            style={showNames ? { background: 'rgba(168,85,247,0.25)', color: '#c084fc' } : {}}>
+            {showNames ? <Eye className="h-3 w-3" /> : <EyeOff className="h-3 w-3" />}
+            <span className="hidden sm:inline">Names</span>
+          </Button>
+          <Button size="sm" variant={showZones ? "default" : "ghost"} className="h-7 px-2 text-xs text-purple-400 hover:bg-purple-500/15 hover:text-purple-300 shrink-0"
+            style={showZones ? { background: 'rgba(168,85,247,0.25)', color: '#c084fc' } : {}}
+            onClick={toggleZones}>
+            Zone
+          </Button>
+          <Button size="sm" variant={lightField ? "default" : "ghost"} className="h-7 px-2 text-xs text-purple-400 hover:bg-purple-500/15 hover:text-purple-300 shrink-0"
+            style={lightField ? { background: 'rgba(168,85,247,0.25)', color: '#c084fc' } : {}}
+            onClick={toggleLight}>
+            Light
+          </Button>
+        </div>
+
+        <div className="w-px h-5 bg-border mx-1 shrink-0" />
+
+        {/* ── Grupo Individual Instruction (teal) ───────────── */}
+        <div className="flex items-center gap-0.5 px-1.5 py-0.5 rounded-md bg-teal-500/10 border border-teal-500/25 shrink-0">
+          <Button
+            size="sm"
+            variant="ghost"
+            className="h-7 px-2 text-xs shrink-0 gap-1.5 text-teal-400 hover:bg-teal-500/15 hover:text-teal-300"
+            style={setPieceMode ? { background: 'rgba(20,184,166,0.25)', color: '#2dd4bf' } : {}}
+            title="Individual Instruction — click player to add instruction"
+            onClick={() => { setPieceModeState(v => !v); setEditingInstrId(null); changeTool("select"); }}
           >
-            {activeArrowInfo?.icon ?? <ArrowRight className="h-3.5 w-3.5" />}
-            <span className="hidden sm:inline">{activeArrowInfo?.label ?? "Arrows"}</span>
-            <ChevronDown className="h-3 w-3" />
-          </button>
-          {openDropdown === "arrows" && (
-            <div className="absolute top-full left-0 mt-1 z-50 bg-card border border-border rounded-lg shadow-xl p-2 min-w-[180px]">
-              {ARROW_TOOLS.map(a => (
-                <button key={a.t} onClick={() => changeTool(a.t)}
-                  className={`w-full flex items-center gap-2 px-2 py-1.5 rounded text-xs hover:bg-secondary transition-colors ${activeTool === a.t ? "bg-secondary font-semibold" : ""}`}>
-                  {a.icon} {a.label}
-                </button>
-              ))}
-              <div className="w-full h-px bg-border my-1.5" />
-              <div className="px-2">
-                <p className="text-[10px] text-muted-foreground mb-1">Color</p>
-                <div className="flex flex-wrap gap-1">
-                  {PRESET_COLORS.map(c => (
-                    <button key={c} onClick={() => changeColor(c)}
-                      className={`w-4 h-4 rounded-full border-2 transition-transform hover:scale-110 ${drawColor === c ? "border-white scale-110" : "border-transparent"}`}
-                      style={{ background: c === "#000000" ? "#111" : c }}
-                    />
-                  ))}
-                </div>
-              </div>
-            </div>
-          )}
+            <ClipboardList className="h-3 w-3 shrink-0" />
+            <span className="hidden sm:flex flex-col items-start leading-none gap-0">
+              <span className="text-[10px] leading-none">Individual</span>
+              <span className="text-[10px] leading-none">Instruction</span>
+            </span>
+          </Button>
         </div>
-
-        {/* Color swatch (quick access) */}
-        <label className="relative flex-none cursor-pointer" title="Drawing color">
-          <div className="w-6 h-6 rounded-full border-2 border-border" style={{ background: drawColor }} />
-          <input type="color" value={drawColor} onChange={e => changeColor(e.target.value)}
-            className="absolute inset-0 opacity-0 w-full h-full cursor-pointer" />
-        </label>
-
-        <div className="w-px h-5 bg-border mx-0.5 shrink-0" />
-
-        {/* Field Formats dropdown */}
-        <div className="relative shrink-0">
-          <button
-            onClick={() => setOpenDropdown(v => v === "field" ? null : "field")}
-            className="flex items-center gap-1 h-8 px-2 rounded text-xs font-medium border border-border/40 bg-transparent hover:bg-secondary text-foreground transition-colors"
-          >
-            <span className="hidden sm:inline">⬛ {activeFieldInfo?.label}</span>
-            <span className="sm:hidden">Field</span>
-            <ChevronDown className="h-3 w-3" />
-          </button>
-          {openDropdown === "field" && (
-            <div className="absolute top-full left-0 mt-1 z-50 bg-card border border-border rounded-lg shadow-xl p-1 min-w-[210px] max-h-[420px] overflow-y-auto">
-              {(() => {
-                let lastGroup = "";
-                return FIELD_FORMATS.map(f => {
-                  const groupHeader = f.group !== lastGroup ? (lastGroup = f.group, (
-                    <p key={`g-${f.group}`} className="px-2 pt-2 pb-0.5 text-[10px] font-bold text-muted-foreground uppercase tracking-wider">{f.group}</p>
-                  )) : null;
-                  return [groupHeader, (
-                    <button key={f.value} onClick={() => changeView(f.value)}
-                      className={`w-full flex flex-col items-start px-3 py-1.5 rounded text-xs transition-colors hover:bg-secondary ${fieldView === f.value ? "bg-secondary font-semibold" : ""}`}>
-                      <span>{f.label}</span>
-                      <span className="text-[10px] text-muted-foreground">{f.desc}</span>
-                    </button>
-                  )];
-                });
-              })()}
-            </div>
-          )}
-        </div>
-
-        <div className="w-px h-5 bg-border mx-0.5 shrink-0" />
-
-        {/* Action buttons with labels */}
-        <Button size="sm" variant="ghost" className="h-8 px-2 gap-1 text-xs shrink-0" title="Undo (Ctrl+Z)"
-          onClick={undo} disabled={history.length === 0}>
-          <Undo2 className="h-3.5 w-3.5" /> <span className="hidden sm:inline">Undo</span>
-        </Button>
-        <Button size="sm" variant="ghost" className="h-8 px-2 gap-1 text-xs shrink-0" title="Clear all drawings"
-          onClick={clearDrawings}>
-          <Eraser className="h-3.5 w-3.5" /> <span className="hidden sm:inline">Clear</span>
-        </Button>
-        <Button size="sm" variant="ghost" className="h-8 px-2 gap-1 text-xs text-red-500 hover:text-red-400 shrink-0" title="Reset everything"
-          onClick={clearAll}>
-          <Trash2 className="h-3.5 w-3.5" /> <span className="hidden sm:inline">Reset</span>
-        </Button>
-        <Button size="sm" variant="ghost" className="h-8 px-2 gap-1 text-xs shrink-0" title="Screenshot (PNG)"
-          onClick={takeScreenshot}>
-          <Camera className="h-3.5 w-3.5" />
-        </Button>
-
-        <div className="w-px h-5 bg-border mx-0.5 shrink-0" />
-
-        {/* Toggles */}
-        <Button size="sm" variant={showNames ? "default" : "ghost"} className="h-8 px-2 text-xs shrink-0 gap-1" onClick={toggleNames}>
-          {showNames ? <Eye className="h-3 w-3" /> : <EyeOff className="h-3 w-3" />}
-          <span className="hidden sm:inline">Names</span>
-        </Button>
-        <Button size="sm" variant={showZones ? "default" : "ghost"} className="h-8 px-2 text-xs shrink-0" onClick={toggleZones}>
-          Zones
-        </Button>
-        <Button size="sm" variant={lightField ? "default" : "ghost"} className="h-8 px-2 text-xs shrink-0" onClick={toggleLight}>
-          Light
-        </Button>
-        <Button
-          size="sm"
-          variant={setPieceMode ? "default" : "ghost"}
-          className="h-8 px-2 text-xs shrink-0 gap-1"
-          title="Set Piece mode — click player to add instruction"
-          onClick={() => { setPieceModeState(v => !v); setEditingInstrId(null); changeTool("select"); }}
-        >
-          <ClipboardList className="h-3 w-3" />
-          <span className="hidden sm:inline">Set Piece</span>
-        </Button>
-
-        <div className="w-px h-5 bg-border mx-0.5 shrink-0" />
-
-        <Button size="sm" variant="ghost" className="h-8 px-2 text-xs shrink-0" title="Ball to center" onClick={ballToCenter}>
-          ⚽
-        </Button>
 
         {/* Sidebar toggles */}
         <div className="ml-auto flex items-center gap-0.5 shrink-0">

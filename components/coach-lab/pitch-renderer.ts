@@ -32,24 +32,16 @@ export const SELECTED_GLOW = '#FFD700';
 // ─── View bounds ─────────────────────────────────────────────────────────────
 export function getViewBounds(view: FieldView): ViewBounds {
   switch (view) {
-    case 'full':        return { viewX: 0,          viewY: 0,   viewW: PITCH_W,     viewH: PITCH_H };
-    case 'half-left':   return { viewX: 0,          viewY: 0,   viewW: PITCH_W / 2, viewH: PITCH_H };
-    case 'half-right':  return { viewX: PITCH_W / 2, viewY: 0,  viewW: PITCH_W / 2, viewH: PITCH_H };
-    case 'area-left':   return { viewX: 0,           viewY: 130, viewW: 400,        viewH: 420 };
-    case 'area-right':  return { viewX: 650,          viewY: 130, viewW: 400,        viewH: 420 };
-    // Cantos — corner flag + metade da área de penálti
-    case 'corner-tl':   return { viewX: 0,   viewY: 0,   viewW: 350, viewH: 400 };
-    case 'corner-bl':   return { viewX: 0,   viewY: 280, viewW: 350, viewH: 400 };
-    case 'corner-tr':   return { viewX: 700, viewY: 0,   viewW: 350, viewH: 400 };
-    case 'corner-br':   return { viewX: 700, viewY: 280, viewW: 350, viewH: 400 };
-    // Livres laterais — flanco + área de penálti
-    case 'freekick-left-top':    return { viewX: 0,   viewY: 0,   viewW: 500, viewH: 370 };
-    case 'freekick-left-bottom': return { viewX: 0,   viewY: 310, viewW: 500, viewH: 370 };
-    case 'freekick-right-top':   return { viewX: 550, viewY: 0,   viewW: 500, viewH: 370 };
-    case 'freekick-right-bottom':return { viewX: 550, viewY: 310, viewW: 500, viewH: 370 };
-    case 'futsal':      return { viewX: 190,          viewY: 80,  viewW: 670,        viewH: 520 };
-    case 'five-aside':  return { viewX: 260,          viewY: 140, viewW: 530,        viewH: 400 };
-    case 'seven-aside': return { viewX: 130,          viewY: 60,  viewW: 790,        viewH: 560 };
+    case 'full':         return { viewX: 0,   viewY: 0, viewW: PITCH_W,     viewH: PITCH_H };
+    case 'half-left':    return { viewX: 0,   viewY: 0, viewW: PITCH_W / 2, viewH: PITCH_H };
+    case 'half-right':   return { viewX: PITCH_W / 2, viewY: 0, viewW: PITCH_W / 2, viewH: PITCH_H };
+    // Cantos — visão completa em altura, profundidade da baliza
+    case 'corner-left':  return { viewX: 0,   viewY: 0, viewW: 350, viewH: PITCH_H };
+    case 'corner-right': return { viewX: 700, viewY: 0, viewW: 350, viewH: PITCH_H };
+    // Penálti — do meio-campo até à baliza, linhas laterais visíveis
+    case 'penalty':      return { viewX: 450, viewY: 0, viewW: 600, viewH: PITCH_H };
+    case 'five-aside':   return { viewX: 260, viewY: 140, viewW: 530, viewH: 400 };
+    case 'seven-aside':  return { viewX: 130, viewY: 60,  viewW: 790, viewH: 560 };
   }
 }
 
@@ -91,16 +83,21 @@ export function getPlayerRadius(canvas: HTMLCanvasElement, view: FieldView): num
 
 // ─── Pitch drawing ────────────────────────────────────────────────────────────
 export function drawPitch(ctx: CanvasRenderingContext2D, lightMode: boolean, showZones: boolean) {
-  const green1 = lightMode ? '#5a9e4a' : '#1f5c32';
-  const green2 = lightMode ? '#4f8e40' : '#1a4f2b';
-  const lineColor = 'rgba(255,255,255,0.9)';
-  const lw = 2;
+  const green1 = lightMode ? '#4db35a' : '#1a7a40';
+  const green2 = lightMode ? '#3da04a' : '#166535';
+  const lineColor = 'rgba(255,255,255,0.95)';
+  const lw = 2.5;
 
+  // Faixas horizontais — aspeto moderno de estádio
   for (let i = 0; i < 10; i++) {
     ctx.fillStyle = i % 2 === 0 ? green1 : green2;
-    ctx.fillRect(i * (PITCH_W / 10), 0, PITCH_W / 10, PITCH_H);
+    ctx.fillRect(0, i * (PITCH_H / 10), PITCH_W, PITCH_H / 10);
   }
 
+  // Linhas com leve glow
+  ctx.save();
+  ctx.shadowColor = 'rgba(255,255,255,0.3)';
+  ctx.shadowBlur = 3;
   ctx.strokeStyle = lineColor;
   ctx.lineWidth = lw;
   ctx.strokeRect(PL, PT, PR - PL, PB - PT);
@@ -116,11 +113,6 @@ export function drawPitch(ctx: CanvasRenderingContext2D, lightMode: boolean, sho
   ctx.fillStyle = lineColor;
   ctx.beginPath(); ctx.arc(leftSpotX, CENTER_Y, 3, 0, Math.PI * 2); ctx.fill();
   ctx.beginPath(); ctx.arc(leftSpotX, CENTER_Y, CENTER_CIRCLE_R, -PENALTY_ARC_ANGLE, PENALTY_ARC_ANGLE); ctx.stroke();
-  ctx.fillStyle = 'rgba(255,255,255,0.15)';
-  ctx.fillRect(0, CENTER_Y - GOAL_HALF, GOAL_DEPTH, GOAL_HALF * 2);
-  ctx.strokeStyle = 'rgba(255,255,255,0.8)'; ctx.lineWidth = 1.5;
-  ctx.strokeRect(0, CENTER_Y - GOAL_HALF, GOAL_DEPTH, GOAL_HALF * 2);
-  ctx.lineWidth = lw; ctx.strokeStyle = lineColor;
 
   // Right side
   const rightSpotX = PR - PENALTY_SPOT_OFFSET;
@@ -129,17 +121,26 @@ export function drawPitch(ctx: CanvasRenderingContext2D, lightMode: boolean, sho
   ctx.fillStyle = lineColor;
   ctx.beginPath(); ctx.arc(rightSpotX, CENTER_Y, 3, 0, Math.PI * 2); ctx.fill();
   ctx.beginPath(); ctx.arc(rightSpotX, CENTER_Y, CENTER_CIRCLE_R, Math.PI - PENALTY_ARC_ANGLE, Math.PI + PENALTY_ARC_ANGLE); ctx.stroke();
-  ctx.fillStyle = 'rgba(255,255,255,0.15)';
-  ctx.fillRect(PR, CENTER_Y - GOAL_HALF, GOAL_DEPTH, GOAL_HALF * 2);
-  ctx.strokeStyle = 'rgba(255,255,255,0.8)'; ctx.lineWidth = 1.5;
-  ctx.strokeRect(PR, CENTER_Y - GOAL_HALF, GOAL_DEPTH, GOAL_HALF * 2);
-  ctx.lineWidth = lw; ctx.strokeStyle = lineColor;
 
   // Corner arcs
   ctx.beginPath(); ctx.arc(PL, PT, CORNER_R, 0, Math.PI / 2); ctx.stroke();
   ctx.beginPath(); ctx.arc(PR, PT, CORNER_R, Math.PI / 2, Math.PI); ctx.stroke();
   ctx.beginPath(); ctx.arc(PL, PB, CORNER_R, -Math.PI / 2, 0); ctx.stroke();
   ctx.beginPath(); ctx.arc(PR, PB, CORNER_R, -Math.PI, -Math.PI / 2); ctx.stroke();
+  ctx.restore();
+
+  // Balizas mais sólidas
+  ctx.save();
+  ctx.shadowColor = 'rgba(255,255,255,0.4)';
+  ctx.shadowBlur = 4;
+  ctx.fillStyle = 'rgba(255,255,255,0.25)';
+  ctx.fillRect(0, CENTER_Y - GOAL_HALF, GOAL_DEPTH, GOAL_HALF * 2);
+  ctx.fillRect(PR, CENTER_Y - GOAL_HALF, GOAL_DEPTH, GOAL_HALF * 2);
+  ctx.strokeStyle = 'rgba(255,255,255,1.0)';
+  ctx.lineWidth = 2;
+  ctx.strokeRect(0, CENTER_Y - GOAL_HALF, GOAL_DEPTH, GOAL_HALF * 2);
+  ctx.strokeRect(PR, CENTER_Y - GOAL_HALF, GOAL_DEPTH, GOAL_HALF * 2);
+  ctx.restore();
 
   if (showZones) {
     ctx.fillStyle = 'rgba(255,255,255,0.20)';

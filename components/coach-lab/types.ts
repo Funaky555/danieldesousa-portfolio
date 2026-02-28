@@ -20,19 +20,11 @@ export type FieldView =
   | 'full'
   | 'half-left'
   | 'half-right'
-  | 'area-left'
-  | 'area-right'
-  | 'corner-tl'
-  | 'corner-bl'
-  | 'corner-tr'
-  | 'corner-br'
-  | 'freekick-left-top'
-  | 'freekick-left-bottom'
-  | 'freekick-right-top'
-  | 'freekick-right-bottom'
-  | 'futsal'
-  | 'five-aside'
-  | 'seven-aside';
+  | 'corner-left'
+  | 'corner-right'
+  | 'penalty'
+  | 'seven-aside'
+  | 'five-aside';
 
 export type FormationName =
   | '1-4-3-3' | '1-4-4-2' | '1-4-2-3-1' | '1-3-5-2' | '1-3-6-1' | '1-3-4-3'
