@@ -361,7 +361,12 @@ function ArticleCard({ article }: { article: MediaArticle }) {
         <div className="glass rounded-xl border border-border/40 hover:border-border/70 transition-all duration-300 overflow-hidden flex flex-col h-full">
           {/* Image banner */}
           {article.image && (
-            <div className="relative h-44 overflow-hidden shrink-0">
+            <a
+              href={article.url !== "#" ? article.url : undefined}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="block relative h-44 overflow-hidden shrink-0"
+            >
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img
                 src={article.image}
@@ -369,7 +374,7 @@ function ArticleCard({ article }: { article: MediaArticle }) {
                 className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-background/60 to-transparent" />
-            </div>
+            </a>
           )}
           {!article.image && <div className={`h-1 w-full ${barColor} opacity-70`} />}
           <div className="p-5 flex flex-col flex-1">

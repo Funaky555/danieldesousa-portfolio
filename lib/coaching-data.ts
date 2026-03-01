@@ -1360,7 +1360,7 @@ export const mediaContent = {
       date: "2025",
       readTime: 8,
       tags: ["Tactics", "Systems", "Modern Football"],
-      url: "#",
+      url: "/docs/tactical-systems.pdf",
       image: "/images/articles/tactical-systems.jpg",
     },
   ] as MediaArticle[],
