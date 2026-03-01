@@ -348,6 +348,7 @@ function ArticleCard({ article }: { article: MediaArticle }) {
   const typeLabel = t(`media.article.${article.type}`);
   const barColor = articleTopBars[article.type] ?? "bg-muted";
   const badgeColor = articleTypeColors[article.type] ?? "bg-muted/20 text-muted-foreground border-border";
+  const hasLink = article.url !== "#";
 
   return (
     <motion.div
@@ -358,25 +359,33 @@ function ArticleCard({ article }: { article: MediaArticle }) {
       className="relative group h-full"
     >
       <TiltCard glowColor="rgba(0,214,108,0.1)" className="relative h-full">
-        <div className="glass rounded-xl border border-border/40 hover:border-border/70 transition-all duration-300 overflow-hidden flex flex-col h-full">
+        <a
+          href={hasLink ? article.url : undefined}
+          target={hasLink ? "_blank" : undefined}
+          rel={hasLink ? "noopener noreferrer" : undefined}
+          className="block glass rounded-xl border border-border/40 hover:border-football-green/40 transition-all duration-300 overflow-hidden flex flex-col h-full cursor-pointer"
+        >
           {/* Image banner */}
-          {article.image && (
-            <a
-              href={article.url !== "#" ? article.url : undefined}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="block relative h-44 overflow-hidden shrink-0"
-            >
+          {article.image ? (
+            <div className="relative h-52 overflow-hidden shrink-0">
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img
                 src={article.image}
                 alt={article.title}
                 className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
               />
-              <div className="absolute inset-0 bg-gradient-to-t from-background/60 to-transparent" />
-            </a>
+              <div className="absolute inset-0 bg-gradient-to-t from-background/50 to-transparent" />
+              {hasLink && (
+                <div className="absolute bottom-3 right-3 flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-football-green/20 border border-football-green/40 backdrop-blur-sm text-xs text-football-green font-medium opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                  <ExternalLink className="w-3 h-3" />
+                  {t("media.article.readMore")}
+                </div>
+              )}
+            </div>
+          ) : (
+            <div className={`h-1 w-full ${barColor} opacity-70`} />
           )}
-          {!article.image && <div className={`h-1 w-full ${barColor} opacity-70`} />}
+
           <div className="p-5 flex flex-col flex-1">
             <div className="flex items-center justify-between mb-3">
               <Badge className={`text-xs border ${badgeColor}`}>{typeLabel}</Badge>
@@ -404,19 +413,14 @@ function ArticleCard({ article }: { article: MediaArticle }) {
                 {article.readTime} {t("media.article.readTime")}
               </span>
             </div>
-            {article.url !== "#" && (
-              <a
-                href={article.url}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="mt-3 flex items-center gap-1 text-xs text-football-green hover:text-football-green/80 transition-colors"
-              >
+            {hasLink && (
+              <div className="mt-3 flex items-center gap-1 text-xs text-football-green">
                 {t("media.article.readMore")}
                 <ExternalLink className="w-3 h-3" />
-              </a>
+              </div>
             )}
           </div>
-        </div>
+        </a>
       </TiltCard>
     </motion.div>
   );

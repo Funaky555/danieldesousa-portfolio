@@ -1361,7 +1361,7 @@ export const mediaContent = {
       readTime: 8,
       tags: ["Tactics", "Systems", "Modern Football"],
       url: "/docs/tactical-systems.pdf",
-      image: "/images/articles/tactical-systems.jpg",
+      image: "/images/articles/tactical-systems.svg",
     },
   ] as MediaArticle[],
 
