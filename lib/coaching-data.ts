@@ -1363,6 +1363,18 @@ export const mediaContent = {
       url: "/docs/tactical-systems.pdf",
       image: "/images/articles/tactical-systems.jpg",
     },
+    {
+      id: 2,
+      category: "football" as MediaCategory,
+      type: "analysis" as ArticleType,
+      title: "Scouting in Professional Football: What to Observe to Identify Talent and Improve Performance",
+      excerpt: "Modern football scouting goes far beyond watching matches. This article breaks down the five key evaluation profiles — technical, tactical, physical, psychological, and contextual — used by clubs like Benfica, Porto and Manchester City to identify talent and reduce recruitment risk.",
+      date: "2025",
+      readTime: 6,
+      tags: ["Scouting", "Talent ID", "Analysis"],
+      url: "/docs/scouting-professional.pdf",
+      image: "/images/articles/scouting-professional.svg",
+    },
   ] as MediaArticle[],
 
   // Podcast — empty until Daniel's own podcast launches
