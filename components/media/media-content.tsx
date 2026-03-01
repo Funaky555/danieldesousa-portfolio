@@ -457,16 +457,15 @@ function PressCard({ appearance }: { appearance: PressAppearance }) {
       className="relative group h-full"
     >
       <TiltCard glowColor="rgba(0,102,255,0.1)" className="relative h-full">
-        <div className="glass rounded-xl border border-border/40 hover:border-ai-blue/30 transition-all duration-300 overflow-hidden flex flex-col h-full">
-
+        <a
+          href={appearance.url !== "#" ? appearance.url : undefined}
+          target={appearance.url !== "#" ? "_blank" : undefined}
+          rel={appearance.url !== "#" ? "noopener noreferrer" : undefined}
+          className="glass rounded-xl border border-border/40 hover:border-ai-blue/30 transition-all duration-300 overflow-hidden flex flex-col h-full cursor-pointer block"
+        >
           {/* Image banner — shown when image is provided */}
           {appearance.image && (
-            <a
-              href={appearance.url !== "#" ? appearance.url : undefined}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="block relative h-44 overflow-hidden shrink-0"
-            >
+            <div className="relative h-44 overflow-hidden shrink-0">
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img
                 src={appearance.image}
@@ -474,7 +473,7 @@ function PressCard({ appearance }: { appearance: PressAppearance }) {
                 className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-background/60 to-transparent" />
-            </a>
+            </div>
           )}
 
           {/* Card body */}
@@ -502,19 +501,14 @@ function PressCard({ appearance }: { appearance: PressAppearance }) {
                 {appearance.date}
               </span>
               {appearance.url !== "#" && (
-                <a
-                  href={appearance.url}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="text-xs text-ai-blue hover:text-ai-blue/80 flex items-center gap-1 transition-colors"
-                >
+                <span className="text-xs text-ai-blue flex items-center gap-1">
                   {t("media.press.readArticle")}
                   <ExternalLink className="w-3 h-3" />
-                </a>
+                </span>
               )}
             </div>
           </div>
-        </div>
+        </a>
       </TiltCard>
     </motion.div>
   );
