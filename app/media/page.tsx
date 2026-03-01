@@ -36,7 +36,7 @@ export default async function MediaPage() {
   return (
     <>
       <Header />
-      <PageBackground imageUrl="/images/backgrounds/bench.png" showGlowOrbs />
+      <PageBackground imageUrl="/images/backgrounds/green.png" showGlowOrbs />
       <MediaContent latestVideoId={latestVideoId ?? undefined} />
       <Footer />
     </>

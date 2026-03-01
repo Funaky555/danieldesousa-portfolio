@@ -1315,6 +1315,7 @@ export interface MediaArticle {
   readTime: number;
   tags: string[];
   url: string;
+  image?: string;
 }
 
 export interface PodcastEpisode {
@@ -1349,8 +1350,20 @@ export interface RecommendedChannel {
 }
 
 export const mediaContent = {
-  // Articles — empty until Daniel publishes his own content
-  featuredArticles: [] as MediaArticle[],
+  featuredArticles: [
+    {
+      id: 1,
+      category: "football" as MediaCategory,
+      type: "tactics" as ArticleType,
+      title: "The Importance of Tactical Systems in Modern Football",
+      excerpt: "Tactical systems are at the heart of modern football. From collective organisation and player profiling to managing the six moments of the game — this article explores how structure, flexibility and context define elite performance.",
+      date: "2025",
+      readTime: 8,
+      tags: ["Tactics", "Systems", "Modern Football"],
+      url: "#",
+      image: "/images/articles/tactical-systems.jpg",
+    },
+  ] as MediaArticle[],
 
   // Podcast — empty until Daniel's own podcast launches
   podcastEpisodes: [] as PodcastEpisode[],
@@ -1387,7 +1400,6 @@ export const mediaContent = {
       description: "O Jornal Record é um dos principais diários desportivos de Portugal. Acompanha as últimas notícias do futebol português e europeu.",
       date: "2026-02",
       url: "https://www.record.pt",
-      image: "/images/portugal/Trofense1.jpg",
     },
     {
       id: 3,
@@ -1397,7 +1409,6 @@ export const mediaContent = {
       description: "A Bola é um dos mais antigos diários desportivos de Portugal, com cobertura diária do futebol nacional e internacional.",
       date: "2026-02",
       url: "https://www.abola.pt",
-      image: "/images/portugal/Benfica1.jpg",
     },
     {
       id: 4,
@@ -1407,7 +1418,6 @@ export const mediaContent = {
       description: "O Jogo é um dos principais jornais desportivos do Porto, com foco no futebol português e europeu.",
       date: "2026-02",
       url: "https://www.ojogo.pt",
-      image: "/images/portugal/Trofense3.jpg",
     },
   ] as PressAppearance[],
 

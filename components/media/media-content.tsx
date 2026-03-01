@@ -359,7 +359,19 @@ function ArticleCard({ article }: { article: MediaArticle }) {
     >
       <TiltCard glowColor="rgba(0,214,108,0.1)" className="relative h-full">
         <div className="glass rounded-xl border border-border/40 hover:border-border/70 transition-all duration-300 overflow-hidden flex flex-col h-full">
-          <div className={`h-1 w-full ${barColor} opacity-70`} />
+          {/* Image banner */}
+          {article.image && (
+            <div className="relative h-44 overflow-hidden shrink-0">
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img
+                src={article.image}
+                alt={article.title}
+                className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-background/60 to-transparent" />
+            </div>
+          )}
+          {!article.image && <div className={`h-1 w-full ${barColor} opacity-70`} />}
           <div className="p-5 flex flex-col flex-1">
             <div className="flex items-center justify-between mb-3">
               <Badge className={`text-xs border ${badgeColor}`}>{typeLabel}</Badge>
@@ -545,7 +557,15 @@ export function MediaContent({ latestVideoId }: { latestVideoId?: string }) {
               {/* Articles / Football */}
               <TabsContent value="articles" className="mt-0">
                 <div className="glass rounded-xl border border-border/50 p-4 sm:p-6 md:p-8">
-                  <UnderConstructionSection />
+                  {mediaContent.featuredArticles.length > 0 ? (
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                      {mediaContent.featuredArticles.map((article) => (
+                        <ArticleCard key={article.id} article={article} />
+                      ))}
+                    </div>
+                  ) : (
+                    <UnderConstructionSection />
+                  )}
                 </div>
               </TabsContent>
 
