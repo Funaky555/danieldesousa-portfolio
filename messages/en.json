@@ -862,7 +862,7 @@
       },
       "seminars": {
         "title": "Seminars & Webinars",
-        "description": "Educational seminars and webinars covering coaching methodology, tactical analysis, and youth development.",
+        "description": "Educational seminars and webinars covering coaching methodology, tactical analysis and youth development.",
         "features": [
           "Coaching methodology seminars",
           "Tactical analysis workshops",
@@ -892,6 +892,23 @@
           "Fully functional website",
           "Digital CV / Portfolio",
           "Source files delivered"
+        ]
+      },
+      "businessTech": {
+        "title": "Business Apps & Websites",
+        "description": "Development of websites, web applications and digital tools tailored to the technological needs of businesses.",
+        "features": [
+          "Custom business websites",
+          "Web and mobile applications",
+          "Internal management tools",
+          "E-commerce solutions",
+          "Digital process automation",
+          "Maintenance and technical support"
+        ],
+        "deliverables": [
+          "Fully functional application",
+          "Source code delivered",
+          "Technical documentation"
         ]
       }
     }

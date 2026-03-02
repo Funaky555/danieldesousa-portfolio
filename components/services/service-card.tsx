@@ -5,7 +5,7 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import {
-  BarChart3, Search, Users, Target, Presentation, Globe,
+  BarChart3, Search, Users, Target, Presentation, Globe, Code2,
   ArrowRight, Check
 } from "lucide-react";
 import { cn } from "@/lib/utils";
@@ -18,6 +18,7 @@ const iconMap: Record<string, React.ElementType> = {
   Target,
   Presentation,
   Globe,
+  Code2,
 };
 
 const serviceColorMap: Record<string, {
@@ -97,6 +98,17 @@ const serviceColorMap: Record<string, {
     badgeText: "text-cyan-400",
     badgeBorder: "border-cyan-500/30",
   },
+  "business-tech": {
+    gradient: "from-indigo-500/15 to-indigo-600/5",
+    shadow: "hover:shadow-indigo-500/20",
+    iconBg: "bg-indigo-500/15",
+    iconText: "text-indigo-400",
+    border: "hover:border-indigo-500/60",
+    topBar: "from-indigo-500 to-indigo-600",
+    badgeBg: "bg-indigo-500/10",
+    badgeText: "text-indigo-400",
+    badgeBorder: "border-indigo-500/30",
+  },
 };
 
 const defaultColors = serviceColorMap["game-analysis"];
@@ -118,7 +130,7 @@ export function ServiceCard({ service }: ServiceCardProps) {
   const tList = useTranslationList();
   const Icon = iconMap[service.icon] || BarChart3;
   const colors = serviceColorMap[service.id] ?? defaultColors;
-  const isNew = service.id === "websites";
+  const isNew = service.id === "websites" || service.id === "business-tech";
 
   const serviceKeyMap: Record<string, string> = {
     "game-analysis": "gameAnalysis",
@@ -127,6 +139,7 @@ export function ServiceCard({ service }: ServiceCardProps) {
     "training": "training",
     "seminars": "seminars",
     "websites": "websites",
+    "business-tech": "businessTech",
   };
 
   const translationKey = serviceKeyMap[service.id] || service.id;

@@ -1072,7 +1072,7 @@ export const services = [
     id: "seminars",
     title: "Seminars & Webinars",
     shortDescription: "Coaching methodology and tactical workshops",
-    description: "Educational seminars and webinars covering coaching methodology, tactical analysis, and youth development.",
+    description: "Educational seminars and webinars covering coaching methodology, tactical analysis and youth development.",
     icon: "Presentation",
     features: [
       "Coaching methodology seminars",
@@ -1106,6 +1106,26 @@ export const services = [
       "Fully functional website",
       "Digital CV / Portfolio",
       "Source files delivered",
+    ],
+  },
+  {
+    id: "business-tech",
+    title: "Business Apps & Websites",
+    shortDescription: "Custom apps and websites for companies",
+    description: "Development of websites, web applications and digital tools tailored to the technological needs of businesses.",
+    icon: "Code2",
+    features: [
+      "Custom business websites",
+      "Web and mobile applications",
+      "Internal management tools",
+      "E-commerce solutions",
+      "Digital process automation",
+      "Maintenance and technical support",
+    ],
+    deliverables: [
+      "Fully functional application",
+      "Source code delivered",
+      "Technical documentation",
     ],
   },
 ];
