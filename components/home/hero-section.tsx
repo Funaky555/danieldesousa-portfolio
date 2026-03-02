@@ -3,7 +3,7 @@
 import Link from "next/link";
 import Image from "next/image";
 import { Button } from "@/components/ui/button";
-import { ArrowRight, MessageCircle } from "lucide-react";
+import { ArrowRight, MessageCircle, FileDown } from "lucide-react";
 import { coachInfo, heroBadges } from "@/lib/coaching-data";
 import { useTranslations } from "@/components/providers/i18n-provider";
 
@@ -127,6 +127,14 @@ export function HeroSection() {
               <MessageCircle className="ml-2 h-5 w-5" />
             </Link>
           </Button>
+          <a
+            href="/cv/daniel-de-sousa-cv.pdf"
+            download="Daniel-de-Sousa-CV.pdf"
+            className="inline-flex items-center justify-center gap-2 h-11 px-6 rounded-xl glass border border-[#00D66C]/40 bg-[#00D66C]/10 text-[#00D66C] text-sm font-semibold backdrop-blur-sm hover:bg-[#00D66C]/20 hover:border-[#00D66C]/70 hover:shadow-[0_0_20px_rgba(0,214,108,0.35)] transition-all duration-200"
+          >
+            <FileDown className="w-4 h-4" />
+            Download CV
+          </a>
         </div>
       </div>
 
