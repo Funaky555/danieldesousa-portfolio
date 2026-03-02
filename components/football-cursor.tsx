@@ -1,19 +1,22 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef } from "react";
 
 export function FootballCursor() {
-  const [state, setState] = useState({ x: -100, y: -100, rotation: 0, visible: false });
-  const prevPos  = useRef({ x: -100, y: -100 });
-  const rafRef   = useRef<number | null>(null);
-  const latestXY = useRef({ x: -100, y: -100 });
+  const cursorRef  = useRef<HTMLDivElement>(null);
+  const rotRef     = useRef(0);
+  const prevPos    = useRef({ x: 0, y: 0 });
+  const rafRef     = useRef<number | null>(null);
+  const latestXY   = useRef({ x: 0, y: 0 });
 
   useEffect(() => {
     if (!window.matchMedia("(hover: hover)").matches) return;
+    const el = cursorRef.current;
+    if (!el) return;
 
     const onMove = (e: MouseEvent) => {
       latestXY.current = { x: e.clientX, y: e.clientY };
-      if (rafRef.current) return; // já há um frame agendado — skip
+      if (rafRef.current) return; // já há um frame agendado
 
       rafRef.current = requestAnimationFrame(() => {
         const { x, y } = latestXY.current;
@@ -21,13 +24,16 @@ export function FootballCursor() {
         const dy   = y - prevPos.current.y;
         const dist = Math.sqrt(dx * dx + dy * dy);
         prevPos.current = { x, y };
-        setState(s => ({ x, y, rotation: s.rotation + dist * 0.5, visible: true }));
+        rotRef.current += dist * 0.5;
+
+        // Mutação directa do DOM — zero re-renders React
+        el.style.transform = `translate(${x}px, ${y}px) translate(-50%, -50%) rotate(${rotRef.current}deg)`;
         rafRef.current = null;
       });
     };
 
-    const onLeave = () => setState(s => ({ ...s, visible: false }));
-    const onEnter = () => setState(s => ({ ...s, visible: true }));
+    const onLeave = () => { el.style.opacity = "0"; };
+    const onEnter = () => { el.style.opacity = "1"; };
 
     document.addEventListener("mousemove",  onMove);
     document.addEventListener("mouseleave", onLeave);
@@ -43,19 +49,21 @@ export function FootballCursor() {
 
   return (
     <div
+      ref={cursorRef}
       aria-hidden
       style={{
         position:      "fixed",
-        left:          state.x,
-        top:           state.y,
-        transform:     `translate(-50%, -50%) rotate(${state.rotation}deg)`,
+        left:          0,
+        top:           0,
+        transform:     "translate(-200px, -200px) translate(-50%, -50%)",
         pointerEvents: "none",
         zIndex:        99999,
         fontSize:      "24px",
         lineHeight:    1,
-        opacity:       state.visible ? 1 : 0,
+        opacity:       0,
         transition:    "opacity 0.15s ease",
         userSelect:    "none",
+        willChange:    "transform",
       }}
     >
       ⚽
