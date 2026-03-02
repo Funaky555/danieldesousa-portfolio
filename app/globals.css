@@ -141,19 +141,18 @@
 
   /* Football cursor — hide native cursor on hover-capable devices */
   @media (hover: hover) {
-    *, *::before, *::after {
+    html, html * {
       cursor: none !important;
     }
   }
 
-  /* Animated gradient slide for header rainbow line */
+  /* Animated gradient slide for header rainbow line — uses translateX (GPU-composited, zero repaint) */
   .animate-gradient-slide {
     animation: gradient-slide 4s linear infinite;
-    background-size: 200% 100%;
   }
 
   @keyframes gradient-slide {
-    0%   { background-position: 0% 50%; }
-    100% { background-position: 200% 50%; }
+    0%   { transform: translateX(0); }
+    100% { transform: translateX(-50%); }
   }
 }

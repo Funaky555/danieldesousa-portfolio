@@ -89,14 +89,15 @@ export function Header() {
 
   return (
     <header className="fixed top-0 left-0 right-0 z-50 glass border-b border-border/50">
-      {/* Linha gradiente arco-íris animada no topo */}
-      <div
-        className="h-[2px] w-full animate-gradient-slide"
-        style={{
-          background: "linear-gradient(90deg, #0066FF, #00D66C, #8B5CF6, #FF6B35, #14B8A6, #F43F5E, #0066FF)",
-          backgroundSize: "200% 100%",
-        }}
-      />
+      {/* Linha gradiente arco-íris animada no topo — translateX é GPU-composited */}
+      <div className="h-[2px] w-full overflow-hidden">
+        <div
+          className="animate-gradient-slide h-full w-[200%]"
+          style={{
+            background: "linear-gradient(90deg, #0066FF, #00D66C, #8B5CF6, #FF6B35, #14B8A6, #F43F5E, #0066FF, #00D66C, #8B5CF6, #FF6B35, #14B8A6, #F43F5E, #0066FF)",
+          }}
+        />
+      </div>
 
       <nav className="container mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-14">
