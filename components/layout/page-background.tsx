@@ -22,7 +22,7 @@ export function PageBackground({
       {/* AI Glow Orbs */}
       {showGlowOrbs && (
         <>
-          <div className="absolute top-1/4 right-1/4 w-96 h-96 rounded-full bg-ai-blue/10 blur-3xl animate-pulse" />
+          <div className="absolute top-1/4 right-1/4 w-96 h-96 rounded-full bg-ai-blue/10 blur-3xl" />
           <div className="absolute bottom-1/3 left-1/4 w-80 h-80 rounded-full bg-football-green/15 blur-3xl" />
           <div className="absolute top-1/2 right-1/3 w-72 h-72 rounded-full bg-tech-purple/10 blur-3xl" />
         </>

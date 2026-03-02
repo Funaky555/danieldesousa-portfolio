@@ -3,28 +3,31 @@
 import { useEffect, useRef, useState } from "react";
 
 export function FootballCursor() {
-  const [pos, setPos]           = useState({ x: -100, y: -100 });
-  const [rotation, setRotation] = useState(0);
-  const [visible, setVisible]   = useState(false);
-  const prevPos = useRef({ x: -100, y: -100 });
+  const [state, setState] = useState({ x: -100, y: -100, rotation: 0, visible: false });
+  const prevPos  = useRef({ x: -100, y: -100 });
+  const rafRef   = useRef<number | null>(null);
+  const latestXY = useRef({ x: -100, y: -100 });
 
   useEffect(() => {
     if (!window.matchMedia("(hover: hover)").matches) return;
 
     const onMove = (e: MouseEvent) => {
-      const dx   = e.clientX - prevPos.current.x;
-      const dy   = e.clientY - prevPos.current.y;
-      const dist = Math.sqrt(dx * dx + dy * dy);
+      latestXY.current = { x: e.clientX, y: e.clientY };
+      if (rafRef.current) return; // já há um frame agendado — skip
 
-      prevPos.current = { x: e.clientX, y: e.clientY };
-      setPos({ x: e.clientX, y: e.clientY });
-      setVisible(true);
-      // Rotate proportional to distance moved — stops when mouse stops
-      setRotation((r) => r + dist * 0.5);
+      rafRef.current = requestAnimationFrame(() => {
+        const { x, y } = latestXY.current;
+        const dx   = x - prevPos.current.x;
+        const dy   = y - prevPos.current.y;
+        const dist = Math.sqrt(dx * dx + dy * dy);
+        prevPos.current = { x, y };
+        setState(s => ({ x, y, rotation: s.rotation + dist * 0.5, visible: true }));
+        rafRef.current = null;
+      });
     };
 
-    const onLeave = () => setVisible(false);
-    const onEnter = () => setVisible(true);
+    const onLeave = () => setState(s => ({ ...s, visible: false }));
+    const onEnter = () => setState(s => ({ ...s, visible: true }));
 
     document.addEventListener("mousemove",  onMove);
     document.addEventListener("mouseleave", onLeave);
@@ -34,6 +37,7 @@ export function FootballCursor() {
       document.removeEventListener("mousemove",  onMove);
       document.removeEventListener("mouseleave", onLeave);
       document.removeEventListener("mouseenter", onEnter);
+      if (rafRef.current) cancelAnimationFrame(rafRef.current);
     };
   }, []);
 
@@ -42,14 +46,14 @@ export function FootballCursor() {
       aria-hidden
       style={{
         position:      "fixed",
-        left:          pos.x,
-        top:           pos.y,
-        transform:     `translate(-50%, -50%) rotate(${rotation}deg)`,
+        left:          state.x,
+        top:           state.y,
+        transform:     `translate(-50%, -50%) rotate(${state.rotation}deg)`,
         pointerEvents: "none",
         zIndex:        99999,
         fontSize:      "24px",
         lineHeight:    1,
-        opacity:       visible ? 1 : 0,
+        opacity:       state.visible ? 1 : 0,
         transition:    "opacity 0.15s ease",
         userSelect:    "none",
       }}
