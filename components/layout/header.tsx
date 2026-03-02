@@ -7,6 +7,7 @@ import { Button } from "@/components/ui/button";
 import { Menu, X } from "lucide-react";
 import { coachInfo } from "@/lib/coaching-data";
 import { ThemeToggle } from "@/components/layout/theme-toggle";
+import { LanguageSwitcher } from "@/components/layout/language-switcher";
 import { useTranslations } from "@/components/providers/i18n-provider";
 
 const navigationKeys = [
@@ -130,6 +131,7 @@ export function Header() {
               </NavLink>
             ))}
             <ThemeToggle />
+            <LanguageSwitcher />
             {/* CTA button com pulsing glow */}
             <div className="relative ml-2">
               <div className="absolute -inset-0.5 bg-gradient-to-r from-red-500 to-red-600 rounded-xl opacity-25 blur-sm animate-pulse" />
@@ -145,6 +147,7 @@ export function Header() {
           {/* Mobile menu button + theme toggle */}
           <div className="md:hidden flex items-center gap-1">
             <ThemeToggle />
+            <LanguageSwitcher />
             <button
               type="button"
               className="p-2 rounded-md text-foreground hover:bg-secondary transition-colors"

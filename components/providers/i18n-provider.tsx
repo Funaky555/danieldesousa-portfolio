@@ -17,16 +17,20 @@ import {
 } from "@/lib/i18n";
 
 // Import all message files
-// To add more languages:
-// 1. Create a new JSON file in /messages (e.g., pt.json)
-// 2. Import it here: import pt from "@/messages/pt.json";
-// 3. Add it to the messages object below
 import en from "@/messages/en.json";
+import pt from "@/messages/pt.json";
+import es from "@/messages/es.json";
+import fr from "@/messages/fr.json";
+import ar from "@/messages/ar.json";
+import zh from "@/messages/zh.json";
 
 const messages: Record<Locale, Record<string, unknown>> = {
+  pt,
   en,
-  // pt,
-  // es,
+  es,
+  fr,
+  ar,
+  zh,
 };
 
 interface I18nContextType {
