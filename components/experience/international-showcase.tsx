@@ -45,10 +45,8 @@ export function InternationalShowcase() {
               viewport={{ once: true }}
               transition={{ delay: idx * 0.08, duration: 0.35 }}
             >
-              <motion.div
-                className="rounded-lg p-2.5 border bg-blue-500/5 border-blue-500/20 hover:border-blue-500/40 transition-all duration-300 cursor-pointer"
-                whileHover={{ scale: 1.015 }}
-                transition={{ type: "spring", stiffness: 400, damping: 25 }}
+              <div
+                className="rounded-lg p-2.5 border bg-blue-500/5 border-blue-500/20 hover:border-blue-500/40 transition-all duration-150 cursor-pointer hover:scale-[1.015] active:scale-[0.99]"
                 onClick={() => scrollToJob(city.timelineId)}
               >
                 <div className="flex items-center gap-2.5">
@@ -60,21 +58,19 @@ export function InternationalShowcase() {
                       {city.name}, {city.province}, CN
                     </div>
                   </div>
-                  <motion.a
+                  <a
                     href={city.mapsUrl}
                     target="_blank"
                     rel="noopener noreferrer"
                     onClick={(e) => e.stopPropagation()}
-                    className="flex items-center gap-1 px-2 py-0.5 rounded-full text-[10px] font-medium bg-ai-blue/10 border border-ai-blue/30 text-ai-blue hover:bg-ai-blue/20 hover:border-ai-blue/50 shadow-[0_0_8px_rgba(0,102,255,0.15)] hover:shadow-[0_0_15px_rgba(0,102,255,0.35)] transition-all duration-300 flex-shrink-0"
-                    whileHover={{ scale: 1.05 }}
-                    whileTap={{ scale: 0.95 }}
+                    className="flex items-center gap-1 px-2 py-0.5 rounded-full text-[10px] font-medium bg-ai-blue/10 border border-ai-blue/30 text-ai-blue hover:bg-ai-blue/20 hover:border-ai-blue/50 shadow-[0_0_8px_rgba(0,102,255,0.15)] hover:shadow-[0_0_15px_rgba(0,102,255,0.35)] hover:scale-105 active:scale-95 transition-all duration-150 flex-shrink-0"
                     aria-label={`View ${city.name} on Google Maps`}
                   >
                     <Map className="w-3 h-3" />
                     Maps
-                  </motion.a>
+                  </a>
                 </div>
-              </motion.div>
+              </div>
             </motion.div>
           ))}
         </div>

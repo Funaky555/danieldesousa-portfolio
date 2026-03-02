@@ -63,10 +63,8 @@ export function AcademiesShowcase() {
               viewport={{ once: true }}
               transition={{ delay: idx * 0.08, duration: 0.35 }}
             >
-              <motion.div
-                className={`rounded-lg p-2.5 border ${academy.bg} ${academy.border} ${academy.borderHover} transition-all duration-300 cursor-pointer`}
-                whileHover={{ scale: 1.015 }}
-                transition={{ type: "spring", stiffness: 400, damping: 25 }}
+              <div
+                className={`rounded-lg p-2.5 border ${academy.bg} ${academy.border} ${academy.borderHover} transition-all duration-150 cursor-pointer hover:scale-[1.015] active:scale-[0.99]`}
                 onClick={() => scrollToJob(academy.timelineId)}
               >
                 <div className="flex items-center gap-2.5">
@@ -83,7 +81,7 @@ export function AcademiesShowcase() {
                   </div>
                   <span className="text-[11px] flex-shrink-0">🇵🇹</span>
                 </div>
-              </motion.div>
+              </div>
             </motion.div>
           ))}
         </div>

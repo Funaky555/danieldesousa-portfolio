@@ -121,11 +121,8 @@ function TrophyBadge({
       viewport={{ once: true }}
       transition={{ delay: index * 0.08, duration: 0.35 }}
     >
-      <motion.div
-        className={`rounded-lg p-2.5 border transition-all duration-300 cursor-pointer ${colors.bg} ${colors.border} ${colors.borderHover}`}
-        whileHover={{ scale: 1.015 }}
-        whileTap={{ scale: 0.99 }}
-        transition={{ type: "spring", stiffness: 400, damping: 25 }}
+      <div
+        className={`rounded-lg p-2.5 border transition-all duration-150 cursor-pointer hover:scale-[1.015] active:scale-[0.99] ${colors.bg} ${colors.border} ${colors.borderHover}`}
         onClick={scrollToJob}
       >
         <div className="flex items-center gap-2.5">
@@ -143,7 +140,7 @@ function TrophyBadge({
             {championship.country === "china" ? "🇨🇳" : "🇵🇹"}
           </span>
         </div>
-      </motion.div>
+      </div>
     </motion.div>
   );
 }
