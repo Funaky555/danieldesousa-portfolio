@@ -4,8 +4,14 @@ import { ServiceCard } from "@/components/services/service-card";
 import { Button } from "@/components/ui/button";
 import { services } from "@/lib/coaching-data";
 import Link from "next/link";
-import { MessageCircle } from "lucide-react";
+import { MessageCircle, Trophy, Code2 } from "lucide-react";
 import { useTranslations } from "@/components/providers/i18n-provider";
+
+const footballServiceIds = ["game-analysis", "scouting", "leadership", "training", "seminars"];
+const techServiceIds = ["websites", "business-tech"];
+
+const footballServices = services.filter((s) => footballServiceIds.includes(s.id));
+const techServices = services.filter((s) => techServiceIds.includes(s.id));
 
 export function ServicesContent() {
   const t = useTranslations();
@@ -23,11 +29,51 @@ export function ServicesContent() {
           </p>
         </div>
 
-        {/* Services Grid */}
-        <div className="max-w-7xl mx-auto grid gap-8 md:grid-cols-2 lg:grid-cols-3 mb-16">
-          {services.map((service) => (
-            <ServiceCard key={service.id} service={service} />
-          ))}
+        <div className="max-w-7xl mx-auto mb-16">
+          {/* ── Separador Football Coaching ── */}
+          <div className="flex items-center gap-4 mb-10">
+            <div className="h-px flex-1 bg-gradient-to-r from-[#00D66C]/50 to-transparent" />
+            <div className="flex items-center gap-2 px-4 py-1.5 rounded-full border border-[#00D66C]/30 bg-[#00D66C]/10">
+              <Trophy className="w-4 h-4 text-[#00D66C]" />
+              <span className="text-xs font-bold uppercase tracking-widest text-[#00D66C]">
+                Football Coaching
+              </span>
+            </div>
+            <div className="h-px flex-1 bg-gradient-to-l from-[#00D66C]/50 to-transparent" />
+          </div>
+
+          {/* Football — linha 1: 3 cards */}
+          <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
+            {footballServices.slice(0, 3).map((service) => (
+              <ServiceCard key={service.id} service={service} />
+            ))}
+          </div>
+
+          {/* Football — linha 2: 2 cards centrados */}
+          <div className="grid gap-8 grid-cols-1 md:grid-cols-2 max-w-2xl mx-auto mt-8">
+            {footballServices.slice(3).map((service) => (
+              <ServiceCard key={service.id} service={service} />
+            ))}
+          </div>
+
+          {/* ── Separador Digital & Tech ── */}
+          <div className="flex items-center gap-4 mb-10 mt-16">
+            <div className="h-px flex-1 bg-gradient-to-r from-[#8B5CF6]/50 to-transparent" />
+            <div className="flex items-center gap-2 px-4 py-1.5 rounded-full border border-[#8B5CF6]/30 bg-[#8B5CF6]/10">
+              <Code2 className="w-4 h-4 text-[#8B5CF6]" />
+              <span className="text-xs font-bold uppercase tracking-widest text-[#8B5CF6]">
+                Digital & Tech
+              </span>
+            </div>
+            <div className="h-px flex-1 bg-gradient-to-l from-[#8B5CF6]/50 to-transparent" />
+          </div>
+
+          {/* Tech — 2 cards lado a lado, mais largos */}
+          <div className="grid gap-8 md:grid-cols-2 max-w-3xl mx-auto">
+            {techServices.map((service) => (
+              <ServiceCard key={service.id} service={service} />
+            ))}
+          </div>
         </div>
 
         {/* Pricing / CTA */}
@@ -36,7 +82,6 @@ export function ServicesContent() {
             <div className="absolute inset-0 bg-gradient-to-r from-red-500/10 via-transparent to-red-500/5 pointer-events-none" />
             <div className="relative bg-background/80 backdrop-blur-sm px-8 py-10">
               <div className="flex flex-col md:flex-row items-center gap-6 md:gap-10">
-                {/* Texto esticado */}
                 <div className="flex-1 text-center md:text-left">
                   <h3 className="text-lg font-bold text-foreground mb-2">
                     {t("services.cta")}
@@ -45,8 +90,6 @@ export function ServicesContent() {
                     {t("services.pricing")}
                   </p>
                 </div>
-
-                {/* Botão */}
                 <div className="shrink-0">
                   <Button
                     asChild
