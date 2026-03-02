@@ -13,6 +13,7 @@ import {
   Calendar,
   Globe,
   Users,
+  FileDown,
 } from "lucide-react";
 
 const tabColorMap = {
@@ -81,9 +82,19 @@ export function AboutContent() {
           transition={{ duration: 0.6, ease: "easeOut" }}
           className="max-w-3xl mx-auto text-center mb-10 md:mb-14"
         >
-          <h1 className="text-2xl sm:text-4xl md:text-5xl font-bold text-foreground mb-4">
-            {t("about.title")}
-          </h1>
+          <div className="flex flex-wrap items-center justify-center gap-3 mb-4">
+            <h1 className="text-2xl sm:text-4xl md:text-5xl font-bold text-foreground">
+              {t("about.title")}
+            </h1>
+            <a
+              href="/cv/daniel-de-sousa-cv.pdf"
+              download="Daniel-de-Sousa-CV.pdf"
+              className="flex items-center gap-2 px-4 py-2 rounded-lg glass border border-[#00D66C]/30 bg-[#00D66C]/10 text-[#00D66C] text-sm font-semibold hover:bg-[#00D66C]/20 hover:border-[#00D66C]/60 hover:shadow-[0_0_16px_rgba(0,214,108,0.3)] transition-all duration-200 shrink-0"
+            >
+              <FileDown className="w-4 h-4" />
+              Download CV
+            </a>
+          </div>
           <p className="text-sm sm:text-xl text-muted-foreground leading-relaxed">
             {t("about.bio")}
           </p>
