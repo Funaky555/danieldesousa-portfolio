@@ -180,7 +180,7 @@ export function PhilosophyContent() {
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         {/* === 1. HERO SECTION === */}
         <div className="max-w-3xl mx-auto text-center mb-8 md:mb-16">
-          <h1 className="text-2xl sm:text-4xl md:text-5xl font-bold text-foreground mb-8">
+          <h1 className="text-xl sm:text-2xl md:text-3xl font-bold text-foreground mb-8">
             {t("philosophy.title")}
           </h1>
 
@@ -195,7 +195,7 @@ export function PhilosophyContent() {
                 >
                   <div className="flex items-center gap-2 sm:gap-2.5">
                     <Icon className={`w-4 h-4 sm:w-6 sm:h-6 ${colors.text} group-hover:scale-110 transition-transform duration-300`} />
-                    <span className={`text-xs sm:text-base md:text-xl font-bold ${colors.text}`}>
+                    <span className={`text-xs sm:text-sm md:text-base font-bold ${colors.text}`}>
                       {word}
                     </span>
                   </div>
@@ -213,7 +213,7 @@ export function PhilosophyContent() {
               <div className="flex gap-4 pl-4">
                 <Quote className="w-6 h-6 md:w-10 md:h-10 text-football-green/40 shrink-0 mt-1" />
                 <div>
-                  <blockquote className="text-xs md:text-base lg:text-xl text-foreground italic leading-relaxed">
+                  <blockquote className="text-xs md:text-sm lg:text-base text-foreground italic leading-relaxed">
                     &ldquo;{t("philosophy.coreClosing")}&rdquo;
                   </blockquote>
                   <p className="mt-4 text-sm text-muted-foreground font-medium">
