@@ -107,8 +107,8 @@ export function Header() {
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
               src="/logo-dds.png"
-              width={44}
-              height={44}
+              width={32}
+              height={32}
               alt="DdS"
               className="rounded-full shrink-0 transition-all duration-300 group-hover:scale-110"
               style={{ filter: "drop-shadow(0 0 0px rgba(0,214,108,0))", transition: "filter 0.3s, transform 0.3s" }}
