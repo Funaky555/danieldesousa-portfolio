@@ -58,15 +58,14 @@ export function FootballCursor() {
         transform:     "translate(-200px, -200px) translate(-50%, -50%)",
         pointerEvents: "none",
         zIndex:        99999,
-        fontSize:      "24px",
-        lineHeight:    1,
         opacity:       0,
         transition:    "opacity 0.15s ease",
         userSelect:    "none",
         willChange:    "transform",
       }}
     >
-      ⚽
+      {/* eslint-disable-next-line @next/next/no-img-element */}
+      <img src="/ball.png" alt="" width={40} height={40} style={{ display: "block", width: 40, height: 40, objectFit: "contain" }} />
     </div>
   );
 }
