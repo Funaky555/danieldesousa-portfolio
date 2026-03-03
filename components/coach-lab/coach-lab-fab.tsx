@@ -21,16 +21,16 @@ export function CoachLabFAB() {
         href={COACHLAB_URL}
         target="_blank"
         rel="noopener noreferrer"
-        className="relative flex items-center gap-2 px-4 py-2.5 rounded-full text-white text-sm font-semibold shadow-lg transition-all duration-200 hover:scale-105 hover:shadow-[0_0_24px_rgba(16,185,129,0.5)]"
+        className="relative flex items-center gap-2 px-3 py-2 rounded-full text-white text-sm font-semibold shadow-lg transition-all duration-200 hover:scale-105 hover:shadow-[0_0_24px_rgba(16,185,129,0.5)]"
         style={{ background: "linear-gradient(135deg, #10B981, #059669)" }}
         title="Abrir Coach Lab"
       >
         <img
           src="/coachlab-logo.png"
           alt="Coach Lab"
-          width={28}
-          height={28}
-          className="object-contain"
+          width={40}
+          height={40}
+          className="rounded-full shrink-0"
         />
         <span className="hidden sm:inline tracking-wide">Coach Lab</span>
       </a>
