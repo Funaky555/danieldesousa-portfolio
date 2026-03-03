@@ -104,20 +104,17 @@ export function Header() {
         <div className="flex items-center justify-between h-14">
           {/* Logo com glow */}
           <Link href="/" className="flex items-center space-x-2 group">
-            <div
-              className="w-9 h-9 rounded-full bg-gradient-football flex items-center justify-center transition-all duration-300"
-              style={{
-                boxShadow: "0 0 0 0 rgba(0, 214, 108, 0)",
-              }}
-              onMouseEnter={(e) => {
-                (e.currentTarget as HTMLDivElement).style.boxShadow = "0 0 16px 4px rgba(0, 214, 108, 0.4), 0 0 32px 8px rgba(0, 102, 255, 0.2)";
-              }}
-              onMouseLeave={(e) => {
-                (e.currentTarget as HTMLDivElement).style.boxShadow = "0 0 0 0 rgba(0, 214, 108, 0)";
-              }}
-            >
-              <span className="text-white font-bold text-sm">DS</span>
-            </div>
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img
+              src="/logo-dds.png"
+              width={44}
+              height={44}
+              alt="DdS"
+              className="rounded-full shrink-0 transition-all duration-300 group-hover:scale-110"
+              style={{ filter: "drop-shadow(0 0 0px rgba(0,214,108,0))", transition: "filter 0.3s, transform 0.3s" }}
+              onMouseEnter={(e) => { (e.currentTarget as HTMLImageElement).style.filter = "drop-shadow(0 0 8px rgba(0,214,108,0.7))"; }}
+              onMouseLeave={(e) => { (e.currentTarget as HTMLImageElement).style.filter = "drop-shadow(0 0 0px rgba(0,214,108,0))"; }}
+            />
             <span className="font-bold text-base text-foreground group-hover:text-transparent group-hover:bg-clip-text group-hover:bg-gradient-to-r group-hover:from-[#00D66C] group-hover:to-[#0066FF] transition-all duration-300">
               {coachInfo.name}
             </span>
