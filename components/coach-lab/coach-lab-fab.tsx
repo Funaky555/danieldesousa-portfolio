@@ -25,7 +25,13 @@ export function CoachLabFAB() {
         style={{ background: "linear-gradient(135deg, #10B981, #059669)" }}
         title="Abrir Coach Lab"
       >
-        <span className="text-base leading-none">⚽</span>
+        <img
+          src="/coachlab-logo.png"
+          alt="Coach Lab"
+          width={20}
+          height={20}
+          className="object-contain"
+        />
         <span className="hidden sm:inline tracking-wide">Coach Lab</span>
       </a>
     </motion.div>
