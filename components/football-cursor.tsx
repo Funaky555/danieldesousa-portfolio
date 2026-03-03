@@ -65,7 +65,7 @@ export function FootballCursor() {
       }}
     >
       {/* eslint-disable-next-line @next/next/no-img-element */}
-      <img src="/ball.png" alt="" width={40} height={40} style={{ display: "block", width: 40, height: 40, objectFit: "contain" }} />
+      <img src="/ball.png" alt="" width={24} height={24} style={{ display: "block", width: 24, height: 24, objectFit: "contain" }} />
     </div>
   );
 }
