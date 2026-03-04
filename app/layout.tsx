@@ -12,7 +12,7 @@ const inter = Inter({ subsets: ['latin'] })
 export const metadata: Metadata = {
   title: 'Daniel de Sousa | Professional Football Coach',
   description: 'UEFA B Football Coach with 10+ years experience in Portugal and China. Youth development specialist offering game analysis, scouting, and coaching consultancy.',
-  icons: { icon: '/coachlab-logo.png', apple: '/coachlab-logo.png' },
+  icons: { icon: '/logo-dds.png', apple: '/logo-dds.png' },
 }
 
 export default function RootLayout({
