@@ -28,8 +28,8 @@ export function CoachLabFAB() {
         <img
           src="/coachlab-logo.png"
           alt="Coach Lab"
-          width={40}
-          height={40}
+          width={52}
+          height={52}
           className="rounded-full shrink-0 bg-black"
         />
         <span className="hidden sm:inline tracking-wide">Coach Lab</span>
