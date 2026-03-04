@@ -643,12 +643,13 @@ export function findPlayerAtPoint(
   y: number,
   playerRadius: number,
 ): { type: 'player'; id: string } | { type: 'ball' } | null {
-  if (Math.hypot(x - ball.x, y - ball.y) <= BALL_R + 8) return { type: 'ball' };
+  // Jogadores têm prioridade — só se nenhum jogador for atingido é que a bola é detectada
   for (let i = players.length - 1; i >= 0; i--) {
     const p = players[i];
     if (!p.visible) continue;
     if (Math.hypot(x - p.x, y - p.y) <= playerRadius + 6) return { type: 'player', id: p.id };
   }
+  if (Math.hypot(x - ball.x, y - ball.y) <= BALL_R + 8) return { type: 'ball' };
   return null;
 }
 
