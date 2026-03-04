@@ -84,7 +84,7 @@ function makeTeamOnBorder(team: "A" | "B"): Player[] {
 }
 
 function getInitialPlayers(): Player[] {
-  return [...makeTeamOnBorder("A"), ...makeTeamOnBorder("B")];
+  return [];
 }
 
 // ─── Component ────────────────────────────────────────────────────────────────
@@ -112,7 +112,7 @@ export function CoachLabApp() {
   const showZonesRef   = useRef(false);
   const lightFieldRef  = useRef(false);
   const playersRef     = useRef<Player[]>([]);
-  const ballRef        = useRef<Ball>({ x: PITCH_W / 2, y: PITCH_H / 2 });
+  const ballRef        = useRef<Ball>({ x: -500, y: -500 });
   const drawingsRef    = useRef<Drawing[]>([]);
   const movementsRef   = useRef<Movement[]>([]);
   const animModeRef    = useRef(false);
@@ -126,7 +126,7 @@ export function CoachLabApp() {
 
   // ─── State ──────────────────────────────────────────────────────────────────
   const [players, setPlayers]             = useState<Player[]>(getInitialPlayers);
-  const [ball, setBall]                   = useState<Ball>({ x: PITCH_W / 2, y: PITCH_H / 2 });
+  const [ball, setBall]                   = useState<Ball>({ x: -500, y: -500 });
   const [drawings, setDrawings]           = useState<Drawing[]>([]);
   const [movements, setMovements]         = useState<Movement[]>([]);
   const [currentDraw, setCurrentDraw]     = useState<RenderOptions["currentDraw"]>(null);
@@ -524,7 +524,7 @@ export function CoachLabApp() {
     setHistory(prev => [...prev.slice(-49), { players, ball, drawings }]);
     setDrawings([]);
     setPlayers(getInitialPlayers());
-    setBall({ x: PITCH_W / 2, y: PITCH_H / 2 });
+    setBall({ x: -500, y: -500 });
     setMovements([]);
   };
   const ballToCenter = () => { setHistory(prev => [...prev.slice(-49), { players, ball, drawings }]); setBall({ x: PITCH_W / 2, y: PITCH_H / 2 }); };
@@ -532,25 +532,35 @@ export function CoachLabApp() {
   const applyFormation = (team: "A" | "B", formation: FormationName) => {
     setHistory(prev => [...prev.slice(-49), { players, ball, drawings }]);
     const positions = FORMATIONS[formation];
-    setPlayers(prev => prev.map(p => {
-      if (p.team !== team) return p;
-      const pos = positions[p.number - 1];
-      if (!pos) return p;
-      const rawX = PL + pos.x * (PR - PL);
-      const rawY = PT + pos.y * (PB - PT);
-      return { ...p, x: team === "A" ? rawX : PITCH_W - rawX, y: rawY };
-    }));
+    setPlayers(prev => {
+      const others = prev.filter(p => p.team !== team);
+      const base = prev.some(p => p.team === team) ? prev.filter(p => p.team === team) : makeTeamOnBorder(team);
+      const updated = base.map(p => {
+        const pos = positions[p.number - 1];
+        if (!pos) return p;
+        const rawX = PL + pos.x * (PR - PL);
+        const rawY = PT + pos.y * (PB - PT);
+        return { ...p, x: team === "A" ? rawX : PITCH_W - rawX, y: rawY };
+      });
+      return [...others, ...updated];
+    });
     setOpenTacticTeam(null);
     setOpenTacticGroup(null);
   };
 
   const resetToBorder = (team: "A" | "B") => {
     setHistory(prev => [...prev.slice(-49), { players, ball, drawings }]);
-    setPlayers(prev => prev.map(p => {
-      if (p.team !== team) return p;
-      const idx = p.number - 1;
-      return { ...p, x: team === "A" ? PL + 22 : PR - 22, y: PT + idx * ((PB - PT) / 10) };
-    }));
+    setPlayers(prev => {
+      const others = prev.filter(p => p.team !== team);
+      const teamPlayers = prev.some(p => p.team === team)
+        ? prev.filter(p => p.team === team).map(p => ({
+            ...p,
+            x: team === "A" ? PL + 22 : PR - 22,
+            y: PT + (p.number - 1) * ((PB - PT) / 10),
+          }))
+        : makeTeamOnBorder(team);
+      return [...others, ...teamPlayers];
+    });
   };
 
   const resetAllNames = () => {
