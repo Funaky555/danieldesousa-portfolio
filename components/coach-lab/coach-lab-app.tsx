@@ -902,154 +902,33 @@ export function CoachLabApp() {
     <div className="fixed inset-0 flex flex-col" style={{ top: "3.5rem" }}>
 
       {/* ── Toolbar ─────────────────────────────────────────────────────────── */}
-      <div className="flex-none bg-card border-b border-border flex flex-wrap items-center gap-0.5 px-2 py-1 shrink-0" ref={dropdownRef}>
+      <div className="flex-none bg-card border-b border-border flex items-center gap-1 px-2 py-1 shrink-0">
 
-        {/* Select */}
-        <Button
-          size="sm" variant={activeTool === "select" ? "default" : "ghost"}
-          className="h-8 w-8 p-0 shrink-0" title="Select / Move"
-          onClick={() => changeTool("select")}
-        >
-          <MousePointer2 className="h-4 w-4" />
+        {/* Reset */}
+        <Button size="sm" variant="ghost" className="h-7 px-2 gap-1 text-xs text-orange-400 hover:bg-orange-500/15 hover:text-orange-300 shrink-0" title="Reset everything"
+          onClick={clearAll}>
+          <Trash2 className="h-3.5 w-3.5" /> <span>Reset</span>
         </Button>
 
         <div className="w-px h-5 bg-border mx-1 shrink-0" />
 
-        {/* ── Grupo Pitch Size (azul) ────────────────────────── */}
-        <div className="flex items-center gap-0.5 px-1.5 py-0.5 rounded-md bg-blue-500/10 border border-blue-500/25 shrink-0">
-          <div className="relative">
-            <button
-              onClick={() => setOpenDropdown(v => v === "field" ? null : "field")}
-              className="flex items-center gap-1 h-7 px-2 rounded text-xs font-medium text-blue-400 hover:bg-blue-500/15 transition-colors"
-            >
-              <span className="hidden sm:inline">⬛ {activeFieldInfo?.label}</span>
-              <span className="sm:hidden">Pitch</span>
-              <ChevronDown className="h-3 w-3" />
-            </button>
-            {openDropdown === "field" && (
-              <div className="absolute top-full left-0 mt-1 z-50 bg-card border border-border rounded-lg shadow-xl p-1 min-w-[200px] max-h-[400px] overflow-y-auto">
-                {(() => {
-                  let lastGroup = "";
-                  return FIELD_FORMATS.map(f => {
-                    const groupHeader = f.group !== lastGroup ? (lastGroup = f.group, (
-                      <p key={`g-${f.group}`} className="px-2 pt-2 pb-0.5 text-[10px] font-bold text-muted-foreground uppercase tracking-wider">{f.group}</p>
-                    )) : null;
-                    return [groupHeader, (
-                      <button key={f.value} onClick={() => changeView(f.value)}
-                        className={`w-full flex flex-col items-start px-3 py-1.5 rounded text-xs transition-colors hover:bg-secondary ${fieldView === f.value ? "bg-secondary font-semibold" : ""}`}>
-                        <span>{f.label}</span>
-                        <span className="text-[10px] text-muted-foreground">{f.desc}</span>
-                      </button>
-                    )];
-                  });
-                })()}
-              </div>
-            )}
-          </div>
-        </div>
+        {/* Bola ao centro */}
+        <Button size="sm" variant="ghost" className="h-7 px-2 text-xs text-green-400 hover:bg-green-500/15 hover:text-green-300 shrink-0" title="Bola ao centro" onClick={ballToCenter}>
+          ⚽
+        </Button>
 
         <div className="w-px h-5 bg-border mx-1 shrink-0" />
 
-        {/* ── Grupo Actions (laranja) ────────────────────────── */}
-        <div className="flex items-center gap-0.5 px-1.5 py-0.5 rounded-md bg-orange-500/10 border border-orange-500/25 shrink-0">
-          <Button size="sm" variant="ghost" className="h-7 px-2 gap-1 text-xs text-orange-400 hover:bg-orange-500/15 hover:text-orange-300 shrink-0" title="Undo (Ctrl+Z)"
-            onClick={undo} disabled={history.length === 0}>
-            <Undo2 className="h-3.5 w-3.5" /> <span className="hidden sm:inline">Undo</span>
-          </Button>
-          <Button size="sm" variant="ghost" className="h-7 px-2 gap-1 text-xs text-orange-400 hover:bg-orange-500/15 hover:text-orange-300 shrink-0" title="Clear all drawings"
-            onClick={clearDrawings}>
-            <Eraser className="h-3.5 w-3.5" /> <span className="hidden sm:inline">Clear</span>
-          </Button>
-          <Button size="sm" variant="ghost" className="h-7 px-2 gap-1 text-xs text-orange-400 hover:bg-orange-500/15 hover:text-orange-300 shrink-0" title="Reset everything"
-            onClick={clearAll}>
-            <Trash2 className="h-3.5 w-3.5" /> <span className="hidden sm:inline">Reset</span>
-          </Button>
-        </div>
-
-        <div className="w-px h-5 bg-border mx-1 shrink-0" />
-
-        {/* ── Grupo Camera (verde) ───────────────────────────── */}
-        <div className="flex items-center gap-0.5 px-1.5 py-0.5 rounded-md bg-green-500/10 border border-green-500/25 shrink-0">
-          <Button size="sm" variant="ghost" className="h-7 px-2 gap-1 text-xs text-green-400 hover:bg-green-500/15 hover:text-green-300 shrink-0" title="Screenshot (PNG)"
-            onClick={takeScreenshot}>
-            <Camera className="h-3.5 w-3.5" />
-          </Button>
-          <Button size="sm" variant="ghost" className="h-7 px-2 text-xs text-green-400 hover:bg-green-500/15 hover:text-green-300 shrink-0" title="Ball to center" onClick={ballToCenter}>
-            ⚽
-          </Button>
-        </div>
-
-        <div className="w-px h-5 bg-border mx-1 shrink-0" />
-
-        {/* ── Grupo View (roxo) ──────────────────────────────── */}
-        <div className="flex items-center gap-0.5 px-1.5 py-0.5 rounded-md bg-purple-500/10 border border-purple-500/25 shrink-0">
-          <Button size="sm" variant={showNames ? "default" : "ghost"} className="h-7 px-2 text-xs text-purple-400 hover:bg-purple-500/15 hover:text-purple-300 data-[state=active]:bg-purple-500/30 shrink-0 gap-1" onClick={toggleNames}
-            style={showNames ? { background: 'rgba(168,85,247,0.25)', color: '#c084fc' } : {}}>
-            {showNames ? <Eye className="h-3 w-3" /> : <EyeOff className="h-3 w-3" />}
-            <span className="hidden sm:inline">Names</span>
-          </Button>
-          <Button size="sm" variant={showZones ? "default" : "ghost"} className="h-7 px-2 text-xs text-purple-400 hover:bg-purple-500/15 hover:text-purple-300 shrink-0"
-            style={showZones ? { background: 'rgba(168,85,247,0.25)', color: '#c084fc' } : {}}
-            onClick={toggleZones}>
-            Zone
-          </Button>
-          <Button size="sm" variant={lightField ? "default" : "ghost"} className="h-7 px-2 text-xs text-purple-400 hover:bg-purple-500/15 hover:text-purple-300 shrink-0"
-            style={lightField ? { background: 'rgba(168,85,247,0.25)', color: '#c084fc' } : {}}
-            onClick={toggleLight}>
-            Light
-          </Button>
-        </div>
-
-        <div className="w-px h-5 bg-border mx-1 shrink-0" />
-
-        {/* ── Grupo Individual Instruction (teal) ───────────── */}
-        <div className="flex items-center gap-0.5 px-1.5 py-0.5 rounded-md bg-teal-500/10 border border-teal-500/25 shrink-0">
-          <Button
-            size="sm"
-            variant="ghost"
-            className="h-7 px-2 text-xs shrink-0 gap-1.5 text-teal-400 hover:bg-teal-500/15 hover:text-teal-300"
-            style={setPieceMode ? { background: 'rgba(20,184,166,0.25)', color: '#2dd4bf' } : {}}
-            title="Individual Instruction — click player to add instruction"
-            onClick={() => { setPieceModeState(v => !v); setEditingInstrId(null); changeTool("select"); }}
-          >
-            <ClipboardList className="h-3 w-3 shrink-0" />
-            <span className="hidden sm:flex flex-col items-start leading-none gap-0">
-              <span className="text-[10px] leading-none">Individual</span>
-              <span className="text-[10px] leading-none">Instruction</span>
-            </span>
-          </Button>
-        </div>
-
-        {/* Sidebar toggles */}
-        <div className="ml-auto flex items-center gap-0.5 shrink-0">
-          <Button size="sm" variant="ghost" className="h-8 w-8 p-0 lg:hidden" onClick={() => setLeftOpen(v => !v)}>
-            {leftOpen ? <ChevronLeft className="h-4 w-4" /> : <ChevronRight className="h-4 w-4" />}
-          </Button>
-          <Button size="sm" variant="ghost" className="h-8 w-8 p-0 lg:hidden" onClick={() => setRightOpen(v => !v)}>
-            {rightOpen ? <ChevronRight className="h-4 w-4" /> : <ChevronLeft className="h-4 w-4" />}
-          </Button>
-        </div>
+        {/* Foto / Screenshot */}
+        <Button size="sm" variant="ghost" className="h-7 px-2 gap-1 text-xs text-green-400 hover:bg-green-500/15 hover:text-green-300 shrink-0" title="Screenshot (PNG)"
+          onClick={takeScreenshot}>
+          <Camera className="h-3.5 w-3.5" />
+        </Button>
       </div>
 
       {/* ── Main area ──────────────────────────────────────────────────────────── */}
       <div className="flex-1 flex overflow-hidden min-h-0">
 
-        {/* ── Left panel ─────────────────────────────────────────────────────── */}
-        <div className={`flex-none bg-card border-r border-border overflow-y-auto transition-all duration-200 ${leftOpen ? "w-48" : "w-0 overflow-hidden"}`}>
-          <div className="p-2 min-w-[12rem]">
-            {/* Reset names */}
-            <button
-              onClick={resetAllNames}
-              className="w-full text-[10px] px-2 py-1 rounded bg-secondary/40 border border-border/30 hover:bg-secondary text-muted-foreground hover:text-foreground transition-colors mb-2"
-            >
-              ↺ Reset All Names
-            </button>
-
-            <TeamPanel team="A" />
-            <div className="w-full h-px bg-border/50 my-2" />
-            <TeamPanel team="B" />
-          </div>
-        </div>
 
         {/* ── Canvas ─────────────────────────────────────────────────────────── */}
         <div ref={containerRef} className="flex-1 relative overflow-hidden min-w-0">
