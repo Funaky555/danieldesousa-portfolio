@@ -118,6 +118,8 @@ export function CoachLabApp() {
   const animModeRef    = useRef(false);
   const activeMovePieceRef = useRef<string | null>(null);
   const setPieceModeRef = useRef(false);
+  const selectedPlayerIdRef  = useRef<string | null>(null);
+  const selectedDrawingIdRef = useRef<string | null>(null);
 
   // Image cache for player photos
   const imageCache = useRef<Map<string, HTMLImageElement>>(new Map());
@@ -172,6 +174,8 @@ export function CoachLabApp() {
   useEffect(() => { animModeRef.current = animMode; }, [animMode]);
   useEffect(() => { activeMovePieceRef.current = activeMovePiece; }, [activeMovePiece]);
   useEffect(() => { setPieceModeRef.current = setPieceMode; }, [setPieceMode]);
+  useEffect(() => { selectedPlayerIdRef.current = selectedPlayerId; }, [selectedPlayerId]);
+  useEffect(() => { selectedDrawingIdRef.current = selectedDrawingId; }, [selectedDrawingId]);
 
   // ─── Canvas resize ──────────────────────────────────────────────────────────
   useEffect(() => {
@@ -273,6 +277,28 @@ export function CoachLabApp() {
     return getPlayerRadius(canvas, fieldViewRef.current);
   }, []);
 
+  // ─── Direct canvas render (bypasses React state — usado durante drag da bola) ─
+  const renderDirect = useCallback(() => {
+    const canvas = canvasRef.current;
+    if (!canvas || canvas.width === 0) return;
+    const ctx = canvas.getContext("2d");
+    if (!ctx) return;
+    renderBoard(ctx, canvas, playersRef.current, ballRef.current, drawingsRef.current, {
+      view: fieldViewRef.current,
+      showNames: showNamesRef.current,
+      showZones: showZonesRef.current,
+      lightField: lightFieldRef.current,
+      currentDraw: null,
+      selectedPlayerId: selectedPlayerIdRef.current,
+      selectedDrawingId: selectedDrawingIdRef.current,
+      imageCache: imageCache.current,
+      movements: movementsRef.current,
+      activeMovePiece: activeMovePieceRef.current,
+      animMode: animModeRef.current,
+      setPieceMode: setPieceModeRef.current,
+    });
+  }, []);
+
   // ─── Pointer handlers ────────────────────────────────────────────────────────
   const handlePointerDown = useCallback((e: React.PointerEvent<HTMLCanvasElement>) => {
     if (editingNameId || pendingText || editingInstrId) return;
@@ -332,11 +358,16 @@ export function CoachLabApp() {
       // Check player/ball
       const hit = findPlayerAtPoint(playersRef.current, ballRef.current, x, y, getR());
       if (hit) {
-        setSelectedDrawingId(null);
-        setSelectedPlayerId(hit.type === "player" ? hit.id : null);
-        const px = hit.type === "player" ? playersRef.current.find(p => p.id === hit.id)!.x : ballRef.current.x;
-        const py = hit.type === "player" ? playersRef.current.find(p => p.id === hit.id)!.y : ballRef.current.y;
-        draggingRef.current = { id: hit.type === "player" ? hit.id : "__ball__", type: hit.type, offsetX: x - px, offsetY: y - py };
+        if (hit.type === "player") {
+          setSelectedDrawingId(null);
+          setSelectedPlayerId(hit.id);
+          const px = playersRef.current.find(p => p.id === hit.id)!.x;
+          const py = playersRef.current.find(p => p.id === hit.id)!.y;
+          draggingRef.current = { id: hit.id, type: "player", offsetX: x - px, offsetY: y - py };
+        } else {
+          // Bola: sem setState → sem re-render intermédio → sem rasto
+          draggingRef.current = { id: "__ball__", type: "ball", offsetX: x - ballRef.current.x, offsetY: y - ballRef.current.y };
+        }
       } else {
         setSelectedPlayerId(null);
         setSelectedDrawingId(null);
@@ -368,7 +399,9 @@ export function CoachLabApp() {
         const id = draggingRef.current.id;
         setPlayers(prev => prev.map(p => p.id === id ? { ...p, ...clamped } : p));
       } else {
-        setBall(clamped);
+        // Actualiza ref directamente + renderiza sem React state → zero rastro
+        ballRef.current = clamped;
+        renderDirect();
       }
     }
 
@@ -405,15 +438,23 @@ export function CoachLabApp() {
     if (isDrawingRef.current && drawStartRef.current) {
       setCurrentDraw(prev => prev ? { ...prev, end: { x, y } } : null);
     }
-  }, [toLogical]);
+  }, [toLogical, renderDirect]);
 
   const handlePointerUp = useCallback(() => {
     const wasDragging = !!draggingRef.current;
+    const wasBallDrag = draggingRef.current?.type === "ball";
     const wasHandle   = !!draggingHandleRef.current;
     const wasDrawing  = isDrawingRef.current;
 
     draggingRef.current = null;
     draggingHandleRef.current = null;
+
+    // Sincronizar estado da bola após drag (foi actualizado via ref durante o drag)
+    if (wasBallDrag) {
+      setSelectedDrawingId(null);
+      setSelectedPlayerId(null);
+      setBall({ ...ballRef.current });
+    }
 
     if (wasDrawing && currentDraw) {
       const dx = currentDraw.end.x - currentDraw.start.x;
