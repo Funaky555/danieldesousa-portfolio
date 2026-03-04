@@ -30,7 +30,7 @@ export function CoachLabFAB() {
           alt="Coach Lab"
           width={40}
           height={40}
-          className="rounded-full shrink-0"
+          className="rounded-full shrink-0 bg-black"
         />
         <span className="hidden sm:inline tracking-wide">Coach Lab</span>
       </a>
