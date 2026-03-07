@@ -14,18 +14,18 @@ export function HeroSection() {
   const cvFileName = locale === "pt" ? "Daniel-de-Sousa-CV-PT.pdf" : "Daniel-de-Sousa-CV-EN.pdf";
   return (
     <section className="relative h-screen max-h-[900px] flex flex-col overflow-hidden">
-      {/* ── Layer 1: Football Tech Background ── */}
+      {/* ── Layer 1: AI-Generated Hero Image (Full Background) ── */}
       <div className="absolute inset-0">
         <Image
-          src="/images/backgrounds/football-tech.png"
-          alt="Football tactical technology stadium background"
+          src="/images/hero/daniel-ai.png"
+          alt="Daniel de Sousa - Football Coach with tactical board in stadium"
           fill
-          className="object-cover object-center saturate-[0.35] brightness-[0.4]"
+          className="object-cover object-center"
           priority
           sizes="100vw"
         />
-        {/* Dark overlay to further reduce intensity and ensure contrast */}
-        <div className="absolute inset-0 bg-background/55" />
+        {/* Subtle AI gradient overlay for futuristic feel */}
+        <div className="absolute inset-0 bg-gradient-to-br from-ai-blue/10 via-transparent to-tech-purple/10" />
       </div>
 
       {/* ── Layer 3: AI Glow Orbs ── */}
